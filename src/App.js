@@ -20,7 +20,6 @@ import {
   CheckCircle2,
   ShieldX,
   EyeOff,
-  User,
   ScanFace,
 } from "lucide-react";
 
