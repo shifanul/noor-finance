@@ -505,6 +505,8 @@ const App = () => {
   const renderCard = () => (
     <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
       <h2 className="text-2xl font-bold">Your Card</h2>
+
+      {/* PHYSICAL CARD VISUAL */}
       <div
         className={`aspect-[1.58/1] rounded-[2.5rem] p-8 text-white shadow-2xl relative overflow-hidden transition-all duration-500 ${
           isFrozen
@@ -512,35 +514,74 @@ const App = () => {
             : "bg-gradient-to-br from-emerald-900 via-[#064e3b] to-slate-900"
         }`}
       >
+        {/* Background Texture Decorations */}
+        <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-emerald-400/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-[-20%] left-[-10%] w-48 h-48 bg-emerald-500/10 rounded-full blur-2xl"></div>
+
         <div className="relative z-10 h-full flex flex-col justify-between">
+          {/* Header Row */}
           <div className="flex justify-between items-start">
-            <span className="font-black text-xl italic tracking-tighter">
+            <span className="font-black text-2xl italic tracking-tighter opacity-90">
               noor.
             </span>
-            <Lock size={20} className="text-emerald-400" />
-          </div>
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <p className="text-xl font-mono tracking-[0.15em]">
-                {showCardDetails
-                  ? "4532 8812 0094 1120"
-                  : "•••• •••• •••• 1120"}
-              </p>
-              <button
-                onClick={() => setShowCardDetails(!showCardDetails)}
-                className="p-2 bg-white/10 rounded-full active:scale-90 transition-transform"
-              >
-                <Eye size={16} />
-              </button>
+            <div className="flex items-center gap-3">
+              <Lock size={18} className="text-emerald-400/80" />
+              <div className="w-10 h-8 bg-amber-400/20 rounded-md border border-amber-400/30"></div>{" "}
+              {/* Chip placeholder */}
             </div>
-            <div className="flex gap-6 text-[10px] font-mono opacity-70">
-              <span>EXP: 09/28</span>
-              <span>CVV: {showCardDetails ? "442" : "•••"}</span>
+          </div>
+
+          {/* CENTERED CARD INFO */}
+          <div className="flex flex-col items-center justify-center flex-1 py-4">
+            <div className="bg-white/5 backdrop-blur-md rounded-2xl px-6 py-4 border border-white/10 flex flex-col items-center gap-3">
+              <div className="flex items-center gap-4">
+                <p className="text-2xl font-mono tracking-[0.15em] font-medium">
+                  {showCardDetails
+                    ? "4532 8812 0094 1120"
+                    : "•••• •••• •••• 1120"}
+                </p>
+                <button
+                  onClick={() => setShowCardDetails(!showCardDetails)}
+                  className="p-2 bg-white/10 rounded-full active:scale-90 transition-transform"
+                >
+                  <Eye size={18} className="text-emerald-300" />
+                </button>
+              </div>
+              <div className="flex gap-10">
+                <div className="flex flex-col items-center">
+                  <span className="text-[7px] font-bold uppercase tracking-widest text-emerald-300/60 mb-0.5">
+                    Expiry
+                  </span>
+                  <span className="text-sm font-mono tracking-wider font-medium">
+                    09/28
+                  </span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="text-[7px] font-bold uppercase tracking-widest text-emerald-300/60 mb-0.5">
+                    CVV
+                  </span>
+                  <span className="text-sm font-mono tracking-wider font-medium">
+                    {showCardDetails ? "442" : "•••"}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Footer Row */}
+          <div className="flex justify-between items-end">
+            <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">
+              Visa Platinum
+            </p>
+            <div className="flex -space-x-3">
+              <div className="w-8 h-8 rounded-full bg-rose-500/80"></div>
+              <div className="w-8 h-8 rounded-full bg-amber-500/80"></div>
             </div>
           </div>
         </div>
       </div>
 
+      {/* CONTROLS */}
       <div className="bg-white rounded-[2.5rem] p-2 border border-slate-100 shadow-sm">
         <div className="flex items-center justify-between p-5 border-b border-slate-50">
           <div className="flex items-center gap-3">
