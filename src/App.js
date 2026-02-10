@@ -8,7 +8,6 @@ import {
   ArrowDownRight,
   Lock,
   Zap,
-  XCircle,
   TrendingUp,
   Droplets,
   Bell,
@@ -16,7 +15,6 @@ import {
   Wallet,
   RefreshCcw,
   ChevronLeft,
-  Info,
   Coins,
   Eye,
   CheckCircle2,
@@ -38,7 +36,7 @@ const App = () => {
   // Murabaha State
   const [carPrice, setCarPrice] = useState(35000);
   const [downPayment, setDownPayment] = useState(5000);
-  const [term, setTerm] = useState(60);
+  const term = 60; // Static value as per fixed contract logic
 
   const [transactions, setTransactions] = useState([
     {
@@ -79,7 +77,7 @@ const App = () => {
     },
   ]);
 
-  const [userEquity, setUserEquity] = useState(24);
+  const userEquity = 24; // Static display value
   const [otherAssets, setOtherAssets] = useState(2500);
 
   useEffect(() => {
@@ -384,6 +382,59 @@ const App = () => {
     );
   };
 
+  const renderZakat = () => {
+    const zakatDue = (balance + otherAssets) * 0.025;
+    return (
+      <div className="space-y-6 pb-24 animate-in slide-in-from-right-4">
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setFinancingSubPage("main")}
+            className="p-2 bg-white rounded-xl shadow-sm"
+          >
+            <ChevronLeft size={20} />
+          </button>
+          <h2 className="text-xl font-bold">Zakat Calculator</h2>
+        </div>
+        <div className="bg-indigo-600 rounded-[2.5rem] p-8 text-white shadow-xl">
+          <p className="text-indigo-200 text-xs font-bold uppercase tracking-widest">
+            Estimated Zakat
+          </p>
+          <h3 className="text-5xl font-black mt-2 tracking-tighter">
+            ${zakatDue.toFixed(2)}
+          </h3>
+        </div>
+        <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 space-y-4">
+          <div className="flex justify-between items-center text-sm font-bold text-slate-600">
+            <span className="flex items-center gap-2">
+              <Wallet size={16} /> Balance
+            </span>
+            <span>${balance.toLocaleString()}</span>
+          </div>
+          <div className="space-y-2">
+            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">
+              Outside Assets
+            </label>
+            <div className="relative">
+              <Coins
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"
+                size={18}
+              />
+              <input
+                type="number"
+                value={otherAssets}
+                onChange={(e) => setOtherAssets(Number(e.target.value))}
+                className="w-full bg-slate-50 border-none rounded-2xl p-4 pl-12 font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+              />
+            </div>
+          </div>
+        </div>
+        <button className="w-full bg-indigo-600 text-white p-5 rounded-[1.5rem] font-bold shadow-lg shadow-indigo-200 active:scale-95 transition-transform">
+          Pay Zakat Now
+        </button>
+      </div>
+    );
+  };
+
   const renderEquity = () => {
     if (financingSubPage === "zakat") return renderZakat();
     if (financingSubPage === "murabaha") return renderMurabaha();
@@ -447,59 +498,6 @@ const App = () => {
             </p>
           </div>
         </div>
-      </div>
-    );
-  };
-
-  const renderZakat = () => {
-    const zakatDue = (balance + otherAssets) * 0.025;
-    return (
-      <div className="space-y-6 pb-24 animate-in slide-in-from-right-4">
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => setFinancingSubPage("main")}
-            className="p-2 bg-white rounded-xl shadow-sm"
-          >
-            <ChevronLeft size={20} />
-          </button>
-          <h2 className="text-xl font-bold">Zakat Calculator</h2>
-        </div>
-        <div className="bg-indigo-600 rounded-[2.5rem] p-8 text-white shadow-xl">
-          <p className="text-indigo-200 text-xs font-bold uppercase tracking-widest">
-            Estimated Zakat
-          </p>
-          <h3 className="text-5xl font-black mt-2 tracking-tighter">
-            ${zakatDue.toFixed(2)}
-          </h3>
-        </div>
-        <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 space-y-4">
-          <div className="flex justify-between items-center text-sm font-bold text-slate-600">
-            <span className="flex items-center gap-2">
-              <Wallet size={16} /> Balance
-            </span>
-            <span>${balance.toLocaleString()}</span>
-          </div>
-          <div className="space-y-2">
-            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">
-              Outside Assets
-            </label>
-            <div className="relative">
-              <Coins
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"
-                size={18}
-              />
-              <input
-                type="number"
-                value={otherAssets}
-                onChange={(e) => setOtherAssets(Number(e.target.value))}
-                className="w-full bg-slate-50 border-none rounded-2xl p-4 pl-12 font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
-              />
-            </div>
-          </div>
-        </div>
-        <button className="w-full bg-indigo-600 text-white p-5 rounded-[1.5rem] font-bold shadow-lg shadow-indigo-200 active:scale-95 transition-transform">
-          Pay Zakat Now
-        </button>
       </div>
     );
   };
