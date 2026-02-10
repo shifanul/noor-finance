@@ -18,11 +18,11 @@ import {
   Coins,
   Eye,
   CheckCircle2,
-  AlertTriangle,
   ShieldX,
 } from "lucide-react";
 
 const App = () => {
+  const [isInitializing, setIsInitializing] = useState(true);
   const [activeTab, setActiveTab] = useState("dashboard");
   const [financingSubPage, setFinancingSubPage] = useState("main");
   const [balance, setBalance] = useState(12450.75);
@@ -81,8 +81,14 @@ const App = () => {
   const [otherAssets, setOtherAssets] = useState(2500);
 
   useEffect(() => {
+    // Initial loading sequence
+    const timer = setTimeout(() => {
+      setIsInitializing(false);
+    }, 2800);
+
     document.body.style.overscrollBehaviorY = "contain";
     return () => {
+      clearTimeout(timer);
       document.body.style.overscrollBehaviorY = "auto";
     };
   }, []);
@@ -145,7 +151,7 @@ const App = () => {
   };
 
   const renderDashboard = () => (
-    <div className="space-y-6 pb-24 animate-in fade-in duration-500">
+    <div className="space-y-6 pb-24 animate-in fade-in duration-700">
       <div className="flex gap-3 overflow-x-auto no-scrollbar py-2">
         <button
           onClick={simulateSync}
@@ -222,7 +228,7 @@ const App = () => {
       </div>
 
       <div>
-        <h2 className="text-xl font-bold mb-4 px-1">Activity</h2>
+        <h2 className="text-xl font-bold mb-4 px-1 text-slate-900">Activity</h2>
         <div className="space-y-3">
           {transactions.map((tx) => (
             <div
@@ -441,7 +447,9 @@ const App = () => {
     return (
       <div className="space-y-8 pb-24 animate-in slide-in-from-bottom-4">
         <div className="bg-white p-8 rounded-[3rem] shadow-xl border border-slate-100 text-center">
-          <h2 className="text-2xl font-bold mb-2">Home Partnership</h2>
+          <h2 className="text-2xl font-bold mb-2 text-slate-900">
+            Home Partnership
+          </h2>
           <div className="relative w-48 h-48 mx-auto my-8 flex items-center justify-center">
             <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
               <circle
@@ -469,7 +477,7 @@ const App = () => {
               <span className="text-4xl font-black text-slate-900 tracking-tighter">
                 {userEquity}%
               </span>
-              <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">
+              <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest text-center">
                 Equity
               </span>
             </div>
@@ -504,9 +512,8 @@ const App = () => {
 
   const renderCard = () => (
     <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
-      <h2 className="text-2xl font-bold">Your Card</h2>
+      <h2 className="text-2xl font-bold text-slate-900">Your Card</h2>
 
-      {/* PHYSICAL CARD VISUAL */}
       <div
         className={`aspect-[1.58/1] rounded-[2.5rem] p-8 text-white shadow-2xl relative overflow-hidden transition-all duration-500 ${
           isFrozen
@@ -514,20 +521,17 @@ const App = () => {
             : "bg-gradient-to-br from-emerald-900 via-[#064e3b] to-slate-900"
         }`}
       >
-        {/* Background Texture Decorations */}
         <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-emerald-400/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-[-20%] left-[-10%] w-48 h-48 bg-emerald-500/10 rounded-full blur-2xl"></div>
 
         <div className="relative z-10 h-full flex flex-col justify-between">
-          {/* Header Row */}
           <div className="flex justify-between items-start">
             <span className="font-black text-2xl italic tracking-tighter opacity-90">
               noor.
             </span>
             <div className="flex items-center gap-3">
               <Lock size={18} className="text-emerald-400/80" />
-              <div className="w-10 h-8 bg-amber-400/20 rounded-md border border-amber-400/30"></div>{" "}
-              {/* Chip placeholder */}
+              <div className="w-10 h-8 bg-amber-400/20 rounded-md border border-amber-400/30"></div>
             </div>
           </div>
 
@@ -568,7 +572,6 @@ const App = () => {
             </div>
           </div>
 
-          {/* Footer Row */}
           <div className="flex justify-between items-end">
             <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">
               Visa Platinum
@@ -581,7 +584,6 @@ const App = () => {
         </div>
       </div>
 
-      {/* CONTROLS */}
       <div className="bg-white rounded-[2.5rem] p-2 border border-slate-100 shadow-sm">
         <div className="flex items-center justify-between p-5 border-b border-slate-50">
           <div className="flex items-center gap-3">
@@ -637,8 +639,46 @@ const App = () => {
     </div>
   );
 
+  if (isInitializing) {
+    return (
+      <div className="fixed inset-0 bg-[#064e3b] z-[200] flex flex-col items-center justify-center text-white p-6 animate-out fade-out duration-1000 fill-mode-forwards">
+        <div className="relative mb-4 flex flex-col items-center animate-in zoom-in-75 duration-500">
+          <h1 className="text-6xl font-black italic tracking-tighter mb-2">
+            noor.
+          </h1>
+          <p className="text-emerald-400 font-bold tracking-[0.3em] uppercase text-[10px] opacity-80">
+            Financing the Right Way
+          </p>
+        </div>
+
+        <div className="absolute bottom-16 flex flex-col items-center gap-3">
+          <div className="w-12 h-1 bg-emerald-900/50 rounded-full overflow-hidden">
+            <div className="h-full bg-emerald-400 rounded-full w-full animate-progress-fast"></div>
+          </div>
+          <p className="text-[10px] font-bold text-emerald-500/50 uppercase tracking-widest">
+            Securing Wallet...
+          </p>
+        </div>
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+                @keyframes progress-fast {
+                    0% { width: 0%; transform: translateX(-100%); }
+                    50% { width: 40%; }
+                    100% { width: 100%; transform: translateX(100%); }
+                }
+                .animate-progress-fast {
+                    animation: progress-fast 1.5s ease-in-out infinite;
+                }
+            `,
+          }}
+        />
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex flex-col px-6 pt-[env(safe-area-inset-top,24px)] select-none overflow-hidden">
+    <div className="min-h-screen bg-[#f8fafc] flex flex-col px-6 pt-[env(safe-area-inset-top,24px)] select-none overflow-hidden animate-in fade-in duration-1000">
       {notification && (
         <div
           className={`fixed top-12 left-6 right-6 z-[100] bg-white shadow-2xl rounded-[1.5rem] p-4 border-l-4 ${
