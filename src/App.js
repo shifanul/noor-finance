@@ -36,7 +36,7 @@ const App = () => {
   // Murabaha State
   const [carPrice, setCarPrice] = useState(35000);
   const [downPayment, setDownPayment] = useState(5000);
-  const term = 60; // Static value as per fixed contract logic
+  const term = 60;
 
   const [transactions, setTransactions] = useState([
     {
@@ -77,7 +77,7 @@ const App = () => {
     },
   ]);
 
-  const userEquity = 24; // Static display value
+  const userEquity = 24;
   const [otherAssets, setOtherAssets] = useState(2500);
 
   useEffect(() => {
@@ -597,7 +597,7 @@ const App = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex flex-col px-6 pt-[env(safe-area-inset-top,24px)] select-none">
+    <div className="min-h-screen bg-[#f8fafc] flex flex-col px-6 pt-[env(safe-area-inset-top,24px)] select-none overflow-hidden">
       {notification && (
         <div
           className={`fixed top-12 left-6 right-6 z-[100] bg-white shadow-2xl rounded-[1.5rem] p-4 border-l-4 ${
@@ -684,12 +684,12 @@ const App = () => {
         {activeTab === "settings" && renderCard()}
       </main>
 
-      <nav className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-2xl border-t border-slate-100 px-8 pt-4 pb-[env(safe-area-inset-bottom,24px)] flex justify-between items-center shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+      <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-2xl border-t border-slate-100 px-8 flex justify-between items-start shadow-[0_-10px_40px_rgba(0,0,0,0.04)] h-[94px]">
         <NavButton
           active={activeTab === "dashboard"}
           onClick={() => setActiveTab("dashboard")}
           icon={<PieChart />}
-          label="Home"
+          label="Stats"
         />
         <NavButton
           active={activeTab === "financing"}
@@ -720,20 +720,20 @@ const App = () => {
 const NavButton = ({ active, onClick, icon, label }) => (
   <button
     onClick={onClick}
-    className={`flex flex-col items-center gap-1.5 transition-all duration-300 ${
-      active ? "text-emerald-700 scale-110" : "text-slate-300"
+    className={`flex flex-col items-center justify-center gap-1.5 transition-all duration-300 min-w-[64px] mt-2.5 ${
+      active ? "text-emerald-700" : "text-slate-300"
     }`}
   >
     <div
-      className={`p-1 rounded-xl transition-colors ${
-        active ? "bg-emerald-50" : "bg-transparent"
+      className={`p-1.5 rounded-xl transition-all duration-300 ${
+        active ? "bg-emerald-50 scale-105" : "bg-transparent"
       }`}
     >
-      {React.cloneElement(icon, { size: 24, strokeWidth: active ? 2.5 : 2 })}
+      {React.cloneElement(icon, { size: 22, strokeWidth: active ? 2.5 : 2 })}
     </div>
     <span
-      className={`text-[9px] font-black uppercase tracking-widest transition-opacity ${
-        active ? "opacity-100" : "opacity-0"
+      className={`text-[8.5px] font-bold uppercase tracking-[0.05em] leading-none transition-all duration-300 ${
+        active ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"
       }`}
     >
       {label}
