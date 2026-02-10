@@ -289,12 +289,12 @@ const App = () => {
   );
 
   const renderCard = () => (
-    <div className="space-y-4 pb-24 animate-in slide-in-from-bottom-4">
+    <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
       <h2 className="text-xl font-bold text-slate-900">Your Card</h2>
 
-      {/* Adjusted Card Size for Mobile Viewports */}
+      {/* Mobile Optimized Card with safe bottom padding */}
       <div
-        className={`w-full max-w-sm mx-auto aspect-[1.58/1] rounded-[1.5rem] p-5 text-white shadow-xl relative overflow-hidden transition-all duration-500 ${
+        className={`w-full max-w-sm mx-auto aspect-[1.58/1] rounded-[1.25rem] px-5 py-6 text-white shadow-xl relative overflow-hidden transition-all duration-500 ${
           isFrozen
             ? "grayscale bg-slate-800"
             : "bg-gradient-to-br from-emerald-900 via-[#064e3b] to-slate-900"
@@ -304,7 +304,7 @@ const App = () => {
 
         <div className="relative z-10 h-full flex flex-col justify-between">
           <div className="flex justify-between items-start">
-            <span className="font-black text-xl italic tracking-tighter opacity-90">
+            <span className="font-black text-lg italic tracking-tighter opacity-90">
               noor.
             </span>
             <div className="w-8 h-6 bg-amber-400/20 rounded border border-amber-400/30"></div>
@@ -312,7 +312,7 @@ const App = () => {
 
           <div className="flex flex-col items-start gap-1">
             <div className="flex items-center gap-3 w-full">
-              <p className="text-lg font-mono tracking-widest font-medium overflow-hidden whitespace-nowrap">
+              <p className="text-base font-mono tracking-[0.15em] font-medium overflow-hidden whitespace-nowrap">
                 {showCardDetails
                   ? "4532 8812 0094 1120"
                   : "•••• •••• •••• 1120"}
@@ -321,34 +321,35 @@ const App = () => {
                 onClick={() => setShowCardDetails(!showCardDetails)}
                 className="p-1.5 bg-white/10 rounded-full active:scale-90 shrink-0"
               >
-                <Eye size={14} className="text-emerald-300" />
+                <Eye size={12} className="text-emerald-300" />
               </button>
             </div>
             <div className="flex gap-6 mt-1 opacity-80">
               <div className="flex flex-col">
-                <span className="text-[6px] font-bold uppercase tracking-widest text-emerald-300/60">
+                <span className="text-[5px] font-bold uppercase tracking-widest text-emerald-300/60">
                   Expiry
                 </span>
-                <span className="text-[10px] font-mono font-medium">09/28</span>
+                <span className="text-[9px] font-mono font-medium">09/28</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-[6px] font-bold uppercase tracking-widest text-emerald-300/60">
+                <span className="text-[5px] font-bold uppercase tracking-widest text-emerald-300/60">
                   CVV
                 </span>
-                <span className="text-[10px] font-mono font-medium">
+                <span className="text-[9px] font-mono font-medium">
                   {showCardDetails ? "442" : "•••"}
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="flex justify-between items-end">
-            <p className="text-[8px] font-bold uppercase tracking-widest opacity-60">
+          {/* Bottom row with fixed padding to ensure Visa Logo/Text is visible */}
+          <div className="flex justify-between items-center mt-2">
+            <p className="text-[7px] font-bold uppercase tracking-widest opacity-60">
               Visa Platinum
             </p>
-            <div className="flex -space-x-2">
-              <div className="w-6 h-6 rounded-full bg-rose-500/80"></div>
-              <div className="w-6 h-6 rounded-full bg-amber-500/80"></div>
+            <div className="flex -space-x-1.5">
+              <div className="w-5 h-5 rounded-full bg-rose-500/80"></div>
+              <div className="w-5 h-5 rounded-full bg-amber-500/80"></div>
             </div>
           </div>
         </div>
