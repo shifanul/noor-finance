@@ -20,11 +20,19 @@ import {
   CheckCircle2,
   ShieldX,
   EyeOff,
+  User,
+  ScanFace,
 } from "lucide-react";
 
 const App = () => {
-  const [isInitializing, setIsInitializing] = useState(true);
+  // Navigation & Auth State
+  const [appState, setAppState] = useState("splash"); // 'splash', 'login', 'authenticated'
   const [loadProgress, setLoadProgress] = useState(0);
+  const [pin, setPin] = useState("");
+  const [loginError, setLoginError] = useState(false);
+  const [isFaceScanning, setIsFaceScanning] = useState(false);
+
+  // Dashboard State
   const [activeTab, setActiveTab] = useState("dashboard");
   const [financingSubPage, setFinancingSubPage] = useState("main");
   const [balance, setBalance] = useState(12450.75);
@@ -82,21 +90,45 @@ const App = () => {
   const userEquity = 24;
   const [otherAssets, setOtherAssets] = useState(2500);
 
+  // Initial Splash Loading
   useEffect(() => {
-    // Progress bar simulation
-    const interval = setInterval(() => {
-      setLoadProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => setIsInitializing(false), 300);
-          return 100;
-        }
-        return prev + 2;
-      });
-    }, 30);
+    if (appState === "splash") {
+      const interval = setInterval(() => {
+        setLoadProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(interval);
+            setTimeout(() => setAppState("login"), 300);
+            return 100;
+          }
+          return prev + 2;
+        });
+      }, 25);
+      return () => clearInterval(interval);
+    }
+  }, [appState]);
 
-    return () => clearInterval(interval);
-  }, []);
+  // Handle PIN input
+  useEffect(() => {
+    if (pin.length === 4) {
+      if (pin === "1234") {
+        setAppState("authenticated");
+      } else {
+        setLoginError(true);
+        setTimeout(() => {
+          setPin("");
+          setLoginError(false);
+        }, 500);
+      }
+    }
+  }, [pin]);
+
+  const handleFaceId = () => {
+    setIsFaceScanning(true);
+    setTimeout(() => {
+      setIsFaceScanning(false);
+      setAppState("authenticated");
+    }, 1500);
+  };
 
   const triggerNotification = (title, message, type = "success") => {
     setNotification({ title, message, type });
@@ -149,6 +181,91 @@ const App = () => {
       );
     }
   };
+
+  // --- RENDERING COMPONENTS ---
+
+  const renderLogin = () => (
+    <div className="fixed inset-0 bg-[#064e3b] z-[150] flex flex-col items-center px-8 pt-20 animate-in fade-in zoom-in-95 duration-500">
+      <div className="text-center mb-12">
+        <h1 className="text-4xl font-black italic tracking-tighter text-white mb-2">
+          noor.
+        </h1>
+        <p className="text-emerald-300/60 text-[10px] font-bold uppercase tracking-[0.2em]">
+          Secure Access
+        </p>
+      </div>
+
+      <div className="flex flex-col items-center mb-12">
+        <div
+          className={`w-20 h-20 rounded-full bg-emerald-900/50 flex items-center justify-center border-2 border-emerald-500/30 mb-4 transition-all ${
+            isFaceScanning ? "scale-110 border-emerald-400" : ""
+          }`}
+        >
+          {isFaceScanning ? (
+            <ScanFace className="text-emerald-400 animate-pulse" size={40} />
+          ) : (
+            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/20">
+              <img
+                src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
+                alt="avatar"
+              />
+            </div>
+          )}
+        </div>
+        <h2 className="text-white font-bold text-lg">Welcome back, Felix</h2>
+        <p className="text-emerald-300/40 text-xs mt-1">
+          Enter PIN (1234) or use Face ID
+        </p>
+      </div>
+
+      <div className="flex gap-4 mb-12 h-4 items-center">
+        {[0, 1, 2, 3].map((i) => (
+          <div
+            key={i}
+            className={`w-3.5 h-3.5 rounded-full border-2 border-emerald-500/50 transition-all duration-200 ${
+              pin.length > i ? "bg-amber-500 border-amber-500 scale-125" : ""
+            } ${
+              loginError ? "bg-rose-500 border-rose-500 animate-bounce" : ""
+            }`}
+          />
+        ))}
+      </div>
+
+      <div className="grid grid-cols-3 gap-x-12 gap-y-6 max-w-[280px]">
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+          <button
+            key={num}
+            onClick={() => pin.length < 4 && setPin(pin + num)}
+            className="w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl font-medium active:bg-white/10 transition-colors"
+          >
+            {num}
+          </button>
+        ))}
+        <button
+          onClick={handleFaceId}
+          className="w-14 h-14 rounded-full flex items-center justify-center text-emerald-400 active:bg-white/10"
+        >
+          <ScanFace size={28} />
+        </button>
+        <button
+          onClick={() => pin.length < 4 && setPin(pin + "0")}
+          className="w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl font-medium active:bg-white/10"
+        >
+          0
+        </button>
+        <button
+          onClick={() => setPin(pin.slice(0, -1))}
+          className="w-14 h-14 rounded-full flex items-center justify-center text-white/40 active:bg-white/10"
+        >
+          <ChevronLeft size={24} />
+        </button>
+      </div>
+
+      <button className="mt-12 text-emerald-300/40 text-[10px] font-bold uppercase tracking-widest hover:text-white transition-colors">
+        Forgot PIN?
+      </button>
+    </div>
+  );
 
   const renderDashboard = () => (
     <div className="space-y-4 pb-24 animate-in fade-in duration-500">
@@ -294,7 +411,6 @@ const App = () => {
         <h2 className="text-xl font-bold text-slate-900">Your Card</h2>
       </div>
 
-      {/* PREMIUM MOBILE CARD - Left Aligned & Eye Toggle on Card */}
       <div
         className={`w-full max-w-[340px] mx-auto aspect-[1.58/1] rounded-[1.5rem] p-6 text-white shadow-2xl relative flex flex-col justify-between transition-all duration-500 overflow-hidden ${
           isFrozen
@@ -302,11 +418,9 @@ const App = () => {
             : "bg-gradient-to-br from-[#064e3b] via-[#043d2e] to-[#022c22]"
         }`}
       >
-        {/* Subtle Design Accents */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-400/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-amber-400/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
 
-        {/* Header: Brand & Chip */}
         <div className="flex justify-between items-start relative z-10">
           <span className="font-black text-2xl italic tracking-tighter">
             noor.
@@ -317,7 +431,6 @@ const App = () => {
           </div>
         </div>
 
-        {/* Content: Number & Details - Left Aligned */}
         <div className="relative z-10 flex flex-col gap-4">
           <div className="flex items-center gap-3">
             <p className="text-lg font-mono tracking-[0.15em] font-medium text-white/90">
@@ -355,7 +468,6 @@ const App = () => {
           </div>
         </div>
 
-        {/* Footer: User & Tier */}
         <div className="flex justify-between items-end relative z-10">
           <div className="flex flex-col">
             <p className="text-[10px] font-bold uppercase tracking-widest text-white/90">
@@ -369,7 +481,6 @@ const App = () => {
         </div>
       </div>
 
-      {/* Card Controls */}
       <div className="bg-white rounded-[1.5rem] p-1 border border-slate-100 shadow-sm mt-4">
         <div className="flex items-center justify-between p-4 border-b border-slate-50">
           <div className="flex items-center gap-3">
@@ -539,7 +650,7 @@ const App = () => {
           </div>
         </div>
         <button className="w-full bg-indigo-600 text-white p-4 rounded-xl font-bold shadow-lg active:scale-95 transition-transform">
-          Pay Alms
+          Pay Zakat
         </button>
       </div>
     );
@@ -610,7 +721,8 @@ const App = () => {
     );
   };
 
-  if (isInitializing) {
+  // Splash Screen
+  if (appState === "splash") {
     return (
       <div className="fixed inset-0 bg-[#064e3b] z-[200] flex flex-col items-center justify-center text-white p-6">
         <div className="flex-1 flex flex-col items-center justify-center">
@@ -622,7 +734,6 @@ const App = () => {
           </p>
         </div>
 
-        {/* SPLASH LOADING BAR */}
         <div className="w-full max-w-[200px] mb-20">
           <div className="h-[3px] w-full bg-white/10 rounded-full overflow-hidden relative">
             <div
@@ -643,6 +754,12 @@ const App = () => {
     );
   }
 
+  // Login Screen
+  if (appState === "login") {
+    return renderLogin();
+  }
+
+  // Main App (Authenticated)
   return (
     <div className="min-h-screen bg-[#f8fafc] flex flex-col px-5 pt-[env(safe-area-inset-top,20px)] select-none overflow-hidden font-sans">
       {notification && (
