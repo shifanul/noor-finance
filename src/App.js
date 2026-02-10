@@ -607,7 +607,7 @@ const App = () => {
           noor.
         </h1>
         <p className="text-emerald-400 font-bold tracking-[0.2em] uppercase text-[8px] opacity-80">
-          Financing the Pure
+          Financing The Right Way
         </p>
       </div>
     );
