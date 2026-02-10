@@ -19,7 +19,6 @@ import {
   Eye,
   CheckCircle2,
   ShieldX,
-  AlertTriangle,
   EyeOff,
 } from "lucide-react";
 
@@ -31,7 +30,7 @@ const App = () => {
   const [purificationPending, setPurificationPending] = useState(12.45);
   const [isSyncing, setIsSyncing] = useState(false);
   const [notification, setNotification] = useState(null);
-  const [showCardDetails, setShowCardDetails] = useState(true);
+  const [showCardDetails, setShowCardDetails] = useState(false);
   const [isFrozen, setIsFrozen] = useState(false);
   const [halalFilterActive, setHalalFilterActive] = useState(true);
 
@@ -85,7 +84,7 @@ const App = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsInitializing(false);
-    }, 2000);
+    }, 1500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -283,72 +282,79 @@ const App = () => {
     <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
       <div className="flex justify-between items-center px-1">
         <h2 className="text-xl font-bold text-slate-900">Your Card</h2>
-        <button
-          onClick={() => setShowCardDetails(!showCardDetails)}
-          className="flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-full text-[10px] font-bold text-slate-600 active:scale-95 transition-all"
-        >
-          {showCardDetails ? <EyeOff size={14} /> : <Eye size={14} />}
-          {showCardDetails ? "Hide" : "Reveal"}
-        </button>
       </div>
 
-      {/* RE-ENGINEERED MOBILE CARD */}
+      {/* PREMIUM MOBILE CARD - Left Aligned & Eye Toggle on Card */}
       <div
-        className={`w-full max-w-[340px] mx-auto aspect-[1.58/1] rounded-[1.5rem] p-6 text-white shadow-2xl relative flex flex-col justify-between transition-all duration-500 ${
+        className={`w-full max-w-[340px] mx-auto aspect-[1.58/1] rounded-[1.5rem] p-6 text-white shadow-2xl relative flex flex-col justify-between transition-all duration-500 overflow-hidden ${
           isFrozen
             ? "grayscale bg-slate-800"
-            : "bg-gradient-to-br from-emerald-950 via-[#064e3b] to-emerald-900"
+            : "bg-gradient-to-br from-[#064e3b] via-[#043d2e] to-[#022c22]"
         }`}
       >
-        {/* Design Elements */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-400/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        {/* Subtle Design Accents */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-400/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-amber-400/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
 
-        {/* Top Row: Branding */}
+        {/* Header: Brand & Chip */}
         <div className="flex justify-between items-start relative z-10">
-          <span className="font-black text-2xl italic tracking-tighter opacity-100">
+          <span className="font-black text-2xl italic tracking-tighter">
             noor.
           </span>
-          <div className="w-10 h-8 bg-gradient-to-br from-amber-200 to-amber-500 rounded-md shadow-inner flex items-center justify-center">
+          <div className="w-10 h-7 bg-gradient-to-br from-amber-200 to-amber-500/80 rounded flex flex-col justify-around p-1 shadow-inner">
+            <div className="w-full h-[1px] bg-black/10"></div>
             <div className="w-full h-[1px] bg-black/10"></div>
           </div>
         </div>
 
-        {/* Middle Row: Numbers (Enlarged) */}
-        <div className="relative z-10 space-y-4 my-2">
-          <div className="flex justify-between items-center">
-            <p className="text-xl sm:text-2xl font-mono tracking-[0.1em] font-bold text-white drop-shadow-md">
+        {/* Content: Number & Details - Left Aligned */}
+        <div className="relative z-10 flex flex-col gap-4">
+          <div className="flex items-center gap-3">
+            <p className="text-lg font-mono tracking-[0.15em] font-medium text-white/90">
               {showCardDetails ? "4532 8812 0094 1120" : "•••• •••• •••• 1120"}
             </p>
+            <button
+              onClick={() => setShowCardDetails(!showCardDetails)}
+              className="p-1.5 bg-white/10 hover:bg-white/20 rounded-full transition-colors active:scale-90"
+            >
+              {showCardDetails ? (
+                <EyeOff size={14} className="text-white/70" />
+              ) : (
+                <Eye size={14} className="text-white/70" />
+              )}
+            </button>
           </div>
 
-          <div className="flex gap-8 items-end">
+          <div className="flex gap-8 items-center">
             <div className="flex flex-col">
-              <span className="text-[8px] font-bold uppercase tracking-widest text-emerald-400/80 mb-0.5">
+              <span className="text-[7px] font-bold uppercase tracking-[0.2em] text-emerald-400/70 mb-0.5">
                 Expiry
               </span>
-              <span className="text-lg font-mono font-bold leading-none tracking-wider">
+              <span className="text-sm font-mono font-medium tracking-widest">
                 {showCardDetails ? "09/28" : "••/••"}
               </span>
             </div>
             <div className="flex flex-col">
-              <span className="text-[8px] font-bold uppercase tracking-widest text-emerald-400/80 mb-0.5">
+              <span className="text-[7px] font-bold uppercase tracking-[0.2em] text-emerald-400/70 mb-0.5">
                 CVV
               </span>
-              <span className="text-lg font-mono font-bold leading-none tracking-wider">
+              <span className="text-sm font-mono font-medium tracking-widest">
                 {showCardDetails ? "442" : "•••"}
               </span>
             </div>
           </div>
         </div>
 
-        {/* Bottom Row: Fixed Safe Area Branding */}
-        <div className="flex justify-between items-center mt-auto relative z-10 pt-2 border-t border-white/10">
-          <p className="text-[11px] font-black uppercase tracking-[0.2em] text-white/90">
-            Visa Platinum
-          </p>
+        {/* Footer: User & Tier */}
+        <div className="flex justify-between items-end relative z-10">
+          <div className="flex flex-col">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-white/90">
+              Visa Platinum
+            </p>
+          </div>
           <div className="flex -space-x-2">
-            <div className="w-7 h-7 rounded-full bg-rose-600/90 shadow-lg"></div>
-            <div className="w-7 h-7 rounded-full bg-amber-500/90 shadow-lg backdrop-blur-sm"></div>
+            <div className="w-7 h-7 rounded-full bg-rose-600/90 shadow-sm border border-white/5"></div>
+            <div className="w-7 h-7 rounded-full bg-amber-500/90 shadow-sm border border-white/5"></div>
           </div>
         </div>
       </div>
@@ -601,7 +607,7 @@ const App = () => {
           noor.
         </h1>
         <p className="text-emerald-400 font-bold tracking-[0.2em] uppercase text-[8px] opacity-80">
-          Financing The Right Way
+          Financing the Pure
         </p>
       </div>
     );
