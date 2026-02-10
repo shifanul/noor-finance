@@ -6,7 +6,6 @@ import {
   PieChart,
   ArrowUpRight,
   ArrowDownRight,
-  Heart,
   Lock,
   Zap,
   XCircle,
@@ -16,15 +15,10 @@ import {
   Fingerprint,
   Wallet,
   RefreshCcw,
-  Smartphone,
   ChevronLeft,
   Info,
   Coins,
-  Calculator,
   Eye,
-  EyeOff,
-  Flame,
-  Snowflake,
 } from "lucide-react";
 
 const App = () => {
@@ -74,8 +68,6 @@ const App = () => {
   ]);
 
   const [userEquity, setUserEquity] = useState(24);
-  const [carPrice, setCarPrice] = useState(35000);
-  const [carTerm, setCarTerm] = useState(48);
   const [otherAssets, setOtherAssets] = useState(2500);
 
   const zakatDue =
@@ -266,7 +258,7 @@ const App = () => {
         <div className="flex items-center justify-between p-5 border-b border-slate-50">
           <div className="flex items-center gap-3">
             <div className="p-3 bg-amber-50 text-amber-600 rounded-2xl">
-              <Flame size={20} />
+              <Zap size={20} />
             </div>
             <div>
               <p className="font-bold text-sm">Halal Filter AI</p>
@@ -291,7 +283,7 @@ const App = () => {
         <div className="flex items-center justify-between p-5">
           <div className="flex items-center gap-3">
             <div className="p-3 bg-blue-50 text-blue-600 rounded-2xl">
-              <Snowflake size={20} />
+              <Lock size={20} />
             </div>
             <div>
               <p className="font-bold text-sm">Freeze Card</p>
