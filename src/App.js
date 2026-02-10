@@ -24,6 +24,7 @@ import {
 
 const App = () => {
   const [isInitializing, setIsInitializing] = useState(true);
+  const [loadProgress, setLoadProgress] = useState(0);
   const [activeTab, setActiveTab] = useState("dashboard");
   const [financingSubPage, setFinancingSubPage] = useState("main");
   const [balance, setBalance] = useState(12450.75);
@@ -82,10 +83,19 @@ const App = () => {
   const [otherAssets, setOtherAssets] = useState(2500);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsInitializing(false);
-    }, 1500);
-    return () => clearTimeout(timer);
+    // Progress bar simulation
+    const interval = setInterval(() => {
+      setLoadProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(() => setIsInitializing(false), 300);
+          return 100;
+        }
+        return prev + 2;
+      });
+    }, 30);
+
+    return () => clearInterval(interval);
   }, []);
 
   const triggerNotification = (title, message, type = "success") => {
@@ -603,12 +613,32 @@ const App = () => {
   if (isInitializing) {
     return (
       <div className="fixed inset-0 bg-[#064e3b] z-[200] flex flex-col items-center justify-center text-white p-6">
-        <h1 className="text-5xl font-black italic tracking-tighter mb-1 animate-pulse">
-          noor.
-        </h1>
-        <p className="text-emerald-400 font-bold tracking-[0.2em] uppercase text-[8px] opacity-80">
-          Financing The Right Way
-        </p>
+        <div className="flex-1 flex flex-col items-center justify-center">
+          <h1 className="text-5xl font-black italic tracking-tighter mb-1 animate-pulse">
+            noor.
+          </h1>
+          <p className="text-emerald-400 font-bold tracking-[0.2em] uppercase text-[8px] opacity-80">
+            Financing The Right Way
+          </p>
+        </div>
+
+        {/* SPLASH LOADING BAR */}
+        <div className="w-full max-w-[200px] mb-20">
+          <div className="h-[3px] w-full bg-white/10 rounded-full overflow-hidden relative">
+            <div
+              className="h-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)] transition-all duration-100 ease-out"
+              style={{ width: `${loadProgress}%` }}
+            />
+          </div>
+          <div className="flex justify-between mt-3 px-1">
+            <span className="text-[7px] font-bold text-emerald-400 uppercase tracking-widest">
+              Encrypting
+            </span>
+            <span className="text-[7px] font-mono text-emerald-400">
+              {loadProgress}%
+            </span>
+          </div>
+        </div>
       </div>
     );
   }
