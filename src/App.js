@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   CreditCard,
   Home,
@@ -19,12 +19,15 @@ import {
   Info,
   Coins,
   Eye,
+  CheckCircle2,
+  AlertTriangle,
+  ShieldX,
 } from "lucide-react";
 
 const App = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [financingSubPage, setFinancingSubPage] = useState("main");
-  const [balance] = useState(12450.75);
+  const [balance, setBalance] = useState(12450.75);
   const [purificationPending, setPurificationPending] = useState(12.45);
   const [isSyncing, setIsSyncing] = useState(false);
   const [notification, setNotification] = useState(null);
@@ -32,29 +35,37 @@ const App = () => {
   const [isFrozen, setIsFrozen] = useState(false);
   const [halalFilterActive, setHalalFilterActive] = useState(true);
 
-  const [transactions] = useState([
+  // Murabaha State
+  const [carPrice, setCarPrice] = useState(35000);
+  const [downPayment, setDownPayment] = useState(5000);
+  const [term, setTerm] = useState(60);
+
+  const [transactions, setTransactions] = useState([
     {
       id: 1,
       name: "Sobeys Groceries",
       amount: -82.3,
       category: "Food",
       type: "halal",
+      status: "approved",
       time: "2:14 PM",
     },
     {
       id: 2,
-      name: "Shell Gas",
+      name: "Shell Gas Station",
       amount: -65.0,
       category: "Transport",
       type: "halal",
+      status: "approved",
       time: "11:05 AM",
     },
     {
       id: 3,
-      name: "Profit Share",
+      name: "Noor Profit Share",
       amount: 45.2,
       category: "Profit",
       type: "profit",
+      status: "approved",
       time: "Yesterday",
     },
     {
@@ -63,6 +74,7 @@ const App = () => {
       amount: -42.0,
       category: "Alcohol",
       type: "haram",
+      status: "declined",
       time: "Monday",
     },
   ]);
@@ -70,11 +82,15 @@ const App = () => {
   const [userEquity, setUserEquity] = useState(24);
   const [otherAssets, setOtherAssets] = useState(2500);
 
-  const zakatDue =
-    balance + otherAssets >= 6800 ? (balance + otherAssets) * 0.025 : 0;
+  useEffect(() => {
+    document.body.style.overscrollBehaviorY = "contain";
+    return () => {
+      document.body.style.overscrollBehaviorY = "auto";
+    };
+  }, []);
 
-  const triggerNotification = (title, message) => {
-    setNotification({ title, message });
+  const triggerNotification = (title, message, type = "success") => {
+    setNotification({ title, message, type });
     setTimeout(() => setNotification(null), 4000);
   };
 
@@ -82,23 +98,69 @@ const App = () => {
     setIsSyncing(true);
     setTimeout(() => {
       setIsSyncing(false);
-      setPurificationPending((prev) => prev + 4.5);
       triggerNotification(
-        "Bank Sync Complete",
-        "Identified $4.50 for purification.",
+        "Bank AI Updated",
+        "Synced with RBC & TD successfully.",
       );
-    }, 2000);
+    }, 1500);
+  };
+
+  const addRandomTransaction = () => {
+    const merchants = [
+      { name: "Starbucks Coffee", amount: -6.45, type: "halal" },
+      { name: "Petro Canada", amount: -72.1, type: "halal" },
+      { name: "Amazon.ca", amount: -124.5, type: "halal" },
+      { name: "Loblaws", amount: -94.2, type: "halal" },
+      { name: "Casino Woodbine", amount: -500.0, type: "haram" },
+      { name: "The Wine Rack", amount: -38.0, type: "haram" },
+      { name: "DraftKings Betting", amount: -50.0, type: "haram" },
+      { name: "Sobeys", amount: -42.15, type: "halal" },
+    ];
+
+    const merchant = merchants[Math.floor(Math.random() * merchants.length)];
+    const isHaram = merchant.type === "haram";
+
+    const newTx = {
+      id: Date.now(),
+      name: merchant.name,
+      amount: merchant.amount,
+      type: merchant.type,
+      status: isHaram && halalFilterActive ? "declined" : "approved",
+      time: "Just Now",
+    };
+
+    setTransactions([newTx, ...transactions]);
+
+    if (newTx.status === "declined") {
+      triggerNotification(
+        "Transaction Blocked",
+        `Halal AI stopped payment at ${merchant.name}.`,
+        "error",
+      );
+    } else {
+      setBalance((prev) => prev + merchant.amount);
+      triggerNotification(
+        "Payment Successful",
+        `Paid $${Math.abs(merchant.amount).toFixed(2)} to ${merchant.name}`,
+      );
+    }
   };
 
   const renderDashboard = () => (
     <div className="space-y-6 pb-24 animate-in fade-in duration-500">
-      <div className="flex gap-2 overflow-x-auto no-scrollbar py-2">
+      <div className="flex gap-3 overflow-x-auto no-scrollbar py-2">
         <button
           onClick={simulateSync}
-          className="whitespace-nowrap bg-amber-600 text-white text-xs font-bold px-4 py-2 rounded-full flex items-center gap-2 shadow-lg"
+          className="whitespace-nowrap bg-amber-600 text-white text-xs font-bold px-4 py-3 rounded-2xl flex items-center gap-2 shadow-lg active:scale-95 transition-transform"
         >
           <RefreshCcw size={14} className={isSyncing ? "animate-spin" : ""} />{" "}
-          Sync Bank AI
+          Sync Banks
+        </button>
+        <button
+          onClick={addRandomTransaction}
+          className="whitespace-nowrap bg-[#064e3b] text-white text-xs font-bold px-4 py-3 rounded-2xl flex items-center gap-2 shadow-lg active:scale-95 transition-transform"
+        >
+          <Zap size={14} /> Simulate Swipe
         </button>
       </div>
 
@@ -115,7 +177,7 @@ const App = () => {
               <TrendingUp size={16} /> <span>+4.2% APY</span>
             </div>
             <div className="bg-white/10 px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-tighter">
-              Mudarabah Savings
+              Mudarabah
             </div>
           </div>
         </div>
@@ -154,7 +216,7 @@ const App = () => {
             className="flex flex-col items-center gap-2 active:scale-90 transition-transform"
           >
             <div className={`p-4 rounded-2xl ${item.color}`}>{item.icon}</div>
-            <span className="text-[10px] font-bold text-slate-500 uppercase">
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">
               {item.label}
             </span>
           </button>
@@ -167,18 +229,22 @@ const App = () => {
           {transactions.map((tx) => (
             <div
               key={tx.id}
-              className="bg-white p-4 rounded-[2rem] border border-slate-100 flex items-center justify-between shadow-sm"
+              className={`bg-white p-4 rounded-[2rem] border flex items-center justify-between shadow-sm transition-all ${
+                tx.status === "declined"
+                  ? "border-rose-100 opacity-80"
+                  : "border-slate-100"
+              }`}
             >
               <div className="flex items-center gap-3">
                 <div
                   className={`p-3 rounded-xl ${
-                    tx.type === "haram"
+                    tx.status === "declined"
                       ? "bg-rose-50 text-rose-500"
-                      : "bg-slate-50"
+                      : "bg-slate-50 text-slate-600"
                   }`}
                 >
-                  {tx.type === "haram" ? (
-                    <XCircle size={18} />
+                  {tx.status === "declined" ? (
+                    <ShieldX size={18} />
                   ) : tx.type === "profit" ? (
                     <Zap size={18} className="text-emerald-500" />
                   ) : (
@@ -186,7 +252,15 @@ const App = () => {
                   )}
                 </div>
                 <div>
-                  <p className="font-bold text-sm text-slate-900">{tx.name}</p>
+                  <p
+                    className={`font-bold text-sm ${
+                      tx.status === "declined"
+                        ? "text-rose-900"
+                        : "text-slate-900"
+                    }`}
+                  >
+                    {tx.name}
+                  </p>
                   <p className="text-[10px] text-slate-400 font-bold uppercase">
                     {tx.time}
                   </p>
@@ -195,16 +269,21 @@ const App = () => {
               <div className="text-right">
                 <p
                   className={`font-bold ${
-                    tx.type === "haram"
+                    tx.status === "declined"
                       ? "text-rose-300 line-through"
                       : "text-slate-900"
                   }`}
                 >
                   {tx.amount > 0 ? "+" : ""}${Math.abs(tx.amount).toFixed(2)}
                 </p>
-                {tx.type === "haram" && (
-                  <p className="text-[8px] text-rose-500 font-bold uppercase">
-                    Blocked
+                {tx.status === "declined" && (
+                  <p className="text-[8px] text-rose-500 font-bold uppercase tracking-tighter">
+                    AI Blocked
+                  </p>
+                )}
+                {tx.status === "approved" && tx.type === "halal" && (
+                  <p className="text-[8px] text-emerald-500 font-bold uppercase tracking-tighter">
+                    Verified Halal
                   </p>
                 )}
               </div>
@@ -215,157 +294,99 @@ const App = () => {
     </div>
   );
 
-  const renderCard = () => (
-    <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
-      <h2 className="text-2xl font-bold">Your Card</h2>
-      <div
-        className={`aspect-[1.58/1] rounded-[2.5rem] p-8 text-white shadow-2xl relative overflow-hidden transition-all duration-500 ${
-          isFrozen
-            ? "grayscale bg-slate-800"
-            : "bg-gradient-to-br from-emerald-900 via-[#064e3b] to-slate-900"
-        }`}
-      >
-        <div className="relative z-10 h-full flex flex-col justify-between">
-          <div className="flex justify-between items-start">
-            <span className="font-black text-xl italic tracking-tighter">
-              noor.
-            </span>
-            <Lock size={20} className="text-emerald-400" />
-          </div>
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <p className="text-xl font-mono tracking-[0.15em]">
-                {showCardDetails
-                  ? "4532 8812 0094 1120"
-                  : "•••• •••• •••• 1120"}
-              </p>
-              <button
-                onClick={() => setShowCardDetails(!showCardDetails)}
-                className="p-2 bg-white/10 rounded-full"
-              >
-                <Eye size={16} />
-              </button>
-            </div>
-            <div className="flex gap-6 text-[10px] font-mono opacity-70">
-              <span>EXP: 09/28</span>
-              <span>CVV: {showCardDetails ? "442" : "•••"}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+  const renderMurabaha = () => {
+    const profitRate = 0.08;
+    const financedAmount = carPrice - downPayment;
+    const totalProfit = financedAmount * profitRate * (term / 12);
+    const totalContract = financedAmount + totalProfit;
+    const monthlyPayment = totalContract / term;
 
-      <div className="bg-white rounded-[2.5rem] p-2 border border-slate-100 shadow-sm">
-        <div className="flex items-center justify-between p-5 border-b border-slate-50">
-          <div className="flex items-center gap-3">
-            <div className="p-3 bg-amber-50 text-amber-600 rounded-2xl">
-              <Zap size={20} />
-            </div>
-            <div>
-              <p className="font-bold text-sm">Halal Filter AI</p>
-              <p className="text-[10px] text-slate-400">
-                Auto-block non-compliant merchants
-              </p>
-            </div>
-          </div>
+    return (
+      <div className="space-y-6 pb-24 animate-in slide-in-from-right-4">
+        <div className="flex items-center gap-4">
           <button
-            onClick={() => setHalalFilterActive(!halalFilterActive)}
-            className={`w-12 h-6 rounded-full p-1 transition-colors ${
-              halalFilterActive ? "bg-emerald-500" : "bg-slate-200"
-            }`}
+            onClick={() => setFinancingSubPage("main")}
+            className="p-2 bg-white rounded-xl shadow-sm"
           >
-            <div
-              className={`w-4 h-4 bg-white rounded-full transition-transform ${
-                halalFilterActive ? "translate-x-6" : ""
-              }`}
-            />
+            <ChevronLeft size={20} />
           </button>
+          <h2 className="text-xl font-bold">Auto Murabaha</h2>
         </div>
-        <div className="flex items-center justify-between p-5">
-          <div className="flex items-center gap-3">
-            <div className="p-3 bg-blue-50 text-blue-600 rounded-2xl">
-              <Lock size={20} />
-            </div>
-            <div>
-              <p className="font-bold text-sm">Freeze Card</p>
-              <p className="text-[10px] text-slate-400">
-                Instantly disable all transactions
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={() => setIsFrozen(!isFrozen)}
-            className={`w-12 h-6 rounded-full p-1 transition-colors ${
-              isFrozen ? "bg-blue-500" : "bg-slate-200"
-            }`}
-          >
-            <div
-              className={`w-4 h-4 bg-white rounded-full transition-transform ${
-                isFrozen ? "translate-x-6" : ""
-              }`}
-            />
-          </button>
-        </div>
-      </div>
-    </div>
-  );
 
-  const renderZakat = () => (
-    <div className="space-y-6 pb-24 animate-in slide-in-from-right-4">
-      <div className="flex items-center gap-4">
-        <button
-          onClick={() => setFinancingSubPage("main")}
-          className="p-2 bg-white rounded-xl shadow-sm"
-        >
-          <ChevronLeft size={20} />
-        </button>
-        <h2 className="text-xl font-bold">Zakat Calculator</h2>
-      </div>
-      <div className="bg-indigo-600 rounded-[2.5rem] p-8 text-white shadow-xl">
-        <p className="text-indigo-200 text-xs font-bold uppercase tracking-widest">
-          Estimated Zakat
-        </p>
-        <h3 className="text-5xl font-black mt-2">${zakatDue.toFixed(2)}</h3>
-      </div>
-      <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 space-y-4">
-        <div className="flex justify-between items-center text-sm font-bold text-slate-600">
-          <span className="flex items-center gap-2">
-            <Wallet size={16} /> Balance
-          </span>
-          <span>${balance.toLocaleString()}</span>
-        </div>
-        <div className="space-y-2">
-          <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">
-            Outside Assets
-          </label>
-          <div className="relative">
-            <Coins
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"
-              size={18}
-            />
-            <input
-              type="number"
-              value={otherAssets}
-              onChange={(e) => setOtherAssets(Number(e.target.value))}
-              className="w-full bg-slate-50 border-none rounded-2xl p-4 pl-12 font-bold focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
-        </div>
-        <div className="p-4 bg-indigo-50 rounded-2xl flex gap-3">
-          <Info className="text-indigo-500 shrink-0" size={18} />
-          <p className="text-[10px] text-indigo-700 font-medium">
-            Nisab is currently $6,800. Your zakatable total is $
-            {(balance + otherAssets).toLocaleString()}.
+        <div className="bg-amber-600 rounded-[2.5rem] p-8 text-white shadow-xl relative overflow-hidden">
+          <p className="text-amber-200 text-xs font-bold uppercase tracking-widest">
+            Fixed Monthly Cost
           </p>
+          <h3 className="text-5xl font-black mt-2 tracking-tighter">
+            ${monthlyPayment.toFixed(2)}
+          </h3>
+          <div className="mt-4 flex gap-4 text-[10px] uppercase font-bold text-amber-100/60">
+            <span>0% Interest</span>
+            <span>•</span>
+            <span>Fixed Profit Margin</span>
+          </div>
         </div>
+
+        <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 space-y-6">
+          <div className="space-y-3">
+            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">
+              Vehicle Price: ${carPrice.toLocaleString()}
+            </label>
+            <input
+              type="range"
+              min="10000"
+              max="100000"
+              step="1000"
+              value={carPrice}
+              onChange={(e) => setCarPrice(parseInt(e.target.value))}
+              className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-amber-600"
+            />
+          </div>
+
+          <div className="space-y-3">
+            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">
+              Down Payment: ${downPayment.toLocaleString()}
+            </label>
+            <input
+              type="range"
+              min="0"
+              max={carPrice * 0.5}
+              step="500"
+              value={downPayment}
+              onChange={(e) => setDownPayment(parseInt(e.target.value))}
+              className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-amber-600"
+            />
+          </div>
+
+          <div className="pt-4 border-t border-slate-50 space-y-3">
+            <div className="flex justify-between text-xs font-bold">
+              <span className="text-slate-400 uppercase">
+                Total Ownership Cost
+              </span>
+              <span className="text-slate-900">
+                ${totalContract.toLocaleString()}
+              </span>
+            </div>
+            <div className="p-4 bg-amber-50 rounded-2xl flex gap-3">
+              <AlertTriangle className="text-amber-600 shrink-0" size={18} />
+              <p className="text-[10px] text-amber-800 font-medium">
+                In a Murabaha contract, Noor buys the car and resells it to you
+                at a fixed, transparent profit. No hidden interest or penalties.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <button className="w-full bg-amber-600 text-white p-5 rounded-[1.5rem] font-bold shadow-lg shadow-amber-200 active:scale-95 transition-transform">
+          Apply for Financing
+        </button>
       </div>
-      <button className="w-full bg-indigo-600 text-white p-5 rounded-[1.5rem] font-bold shadow-lg shadow-indigo-200 active:scale-95 transition-transform">
-        Pay Zakat Now
-      </button>
-    </div>
-  );
+    );
+  };
 
   const renderEquity = () => {
     if (financingSubPage === "zakat") return renderZakat();
+    if (financingSubPage === "murabaha") return renderMurabaha();
     return (
       <div className="space-y-8 pb-24 animate-in slide-in-from-bottom-4">
         <div className="bg-white p-8 rounded-[3rem] shadow-xl border border-slate-100 text-center">
@@ -394,61 +415,35 @@ const App = () => {
               />
             </svg>
             <div className="absolute flex flex-col">
-              <span className="text-4xl font-black text-slate-900">
+              <span className="text-4xl font-black text-slate-900 tracking-tighter">
                 {userEquity}%
               </span>
-              <span className="text-[8px] font-bold text-slate-400 uppercase">
-                Your Equity
+              <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">
+                Equity
               </span>
-            </div>
-          </div>
-          <div className="flex justify-between border-t border-slate-50 pt-6">
-            <div>
-              <p className="text-[10px] text-slate-400 font-bold uppercase">
-                Rent Paid
-              </p>
-              <p className="font-bold text-emerald-600">$1,100</p>
-            </div>
-            <div>
-              <p className="text-[10px] text-slate-400 font-bold uppercase">
-                Home Value
-              </p>
-              <p className="font-bold text-slate-900">$450k</p>
             </div>
           </div>
         </div>
 
-        <button
-          onClick={() => setUserEquity((prev) => Math.min(prev + 1, 100))}
-          className="w-full bg-[#064e3b] text-white p-6 rounded-[2rem] flex justify-between items-center group shadow-xl"
-        >
-          <div className="text-left">
-            <p className="font-bold text-lg">Increase Equity</p>
-            <p className="text-emerald-300/60 text-xs">
-              Purchase 1% for $4,500
-            </p>
-          </div>
-          <div className="bg-white/10 p-3 rounded-2xl group-active:scale-90">
-            <ArrowUpRight />
-          </div>
-        </button>
-
         <div className="grid grid-cols-2 gap-4">
           <div
             onClick={() => setFinancingSubPage("zakat")}
-            className="p-6 bg-indigo-50 rounded-[2.5rem] border border-indigo-100 cursor-pointer"
+            className="p-6 bg-indigo-50 rounded-[2.5rem] border border-indigo-100 cursor-pointer active:scale-95 transition-transform"
           >
             <Fingerprint className="text-indigo-600 mb-4" size={28} />
             <p className="font-bold text-indigo-900">Zakat</p>
             <p className="text-[10px] text-indigo-400 font-bold uppercase mt-1">
-              Pay Alms
+              Alms
             </p>
           </div>
-          <div className="p-6 bg-amber-50 rounded-[2.5rem] border border-amber-100">
+          <div
+            onClick={() => setFinancingSubPage("murabaha")}
+            className="p-6 bg-amber-50 rounded-[2.5rem] border border-amber-100 cursor-pointer active:scale-95 transition-transform"
+          >
             <Car className="text-amber-600 mb-4" size={28} />
             <p className="font-bold text-amber-900">Murabaha</p>
             <p className="text-[10px] text-amber-400 font-bold uppercase mt-1">
-              Auto Finance
+              Auto
             </p>
           </div>
         </div>
@@ -456,46 +451,176 @@ const App = () => {
     );
   };
 
-  const renderPurity = () => (
-    <div className="space-y-6 pb-24 animate-in zoom-in-95 duration-300">
-      <div className="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 text-center">
-        <div className="w-20 h-20 bg-blue-50 text-blue-500 rounded-[2rem] flex items-center justify-center mx-auto mb-6">
-          <Droplets size={40} />
+  const renderZakat = () => {
+    const zakatDue = (balance + otherAssets) * 0.025;
+    return (
+      <div className="space-y-6 pb-24 animate-in slide-in-from-right-4">
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setFinancingSubPage("main")}
+            className="p-2 bg-white rounded-xl shadow-sm"
+          >
+            <ChevronLeft size={20} />
+          </button>
+          <h2 className="text-xl font-bold">Zakat Calculator</h2>
         </div>
-        <h2 className="text-2xl font-bold">Wealth Purification</h2>
-        <p className="text-slate-400 text-sm mt-2 leading-relaxed">
-          We automatically identify accidental non-halal earnings for you to
-          cleanse.
-        </p>
-      </div>
-      <div className="bg-[#0f172a] p-8 rounded-[3rem] text-white relative overflow-hidden">
-        <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-4">
-          Pending Purification
-        </p>
-        <h3 className="text-5xl font-black mb-10 tracking-tighter">
-          ${purificationPending.toFixed(2)}
-        </h3>
-        <button
-          onClick={() => {
-            setPurificationPending(0);
-            triggerNotification("Wealth Purified", "Funds sent to charity.");
-          }}
-          className="w-full bg-emerald-500 text-[#0f172a] p-5 rounded-[1.5rem] font-black text-lg shadow-lg active:scale-95 transition-transform"
-        >
-          Distribute to Charity
+        <div className="bg-indigo-600 rounded-[2.5rem] p-8 text-white shadow-xl">
+          <p className="text-indigo-200 text-xs font-bold uppercase tracking-widest">
+            Estimated Zakat
+          </p>
+          <h3 className="text-5xl font-black mt-2 tracking-tighter">
+            ${zakatDue.toFixed(2)}
+          </h3>
+        </div>
+        <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 space-y-4">
+          <div className="flex justify-between items-center text-sm font-bold text-slate-600">
+            <span className="flex items-center gap-2">
+              <Wallet size={16} /> Balance
+            </span>
+            <span>${balance.toLocaleString()}</span>
+          </div>
+          <div className="space-y-2">
+            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">
+              Outside Assets
+            </label>
+            <div className="relative">
+              <Coins
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"
+                size={18}
+              />
+              <input
+                type="number"
+                value={otherAssets}
+                onChange={(e) => setOtherAssets(Number(e.target.value))}
+                className="w-full bg-slate-50 border-none rounded-2xl p-4 pl-12 font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+              />
+            </div>
+          </div>
+        </div>
+        <button className="w-full bg-indigo-600 text-white p-5 rounded-[1.5rem] font-bold shadow-lg shadow-indigo-200 active:scale-95 transition-transform">
+          Pay Zakat Now
         </button>
+      </div>
+    );
+  };
+
+  const renderCard = () => (
+    <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
+      <h2 className="text-2xl font-bold">Your Card</h2>
+      <div
+        className={`aspect-[1.58/1] rounded-[2.5rem] p-8 text-white shadow-2xl relative overflow-hidden transition-all duration-500 ${
+          isFrozen
+            ? "grayscale bg-slate-800"
+            : "bg-gradient-to-br from-emerald-900 via-[#064e3b] to-slate-900"
+        }`}
+      >
+        <div className="relative z-10 h-full flex flex-col justify-between">
+          <div className="flex justify-between items-start">
+            <span className="font-black text-xl italic tracking-tighter">
+              noor.
+            </span>
+            <Lock size={20} className="text-emerald-400" />
+          </div>
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <p className="text-xl font-mono tracking-[0.15em]">
+                {showCardDetails
+                  ? "4532 8812 0094 1120"
+                  : "•••• •••• •••• 1120"}
+              </p>
+              <button
+                onClick={() => setShowCardDetails(!showCardDetails)}
+                className="p-2 bg-white/10 rounded-full active:scale-90 transition-transform"
+              >
+                <Eye size={16} />
+              </button>
+            </div>
+            <div className="flex gap-6 text-[10px] font-mono opacity-70">
+              <span>EXP: 09/28</span>
+              <span>CVV: {showCardDetails ? "442" : "•••"}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-[2.5rem] p-2 border border-slate-100 shadow-sm">
+        <div className="flex items-center justify-between p-5 border-b border-slate-50">
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-amber-50 text-amber-600 rounded-2xl">
+              <Zap size={20} />
+            </div>
+            <div>
+              <p className="font-bold text-sm">Halal Filter AI</p>
+              <p className="text-[10px] text-slate-400">
+                Block non-compliant merchants
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => setHalalFilterActive(!halalFilterActive)}
+            className={`w-12 h-6 rounded-full p-1 transition-colors ${
+              halalFilterActive ? "bg-emerald-500" : "bg-slate-200"
+            }`}
+          >
+            <div
+              className={`w-4 h-4 bg-white rounded-full transition-transform ${
+                halalFilterActive ? "translate-x-6" : ""
+              }`}
+            />
+          </button>
+        </div>
+        <div className="flex items-center justify-between p-5">
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-blue-50 text-blue-600 rounded-2xl">
+              <Lock size={20} />
+            </div>
+            <div>
+              <p className="font-bold text-sm">Freeze Card</p>
+              <p className="text-[10px] text-slate-400">
+                Instantly stop transactions
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => setIsFrozen(!isFrozen)}
+            className={`w-12 h-6 rounded-full p-1 transition-colors ${
+              isFrozen ? "bg-blue-500" : "bg-slate-200"
+            }`}
+          >
+            <div
+              className={`w-4 h-4 bg-white rounded-full transition-transform ${
+                isFrozen ? "translate-x-6" : ""
+              }`}
+            />
+          </button>
+        </div>
       </div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex flex-col px-6 pt-[env(safe-area-inset-top,24px)]">
+    <div className="min-h-screen bg-[#f8fafc] flex flex-col px-6 pt-[env(safe-area-inset-top,24px)] select-none">
       {notification && (
-        <div className="fixed top-12 left-6 right-6 z-[100] bg-white shadow-2xl rounded-[1.5rem] p-4 border-l-4 border-emerald-500 animate-in slide-in-from-top-10">
-          <p className="font-bold text-sm text-slate-900">
-            {notification.title}
-          </p>
-          <p className="text-xs text-slate-500 mt-1">{notification.message}</p>
+        <div
+          className={`fixed top-12 left-6 right-6 z-[100] bg-white shadow-2xl rounded-[1.5rem] p-4 border-l-4 ${
+            notification.type === "error"
+              ? "border-rose-500"
+              : "border-emerald-500"
+          } animate-in slide-in-from-top-10 flex items-center gap-3`}
+        >
+          {notification.type === "error" ? (
+            <ShieldX className="text-rose-500 shrink-0" size={20} />
+          ) : (
+            <CheckCircle2 className="text-emerald-500 shrink-0" size={20} />
+          )}
+          <div>
+            <p className="font-bold text-sm text-slate-900 leading-none">
+              {notification.title}
+            </p>
+            <p className="text-[11px] text-slate-500 mt-1">
+              {notification.message}
+            </p>
+          </div>
         </div>
       )}
 
@@ -525,7 +650,39 @@ const App = () => {
       <main className="flex-1 overflow-y-auto no-scrollbar">
         {activeTab === "dashboard" && renderDashboard()}
         {activeTab === "financing" && renderEquity()}
-        {activeTab === "purify" && renderPurity()}
+        {activeTab === "purify" && (
+          <div className="space-y-6 pb-24 animate-in zoom-in-95 duration-300">
+            <div className="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 text-center">
+              <div className="w-20 h-20 bg-blue-50 text-blue-500 rounded-[2rem] flex items-center justify-center mx-auto mb-6">
+                <Droplets size={40} />
+              </div>
+              <h2 className="text-2xl font-bold">Wealth Purity</h2>
+              <p className="text-slate-400 text-sm mt-2 leading-relaxed">
+                Auto-identify non-halal accidental earnings for cleansing.
+              </p>
+            </div>
+            <div className="bg-[#0f172a] p-8 rounded-[3rem] text-white relative overflow-hidden">
+              <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-4">
+                Pending Purification
+              </p>
+              <h3 className="text-5xl font-black mb-10 tracking-tighter">
+                ${purificationPending.toFixed(2)}
+              </h3>
+              <button
+                onClick={() => {
+                  setPurificationPending(0);
+                  triggerNotification(
+                    "Wealth Purified",
+                    "Funds sent to charity.",
+                  );
+                }}
+                className="w-full bg-emerald-500 text-[#0f172a] p-5 rounded-[1.5rem] font-black text-lg shadow-lg active:scale-95 transition-transform"
+              >
+                Distribute to Charity
+              </button>
+            </div>
+          </div>
+        )}
         {activeTab === "settings" && renderCard()}
       </main>
 
@@ -565,15 +722,19 @@ const App = () => {
 const NavButton = ({ active, onClick, icon, label }) => (
   <button
     onClick={onClick}
-    className={`flex flex-col items-center gap-1.5 transition-all ${
+    className={`flex flex-col items-center gap-1.5 transition-all duration-300 ${
       active ? "text-emerald-700 scale-110" : "text-slate-300"
     }`}
   >
-    <div className={`p-1 rounded-xl ${active ? "bg-emerald-50" : ""}`}>
+    <div
+      className={`p-1 rounded-xl transition-colors ${
+        active ? "bg-emerald-50" : "bg-transparent"
+      }`}
+    >
       {React.cloneElement(icon, { size: 24, strokeWidth: active ? 2.5 : 2 })}
     </div>
     <span
-      className={`text-[9px] font-black uppercase tracking-widest ${
+      className={`text-[9px] font-black uppercase tracking-widest transition-opacity ${
         active ? "opacity-100" : "opacity-0"
       }`}
     >
