@@ -24,7 +24,7 @@ import {
 const App = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [financingSubPage, setFinancingSubPage] = useState("main");
-  const [balance, setBalance] = useState(12450.75);
+  const [balance] = useState(12450.75);
   const [purificationPending, setPurificationPending] = useState(12.45);
   const [isSyncing, setIsSyncing] = useState(false);
   const [notification, setNotification] = useState(null);
