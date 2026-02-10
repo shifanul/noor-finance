@@ -22,11 +22,11 @@ import {
   EyeOff,
   ScanFace,
 } from "lucide-react";
-import USER_AVATAR_URL from "./IMG_3519.png";
+import avatarUrl from "./IMG_3519.png";
 
 const App = () => {
   // Navigation & Auth State
-  const [appState, setAppState] = useState("splash");
+  const [appState, setAppState] = useState("splash"); // 'splash', 'login', 'authenticated'
   const [loadProgress, setLoadProgress] = useState(0);
   const [pin, setPin] = useState("");
   const [loginError, setLoginError] = useState(false);
@@ -47,33 +47,6 @@ const App = () => {
   const [carPrice, setCarPrice] = useState(35000);
   const [downPayment, setDownPayment] = useState(5000);
   const term = 60;
-
-  // --- REPLACE THE URL BELOW WITH YOUR PNG LINK ---
-  // Example: "https://your-site.com/my-avatar.png"
-  // or a Base64 string: "data:image/png;base64,iVBOR..."
-  // Updated Avatar Component to support PNGs and fallbacks
-  const AvatarIcon = ({ size = "w-20 h-20" }) => {
-    const [imgError, setImgError] = useState(false);
-
-    return (
-      <div
-        className={`${size} rounded-full overflow-hidden border-2 border-white/20 bg-emerald-800/40 relative flex items-center justify-center`}
-      >
-        {USER_AVATAR_URL && !imgError ? (
-          <img
-            src={USER_AVATAR_URL}
-            alt="User Profile"
-            className="w-full h-full object-cover"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center bg-emerald-900">
-            <ScanFace className="text-emerald-500/50" size={24} />
-          </div>
-        )}
-      </div>
-    );
-  };
 
   const [transactions, setTransactions] = useState([
     {
@@ -209,6 +182,8 @@ const App = () => {
     }
   };
 
+  // --- RENDERING COMPONENTS ---
+
   const renderLogin = () => (
     <div className="fixed inset-0 bg-[#064e3b] z-[150] flex flex-col items-center px-8 pt-20 animate-in fade-in zoom-in-95 duration-500">
       <div className="text-center mb-12">
@@ -229,10 +204,16 @@ const App = () => {
           {isFaceScanning ? (
             <ScanFace className="text-emerald-400 animate-pulse" size={40} />
           ) : (
-            <AvatarIcon />
+            <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-white/20 bg-emerald-800/40">
+              <img
+                src={avatarUrl}
+                alt="Shifanul Avatar"
+                className="w-full h-full object-cover"
+              />
+            </div>
           )}
         </div>
-        <h2 className="text-white font-bold text-lg">Welcome back</h2>
+        <h2 className="text-white font-bold text-lg">Welcome back, Shifanul</h2>
         <p className="text-emerald-300/40 text-xs mt-1">
           Enter PIN (1234) or use Face ID
         </p>
@@ -280,6 +261,10 @@ const App = () => {
           <ChevronLeft size={24} />
         </button>
       </div>
+
+      <button className="mt-12 text-emerald-300/40 text-[10px] font-bold uppercase tracking-widest hover:text-white transition-colors">
+        Forgot PIN?
+      </button>
     </div>
   );
 
@@ -288,14 +273,14 @@ const App = () => {
       <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
         <button
           onClick={simulateSync}
-          className="whitespace-nowrap bg-amber-600 text-white text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow transition-all"
+          className="whitespace-nowrap bg-amber-600 text-white text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
         >
           <RefreshCcw size={12} className={isSyncing ? "animate-spin" : ""} />{" "}
           Sync
         </button>
         <button
           onClick={addRandomTransaction}
-          className="whitespace-nowrap bg-[#064e3b] text-white text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow transition-all"
+          className="whitespace-nowrap bg-[#064e3b] text-white text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
         >
           <Zap size={12} /> Simulate
         </button>
@@ -423,54 +408,92 @@ const App = () => {
 
   const renderCard = () => (
     <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
-      <h2 className="text-xl font-bold text-slate-900 px-1">Your Card</h2>
+      <div className="flex justify-between items-center px-1">
+        <h2 className="text-xl font-bold text-slate-900">Your Card</h2>
+      </div>
+
       <div
-        className={`w-full aspect-[1.58/1] rounded-[1.5rem] p-6 text-white shadow-2xl relative flex flex-col justify-between transition-all duration-500 overflow-hidden ${
+        className={`w-full max-w-[340px] mx-auto aspect-[1.58/1] rounded-[1.5rem] p-6 text-white shadow-2xl relative flex flex-col justify-between transition-all duration-500 overflow-hidden ${
           isFrozen
             ? "grayscale bg-slate-800"
             : "bg-gradient-to-br from-[#064e3b] via-[#043d2e] to-[#022c22]"
         }`}
       >
-        <div className="flex justify-between items-start">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-400/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-amber-400/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
+
+        <div className="flex justify-between items-start relative z-10">
           <span className="font-black text-2xl italic tracking-tighter">
             noor.
           </span>
-          <div className="w-10 h-7 bg-amber-500/80 rounded flex flex-col justify-around p-1 shadow-inner">
+          <div className="w-10 h-7 bg-gradient-to-br from-amber-200 to-amber-500/80 rounded flex flex-col justify-around p-1 shadow-inner">
             <div className="w-full h-[1px] bg-black/10"></div>
             <div className="w-full h-[1px] bg-black/10"></div>
           </div>
         </div>
-        <div className="flex items-center gap-3">
-          <p className="text-lg font-mono tracking-[0.15em]">
-            {showCardDetails ? "4532 8812 0094 1120" : "•••• •••• •••• 1120"}
-          </p>
-          <button
-            onClick={() => setShowCardDetails(!showCardDetails)}
-            className="p-1 bg-white/10 rounded-full"
-          >
-            {showCardDetails ? <EyeOff size={14} /> : <Eye size={14} />}
-          </button>
+
+        <div className="relative z-10 flex flex-col gap-4">
+          <div className="flex items-center gap-3">
+            <p className="text-lg font-mono tracking-[0.15em] font-medium text-white/90">
+              {showCardDetails ? "4532 8812 0094 1120" : "•••• •••• •••• 1120"}
+            </p>
+            <button
+              onClick={() => setShowCardDetails(!showCardDetails)}
+              className="p-1.5 bg-white/10 hover:bg-white/20 rounded-full transition-colors active:scale-90"
+            >
+              {showCardDetails ? (
+                <EyeOff size={14} className="text-white/70" />
+              ) : (
+                <Eye size={14} className="text-white/70" />
+              )}
+            </button>
+          </div>
+
+          <div className="flex gap-8 items-center">
+            <div className="flex flex-col">
+              <span className="text-[7px] font-bold uppercase tracking-[0.2em] text-emerald-400/70 mb-0.5">
+                Expiry
+              </span>
+              <span className="text-sm font-mono font-medium tracking-widest">
+                {showCardDetails ? "09/28" : "••/••"}
+              </span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[7px] font-bold uppercase tracking-[0.2em] text-emerald-400/70 mb-0.5">
+                CVV
+              </span>
+              <span className="text-sm font-mono font-medium tracking-widest">
+                {showCardDetails ? "442" : "•••"}
+              </span>
+            </div>
+          </div>
         </div>
-        <div className="flex justify-between items-end">
+
+        <div className="flex justify-between items-end relative z-10">
           <div className="flex flex-col">
-            <p className="text-[10px] font-bold uppercase tracking-widest">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-white/90">
               Visa Platinum
             </p>
           </div>
           <div className="flex -space-x-2">
-            <div className="w-7 h-7 rounded-full bg-rose-600/90 border border-white/5"></div>
-            <div className="w-7 h-7 rounded-full bg-amber-500/90 border border-white/5"></div>
+            <div className="w-7 h-7 rounded-full bg-rose-600/90 shadow-sm border border-white/5"></div>
+            <div className="w-7 h-7 rounded-full bg-amber-500/90 shadow-sm border border-white/5"></div>
           </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-[1.5rem] border border-slate-100 shadow-sm">
-        <div className="flex items-center justify-between p-4 border-b">
+      <div className="bg-white rounded-[1.5rem] p-1 border border-slate-100 shadow-sm mt-4">
+        <div className="flex items-center justify-between p-4 border-b border-slate-50">
           <div className="flex items-center gap-3">
             <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
               <Zap size={20} />
             </div>
-            <p className="font-bold text-sm">Halal Filter AI</p>
+            <div>
+              <p className="font-bold text-sm">Halal Filter AI</p>
+              <p className="text-[10px] text-slate-400">
+                Strict Shariah Compliance
+              </p>
+            </div>
           </div>
           <button
             onClick={() => setHalalFilterActive(!halalFilterActive)}
@@ -479,7 +502,7 @@ const App = () => {
             }`}
           >
             <div
-              className={`w-4 h-4 bg-white rounded-full transition-transform ${
+              className={`w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${
                 halalFilterActive ? "translate-x-6" : ""
               }`}
             />
@@ -490,7 +513,12 @@ const App = () => {
             <div className="p-2.5 bg-blue-50 text-blue-600 rounded-xl">
               <Lock size={20} />
             </div>
-            <p className="font-bold text-sm">Freeze Card</p>
+            <div>
+              <p className="font-bold text-sm">Freeze Card</p>
+              <p className="text-[10px] text-slate-400">
+                Instant security lock
+              </p>
+            </div>
           </div>
           <button
             onClick={() => setIsFrozen(!isFrozen)}
@@ -499,7 +527,7 @@ const App = () => {
             }`}
           >
             <div
-              className={`w-4 h-4 bg-white rounded-full transition-transform ${
+              className={`w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${
                 isFrozen ? "translate-x-6" : ""
               }`}
             />
@@ -515,7 +543,7 @@ const App = () => {
     return (
       <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
         <div className="bg-white p-6 rounded-[2rem] shadow-lg border border-slate-50 text-center">
-          <h2 className="text-xl font-bold mb-1">Home Equity</h2>
+          <h2 className="text-xl font-bold mb-1 text-slate-900">Home Equity</h2>
           <div className="relative w-40 h-40 mx-auto my-6 flex items-center justify-center">
             <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
               <circle
@@ -540,7 +568,7 @@ const App = () => {
               />
             </svg>
             <div className="absolute flex flex-col">
-              <span className="text-3xl font-black text-slate-900">
+              <span className="text-3xl font-black text-slate-900 tracking-tighter">
                 {userEquity}%
               </span>
               <span className="text-[7px] font-bold text-slate-400 uppercase tracking-widest text-center">
@@ -549,102 +577,207 @@ const App = () => {
             </div>
           </div>
         </div>
+
         <div className="grid grid-cols-2 gap-3">
           <div
             onClick={() => setFinancingSubPage("zakat")}
-            className="p-5 bg-indigo-50 rounded-[1.5rem] border border-indigo-100 cursor-pointer"
+            className="p-5 bg-indigo-50 rounded-[1.5rem] border border-indigo-100 cursor-pointer active:scale-95 transition-transform"
           >
             <Fingerprint className="text-indigo-600 mb-3" size={24} />
-            <p className="font-bold text-xs">Zakat</p>
+            <p className="font-bold text-xs text-indigo-900">Zakat</p>
+            <p className="text-[8px] text-indigo-400 font-bold uppercase mt-0.5">
+              Calculator
+            </p>
           </div>
           <div
             onClick={() => setFinancingSubPage("murabaha")}
-            className="p-5 bg-amber-50 rounded-[1.5rem] border border-amber-100 cursor-pointer"
+            className="p-5 bg-amber-50 rounded-[1.5rem] border border-amber-100 cursor-pointer active:scale-95 transition-transform"
           >
             <Car className="text-amber-600 mb-3" size={24} />
-            <p className="font-bold text-xs">Murabaha</p>
+            <p className="font-bold text-xs text-amber-900">Murabaha</p>
+            <p className="text-[8px] text-amber-400 font-bold uppercase mt-0.5">
+              Auto
+            </p>
           </div>
         </div>
       </div>
     );
   };
 
-  const renderZakat = () => (
-    <div className="space-y-4 pb-24 animate-in slide-in-from-right-4">
-      <div className="flex items-center gap-3">
-        <button
-          onClick={() => setFinancingSubPage("main")}
-          className="p-2 bg-white rounded-lg"
-        >
-          <ChevronLeft size={18} />
+  const renderZakat = () => {
+    const zakatDue = (balance + otherAssets) * 0.025;
+    return (
+      <div className="space-y-4 pb-24 animate-in slide-in-from-right-4">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setFinancingSubPage("main")}
+            className="p-2 bg-white rounded-lg shadow-sm"
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <h2 className="text-lg font-bold">Zakat</h2>
+        </div>
+        <div className="bg-indigo-600 rounded-3xl p-6 text-white shadow-lg">
+          <p className="text-indigo-200 text-[10px] font-bold uppercase tracking-widest">
+            Due This Year
+          </p>
+          <h3 className="text-4xl font-black mt-1 tracking-tighter">
+            ${zakatDue.toFixed(2)}
+          </h3>
+        </div>
+        <div className="bg-white p-5 rounded-2xl border border-slate-100 space-y-3">
+          <div className="flex justify-between items-center text-xs font-bold text-slate-600">
+            <span className="flex items-center gap-2">
+              <Wallet size={14} /> App Balance
+            </span>
+            <span>${balance.toLocaleString()}</span>
+          </div>
+          <div className="space-y-1.5">
+            <label className="text-[9px] font-bold text-slate-400 uppercase tracking-widest px-1">
+              Other Assets
+            </label>
+            <div className="relative">
+              <Coins
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300"
+                size={16}
+              />
+              <input
+                type="number"
+                value={otherAssets}
+                onChange={(e) => setOtherAssets(Number(e.target.value))}
+                className="w-full bg-slate-50 border-none rounded-xl p-3 pl-10 text-sm font-bold focus:ring-1 focus:ring-indigo-500 outline-none"
+              />
+            </div>
+          </div>
+        </div>
+        <button className="w-full bg-indigo-600 text-white p-4 rounded-xl font-bold shadow-lg active:scale-95 transition-transform">
+          Pay Zakat
         </button>
-        <h2 className="text-lg font-bold">Zakat</h2>
       </div>
-      <div className="bg-indigo-600 rounded-3xl p-6 text-white shadow-lg">
-        <p className="text-indigo-200 text-[10px] font-bold uppercase tracking-widest">
-          Due This Year
-        </p>
-        <h3 className="text-4xl font-black mt-1 tracking-tighter">
-          ${((balance + otherAssets) * 0.025).toFixed(2)}
-        </h3>
-      </div>
-      <button className="w-full bg-indigo-600 text-white p-4 rounded-xl font-bold shadow-lg">
-        Pay Zakat
-      </button>
-    </div>
-  );
+    );
+  };
 
-  const renderMurabaha = () => (
-    <div className="space-y-4 pb-24 animate-in slide-in-from-right-4">
-      <div className="flex items-center gap-3">
-        <button
-          onClick={() => setFinancingSubPage("main")}
-          className="p-2 bg-white rounded-lg"
-        >
-          <ChevronLeft size={18} />
+  const renderMurabaha = () => {
+    const profitRate = 0.08;
+    const financedAmount = carPrice - downPayment;
+    const totalProfit = financedAmount * profitRate * (term / 12);
+    const totalContract = financedAmount + totalProfit;
+    const monthlyPayment = totalContract / term;
+
+    return (
+      <div className="space-y-4 pb-24 animate-in slide-in-from-right-4">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setFinancingSubPage("main")}
+            className="p-2 bg-white rounded-lg shadow-sm"
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <h2 className="text-lg font-bold">Auto Finance</h2>
+        </div>
+
+        <div className="bg-amber-600 rounded-3xl p-6 text-white shadow-lg">
+          <p className="text-amber-200 text-[10px] font-bold uppercase tracking-widest">
+            Monthly Payment
+          </p>
+          <h3 className="text-4xl font-black mt-1 tracking-tighter">
+            ${monthlyPayment.toFixed(2)}
+          </h3>
+        </div>
+
+        <div className="bg-white p-5 rounded-2xl border border-slate-100 space-y-5">
+          <div className="space-y-2">
+            <label className="text-[9px] font-bold text-slate-400 uppercase tracking-widest px-1">
+              Car Price: ${carPrice.toLocaleString()}
+            </label>
+            <input
+              type="range"
+              min="10000"
+              max="100000"
+              step="1000"
+              value={carPrice}
+              onChange={(e) => setCarPrice(parseInt(e.target.value))}
+              className="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-amber-600"
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-[9px] font-bold text-slate-400 uppercase tracking-widest px-1">
+              Down: ${downPayment.toLocaleString()}
+            </label>
+            <input
+              type="range"
+              min="0"
+              max={carPrice * 0.5}
+              step="500"
+              value={downPayment}
+              onChange={(e) => setDownPayment(parseInt(e.target.value))}
+              className="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-amber-600"
+            />
+          </div>
+        </div>
+        <button className="w-full bg-amber-600 text-white p-4 rounded-xl font-bold shadow-lg active:scale-95 transition-transform">
+          Get Quote
         </button>
-        <h2 className="text-lg font-bold">Murabaha Finance</h2>
       </div>
-      <div className="bg-amber-600 rounded-3xl p-6 text-white shadow-lg text-center">
-        <Car size={40} className="mx-auto mb-4 opacity-50" />
-        <p className="text-xs font-bold uppercase tracking-widest">
-          Calculated Payment
-        </p>
-        <h3 className="text-3xl font-black tracking-tighter">$482.50 / mo</h3>
-      </div>
-    </div>
-  );
+    );
+  };
 
+  // Splash Screen
   if (appState === "splash") {
     return (
       <div className="fixed inset-0 bg-[#064e3b] z-[200] flex flex-col items-center justify-center text-white p-6">
-        <h1 className="text-5xl font-black italic tracking-tighter mb-1 animate-pulse">
-          noor.
-        </h1>
-        <div className="w-48 h-[3px] bg-white/10 rounded-full overflow-hidden mt-8">
-          <div
-            className="h-full bg-amber-500"
-            style={{ width: `${loadProgress}%` }}
-          />
+        <div className="flex-1 flex flex-col items-center justify-center">
+          <h1 className="text-5xl font-black italic tracking-tighter mb-1 animate-pulse">
+            noor.
+          </h1>
+          <p className="text-emerald-400 font-bold tracking-[0.2em] uppercase text-[8px] opacity-80">
+            Financing The Right Way
+          </p>
+        </div>
+
+        <div className="w-full max-w-[200px] mb-20">
+          <div className="h-[3px] w-full bg-white/10 rounded-full overflow-hidden relative">
+            <div
+              className="h-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)] transition-all duration-100 ease-out"
+              style={{ width: `${loadProgress}%` }}
+            />
+          </div>
+          <div className="flex justify-between mt-3 px-1">
+            <span className="text-[7px] font-bold text-emerald-400 uppercase tracking-widest">
+              Encrypting
+            </span>
+            <span className="text-[7px] font-mono text-emerald-400">
+              {loadProgress}%
+            </span>
+          </div>
         </div>
       </div>
     );
   }
 
-  if (appState === "login") return renderLogin();
+  // Login Screen
+  if (appState === "login") {
+    return renderLogin();
+  }
 
+  // Main App (Authenticated)
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex flex-col px-5 pt-8 select-none font-sans overflow-hidden">
+    <div className="min-h-screen bg-[#f8fafc] flex flex-col px-5 pt-[env(safe-area-inset-top,20px)] select-none overflow-hidden font-sans">
       {notification && (
         <div className="fixed top-8 left-5 right-5 z-[100] bg-white shadow-2xl rounded-2xl p-3 border-l-4 border-emerald-500 animate-in slide-in-from-top-4 flex items-center gap-3">
-          <CheckCircle2 className="text-emerald-500" size={18} />
-          <p className="font-bold text-xs text-slate-900 truncate">
-            {notification.message}
-          </p>
+          <CheckCircle2 className="text-emerald-500 shrink-0" size={18} />
+          <div className="truncate">
+            <p className="font-bold text-xs text-slate-900 leading-tight truncate">
+              {notification.title}
+            </p>
+            <p className="text-[10px] text-slate-500 truncate">
+              {notification.message}
+            </p>
+          </div>
         </div>
       )}
 
-      <header className="flex justify-between items-center py-4">
+      <header className="flex justify-between items-center py-4 shrink-0">
         <div className="flex items-center gap-1.5">
           <div className="bg-[#064e3b] p-1.5 rounded-lg">
             <Lock size={12} className="text-white" />
@@ -653,7 +786,13 @@ const App = () => {
         </div>
         <div className="flex items-center gap-3">
           <Bell size={20} className="text-slate-400" />
-          <AvatarIcon size="w-9 h-9" />
+          <div className="w-8 h-8 rounded-full bg-slate-200 border border-emerald-900/10 overflow-hidden shadow-sm">
+            <img
+              src={avatarUrl}
+              alt="Shifanul"
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
       </header>
 
@@ -661,17 +800,19 @@ const App = () => {
         {activeTab === "dashboard" && renderDashboard()}
         {activeTab === "financing" && renderEquity()}
         {activeTab === "purify" && (
-          <div className="space-y-4 animate-in zoom-in-95">
-            <div className="bg-white p-8 rounded-[2rem] shadow border text-center">
-              <Droplets size={32} className="text-blue-500 mx-auto mb-4" />
+          <div className="space-y-4 animate-in zoom-in-95 duration-200">
+            <div className="bg-white p-8 rounded-[2rem] shadow border border-slate-50 text-center">
+              <div className="w-16 h-16 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Droplets size={32} />
+              </div>
               <h2 className="text-xl font-bold">Wealth Purity</h2>
-              <p className="text-slate-400 text-xs mt-1">
+              <p className="text-slate-400 text-xs mt-1 leading-relaxed">
                 Cleansing non-halal earnings.
               </p>
             </div>
             <div className="bg-[#0f172a] p-6 rounded-[2rem] text-white">
-              <p className="text-[8px] font-bold uppercase tracking-widest mb-2">
-                Pending
+              <p className="text-slate-400 text-[8px] font-bold uppercase tracking-widest mb-2">
+                To Be Purified
               </p>
               <h3 className="text-4xl font-black mb-6 tracking-tighter">
                 ${purificationPending.toFixed(2)}
@@ -679,9 +820,9 @@ const App = () => {
               <button
                 onClick={() => {
                   setPurificationPending(0);
-                  triggerNotification(null, "Donated successfully.");
+                  triggerNotification("Purified", "Donated to charity.");
                 }}
-                className="w-full bg-emerald-500 text-[#0f172a] p-4 rounded-xl font-black"
+                className="w-full bg-emerald-500 text-[#0f172a] p-4 rounded-xl font-black shadow-lg active:scale-95 transition-transform"
               >
                 Donate Now
               </button>
@@ -691,7 +832,7 @@ const App = () => {
         {activeTab === "settings" && renderCard()}
       </main>
 
-      <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t px-6 flex justify-between items-center h-[75px]">
+      <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-slate-50 px-6 flex justify-between items-center h-[75px] pb-safe">
         <NavButton
           active={activeTab === "dashboard"}
           onClick={() => setActiveTab("dashboard")}
@@ -727,14 +868,22 @@ const App = () => {
 const NavButton = ({ active, onClick, icon, label }) => (
   <button
     onClick={onClick}
-    className={`flex flex-col items-center justify-center gap-1 min-w-[50px] ${
+    className={`flex flex-col items-center justify-center gap-1 transition-all duration-200 min-w-[50px] ${
       active ? "text-emerald-700" : "text-slate-300"
     }`}
   >
-    <div className={`p-2 rounded-lg ${active ? "bg-emerald-50" : ""}`}>
-      {React.cloneElement(icon, { size: 20 })}
+    <div
+      className={`p-2 rounded-lg transition-all ${
+        active ? "bg-emerald-50" : "bg-transparent"
+      }`}
+    >
+      {React.cloneElement(icon, { size: 20, strokeWidth: active ? 2.5 : 2 })}
     </div>
-    <span className="text-[8px] font-bold uppercase tracking-tighter">
+    <span
+      className={`text-[8px] font-bold uppercase tracking-tighter ${
+        active ? "opacity-100" : "opacity-0 translate-y-1"
+      }`}
+    >
       {label}
     </span>
   </button>
