@@ -20,6 +20,7 @@ import {
   CheckCircle2,
   ShieldX,
   AlertTriangle,
+  EyeOff,
 } from "lucide-react";
 
 const App = () => {
@@ -84,7 +85,7 @@ const App = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsInitializing(false);
-    }, 2800);
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -270,16 +271,6 @@ const App = () => {
                 >
                   {tx.amount > 0 ? "+" : ""}${Math.abs(tx.amount).toFixed(2)}
                 </p>
-                {tx.status === "declined" && (
-                  <p className="text-[7px] text-rose-500 font-bold uppercase">
-                    Blocked
-                  </p>
-                )}
-                {tx.status === "approved" && tx.type === "halal" && (
-                  <p className="text-[7px] text-emerald-500 font-bold uppercase">
-                    Halal
-                  </p>
-                )}
               </div>
             </div>
           ))}
@@ -290,91 +281,101 @@ const App = () => {
 
   const renderCard = () => (
     <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
-      <h2 className="text-xl font-bold text-slate-900">Your Card</h2>
+      <div className="flex justify-between items-center px-1">
+        <h2 className="text-xl font-bold text-slate-900">Your Card</h2>
+        <button
+          onClick={() => setShowCardDetails(!showCardDetails)}
+          className="flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-full text-[10px] font-bold text-slate-600 active:scale-95 transition-all"
+        >
+          {showCardDetails ? <EyeOff size={14} /> : <Eye size={14} />}
+          {showCardDetails ? "Hide" : "Reveal"}
+        </button>
+      </div>
 
-      {/* Mobile Optimized Card with safe bottom padding */}
+      {/* RE-ENGINEERED MOBILE CARD */}
       <div
-        className={`w-full max-w-sm mx-auto aspect-[1.58/1] rounded-[1.25rem] px-5 py-6 text-white shadow-xl relative overflow-hidden transition-all duration-500 ${
+        className={`w-full max-w-[340px] mx-auto aspect-[1.58/1] rounded-[1.5rem] p-6 text-white shadow-2xl relative flex flex-col justify-between transition-all duration-500 ${
           isFrozen
             ? "grayscale bg-slate-800"
-            : "bg-gradient-to-br from-emerald-900 via-[#064e3b] to-slate-900"
+            : "bg-gradient-to-br from-emerald-950 via-[#064e3b] to-emerald-900"
         }`}
       >
-        <div className="absolute top-[-20%] right-[-10%] w-32 h-32 bg-emerald-400/10 rounded-full blur-3xl"></div>
+        {/* Design Elements */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-400/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
 
-        <div className="relative z-10 h-full flex flex-col justify-between">
-          <div className="flex justify-between items-start">
-            <span className="font-black text-lg italic tracking-tighter opacity-90">
-              noor.
-            </span>
-            <div className="w-8 h-6 bg-amber-400/20 rounded border border-amber-400/30"></div>
+        {/* Top Row: Branding */}
+        <div className="flex justify-between items-start relative z-10">
+          <span className="font-black text-2xl italic tracking-tighter opacity-100">
+            noor.
+          </span>
+          <div className="w-10 h-8 bg-gradient-to-br from-amber-200 to-amber-500 rounded-md shadow-inner flex items-center justify-center">
+            <div className="w-full h-[1px] bg-black/10"></div>
           </div>
+        </div>
 
-          <div className="flex flex-col items-start gap-1">
-            <div className="flex items-center gap-3 w-full">
-              <p className="text-base font-mono tracking-[0.15em] font-medium overflow-hidden whitespace-nowrap">
-                {showCardDetails
-                  ? "4532 8812 0094 1120"
-                  : "•••• •••• •••• 1120"}
-              </p>
-              <button
-                onClick={() => setShowCardDetails(!showCardDetails)}
-                className="p-1.5 bg-white/10 rounded-full active:scale-90 shrink-0"
-              >
-                <Eye size={12} className="text-emerald-300" />
-              </button>
-            </div>
-            <div className="flex gap-6 mt-1 opacity-80">
-              <div className="flex flex-col">
-                <span className="text-[5px] font-bold uppercase tracking-widest text-emerald-300/60">
-                  Expiry
-                </span>
-                <span className="text-[9px] font-mono font-medium">09/28</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[5px] font-bold uppercase tracking-widest text-emerald-300/60">
-                  CVV
-                </span>
-                <span className="text-[9px] font-mono font-medium">
-                  {showCardDetails ? "442" : "•••"}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom row with fixed padding to ensure Visa Logo/Text is visible */}
-          <div className="flex justify-between items-center mt-2">
-            <p className="text-[7px] font-bold uppercase tracking-widest opacity-60">
-              Visa Platinum
+        {/* Middle Row: Numbers (Enlarged) */}
+        <div className="relative z-10 space-y-4 my-2">
+          <div className="flex justify-between items-center">
+            <p className="text-xl sm:text-2xl font-mono tracking-[0.1em] font-bold text-white drop-shadow-md">
+              {showCardDetails ? "4532 8812 0094 1120" : "•••• •••• •••• 1120"}
             </p>
-            <div className="flex -space-x-1.5">
-              <div className="w-5 h-5 rounded-full bg-rose-500/80"></div>
-              <div className="w-5 h-5 rounded-full bg-amber-500/80"></div>
+          </div>
+
+          <div className="flex gap-8 items-end">
+            <div className="flex flex-col">
+              <span className="text-[8px] font-bold uppercase tracking-widest text-emerald-400/80 mb-0.5">
+                Expiry
+              </span>
+              <span className="text-lg font-mono font-bold leading-none tracking-wider">
+                {showCardDetails ? "09/28" : "••/••"}
+              </span>
             </div>
+            <div className="flex flex-col">
+              <span className="text-[8px] font-bold uppercase tracking-widest text-emerald-400/80 mb-0.5">
+                CVV
+              </span>
+              <span className="text-lg font-mono font-bold leading-none tracking-wider">
+                {showCardDetails ? "442" : "•••"}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Row: Fixed Safe Area Branding */}
+        <div className="flex justify-between items-center mt-auto relative z-10 pt-2 border-t border-white/10">
+          <p className="text-[11px] font-black uppercase tracking-[0.2em] text-white/90">
+            Visa Platinum
+          </p>
+          <div className="flex -space-x-2">
+            <div className="w-7 h-7 rounded-full bg-rose-600/90 shadow-lg"></div>
+            <div className="w-7 h-7 rounded-full bg-amber-500/90 shadow-lg backdrop-blur-sm"></div>
           </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl p-1 border border-slate-100 shadow-sm">
+      {/* Card Controls */}
+      <div className="bg-white rounded-[1.5rem] p-1 border border-slate-100 shadow-sm mt-4">
         <div className="flex items-center justify-between p-4 border-b border-slate-50">
           <div className="flex items-center gap-3">
             <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
-              <Zap size={18} />
+              <Zap size={20} />
             </div>
             <div>
-              <p className="font-bold text-xs">Halal Filter AI</p>
-              <p className="text-[9px] text-slate-400">Block haram merchants</p>
+              <p className="font-bold text-sm">Halal Filter AI</p>
+              <p className="text-[10px] text-slate-400">
+                Strict Shariah Compliance
+              </p>
             </div>
           </div>
           <button
             onClick={() => setHalalFilterActive(!halalFilterActive)}
-            className={`w-10 h-5 rounded-full p-0.5 transition-colors ${
+            className={`w-12 h-6 rounded-full p-1 transition-colors ${
               halalFilterActive ? "bg-emerald-500" : "bg-slate-200"
             }`}
           >
             <div
-              className={`w-4 h-4 bg-white rounded-full transition-transform ${
-                halalFilterActive ? "translate-x-5" : ""
+              className={`w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${
+                halalFilterActive ? "translate-x-6" : ""
               }`}
             />
           </button>
@@ -382,22 +383,24 @@ const App = () => {
         <div className="flex items-center justify-between p-4">
           <div className="flex items-center gap-3">
             <div className="p-2.5 bg-blue-50 text-blue-600 rounded-xl">
-              <Lock size={18} />
+              <Lock size={20} />
             </div>
             <div>
-              <p className="font-bold text-xs">Freeze Card</p>
-              <p className="text-[9px] text-slate-400">Stop all payments</p>
+              <p className="font-bold text-sm">Freeze Card</p>
+              <p className="text-[10px] text-slate-400">
+                Instant security lock
+              </p>
             </div>
           </div>
           <button
             onClick={() => setIsFrozen(!isFrozen)}
-            className={`w-10 h-5 rounded-full p-0.5 transition-colors ${
+            className={`w-12 h-6 rounded-full p-1 transition-colors ${
               isFrozen ? "bg-blue-500" : "bg-slate-200"
             }`}
           >
             <div
-              className={`w-4 h-4 bg-white rounded-full transition-transform ${
-                isFrozen ? "translate-x-5" : ""
+              className={`w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${
+                isFrozen ? "translate-x-6" : ""
               }`}
             />
           </button>
@@ -583,13 +586,6 @@ const App = () => {
               className="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-amber-600"
             />
           </div>
-          <div className="p-3 bg-amber-50 rounded-xl flex gap-3">
-            <AlertTriangle className="text-amber-600 shrink-0" size={14} />
-            <p className="text-[9px] text-amber-800 font-medium">
-              Murabaha: No hidden interest. Fixed markup transparently
-              disclosed.
-            </p>
-          </div>
         </div>
         <button className="w-full bg-amber-600 text-white p-4 rounded-xl font-bold shadow-lg active:scale-95 transition-transform">
           Get Quote
@@ -600,21 +596,13 @@ const App = () => {
 
   if (isInitializing) {
     return (
-      <div className="fixed inset-0 bg-[#064e3b] z-[200] flex flex-col items-center justify-center text-white p-6 animate-out fade-out duration-1000 fill-mode-forwards">
-        <h1 className="text-5xl font-black italic tracking-tighter mb-1">
+      <div className="fixed inset-0 bg-[#064e3b] z-[200] flex flex-col items-center justify-center text-white p-6">
+        <h1 className="text-5xl font-black italic tracking-tighter mb-1 animate-pulse">
           noor.
         </h1>
         <p className="text-emerald-400 font-bold tracking-[0.2em] uppercase text-[8px] opacity-80">
           Financing The Right Way
         </p>
-        <div className="absolute bottom-20 w-10 h-0.5 bg-emerald-900/50 rounded-full overflow-hidden">
-          <div className="h-full bg-emerald-400 rounded-full w-full animate-progress-fast"></div>
-        </div>
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `@keyframes progress-fast { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } } .animate-progress-fast { animation: progress-fast 1s ease-in-out infinite; }`,
-          }}
-        />
       </div>
     );
   }
