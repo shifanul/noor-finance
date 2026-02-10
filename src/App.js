@@ -47,6 +47,10 @@ const App = () => {
   const [downPayment, setDownPayment] = useState(5000);
   const term = 60;
 
+  // Avatar URL - Using a DiceBear style that looks more representative
+  const avatarUrl =
+    "https://api.dicebear.com/7.x/avataaars/svg?seed=Shifanul&top=turban&facialHair=beardLight&facialColor=2c1b18";
+
   const [transactions, setTransactions] = useState([
     {
       id: 1,
@@ -196,22 +200,23 @@ const App = () => {
 
       <div className="flex flex-col items-center mb-12">
         <div
-          className={`w-20 h-20 rounded-full bg-emerald-900/50 flex items-center justify-center border-2 border-emerald-500/30 mb-4 transition-all ${
+          className={`w-24 h-24 rounded-full bg-emerald-900/50 flex items-center justify-center border-2 border-emerald-500/30 mb-4 transition-all ${
             isFaceScanning ? "scale-110 border-emerald-400" : ""
           }`}
         >
           {isFaceScanning ? (
             <ScanFace className="text-emerald-400 animate-pulse" size={40} />
           ) : (
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/20">
+            <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-white/20 bg-emerald-800/40">
               <img
-                src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
-                alt="avatar"
+                src={avatarUrl}
+                alt="Shifanul Avatar"
+                className="w-full h-full object-cover"
               />
             </div>
           )}
         </div>
-        <h2 className="text-white font-bold text-lg">Welcome back, Felix</h2>
+        <h2 className="text-white font-bold text-lg">Welcome back, Shifanul</h2>
         <p className="text-emerald-300/40 text-xs mt-1">
           Enter PIN (1234) or use Face ID
         </p>
@@ -784,10 +789,11 @@ const App = () => {
         </div>
         <div className="flex items-center gap-3">
           <Bell size={20} className="text-slate-400" />
-          <div className="w-8 h-8 rounded-full bg-slate-200 border border-white overflow-hidden">
+          <div className="w-8 h-8 rounded-full bg-slate-200 border border-emerald-900/10 overflow-hidden shadow-sm">
             <img
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
-              alt="avatar"
+              src={avatarUrl}
+              alt="Shifanul"
+              className="w-full h-full object-cover"
             />
           </div>
         </div>
