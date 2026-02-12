@@ -22,7 +22,9 @@ import {
   Coins,
   Calculator,
   Eye,
+  ShieldX,
   EyeOff,
+  ScanFace,
   History,
   TrendingDown,
   Building2,
@@ -66,7 +68,7 @@ const App = () => {
   });
 
   // --- REFINED CALCULATIONS ---
-  const nisabGold = 7200; // Approx value for 87.48g of gold
+  const nisabValue = 6800;
   const zakatRate = 0.025; // 2.5%
 
   const totalAssets =
