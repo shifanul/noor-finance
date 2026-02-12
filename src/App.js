@@ -53,6 +53,7 @@ const App = () => {
 
   // --- REPLACE ZAKAT STATE ---
   const [zakatStep, setZakatStep] = useState(1);
+  const [selectedCharity, setSelectedCharity] = useState(null);
   const [zakatAssets, setZakatAssets] = useState({
     cashAtHome: 0,
     goldValue: 0,
@@ -66,6 +67,31 @@ const App = () => {
     upcomingBills: 0,
     businessExpenses: 0,
   });
+
+  const charities = [
+    {
+      id: "lg",
+      name: "LaunchGood",
+      description: "Crowdfunded Zakat campaigns.",
+      featured: true,
+      url: "https://www.launchgood.com/zakat",
+    },
+    {
+      id: "ir",
+      name: "Islamic Relief",
+      description: "Global emergency aid & development.",
+    },
+    {
+      id: "nzf",
+      name: "National Zakat Foundation",
+      description: "Local distribution to those in need.",
+    },
+    {
+      id: "skz",
+      name: "Shaukat Khanum",
+      description: "Cancer treatment for the underprivileged.",
+    },
+  ];
 
   // --- REFINED CALCULATIONS ---
   const nisabValue = 6800;
@@ -124,6 +150,13 @@ const App = () => {
       type: "haram",
       status: "declined",
       time: "Monday",
+    },
+    {
+      name: "OLG Lottery",
+      amount: -10.0,
+      category: "Gambling",
+      type: "haram",
+      msg: "Blocked: Gambling is prohibited.",
     },
   ]);
 
@@ -682,7 +715,7 @@ const App = () => {
   };
 
   const renderZakatWorkflow = () => (
-    <div className="space-y-6 animate-in slide-in-from-right-4 duration-500 pb-10">
+    <div className="space-y-6 animate-in slide-in-from-right-4 duration-500 pb-10 max-w-md mx-auto">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-4">
           <button
@@ -690,7 +723,7 @@ const App = () => {
               if (zakatStep > 1) setZakatStep(zakatStep - 1);
               else setFinancingSubPage("main");
             }}
-            className="p-3 bg-white rounded-2xl shadow-sm"
+            className="p-3 bg-white rounded-2xl shadow-sm border border-slate-100"
           >
             <ChevronLeft className="text-slate-600" />
           </button>
@@ -699,7 +732,7 @@ const App = () => {
           </h2>
         </div>
         <div className="flex gap-1">
-          {[1, 2, 3].map((s) => (
+          {[1, 2, 3, 4].map((s) => (
             <div
               key={s}
               className={`h-1.5 w-6 rounded-full transition-colors ${
@@ -898,39 +931,15 @@ const App = () => {
 
           <div className="p-4 bg-amber-50 rounded-2xl border border-amber-100 flex gap-3">
             <Info className="text-amber-600 shrink-0" size={18} />
-            <p className="text-[10px] text-amber-800 font-medium">
+            <p className="text-[10px] text-amber-800 font-medium leading-normal">
               Nisab is currently <b>${nisabValue}</b>. Since your net wealth is{" "}
-              {netZakatableWealth >= nisabValue ? "above" : "below"} this, Zakat
-              is {netZakatableWealth >= nisabValue ? "due" : "not obligatory"}.
+              {isEligible ? "above" : "below"} this, Zakat is{" "}
+              {isEligible ? "due" : "not obligatory"}.
             </p>
           </div>
 
-          <div
-            className={`p-5 rounded-[2rem] border flex gap-4 ${
-              isEligible
-                ? "bg-emerald-50 border-emerald-100"
-                : "bg-slate-50 border-slate-200"
-            }`}
-          >
-            {isEligible ? (
-              <CheckCircle2 className="text-emerald-600 shrink-0" size={24} />
-            ) : (
-              <Info className="text-slate-400 shrink-0" size={24} />
-            )}
-            <div>
-              <p className="font-bold text-sm text-slate-900">
-                {isEligible ? "Zakat is Obligatory" : "Below Nisab Threshold"}
-              </p>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                {isEligible
-                  ? `Your net wealth exceeds the Nisab ($${nisabValue}). Paying Zakat is an act of purification.`
-                  : `Your wealth ($${netZakatableWealth.toLocaleString()}) is below the minimum threshold ($${nisabValue}). No Zakat is due this year.`}
-              </p>
-            </div>
-          </div>
-
           <button
-            onClick={payZakat}
+            onClick={() => setZakatStep(4)}
             disabled={zakatDue <= 0}
             className={`w-full p-6 rounded-[2rem] font-black text-lg transition-all flex items-center justify-center gap-3 shadow-xl ${
               zakatDue > 0
@@ -938,7 +947,80 @@ const App = () => {
                 : "bg-slate-200 text-slate-400 cursor-not-allowed"
             }`}
           >
-            Purify & Distribute <Heart size={20} />
+            Select Distribution <Heart size={20} />
+          </button>
+        </div>
+      )}
+
+      {zakatStep === 4 && (
+        <div className="space-y-6 animate-in fade-in duration-300">
+          <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6">
+            <div className="flex items-center gap-3 px-2">
+              <Heart className="text-indigo-600" size={20} />
+              <h3 className="font-bold text-slate-900">
+                Step 4: Choose Charity
+              </h3>
+            </div>
+
+            <div className="space-y-3">
+              {charities.map((charity) => (
+                <button
+                  key={charity.id}
+                  onClick={() => setSelectedCharity(charity.id)}
+                  className={`w-full p-4 rounded-3xl text-left transition-all border-2 flex items-start gap-4 ${
+                    selectedCharity === charity.id
+                      ? "border-indigo-600 bg-indigo-50/50 shadow-sm"
+                      : "border-slate-50 bg-slate-50/30 hover:bg-slate-50"
+                  }`}
+                >
+                  <div
+                    className={`p-3 rounded-2xl ${
+                      selectedCharity === charity.id
+                        ? "bg-white shadow-sm"
+                        : "bg-white"
+                    }`}
+                  >
+                    {charity.icon}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex justify-between items-center mb-1">
+                      <p className="font-bold text-slate-900">{charity.name}</p>
+                      <span
+                        className={`text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
+                          selectedCharity === charity.id
+                            ? "bg-indigo-600 text-white"
+                            : "bg-slate-200 text-slate-500"
+                        }`}
+                      >
+                        {charity.tag}
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-500 leading-snug">
+                      {charity.description}
+                    </p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <button
+            onClick={() => {
+              triggerNotification(
+                `Zakat of $${zakatDue.toFixed(2)} paid via ${
+                  charities.find((c) => c.id === selectedCharity)?.name
+                }`,
+              );
+              setFinancingSubPage("main");
+            }}
+            disabled={!selectedCharity}
+            className={`w-full p-6 rounded-[2rem] font-black text-lg transition-all flex items-center justify-center gap-3 shadow-xl ${
+              selectedCharity
+                ? "bg-indigo-600 text-white shadow-indigo-900/20"
+                : "bg-slate-200 text-slate-400 cursor-not-allowed"
+            }`}
+          >
+            Purify & Distribute <ExternalLink size={20} />
           </button>
         </div>
       )}
