@@ -255,44 +255,6 @@ const App = () => {
     }
   };
 
-  const payZakat = () => {
-    if (balance < zakatDue) {
-      setNotification({
-        title: "Insufficient Balance",
-        message: "Top up your Noor account to pay Zakat.",
-        type: "error",
-      });
-      return;
-    }
-    // Update local balance
-    setBalance((prev) => prev - zakatDue);
-
-    // Log the transaction
-    setTransactions((prev) => [
-      {
-        id: Date.now(),
-        name: "Zakat: Al-Miskeen Fund",
-        amount: -zakatDue,
-        category: "Obligation",
-        status: "approved",
-        type: "halal",
-        time: "Just Now",
-      },
-      ...prev,
-    ]);
-
-    setNotification({
-      title: "Wealth Purified",
-      message: "Your Zakat has been sent to the distribution pool.",
-      type: "success",
-    });
-
-    // Reset workflow
-    setFinancingSubPage("main");
-    setZakatStep(1);
-    setTimeout(() => setNotification(null), 4000);
-  };
-
   // --- RENDERING COMPONENTS ---
 
   const renderLogin = () => (
