@@ -123,9 +123,10 @@ const App = () => {
   const zakatDue = isEligible ? netZakatableWealth * zakatRate : 0;
 
   // Murabaha State
-  const [carPrice, setCarPrice] = useState(35000);
-  const [downPayment, setDownPayment] = useState(5000);
-  const term = 60;
+  const [carPrice, setCarPrice] = useState(45000);
+  const [downPayment, setDownPayment] = useState(10000);
+  const [term, setTerm] = useState(60); // months
+  const [frequency, setFrequency] = useState("monthly"); // 'monthly', 'bi-weekly', 'weekly'
 
   const [transactions, setTransactions] = useState([
     {
@@ -1018,66 +1019,198 @@ const App = () => {
     </div>
   );
 
+  // --- MURABAHA CALCULATOR LOGIC (CAR PART) ---
   const renderMurabaha = () => {
-    const profitRate = 0.08;
+    const profitRate = 0.02; // Fixed 2% annual profit rate
     const financedAmount = carPrice - downPayment;
     const totalProfit = financedAmount * profitRate * (term / 12);
     const totalContract = financedAmount + totalProfit;
-    const monthlyPayment = totalContract / term;
+
+    // Installment logic based on frequency
+    let paymentValue = 0;
+    let frequencyLabel = "";
+
+    switch (frequency) {
+      case "weekly":
+        paymentValue = totalContract / (term * 4.33); // Approx weeks in a month
+        frequencyLabel = "Weekly";
+        break;
+      case "bi-weekly":
+        paymentValue = totalContract / (term * 2.16); // Approx bi-weeks in a month
+        frequencyLabel = "Bi-Weekly";
+        break;
+      default:
+        paymentValue = totalContract / term;
+        frequencyLabel = "Monthly";
+    }
 
     return (
       <div className="space-y-4 pb-24 animate-in slide-in-from-right-4">
+        {/* Header */}
         <div className="flex items-center gap-3">
           <button
             onClick={() => setFinancingSubPage("main")}
-            className="p-2 bg-white rounded-lg shadow-sm"
+            className="p-2 bg-white rounded-lg shadow-sm active:scale-90 transition-transform"
           >
             <ChevronLeft size={18} />
           </button>
-          <h2 className="text-lg font-bold">Auto Finance</h2>
+          <h2 className="text-lg font-bold">Murabaha Auto Finance</h2>
         </div>
 
-        <div className="bg-amber-600 rounded-3xl p-6 text-white shadow-lg">
-          <p className="text-amber-200 text-[10px] font-bold uppercase tracking-widest">
-            Monthly Payment
+        {/* Dynamic Payment Card */}
+        <div className="bg-amber-600 rounded-[2.5rem] p-8 text-white shadow-xl relative overflow-hidden">
+          <div className="absolute -right-4 -top-4 opacity-10 rotate-12">
+            <Car size={120} />
+          </div>
+          <p className="text-amber-200 text-[10px] font-bold uppercase tracking-widest relative z-10">
+            {frequencyLabel} Installment
           </p>
-          <h3 className="text-4xl font-black mt-1 tracking-tighter">
-            ${monthlyPayment.toFixed(2)}
+          <h3 className="text-5xl font-black mt-1 tracking-tighter relative z-10">
+            $
+            {paymentValue.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
           </h3>
+          <div className="mt-4 flex items-center gap-2 relative z-10">
+            <ShieldCheck size={14} className="text-amber-200" />
+            <span className="text-[10px] font-bold text-amber-100 uppercase tracking-tight">
+              2.00% Fixed Markup
+            </span>
+          </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-100 space-y-5">
-          <div className="space-y-2">
-            <label className="text-[9px] font-bold text-slate-400 uppercase tracking-widest px-1">
-              Car Price: ${carPrice.toLocaleString()}
-            </label>
+        {/* Payment Frequency Toggle */}
+        <div className="bg-slate-100/50 p-1.5 rounded-2xl flex gap-1">
+          {["weekly", "bi-weekly", "monthly"].map((f) => (
+            <button
+              key={f}
+              onClick={() => setFrequency(f)}
+              className={`flex-1 py-2.5 rounded-xl text-[10px] font-black uppercase transition-all ${
+                frequency === f
+                  ? "bg-white text-amber-600 shadow-sm"
+                  : "text-slate-400 hover:text-slate-600"
+              }`}
+            >
+              {f.replace("-", " ")}
+            </button>
+          ))}
+        </div>
+
+        {/* Input Sliders */}
+        <div className="bg-white p-6 rounded-[2rem] border border-slate-100 space-y-6 shadow-sm">
+          {/* Car Price Slider */}
+          <div className="space-y-3">
+            <div className="flex justify-between items-end">
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                Vehicle Price
+              </label>
+              <span className="text-lg font-black text-slate-900">
+                ${carPrice.toLocaleString()}
+              </span>
+            </div>
             <input
               type="range"
               min="10000"
-              max="100000"
+              max="200000"
               step="1000"
               value={carPrice}
-              onChange={(e) => setCarPrice(parseInt(e.target.value))}
-              className="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-amber-600"
+              onChange={(e) => {
+                const val = parseInt(e.target.value);
+                setCarPrice(val);
+                if (downPayment > val * 0.9)
+                  setDownPayment(Math.floor(val * 0.1));
+              }}
+              className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-amber-600"
             />
           </div>
-          <div className="space-y-2">
-            <label className="text-[9px] font-bold text-slate-400 uppercase tracking-widest px-1">
-              Down: ${downPayment.toLocaleString()}
-            </label>
+
+          {/* Down Payment Slider */}
+          <div className="space-y-3">
+            <div className="flex justify-between items-end">
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                Down Payment
+              </label>
+              <span className="text-lg font-black text-slate-900">
+                ${downPayment.toLocaleString()}
+              </span>
+            </div>
             <input
               type="range"
               min="0"
-              max={carPrice * 0.5}
+              max={carPrice * 0.9}
               step="500"
               value={downPayment}
               onChange={(e) => setDownPayment(parseInt(e.target.value))}
-              className="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-amber-600"
+              className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-amber-600"
             />
           </div>
+
+          {/* Term Selection */}
+          <div className="pt-2">
+            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-3">
+              Financing Duration
+            </label>
+            <div className="grid grid-cols-3 gap-3">
+              {[36, 48, 60, 72, 84].map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setTerm(t)}
+                  className={`py-3 rounded-2xl text-[10px] font-black transition-all ${
+                    term === t
+                      ? "bg-amber-600 text-white shadow-md"
+                      : "bg-slate-50 text-slate-400"
+                  }`}
+                >
+                  {t / 12} Years
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
-        <button className="w-full bg-amber-600 text-white p-4 rounded-xl font-bold shadow-lg active:scale-95 transition-transform">
-          Get Quote
+
+        {/* Breakdown & Compliance */}
+        <div className="bg-white p-5 rounded-[1.5rem] border border-dashed border-slate-200 grid grid-cols-2 gap-4">
+          <div>
+            <p className="text-[9px] font-bold text-slate-400 uppercase mb-0.5">
+              Financed Amount
+            </p>
+            <p className="text-sm font-black text-slate-800">
+              ${financedAmount.toLocaleString()}
+            </p>
+          </div>
+          <div className="text-right">
+            <p className="text-[9px] font-bold text-slate-400 uppercase mb-0.5">
+              Fixed Markup
+            </p>
+            <p className="text-sm font-black text-emerald-600">
+              $
+              {totalProfit.toLocaleString(undefined, {
+                maximumFractionDigits: 0,
+              })}
+            </p>
+          </div>
+          <div className="col-span-2 pt-2 border-t border-slate-50 flex items-center gap-3">
+            <div className="bg-amber-50 p-2 rounded-lg">
+              <Info size={14} className="text-amber-600" />
+            </div>
+            <p className="text-[10px] text-slate-500 leading-snug">
+              This is a <strong>Cost-Plus</strong> agreement. The bank's profit
+              is fixed at 2% per annum and added to the purchase price. No
+              compounding interest.
+            </p>
+          </div>
+        </div>
+
+        <button
+          onClick={() =>
+            triggerNotification(
+              `${frequencyLabel} plan submitted for approval.`,
+            )
+          }
+          className="w-full bg-slate-900 text-white p-5 rounded-[2rem] font-black text-lg shadow-xl active:scale-95 transition-all flex items-center justify-center gap-3"
+        >
+          Request Approval <CalendarDays size={20} />
         </button>
       </div>
     );
