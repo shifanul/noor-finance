@@ -31,7 +31,10 @@ import {
   Globe,
   ExternalLink,
   Stethoscope,
+  Check,
   Gem,
+  Clock,
+  FileText,
   Sparkles,
   CalendarDays,
 } from "lucide-react";
@@ -56,7 +59,7 @@ const App = () => {
   const [isFrozen, setIsFrozen] = useState(false);
   const [halalFilterActive, setHalalFilterActive] = useState(true);
   const [subscriptionView, setSubscriptionView] = useState("overview"); // 'overview' or 'manage'
-  const currentTier = "premium";
+  const [currentTier, setCurrentTier] = useState("premium");
 
   // --- REPLACE ZAKAT STATE ---
   const [zakatStep, setZakatStep] = useState(1);
