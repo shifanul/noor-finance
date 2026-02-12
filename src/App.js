@@ -32,6 +32,7 @@ import {
   ExternalLink,
   Stethoscope,
   Gem,
+  CalendarDays,
 } from "lucide-react";
 import avatarUrl from "./IMG_3519.png";
 
