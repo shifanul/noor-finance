@@ -1315,6 +1315,8 @@ const App = () => {
     const financedAmount = carPrice - downPayment;
     const totalProfit = financedAmount * profitRate * (term / 12);
     const totalContract = financedAmount + totalProfit;
+    const totalWeeks = (term / 12) * 52;
+    const totalBiWeeks = (term / 12) * 26;
 
     // Installment logic based on frequency
     let paymentValue = 0;
@@ -1322,11 +1324,11 @@ const App = () => {
 
     switch (frequency) {
       case "weekly":
-        paymentValue = totalContract / (term * 4.33); // Approx weeks in a month
+        paymentValue = totalContract / totalWeeks; // Approx weeks in a month
         frequencyLabel = "Weekly";
         break;
       case "bi-weekly":
-        paymentValue = totalContract / (term * 2.16); // Approx bi-weeks in a month
+        paymentValue = totalContract / totalBiWeeks; // Approx bi-weeks in a month
         frequencyLabel = "Bi-Weekly";
         break;
       default:
