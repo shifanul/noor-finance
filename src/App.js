@@ -80,7 +80,7 @@ const App = () => {
   const netZakatableWealth = Math.max(0, totalAssets - totalLiabilities);
 
   // Zakat is only due if wealth > Nisab
-  const isEligible = netZakatableWealth >= nisabGold;
+  const isEligible = netZakatableWealth >= nisabValue;
   const zakatDue = isEligible ? netZakatableWealth * zakatRate : 0;
 
   // Murabaha State
@@ -923,8 +923,8 @@ const App = () => {
               </p>
               <p className="text-xs text-slate-500 mt-1 leading-relaxed">
                 {isEligible
-                  ? `Your net wealth exceeds the Nisab ($${nisabGold}). Paying Zakat is an act of purification.`
-                  : `Your wealth ($${netZakatableWealth.toLocaleString()}) is below the minimum threshold ($${nisabGold}). No Zakat is due this year.`}
+                  ? `Your net wealth exceeds the Nisab ($${nisabValue}). Paying Zakat is an act of purification.`
+                  : `Your wealth ($${netZakatableWealth.toLocaleString()}) is below the minimum threshold ($${nisabValue}). No Zakat is due this year.`}
               </p>
             </div>
           </div>
