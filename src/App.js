@@ -236,6 +236,105 @@ const App = () => {
         ],
       },
     ];
+
+    return (
+      <div className="space-y-6 animate-in slide-in-from-right-4 pb-24">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setSubscriptionView("overview")}
+            className="p-2 bg-white rounded-xl shadow-sm border border-slate-100"
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <h2 className="text-xl font-bold text-slate-900">
+            Subscription Plans
+          </h2>
+        </div>
+
+        <div className="space-y-4">
+          {tiers.map((tier) => (
+            <div
+              key={tier.id}
+              className={`p-6 rounded-[2rem] border transition-all duration-300 ${
+                currentTier === tier.id
+                  ? "border-emerald-500 bg-white ring-4 ring-emerald-500/5 shadow-lg"
+                  : "border-slate-100 bg-white shadow-sm"
+              }`}
+            >
+              <div className="flex justify-between items-start mb-4">
+                <div>
+                  <h3 className="font-bold text-lg text-slate-900">
+                    {tier.name}
+                  </h3>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">
+                    {tier.price}
+                  </p>
+                </div>
+                {currentTier === tier.id ? (
+                  <span className="bg-emerald-500 text-white text-[10px] px-3 py-1.5 rounded-full font-black uppercase flex items-center gap-1.5">
+                    <Check size={12} strokeWidth={3} /> Active
+                  </span>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setCurrentTier(tier.id);
+                      triggerNotification(`Upgraded to ${tier.name}`);
+                    }}
+                    className="bg-slate-900 text-white text-[10px] px-4 py-1.5 rounded-full font-bold uppercase hover:bg-slate-800 transition-colors"
+                  >
+                    Select Plan
+                  </button>
+                )}
+              </div>
+              <ul className="space-y-2.5">
+                {tier.features.map((feature, idx) => (
+                  <li
+                    key={idx}
+                    className="flex items-center gap-2.5 text-xs text-slate-500 font-medium"
+                  >
+                    <CheckCircle2
+                      size={16}
+                      className={
+                        currentTier === tier.id
+                          ? "text-emerald-500"
+                          : "text-slate-300"
+                      }
+                    />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm">
+          <div className="flex items-center gap-2 mb-3">
+            <FileText size={16} className="text-emerald-600" />
+            <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+              Membership Agreement
+            </h3>
+          </div>
+          <div className="space-y-3">
+            <p className="text-[11px] text-slate-500 leading-relaxed">
+              By subscribing, you enter into a{" "}
+              <span className="text-slate-900 font-bold">
+                Wakalah Agreement
+              </span>{" "}
+              where Noor acts as your agent for ethical financial management.
+            </p>
+            <div className="flex items-start gap-2 text-[10px] text-slate-400 bg-slate-50 p-3 rounded-xl border border-slate-100">
+              <Clock size={12} className="mt-0.5 shrink-0" />
+              <p>
+                Monthly fees are billed on the 1st of every month. No interest
+                is charged for missed payments; however, services may be
+                suspended.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   // Initial Splash Loading
