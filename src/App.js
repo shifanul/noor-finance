@@ -28,6 +28,7 @@ import {
   History,
   TrendingDown,
   Building2,
+  ExternalLink,
   Gem,
 } from "lucide-react";
 import avatarUrl from "./IMG_3519.png";
