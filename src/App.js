@@ -19,6 +19,7 @@ import {
   CheckCircle2,
   ChevronLeft,
   Info,
+  Smartphone,
   Coins,
   Calculator,
   Eye,
