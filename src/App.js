@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
+  ShieldCheck,
   CreditCard,
   Home,
   Car,
   PieChart,
   ArrowUpRight,
   ArrowDownRight,
+  Heart,
   Lock,
   Zap,
   TrendingUp,
@@ -14,13 +16,17 @@ import {
   Fingerprint,
   Wallet,
   RefreshCcw,
-  ChevronLeft,
-  Coins,
-  Eye,
   CheckCircle2,
-  ShieldX,
+  ChevronLeft,
+  Info,
+  Coins,
+  Calculator,
+  Eye,
   EyeOff,
-  ScanFace,
+  History,
+  TrendingDown,
+  Building2,
+  Gem,
 } from "lucide-react";
 import avatarUrl from "./IMG_3519.png";
 
