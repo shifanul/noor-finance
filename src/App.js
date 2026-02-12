@@ -32,6 +32,7 @@ import {
   ExternalLink,
   Stethoscope,
   Gem,
+  Sparkles,
   CalendarDays,
 } from "lucide-react";
 import avatarUrl from "./IMG_3519.png";
@@ -54,6 +55,8 @@ const App = () => {
   const [showCardDetails, setShowCardDetails] = useState(false);
   const [isFrozen, setIsFrozen] = useState(false);
   const [halalFilterActive, setHalalFilterActive] = useState(true);
+  const [subscriptionView, setSubscriptionView] = useState("overview"); // 'overview' or 'manage'
+  const currentTier = "premium";
 
   // --- REPLACE ZAKAT STATE ---
   const [zakatStep, setZakatStep] = useState(1);
@@ -193,6 +196,46 @@ const App = () => {
     if (typeof setFinancingSubPage === "function") {
       setFinancingSubPage("main");
     }
+  };
+
+  const renderSubscriptionManagement = () => {
+    const tiers = [
+      {
+        id: "basic",
+        name: "Noor Basic",
+        price: "Free",
+        color: "bg-slate-100",
+        features: [
+          "Halal Filter AI",
+          "Standard Digital Card",
+          "Purification Ledger",
+        ],
+      },
+      {
+        id: "premium",
+        name: "Noor Premium",
+        price: "$9.99/mo",
+        color: "bg-emerald-600",
+        features: [
+          "0.5% Cash-back",
+          "Metal Card Delivery",
+          "Priority Support",
+          "Airport Lounges",
+        ],
+      },
+      {
+        id: "elite",
+        name: "Noor Elite",
+        price: "$24.99/mo",
+        color: "bg-slate-900",
+        features: [
+          "1.0% Cash-back",
+          "Family Accounts",
+          "Wealth Advisor",
+          "Zakat Consultation",
+        ],
+      },
+    ];
   };
 
   // Initial Splash Loading
