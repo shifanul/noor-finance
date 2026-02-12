@@ -43,6 +43,38 @@ const App = () => {
   const [isFrozen, setIsFrozen] = useState(false);
   const [halalFilterActive, setHalalFilterActive] = useState(true);
 
+  // --- REPLACE ZAKAT STATE ---
+  const [zakatStep, setZakatStep] = useState(1);
+  const [zakatAssets, setZakatAssets] = useState({
+    cashAtHome: 0,
+    goldValue: 0,
+    silverValue: 0,
+    investments: 0,
+    businessAssets: 0,
+    retirementAccounts: 0, // New: 401k/RRSP etc.
+  });
+  const [zakatLiabilities, setZakatLiabilities] = useState({
+    immediateDebts: 0,
+    upcomingBills: 0,
+    businessExpenses: 0,
+  });
+
+  // --- REFINED CALCULATIONS ---
+  const nisabGold = 7200; // Approx value for 87.48g of gold
+  const zakatRate = 0.025; // 2.5%
+
+  const totalAssets =
+    balance + Object.values(zakatAssets).reduce((a, b) => a + b, 0);
+  const totalLiabilities = Object.values(zakatLiabilities).reduce(
+    (a, b) => a + b,
+    0,
+  );
+  const netZakatableWealth = Math.max(0, totalAssets - totalLiabilities);
+
+  // Zakat is only due if wealth > Nisab
+  const isEligible = netZakatableWealth >= nisabGold;
+  const zakatDue = isEligible ? netZakatableWealth * zakatRate : 0;
+
   // Murabaha State
   const [carPrice, setCarPrice] = useState(35000);
   const [downPayment, setDownPayment] = useState(5000);
@@ -88,7 +120,6 @@ const App = () => {
   ]);
 
   const userEquity = 24;
-  const [otherAssets, setOtherAssets] = useState(2500);
 
   // Initial Splash Loading
   useEffect(() => {
@@ -180,6 +211,44 @@ const App = () => {
         `Paid $${Math.abs(merchant.amount).toFixed(2)} to ${merchant.name}`,
       );
     }
+  };
+
+  const payZakat = () => {
+    if (balance < zakatDue) {
+      setNotification({
+        title: "Insufficient Balance",
+        message: "Top up your Noor account to pay Zakat.",
+        type: "error",
+      });
+      return;
+    }
+    // Update local balance
+    setBalance((prev) => prev - zakatDue);
+
+    // Log the transaction
+    setTransactions((prev) => [
+      {
+        id: Date.now(),
+        name: "Zakat: Al-Miskeen Fund",
+        amount: -zakatDue,
+        category: "Obligation",
+        status: "approved",
+        type: "halal",
+        time: "Just Now",
+      },
+      ...prev,
+    ]);
+
+    setNotification({
+      title: "Wealth Purified",
+      message: "Your Zakat has been sent to the distribution pool.",
+      type: "success",
+    });
+
+    // Reset workflow
+    setFinancingSubPage("main");
+    setZakatStep(1);
+    setTimeout(() => setNotification(null), 4000);
   };
 
   // --- RENDERING COMPONENTS ---
@@ -538,7 +607,7 @@ const App = () => {
   );
 
   const renderEquity = () => {
-    if (financingSubPage === "zakat") return renderZakat();
+    if (financingSubPage === "zakat") return renderZakatWorkflow();
     if (financingSubPage === "murabaha") return renderMurabaha();
     return (
       <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
@@ -604,58 +673,269 @@ const App = () => {
     );
   };
 
-  const renderZakat = () => {
-    const zakatDue = (balance + otherAssets) * 0.025;
-    return (
-      <div className="space-y-4 pb-24 animate-in slide-in-from-right-4">
-        <div className="flex items-center gap-3">
+  const renderZakatWorkflow = () => (
+    <div className="space-y-6 animate-in slide-in-from-right-4 duration-500 pb-10">
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-4">
           <button
-            onClick={() => setFinancingSubPage("main")}
-            className="p-2 bg-white rounded-lg shadow-sm"
+            onClick={() => {
+              if (zakatStep > 1) setZakatStep(zakatStep - 1);
+              else setFinancingSubPage("main");
+            }}
+            className="p-3 bg-white rounded-2xl shadow-sm"
           >
-            <ChevronLeft size={18} />
+            <ChevronLeft className="text-slate-600" />
           </button>
-          <h2 className="text-lg font-bold">Zakat</h2>
+          <h2 className="text-xl font-black text-slate-900 tracking-tight">
+            Zakat Portal
+          </h2>
         </div>
-        <div className="bg-indigo-600 rounded-3xl p-6 text-white shadow-lg">
-          <p className="text-indigo-200 text-[10px] font-bold uppercase tracking-widest">
-            Due This Year
-          </p>
-          <h3 className="text-4xl font-black mt-1 tracking-tighter">
-            ${zakatDue.toFixed(2)}
-          </h3>
+        <div className="flex gap-1">
+          {[1, 2, 3].map((s) => (
+            <div
+              key={s}
+              className={`h-1.5 w-6 rounded-full transition-colors ${
+                zakatStep >= s ? "bg-indigo-600" : "bg-slate-200"
+              }`}
+            ></div>
+          ))}
         </div>
-        <div className="bg-white p-5 rounded-2xl border border-slate-100 space-y-3">
-          <div className="flex justify-between items-center text-xs font-bold text-slate-600">
-            <span className="flex items-center gap-2">
-              <Wallet size={14} /> App Balance
-            </span>
-            <span>${balance.toLocaleString()}</span>
-          </div>
-          <div className="space-y-1.5">
-            <label className="text-[9px] font-bold text-slate-400 uppercase tracking-widest px-1">
-              Other Assets
-            </label>
-            <div className="relative">
-              <Coins
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300"
-                size={16}
-              />
-              <input
-                type="number"
-                value={otherAssets}
-                onChange={(e) => setOtherAssets(Number(e.target.value))}
-                className="w-full bg-slate-50 border-none rounded-xl p-3 pl-10 text-sm font-bold focus:ring-1 focus:ring-indigo-500 outline-none"
-              />
+      </div>
+
+      {zakatStep === 1 && (
+        <div className="space-y-6 animate-in fade-in duration-300">
+          <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6">
+            <div className="flex items-center gap-3 px-2">
+              <TrendingUp className="text-indigo-600" size={20} />
+              <h3 className="font-bold text-slate-900">
+                Step 1: Zakatable Assets
+              </h3>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex justify-between items-center p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
+                <div className="flex items-center gap-3">
+                  <Wallet className="text-emerald-600" size={20} />
+                  <span className="font-bold text-slate-700">
+                    Noor Balance (Auto)
+                  </span>
+                </div>
+                <span className="font-black text-emerald-700">
+                  ${balance.toLocaleString()}
+                </span>
+              </div>
+
+              {[
+                {
+                  key: "cashAtHome",
+                  label: "Cash on Hand",
+                  icon: <Coins size={18} />,
+                },
+                {
+                  key: "goldValue",
+                  label: "Gold Value",
+                  icon: <Gem size={18} />,
+                },
+                {
+                  key: "silverValue",
+                  label: "Silver Value",
+                  icon: <Coins size={18} />,
+                },
+                {
+                  key: "investments",
+                  label: "Crypto & Stocks",
+                  icon: <PieChart size={18} />,
+                },
+                {
+                  key: "retirementAccounts",
+                  label: "Retirement (RRSP/401k)",
+                  icon: <Lock size={18} />,
+                },
+                {
+                  key: "businessAssets",
+                  label: "Business Assets",
+                  icon: <Building2 size={18} />,
+                },
+              ].map((asset) => (
+                <div key={asset.key} className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2">
+                    {asset.label}
+                  </label>
+                  <div className="relative">
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300">
+                      {asset.icon}
+                    </div>
+                    <input
+                      type="number"
+                      value={zakatAssets[asset.key] || ""}
+                      onChange={(e) =>
+                        setZakatAssets({
+                          ...zakatAssets,
+                          [asset.key]: Number(e.target.value),
+                        })
+                      }
+                      className="w-full bg-slate-50 border-none rounded-2xl py-4 pl-12 pr-4 font-bold focus:ring-2 focus:ring-indigo-500"
+                      placeholder="0.00"
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
+          <button
+            onClick={() => setZakatStep(2)}
+            className="w-full bg-indigo-600 text-white p-6 rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-900/20"
+          >
+            Continue to Liabilities
+          </button>
         </div>
-        <button className="w-full bg-indigo-600 text-white p-4 rounded-xl font-bold shadow-lg active:scale-95 transition-transform">
-          Pay Zakat
-        </button>
-      </div>
-    );
-  };
+      )}
+
+      {zakatStep === 2 && (
+        <div className="space-y-6 animate-in fade-in duration-300">
+          <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6">
+            <div className="flex items-center gap-3 px-2 text-rose-600">
+              <TrendingDown size={20} />
+              <h3 className="font-bold text-slate-900">Step 2: Liabilities</h3>
+            </div>
+            <p className="text-xs text-slate-400 px-2 leading-relaxed">
+              Subtract debts or bills due immediately to calculate your net
+              wealth.
+            </p>
+
+            <div className="space-y-4">
+              {[
+                {
+                  key: "immediateDebts",
+                  label: "Immediate Debts",
+                  icon: <History size={18} />,
+                },
+                {
+                  key: "upcomingBills",
+                  label: "Upcoming Bills (This month)",
+                  icon: <Calculator size={18} />,
+                },
+              ].map((lib) => (
+                <div key={lib.key} className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2">
+                    {lib.label}
+                  </label>
+                  <div className="relative">
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300">
+                      {lib.icon}
+                    </div>
+                    <input
+                      type="number"
+                      value={zakatLiabilities[lib.key] || ""}
+                      onChange={(e) =>
+                        setZakatLiabilities({
+                          ...zakatLiabilities,
+                          [lib.key]: Number(e.target.value),
+                        })
+                      }
+                      className="w-full bg-slate-50 border-none rounded-2xl py-4 pl-12 pr-4 font-bold focus:ring-2 focus:ring-indigo-500"
+                      placeholder="0.00"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <button
+            onClick={() => setZakatStep(3)}
+            className="w-full bg-indigo-600 text-white p-6 rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-900/20"
+          >
+            Review Calculation
+          </button>
+        </div>
+      )}
+
+      {zakatStep === 3 && (
+        <div className="space-y-6 animate-in fade-in duration-300">
+          <div className="bg-indigo-900 p-8 rounded-[3rem] text-white shadow-2xl relative overflow-hidden text-center">
+            <div className="absolute top-0 right-0 opacity-10 p-4">
+              <Fingerprint size={100} />
+            </div>
+            <p className="text-indigo-300 text-[10px] font-bold uppercase tracking-[0.2em] mb-2">
+              Total Zakat Obligation
+            </p>
+            <h3 className="text-5xl font-black tracking-tighter mb-4">
+              ${zakatDue.toFixed(2)}
+            </h3>
+            <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full text-[10px] font-bold">
+              <ShieldCheck size={14} className="text-emerald-400" /> Shariah
+              Compliant Calculation
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 space-y-3">
+            <div className="flex justify-between text-sm">
+              <span className="text-slate-400">Total Assets</span>
+              <span className="font-bold">${totalAssets.toLocaleString()}</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-slate-400">Total Liabilities</span>
+              <span className="font-bold text-rose-500">
+                -${totalLiabilities.toLocaleString()}
+              </span>
+            </div>
+            <div className="h-px bg-slate-50 my-2"></div>
+            <div className="flex justify-between text-sm">
+              <span className="text-slate-900 font-bold">Zakatable Wealth</span>
+              <span className="font-black text-indigo-600">
+                ${netZakatableWealth.toLocaleString()}
+              </span>
+            </div>
+          </div>
+
+          <div className="p-4 bg-amber-50 rounded-2xl border border-amber-100 flex gap-3">
+            <Info className="text-amber-600 shrink-0" size={18} />
+            <p className="text-[10px] text-amber-800 font-medium">
+              Nisab is currently <b>${nisabValue}</b>. Since your net wealth is{" "}
+              {netZakatableWealth >= nisabValue ? "above" : "below"} this, Zakat
+              is {netZakatableWealth >= nisabValue ? "due" : "not obligatory"}.
+            </p>
+          </div>
+
+          <div
+            className={`p-5 rounded-[2rem] border flex gap-4 ${
+              isEligible
+                ? "bg-emerald-50 border-emerald-100"
+                : "bg-slate-50 border-slate-200"
+            }`}
+          >
+            {isEligible ? (
+              <CheckCircle2 className="text-emerald-600 shrink-0" size={24} />
+            ) : (
+              <Info className="text-slate-400 shrink-0" size={24} />
+            )}
+            <div>
+              <p className="font-bold text-sm text-slate-900">
+                {isEligible ? "Zakat is Obligatory" : "Below Nisab Threshold"}
+              </p>
+              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                {isEligible
+                  ? `Your net wealth exceeds the Nisab ($${nisabGold}). Paying Zakat is an act of purification.`
+                  : `Your wealth ($${netZakatableWealth.toLocaleString()}) is below the minimum threshold ($${nisabGold}). No Zakat is due this year.`}
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={payZakat}
+            disabled={zakatDue <= 0}
+            className={`w-full p-6 rounded-[2rem] font-black text-lg transition-all flex items-center justify-center gap-3 shadow-xl ${
+              zakatDue > 0
+                ? "bg-indigo-600 text-white shadow-indigo-900/20"
+                : "bg-slate-200 text-slate-400 cursor-not-allowed"
+            }`}
+          >
+            Purify & Distribute <Heart size={20} />
+          </button>
+        </div>
+      )}
+    </div>
+  );
 
   const renderMurabaha = () => {
     const profitRate = 0.08;
