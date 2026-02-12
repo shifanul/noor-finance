@@ -511,136 +511,224 @@ const App = () => {
     </div>
   );
 
-  const renderCard = () => (
-    <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
-      <div className="flex justify-between items-center px-1">
-        <h2 className="text-xl font-bold text-slate-900">Your Card</h2>
-      </div>
+  const renderCard = () => {
+    if (subscriptionView === "manage") return renderSubscriptionManagement();
 
-      <div
-        className={`w-full max-w-[340px] mx-auto aspect-[1.58/1] rounded-[1.5rem] p-6 text-white shadow-2xl relative flex flex-col justify-between transition-all duration-500 overflow-hidden ${
-          isFrozen
-            ? "grayscale bg-slate-800"
-            : "bg-gradient-to-br from-[#064e3b] via-[#043d2e] to-[#022c22]"
-        }`}
-      >
-        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-400/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-24 h-24 bg-amber-400/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
-
-        <div className="flex justify-between items-start relative z-10">
-          <span className="font-black text-2xl italic tracking-tighter">
-            noor.
-          </span>
-          <div className="w-10 h-7 bg-gradient-to-br from-amber-200 to-amber-500/80 rounded flex flex-col justify-around p-1 shadow-inner">
-            <div className="w-full h-[1px] bg-black/10"></div>
-            <div className="w-full h-[1px] bg-black/10"></div>
+    return (
+      <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
+        <div className="flex justify-between items-center px-1">
+          <h2 className="text-xl font-bold text-slate-900">Your Card</h2>
+          <div className="bg-emerald-50 px-3 py-1 rounded-full flex items-center gap-1.5">
+            <Gem size={12} className="text-emerald-600" />
+            <span className="text-[10px] font-black uppercase text-emerald-700 tracking-tighter">
+              {currentTier}
+            </span>
           </div>
         </div>
 
-        <div className="relative z-10 flex flex-col gap-4">
-          <div className="flex items-center gap-3">
-            <p className="text-lg font-mono tracking-[0.15em] font-medium text-white/90">
-              {showCardDetails ? "4532 8812 0094 1120" : "•••• •••• •••• 1120"}
-            </p>
-            <button
-              onClick={() => setShowCardDetails(!showCardDetails)}
-              className="p-1.5 bg-white/10 hover:bg-white/20 rounded-full transition-colors active:scale-90"
-            >
-              {showCardDetails ? (
-                <EyeOff size={14} className="text-white/70" />
-              ) : (
-                <Eye size={14} className="text-white/70" />
-              )}
-            </button>
-          </div>
+        {/* Card Visual */}
+        <div
+          className={`w-full max-w-[340px] mx-auto aspect-[1.58/1] rounded-[1.5rem] p-6 text-white shadow-2xl relative flex flex-col justify-between transition-all duration-500 overflow-hidden ${
+            isFrozen
+              ? "grayscale bg-slate-800"
+              : "bg-gradient-to-br from-[#064e3b] via-[#043d2e] to-[#022c22]"
+          }`}
+        >
+          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-400/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-amber-400/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
 
-          <div className="flex gap-8 items-center">
-            <div className="flex flex-col">
-              <span className="text-[7px] font-bold uppercase tracking-[0.2em] text-emerald-400/70 mb-0.5">
-                Expiry
-              </span>
-              <span className="text-sm font-mono font-medium tracking-widest">
-                {showCardDetails ? "09/28" : "••/••"}
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-[7px] font-bold uppercase tracking-[0.2em] text-emerald-400/70 mb-0.5">
-                CVV
-              </span>
-              <span className="text-sm font-mono font-medium tracking-widest">
-                {showCardDetails ? "442" : "•••"}
-              </span>
+          <div className="flex justify-between items-start relative z-10">
+            <span className="font-black text-2xl italic tracking-tighter">
+              noor.
+            </span>
+            <div className="w-10 h-7 bg-gradient-to-br from-amber-200 to-amber-500/80 rounded flex flex-col justify-around p-1 shadow-inner">
+              <div className="w-full h-[1px] bg-black/10"></div>
+              <div className="w-full h-[1px] bg-black/10"></div>
             </div>
           </div>
-        </div>
 
-        <div className="flex justify-between items-end relative z-10">
-          <div className="flex flex-col">
+          <div className="relative z-10 flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <p className="text-lg font-mono tracking-[0.15em] font-medium text-white/90">
+                {showCardDetails
+                  ? "4532 8812 0094 1120"
+                  : "•••• •••• •••• 1120"}
+              </p>
+              <button
+                onClick={() => setShowCardDetails(!showCardDetails)}
+                className="p-1.5 bg-white/10 hover:bg-white/20 rounded-full transition-colors active:scale-90"
+              >
+                {showCardDetails ? (
+                  <EyeOff size={14} className="text-white/70" />
+                ) : (
+                  <Eye size={14} className="text-white/70" />
+                )}
+              </button>
+            </div>
+
+            <div className="flex gap-8 items-center">
+              <div className="flex flex-col">
+                <span className="text-[7px] font-bold uppercase tracking-[0.2em] text-emerald-400/70 mb-0.5">
+                  Expiry
+                </span>
+                <span className="text-sm font-mono font-medium tracking-widest">
+                  {showCardDetails ? "09/28" : "••/••"}
+                </span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[7px] font-bold uppercase tracking-[0.2em] text-emerald-400/70 mb-0.5">
+                  CVV
+                </span>
+                <span className="text-sm font-mono font-medium tracking-widest">
+                  {showCardDetails ? "442" : "•••"}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-between items-end relative z-10">
             <p className="text-[10px] font-bold uppercase tracking-widest text-white/90">
               Visa Platinum
             </p>
-          </div>
-          <div className="flex -space-x-2">
-            <div className="w-7 h-7 rounded-full bg-rose-600/90 shadow-sm border border-white/5"></div>
-            <div className="w-7 h-7 rounded-full bg-amber-500/90 shadow-sm border border-white/5"></div>
+            <div className="flex -space-x-2">
+              <div className="w-7 h-7 rounded-full bg-rose-600/90 shadow-sm border border-white/5"></div>
+              <div className="w-7 h-7 rounded-full bg-amber-500/90 shadow-sm border border-white/5"></div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="bg-white rounded-[1.5rem] p-1 border border-slate-100 shadow-sm mt-4">
-        <div className="flex items-center justify-between p-4 border-b border-slate-50">
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
-              <Zap size={20} />
+        {/* Toggles */}
+        <div className="bg-white rounded-[1.5rem] p-1 border border-slate-100 shadow-sm">
+          <div className="flex items-center justify-between p-4 border-b border-slate-50">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
+                <Zap size={20} />
+              </div>
+              <div>
+                <p className="font-bold text-sm">Halal Filter AI</p>
+                <p className="text-[10px] text-slate-400">
+                  Strict Shariah Compliance
+                </p>
+              </div>
             </div>
-            <div>
-              <p className="font-bold text-sm">Halal Filter AI</p>
-              <p className="text-[10px] text-slate-400">
-                Strict Shariah Compliance
-              </p>
+            <button
+              onClick={() => {
+                setHalalFilterActive(!halalFilterActive);
+                triggerNotification(
+                  halalFilterActive
+                    ? "Halal Filter Paused"
+                    : "Halal Filter Enabled",
+                );
+              }}
+              className={`w-12 h-6 rounded-full p-1 transition-colors ${
+                halalFilterActive ? "bg-emerald-500" : "bg-slate-200"
+              }`}
+            >
+              <div
+                className={`w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${
+                  halalFilterActive ? "translate-x-6" : ""
+                }`}
+              />
+            </button>
+          </div>
+          <div className="flex items-center justify-between p-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 bg-blue-50 text-blue-600 rounded-xl">
+                <Lock size={20} />
+              </div>
+              <div>
+                <p className="font-bold text-sm">Freeze Card</p>
+                <p className="text-[10px] text-slate-400">
+                  Instant security lock
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                setIsFrozen(!isFrozen);
+                triggerNotification(isFrozen ? "Card Unfrozen" : "Card Frozen");
+              }}
+              className={`w-12 h-6 rounded-full p-1 transition-colors ${
+                isFrozen ? "bg-blue-500" : "bg-slate-200"
+              }`}
+            >
+              <div
+                className={`w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${
+                  isFrozen ? "translate-x-6" : ""
+                }`}
+              />
+            </button>
+          </div>
+        </div>
+
+        {/* Feature Highlights Component */}
+        <div className="bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
+          <div className="space-y-6">
+            <div className="flex gap-4">
+              <ShieldCheck className="text-emerald-600 shrink-0" size={20} />
+              <div>
+                <p className="text-xs font-bold text-slate-800">
+                  The Active Halal Filter
+                </p>
+                <p className="text-[10px] text-slate-500 leading-relaxed mt-0.5">
+                  Automated Shariah-compliance at 1.2M+ merchants. We instantly
+                  block non-ethical categories like gambling or alcohol.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <Sparkles className="text-amber-500 shrink-0" size={20} />
+              <div>
+                <p className="text-xs font-bold text-slate-800">
+                  0.5% Cash-Back (Halal Merchants)
+                </p>
+                <p className="text-[10px] text-slate-500 leading-relaxed mt-0.5">
+                  Earn rewards on every ethical purchase, delivered as monthly
+                  profit-share directly to your balance.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <RefreshCcw className="text-blue-500 shrink-0" size={20} />
+              <div>
+                <p className="text-xs font-bold text-slate-800">
+                  Auto-Purification Logic
+                </p>
+                <p className="text-[10px] text-slate-500 leading-relaxed mt-0.5">
+                  Accidental interest earned is automatically identified and
+                  transferred to your Purification sub-account for charity.
+                </p>
+              </div>
             </div>
           </div>
-          <button
-            onClick={() => setHalalFilterActive(!halalFilterActive)}
-            className={`w-12 h-6 rounded-full p-1 transition-colors ${
-              halalFilterActive ? "bg-emerald-500" : "bg-slate-200"
-            }`}
-          >
-            <div
-              className={`w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${
-                halalFilterActive ? "translate-x-6" : ""
-              }`}
-            />
-          </button>
         </div>
-        <div className="flex items-center justify-between p-4">
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-blue-50 text-blue-600 rounded-xl">
-              <Lock size={20} />
-            </div>
-            <div>
-              <p className="font-bold text-sm">Freeze Card</p>
-              <p className="text-[10px] text-slate-400">
-                Instant security lock
-              </p>
-            </div>
+
+        {/* Why Subscription */}
+        <div className="p-6 bg-slate-900 rounded-[2.5rem] text-white">
+          <div className="flex items-center gap-2 mb-3">
+            <Info size={16} className="text-emerald-400" />
+            <h3 className="text-[10px] font-black uppercase tracking-widest text-emerald-400">
+              Why a subscription?
+            </h3>
           </div>
-          <button
-            onClick={() => setIsFrozen(!isFrozen)}
-            className={`w-12 h-6 rounded-full p-1 transition-colors ${
-              isFrozen ? "bg-blue-500" : "bg-slate-200"
-            }`}
-          >
-            <div
-              className={`w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${
-                isFrozen ? "translate-x-6" : ""
-              }`}
-            />
-          </button>
+          <p className="text-[11px] text-slate-300 leading-relaxed">
+            Traditional banks make money by lending yours out at interest
+            (Riba). <strong>Noor does not.</strong> To keep our infrastructure
+            interest-free and purely ethical, we charge a transparent monthly
+            fee. This ensures our interests are aligned with your values, not
+            bank profits.
+          </p>
         </div>
+
+        <button
+          onClick={() => setSubscriptionView("manage")}
+          className="w-full bg-white border border-slate-200 text-slate-900 p-5 rounded-[2rem] font-bold text-sm shadow-sm active:scale-95 transition-all flex items-center justify-center gap-2"
+        >
+          View Subscription Agreement <ArrowUpRight size={16} />
+        </button>
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderEquity = () => {
     if (financingSubPage === "zakat") return renderZakatWorkflow();
@@ -703,6 +791,54 @@ const App = () => {
             <p className="text-[8px] text-amber-400 font-bold uppercase mt-0.5">
               Auto
             </p>
+          </div>
+        </div>
+        {/* Subscription Info */}
+        <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-emerald-50 rounded-2xl text-emerald-600">
+                <Gem size={20} />
+              </div>
+              <div>
+                <p className="font-black text-slate-900">Noor Premium</p>
+                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                  $9.99 / Month
+                </p>
+              </div>
+            </div>
+            <span className="bg-emerald-500 text-white text-[9px] px-3 py-1 rounded-full font-black uppercase">
+              Active
+            </span>
+          </div>
+
+          <div className="h-px bg-slate-50"></div>
+
+          <div className="space-y-4 pt-2">
+            <div className="flex gap-4">
+              <ShieldCheck className="text-emerald-600 shrink-0" size={20} />
+              <div>
+                <p className="text-xs font-bold text-slate-800">
+                  The Active Halal Filter
+                </p>
+                <p className="text-[10px] text-slate-500 leading-relaxed mt-0.5">
+                  Automated Shariah-compliance at 1.2M+ merchants. We instantly
+                  block non-ethical categories like gambling or alcohol.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <RefreshCcw className="text-blue-500 shrink-0" size={20} />
+              <div>
+                <p className="text-xs font-bold text-slate-800">
+                  Auto-Purification Logic
+                </p>
+                <p className="text-[10px] text-slate-500 leading-relaxed mt-0.5">
+                  Accidental interest earned is automatically identified and
+                  transferred to your Purification sub-account for charity.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
