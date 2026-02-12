@@ -74,23 +74,33 @@ const App = () => {
       id: "lg",
       name: "LaunchGood",
       description: "Crowdfunded Zakat campaigns.",
-      featured: true,
+      tag: "Featured",
+      icon: <Globe className="text-indigo-600" size={18} />,
       url: "https://www.launchgood.com/zakat",
     },
     {
       id: "ir",
       name: "Islamic Relief",
       description: "Global emergency aid & development.",
+      tag: "International",
+      icon: <Heart className="text-rose-500" size={18} />,
+      url: "https://www.islamic-relief.org/zakat/",
     },
     {
       id: "nzf",
       name: "National Zakat Foundation",
       description: "Local distribution to those in need.",
+      tag: "Local Support",
+      icon: <Building2 className="text-emerald-600" size={18} />,
+      url: "https://nzf.org.uk/pay-zakat/",
     },
     {
       id: "skz",
       name: "Shaukat Khanum",
       description: "Cancer treatment for the underprivileged.",
+      tag: "Healthcare",
+      icon: <Stethoscope className="text-blue-600" size={18} />,
+      url: "https://shaukatkhanum.org.pk/donations/zakat/",
     },
   ];
 
@@ -162,6 +172,24 @@ const App = () => {
   ]);
 
   const userEquity = 24;
+
+  const handleFinalPayment = () => {
+    const charity = charities.find((c) => c.id === selectedCharity);
+    // Implementation for payment logic would go here
+    console.log(
+      `Payment of $${zakatDue.toFixed(2)} initiated to ${charity?.name}`,
+    );
+
+    if (charity?.url) {
+      window.open(charity.url, "_blank");
+    }
+
+    setZakatStep(1);
+    // Note: setFinancingSubPage is a parent level state, ensure it exists in your full implementation
+    if (typeof setFinancingSubPage === "function") {
+      setFinancingSubPage("main");
+    }
+  };
 
   // Initial Splash Loading
   useEffect(() => {
@@ -679,14 +707,16 @@ const App = () => {
 
   const renderZakatWorkflow = () => (
     <div className="space-y-6 animate-in slide-in-from-right-4 duration-500 pb-10 max-w-md mx-auto">
+      {/* Header & Progress */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-4">
           <button
             onClick={() => {
               if (zakatStep > 1) setZakatStep(zakatStep - 1);
-              else setFinancingSubPage("main");
+              else if (typeof setFinancingSubPage === "function")
+                setFinancingSubPage("main");
             }}
-            className="p-3 bg-white rounded-2xl shadow-sm border border-slate-100"
+            className="p-3 bg-white rounded-2xl shadow-sm border border-slate-100 active:scale-95 transition-transform"
           >
             <ChevronLeft className="text-slate-600" />
           </button>
@@ -698,7 +728,7 @@ const App = () => {
           {[1, 2, 3, 4].map((s) => (
             <div
               key={s}
-              className={`h-1.5 w-6 rounded-full transition-colors ${
+              className={`h-1.5 w-6 rounded-full transition-all duration-500 ${
                 zakatStep >= s ? "bg-indigo-600" : "bg-slate-200"
               }`}
             ></div>
@@ -706,6 +736,7 @@ const App = () => {
         </div>
       </div>
 
+      {/* Step 1: Assets */}
       {zakatStep === 1 && (
         <div className="space-y-6 animate-in fade-in duration-300">
           <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6">
@@ -788,13 +819,14 @@ const App = () => {
           </div>
           <button
             onClick={() => setZakatStep(2)}
-            className="w-full bg-indigo-600 text-white p-6 rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-900/20"
+            className="w-full bg-indigo-600 text-white p-6 rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-900/20 active:scale-[0.98] transition-all"
           >
             Continue to Liabilities
           </button>
         </div>
       )}
 
+      {/* Step 2: Liabilities */}
       {zakatStep === 2 && (
         <div className="space-y-6 animate-in fade-in duration-300">
           <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6">
@@ -847,13 +879,14 @@ const App = () => {
           </div>
           <button
             onClick={() => setZakatStep(3)}
-            className="w-full bg-indigo-600 text-white p-6 rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-900/20"
+            className="w-full bg-indigo-600 text-white p-6 rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-900/20 active:scale-[0.98] transition-all"
           >
             Review Calculation
           </button>
         </div>
       )}
 
+      {/* Step 3: Calculation Review */}
       {zakatStep === 3 && (
         <div className="space-y-6 animate-in fade-in duration-300">
           <div className="bg-indigo-900 p-8 rounded-[3rem] text-white shadow-2xl relative overflow-hidden text-center">
@@ -868,7 +901,7 @@ const App = () => {
             </h3>
             <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full text-[10px] font-bold">
               <ShieldCheck size={14} className="text-emerald-400" /> Shariah
-              Compliant Calculation
+              Compliant
             </div>
           </div>
 
@@ -895,9 +928,8 @@ const App = () => {
           <div className="p-4 bg-amber-50 rounded-2xl border border-amber-100 flex gap-3">
             <Info className="text-amber-600 shrink-0" size={18} />
             <p className="text-[10px] text-amber-800 font-medium leading-normal">
-              Nisab is currently <b>${nisabValue}</b>. Since your net wealth is{" "}
-              {isEligible ? "above" : "below"} this, Zakat is{" "}
-              {isEligible ? "due" : "not obligatory"}.
+              Nisab is currently <b>${nisabValue}</b>. Your net wealth is{" "}
+              {isEligible ? "above" : "below"} this threshold.
             </p>
           </div>
 
@@ -906,7 +938,7 @@ const App = () => {
             disabled={zakatDue <= 0}
             className={`w-full p-6 rounded-[2rem] font-black text-lg transition-all flex items-center justify-center gap-3 shadow-xl ${
               zakatDue > 0
-                ? "bg-indigo-600 text-white shadow-indigo-900/20"
+                ? "bg-indigo-600 text-white shadow-indigo-900/20 active:scale-[0.98]"
                 : "bg-slate-200 text-slate-400 cursor-not-allowed"
             }`}
           >
@@ -915,6 +947,7 @@ const App = () => {
         </div>
       )}
 
+      {/* Step 4: Charity Selection */}
       {zakatStep === 4 && (
         <div className="space-y-6 animate-in fade-in duration-300">
           <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6">
@@ -932,7 +965,7 @@ const App = () => {
                   onClick={() => setSelectedCharity(charity.id)}
                   className={`w-full p-4 rounded-3xl text-left transition-all border-2 flex items-start gap-4 ${
                     selectedCharity === charity.id
-                      ? "border-indigo-600 bg-indigo-50/50 shadow-sm"
+                      ? "border-indigo-600 bg-indigo-50 shadow-sm"
                       : "border-slate-50 bg-slate-50/30 hover:bg-slate-50"
                   }`}
                 >
@@ -940,7 +973,7 @@ const App = () => {
                     className={`p-3 rounded-2xl ${
                       selectedCharity === charity.id
                         ? "bg-white shadow-sm"
-                        : "bg-white"
+                        : "bg-white border border-slate-100"
                     }`}
                   >
                     {charity.icon}
@@ -968,22 +1001,15 @@ const App = () => {
           </div>
 
           <button
-            onClick={() => {
-              triggerNotification(
-                `Zakat of $${zakatDue.toFixed(2)} paid via ${
-                  charities.find((c) => c.id === selectedCharity)?.name
-                }`,
-              );
-              setFinancingSubPage("main");
-            }}
+            onClick={handleFinalPayment}
             disabled={!selectedCharity}
             className={`w-full p-6 rounded-[2rem] font-black text-lg transition-all flex items-center justify-center gap-3 shadow-xl ${
               selectedCharity
-                ? "bg-indigo-600 text-white shadow-indigo-900/20"
+                ? "bg-indigo-600 text-white shadow-indigo-900/20 active:scale-[0.98]"
                 : "bg-slate-200 text-slate-400 cursor-not-allowed"
             }`}
           >
-            Purify & Distribute <ExternalLink size={20} />
+            Confirm & Distribute <ExternalLink size={20} />
           </button>
         </div>
       )}
