@@ -537,8 +537,11 @@ const App = () => {
           <RefreshCcw size={12} className={isSyncing ? "animate-spin" : ""} />
           {isSyncing ? "Syncing..." : "Sync Ledger"}
         </button>
-        <button className="whitespace-nowrap bg-slate-900 text-white text-[10px] font-black px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-sm hover:bg-slate-800 active:scale-95 transition-all uppercase tracking-wider">
-          <Zap size={12} className="text-amber-400" /> Simulate Spend
+        <button
+          onClick={addRandomTransaction}
+          className="whitespace-nowrap bg-[#064e3b] text-white text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
+        >
+          <Zap size={12} /> Simulate
         </button>
       </div>
 
