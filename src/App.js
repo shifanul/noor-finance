@@ -40,8 +40,27 @@ import {
   CalendarDays,
 } from "lucide-react";
 import avatarUrl from "./IMG_3519.png";
+import translations from "./i18n";
 
 const App = () => {
+  const [locale, setLocale] = useState(localStorage.getItem("locale") || "en");
+  useEffect(() => {
+    localStorage.setItem("locale", locale);
+  }, [locale]);
+
+  const tRaw = (k) =>
+    (translations[locale] && translations[locale][k]) ||
+    (translations.en && translations.en[k]) ||
+    k;
+
+  const t = (k, vars) => {
+    let s = tRaw(k);
+    if (vars)
+      Object.keys(vars).forEach(
+        (key) => (s = s.replace(`{${key}}`, vars[key])),
+      );
+    return s;
+  };
   // Navigation & Auth State
   const [appState, setAppState] = useState("splash"); // 'splash', 'login', 'authenticated'
   const [loadProgress, setLoadProgress] = useState(0);
@@ -258,7 +277,7 @@ const App = () => {
             <ChevronLeft size={18} />
           </button>
           <h2 className="text-xl font-bold text-slate-900">
-            Subscription Plans
+            {t("subscriptionPlans")}
           </h2>
         </div>
 
@@ -449,7 +468,7 @@ const App = () => {
           noor.
         </h1>
         <p className="text-emerald-300/60 text-[10px] font-bold uppercase tracking-[0.2em]">
-          Secure Access
+          {t("secureAccess")}
         </p>
       </div>
 
@@ -471,9 +490,11 @@ const App = () => {
             </div>
           )}
         </div>
-        <h2 className="text-white font-bold text-lg">Welcome back, Shifanul</h2>
+        <h2 className="text-white font-bold text-lg">
+          {t("welcomeBack", { name: "Shifanul" })}
+        </h2>
         <p className="text-emerald-300/40 text-xs mt-1">
-          Enter PIN (1234) or use Face ID
+          {t("enterPin", { pin: "1234" })}
         </p>
       </div>
 
@@ -521,7 +542,7 @@ const App = () => {
       </div>
 
       <button className="mt-12 text-emerald-300/40 text-[10px] font-bold uppercase tracking-widest hover:text-white transition-colors">
-        Forgot PIN?
+        {t("forgotPin")}
       </button>
     </div>
   );
@@ -534,20 +555,20 @@ const App = () => {
           className="whitespace-nowrap bg-amber-600 text-white text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
         >
           <RefreshCcw size={12} className={isSyncing ? "animate-spin" : ""} />{" "}
-          Sync
+          {t("sync")}
         </button>
         <button
           onClick={addRandomTransaction}
           className="whitespace-nowrap bg-[#064e3b] text-white text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
         >
-          <Zap size={12} /> Simulate
+          <Zap size={12} /> {t("simulate")}
         </button>
       </div>
 
       <div className="bg-[#064e3b] rounded-[2rem] p-6 text-white shadow-xl relative overflow-hidden">
         <div className="relative z-10">
           <p className="text-emerald-300/80 text-[10px] font-bold uppercase tracking-widest">
-            Total Wealth
+            {t("totalWealth")}
           </p>
           <h1 className="text-3xl font-bold mt-1 tracking-tight">
             ${balance.toLocaleString()}
@@ -567,17 +588,17 @@ const App = () => {
         {[
           {
             icon: <ArrowUpRight size={20} />,
-            label: "Transfer",
+            label: t("transfer"),
             color: "bg-emerald-100 text-emerald-700",
           },
           {
             icon: <ArrowDownRight size={20} />,
-            label: "Deposit",
+            label: t("deposit"),
             color: "bg-amber-100 text-amber-700",
           },
           {
             icon: <Wallet size={20} />,
-            label: "equity",
+            label: t("equity"),
             color: "bg-slate-100 text-slate-700",
             action: () => {
               setActiveTab("financing");
@@ -585,7 +606,7 @@ const App = () => {
           },
           {
             icon: <Fingerprint size={20} />,
-            label: "Zakat",
+            label: t("zakat"),
             color: "bg-indigo-100 text-indigo-700",
             action: () => {
               setActiveTab("financing");
@@ -607,7 +628,9 @@ const App = () => {
       </div>
 
       <div className="mt-2">
-        <h2 className="text-lg font-bold mb-3 px-1 text-slate-900">Activity</h2>
+        <h2 className="text-lg font-bold mb-3 px-1 text-slate-900">
+          {t("activity")}
+        </h2>
         <div className="space-y-2">
           {transactions.map((tx) => (
             <div
@@ -673,7 +696,7 @@ const App = () => {
     return (
       <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
         <div className="flex justify-between items-center px-1">
-          <h2 className="text-xl font-bold text-slate-900">Your Card</h2>
+          <h2 className="text-xl font-bold text-slate-900">{t("yourCard")}</h2>
           <div className="bg-emerald-50 px-3 py-1 rounded-full flex items-center gap-1.5">
             <Gem size={12} className="text-emerald-600" />
             <span className="text-[10px] font-black uppercase text-emerald-700 tracking-tighter">
@@ -864,7 +887,7 @@ const App = () => {
           <div className="flex items-center gap-2 mb-3">
             <Info size={16} className="text-emerald-400" />
             <h3 className="text-[10px] font-black uppercase tracking-widest text-emerald-400">
-              Why a subscription?
+              {t("whySubscription")}
             </h3>
           </div>
           <p className="text-[11px] text-slate-300 leading-relaxed">
@@ -880,7 +903,7 @@ const App = () => {
           onClick={() => setSubscriptionView("manage")}
           className="w-full bg-white border border-slate-200 text-slate-900 p-5 rounded-[2rem] font-bold text-sm shadow-sm active:scale-95 transition-all flex items-center justify-center gap-2"
         >
-          View Subscription Agreement <ArrowUpRight size={16} />
+          {t("viewSubscriptionAgreement")} <ArrowUpRight size={16} />
         </button>
       </div>
     );
@@ -1190,7 +1213,7 @@ const App = () => {
               <Fingerprint size={100} />
             </div>
             <p className="text-indigo-300 text-[10px] font-bold uppercase tracking-[0.2em] mb-2">
-              Total Zakat Obligation
+              {t("totalZakatObligation")}
             </p>
             <h3 className="text-5xl font-black tracking-tighter mb-4">
               ${zakatDue.toFixed(2)}
@@ -1238,7 +1261,7 @@ const App = () => {
                 : "bg-slate-200 text-slate-400 cursor-not-allowed"
             }`}
           >
-            Select Distribution <Heart size={20} />
+            {t("selectDistribution")} <Heart size={20} />
           </button>
         </div>
       )}
@@ -1305,7 +1328,7 @@ const App = () => {
                 : "bg-slate-200 text-slate-400 cursor-not-allowed"
             }`}
           >
-            Confirm & Distribute <ExternalLink size={20} />
+            {t("confirmAndDistribute")} <ExternalLink size={20} />
           </button>
         </div>
       )}
@@ -1516,11 +1539,11 @@ const App = () => {
     return (
       <div className="fixed inset-0 bg-[#064e3b] z-[200] flex flex-col items-center justify-center text-white p-6">
         <div className="flex-1 flex flex-col items-center justify-center">
-          <h1 className="text-5xl font-black italic tracking-tighter mb-1 animate-pulse">
+          <h2 className="text-xl font-black italic tracking-tighter mb-1 animate-pulse">
             noor.
-          </h1>
+          </h2>
           <p className="text-emerald-400 font-bold tracking-[0.2em] uppercase text-[8px] opacity-80">
-            Financing The Right Way
+            {t("whySubscription")}
           </p>
         </div>
 
@@ -1575,6 +1598,15 @@ const App = () => {
         </div>
         <div className="flex items-center gap-3">
           <Bell size={20} className="text-slate-400" />
+          <select
+            value={locale}
+            onChange={(e) => setLocale(e.target.value)}
+            className="text-xs bg-white border rounded px-2 py-1"
+            aria-label="Language selector"
+          >
+            <option value="en">English</option>
+            <option value="fr_qc">Français (QC)</option>
+          </select>
           <div className="w-8 h-8 rounded-full bg-slate-200 border border-emerald-900/10 overflow-hidden shadow-sm">
             <img
               src={avatarUrl}
@@ -1613,7 +1645,7 @@ const App = () => {
                 }}
                 className="w-full bg-emerald-500 text-[#0f172a] p-4 rounded-xl font-black shadow-lg active:scale-95 transition-transform"
               >
-                Donate Now
+                {t("donateNow")}
               </button>
             </div>
           </div>
@@ -1626,7 +1658,7 @@ const App = () => {
           active={activeTab === "dashboard"}
           onClick={() => setActiveTab("dashboard")}
           icon={<PieChart />}
-          label="Home"
+          label={t("navHome")}
         />
         <NavButton
           active={activeTab === "financing"}
@@ -1635,19 +1667,19 @@ const App = () => {
             setFinancingSubPage("main");
           }}
           icon={<Home />}
-          label="Equity"
+          label={t("navEquity")}
         />
         <NavButton
           active={activeTab === "purify"}
           onClick={() => setActiveTab("purify")}
           icon={<Droplets />}
-          label="Purity"
+          label={t("navPurity")}
         />
         <NavButton
           active={activeTab === "settings"}
           onClick={() => setActiveTab("settings")}
           icon={<CreditCard />}
-          label="Card"
+          label={t("navCard")}
         />
       </nav>
     </div>
