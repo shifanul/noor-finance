@@ -580,7 +580,7 @@ const App = () => {
             label: "equity",
             color: "bg-slate-100 text-slate-700",
             action: () => {
-              setActiveTab("equity");
+              setActiveTab("financing");
             },
           },
           {
