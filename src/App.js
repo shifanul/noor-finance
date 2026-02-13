@@ -1539,7 +1539,7 @@ const App = () => {
     return (
       <div className="fixed inset-0 bg-[#064e3b] z-[200] flex flex-col items-center justify-center text-white p-6">
         <div className="flex-1 flex flex-col items-center justify-center">
-          <h2 className="text-7xl font-black italic tracking-tighter mb-1 animate-pulse">
+          <h2 className="text-5xl font-black italic tracking-tighter mb-1 animate-pulse">
             noor.
           </h2>
           <p className="text-emerald-400 font-bold tracking-[0.2em] uppercase text-[8px] opacity-80">
