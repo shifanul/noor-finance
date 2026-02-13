@@ -446,7 +446,7 @@ const App = () => {
     <div className="fixed inset-0 bg-[#064e3b] z-[150] flex flex-col items-center px-8 pt-20 animate-in fade-in zoom-in-95 duration-500">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-black italic tracking-tighter text-white mb-2">
-          noor.
+          Oikko.
         </h1>
         <p className="text-emerald-300/60 text-[10px] font-bold uppercase tracking-[0.2em]">
           Secure Access
@@ -695,7 +695,7 @@ const App = () => {
 
           <div className="flex justify-between items-start relative z-10">
             <span className="font-black text-2xl italic tracking-tighter">
-              noor.
+              Oikko.
             </span>
             <div className="w-10 h-7 bg-gradient-to-br from-amber-200 to-amber-500/80 rounded flex flex-col justify-around p-1 shadow-inner">
               <div className="w-full h-[1px] bg-black/10"></div>
@@ -1517,7 +1517,7 @@ const App = () => {
       <div className="fixed inset-0 bg-[#064e3b] z-[200] flex flex-col items-center justify-center text-white p-6">
         <div className="flex-1 flex flex-col items-center justify-center">
           <h1 className="text-5xl font-black italic tracking-tighter mb-1 animate-pulse">
-            noor.
+            Oikko.
           </h1>
           <p className="text-emerald-400 font-bold tracking-[0.2em] uppercase text-[8px] opacity-80">
             Financing The Right Way
@@ -1571,7 +1571,7 @@ const App = () => {
           <div className="bg-[#064e3b] p-1.5 rounded-lg">
             <Lock size={12} className="text-white" />
           </div>
-          <span className="font-black text-xl tracking-tighter">noor.</span>
+          <span className="font-black text-xl tracking-tighter">Oikko.</span>
         </div>
         <div className="flex items-center gap-3">
           <Bell size={20} className="text-slate-400" />
