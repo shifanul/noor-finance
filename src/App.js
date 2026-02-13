@@ -527,15 +527,14 @@ const App = () => {
   );
 
   const renderDashboard = () => (
-    <div className="space-y-5 pb-24 animate-in fade-in slide-in-from-bottom-2 duration-700">
-      {/* Action Bar */}
+    <div className="space-y-4 pb-24 animate-in fade-in duration-500">
       <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
         <button
           onClick={simulateSync}
-          className="whitespace-nowrap bg-emerald-700/10 text-emerald-700 text-[10px] font-black px-4 py-2.5 rounded-xl flex items-center gap-2 border border-emerald-100/50 hover:bg-emerald-700/20 active:scale-95 transition-all uppercase tracking-wider"
+          className="whitespace-nowrap bg-amber-600 text-white text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
         >
-          <RefreshCcw size={12} className={isSyncing ? "animate-spin" : ""} />
-          {isSyncing ? "Syncing..." : "Sync Ledger"}
+          <RefreshCcw size={12} className={isSyncing ? "animate-spin" : ""} />{" "}
+          Sync
         </button>
         <button
           onClick={addRandomTransaction}
@@ -545,117 +544,99 @@ const App = () => {
         </button>
       </div>
 
-      {/* Wealth Card (Hero) */}
-      <div className="bg-[#064e3b] rounded-[2.5rem] p-7 text-white shadow-2xl relative overflow-hidden group">
-        <div className="absolute top-0 right-0 p-4 opacity-5 translate-x-4 -translate-y-4 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-700">
-          <Fingerprint size={120} />
-        </div>
-
+      <div className="bg-[#064e3b] rounded-[2rem] p-6 text-white shadow-xl relative overflow-hidden">
         <div className="relative z-10">
-          <div className="flex justify-between items-start">
-            <p className="text-emerald-300/80 text-[10px] font-black uppercase tracking-[0.2em]">
-              Total Wealth
-            </p>
-            <div className="bg-white/10 backdrop-blur-md px-2 py-1 rounded-lg flex items-center gap-1.5">
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></div>
-              <span className="text-[9px] font-black uppercase tracking-tighter">
-                Mudarabah Active
-              </span>
-            </div>
-          </div>
-          <h1 className="text-4xl font-black mt-2 tracking-tight">
+          <p className="text-emerald-300/80 text-[10px] font-bold uppercase tracking-widest">
+            Total Wealth
+          </p>
+          <h1 className="text-3xl font-bold mt-1 tracking-tight">
             ${balance.toLocaleString()}
           </h1>
-          <div className="mt-6 flex justify-between items-end">
-            <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs bg-emerald-900/50 px-3 py-1.5 rounded-full border border-emerald-500/20">
-              <TrendingUp size={14} /> <span>+4.2% Est. Profit</span>
+          <div className="mt-4 flex justify-between items-center">
+            <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-xs">
+              <TrendingUp size={14} /> <span>+4.2% APY</span>
             </div>
-            <p className="text-[9px] text-white/40 font-bold uppercase tracking-widest italic">
-              shariah-certified
-            </p>
+            <div className="bg-white/10 px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-tighter">
+              Mudarabah
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Main Actions Grid */}
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-4 gap-2">
         {[
           {
-            icon: <ArrowUpRight />,
+            icon: <ArrowUpRight size={20} />,
             label: "Transfer",
-            color: "bg-emerald-50 text-emerald-600",
+            color: "bg-emerald-100 text-emerald-700",
           },
           {
-            icon: <ArrowDownRight />,
+            icon: <ArrowDownRight size={20} />,
             label: "Deposit",
-            color: "bg-amber-50 text-amber-600",
+            color: "bg-amber-100 text-amber-700",
           },
           {
-            icon: <Wallet />,
-            label: "Vault",
-            color: "bg-slate-100 text-slate-600",
+            icon: <Wallet size={20} />,
+            label: "equity",
+            color: "bg-slate-100 text-slate-700",
+            action: () => {
+              setActiveTab("equity");
+            },
           },
           {
-            icon: <Fingerprint />,
+            icon: <Fingerprint size={20} />,
             label: "Zakat",
-            color: "bg-indigo-50 text-indigo-600",
+            color: "bg-indigo-100 text-indigo-700",
+            action: () => {
+              setActiveTab("financing");
+              setFinancingSubPage("zakat");
+            },
           },
         ].map((item, idx) => (
           <button
             key={idx}
-            className="flex flex-col items-center gap-2 group active:scale-90 transition-all"
+            onClick={item.action}
+            className="flex flex-col items-center gap-1.5 active:scale-90 transition-transform"
           >
-            <div className={`p-4 rounded-2xl ${item.color} shadow-sm`}>
-              {React.cloneElement(item.icon, { size: 20, strokeWidth: 2.5 })}
-            </div>
-            <span className="text-[10px] font-black text-slate-500 uppercase tracking-tighter">
+            <div className={`p-3.5 rounded-2xl ${item.color}`}>{item.icon}</div>
+            <span className="text-[9px] font-bold text-slate-500 uppercase tracking-tighter">
               {item.label}
             </span>
           </button>
         ))}
       </div>
 
-      {/* Activity Section */}
-      <div className="mt-4">
-        <div className="flex justify-between items-center mb-4 px-1">
-          <h2 className="text-lg font-black text-slate-900 tracking-tight">
-            Recent Activity
-          </h2>
-          <button className="text-[10px] font-black text-emerald-700 uppercase tracking-widest">
-            See All
-          </button>
-        </div>
-        <div className="space-y-3">
+      <div className="mt-2">
+        <h2 className="text-lg font-bold mb-3 px-1 text-slate-900">Activity</h2>
+        <div className="space-y-2">
           {transactions.map((tx) => (
             <div
               key={tx.id}
-              className={`bg-white p-4 rounded-3xl border flex items-center justify-between shadow-sm transition-all hover:border-emerald-100 ${
+              className={`bg-white p-3.5 rounded-2xl border flex items-center justify-between shadow-sm ${
                 tx.status === "declined"
-                  ? "opacity-60 bg-slate-50/50"
+                  ? "border-rose-100 opacity-80"
                   : "border-slate-50"
               }`}
             >
-              <div className="flex items-center gap-4 overflow-hidden">
+              <div className="flex items-center gap-3 overflow-hidden">
                 <div
-                  className={`p-3 rounded-2xl shrink-0 ${
+                  className={`p-2.5 rounded-xl shrink-0 ${
                     tx.status === "declined"
-                      ? "bg-rose-100 text-rose-600"
-                      : tx.type === "profit"
-                      ? "bg-emerald-100 text-emerald-600"
-                      : "bg-slate-100 text-slate-600"
+                      ? "bg-rose-50 text-rose-500"
+                      : "bg-slate-50 text-slate-600"
                   }`}
                 >
                   {tx.status === "declined" ? (
-                    <ShieldX size={18} />
+                    <ShieldX size={16} />
                   ) : tx.type === "profit" ? (
-                    <Sparkles size={18} />
+                    <Zap size={16} className="text-emerald-500" />
                   ) : (
-                    <CreditCard size={18} />
+                    <CreditCard size={16} />
                   )}
                 </div>
                 <div className="truncate">
                   <p
-                    className={`font-bold text-sm truncate ${
+                    className={`font-bold text-xs truncate ${
                       tx.status === "declined"
                         ? "text-rose-900"
                         : "text-slate-900"
@@ -663,28 +644,21 @@ const App = () => {
                   >
                     {tx.name}
                   </p>
-                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">
-                    {tx.time} • {tx.category}
+                  <p className="text-[9px] text-slate-400 font-bold uppercase">
+                    {tx.time}
                   </p>
                 </div>
               </div>
-              <div className="text-right shrink-0">
+              <div className="text-right shrink-0 ml-2">
                 <p
-                  className={`font-black text-sm ${
+                  className={`font-bold text-xs ${
                     tx.status === "declined"
-                      ? "text-slate-400 line-through"
-                      : tx.amount > 0
-                      ? "text-emerald-600"
+                      ? "text-rose-300 line-through"
                       : "text-slate-900"
                   }`}
                 >
                   {tx.amount > 0 ? "+" : ""}${Math.abs(tx.amount).toFixed(2)}
                 </p>
-                {tx.status === "declined" && (
-                  <p className="text-[8px] font-black text-rose-500 uppercase">
-                    Haram Filtered
-                  </p>
-                )}
               </div>
             </div>
           ))}
