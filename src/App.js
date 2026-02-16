@@ -3069,7 +3069,7 @@ const App = () => {
           className={`w-full max-w-[340px] mx-auto aspect-[1.58/1] rounded-[1.5rem] p-6 text-white shadow-2xl relative flex flex-col justify-between transition-all duration-500 overflow-hidden ${
             isFrozen
               ? "grayscale bg-slate-800"
-              : "bg-gradient-to-br from-[#F7F5F0] via-[#043d2e] to-[#022c22]"
+              : "bg-gradient-to-br from-[#043d2e] via-[#043d2e] to-[#022c22]"
           }`}
         >
           <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-400/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
