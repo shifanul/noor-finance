@@ -53,6 +53,20 @@ const App = () => {
     localStorage.setItem("locale", locale);
   }, [locale]);
 
+  // Online/Offline Detection
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
   const tRaw = (k) =>
     (translations[locale] && translations[locale][k]) ||
     (translations.en && translations.en[k]) ||
@@ -119,6 +133,76 @@ const App = () => {
   const [fromAccount, setFromAccount] = useState("current");
   const [toAccount, setToAccount] = useState("investment");
   const [internalTransferAmount, setInternalTransferAmount] = useState("");
+
+  // Beneficiary Management
+  const [beneficiaries, setBeneficiaries] = useState([
+    {
+      id: 1,
+      name: "Sarah Ahmed",
+      email: "sarah@email.com",
+      phone: "+1 (555) 123-4567",
+      verified: true,
+      favorite: true,
+      type: "personal",
+      addedDate: "2025-12-15",
+    },
+    {
+      id: 2,
+      name: "Islamic Relief",
+      email: "donate@relief.org",
+      phone: "+1 (555) 987-6543",
+      verified: true,
+      favorite: false,
+      type: "charity",
+      addedDate: "2026-01-10",
+    },
+  ]);
+  const [showAddBeneficiary, setShowAddBeneficiary] = useState(false);
+  const [newBeneficiaryName, setNewBeneficiaryName] = useState("");
+  const [newBeneficiaryEmail, setNewBeneficiaryEmail] = useState("");
+  const [newBeneficiaryPhone, setNewBeneficiaryPhone] = useState("");
+  const [newBeneficiaryType, setNewBeneficiaryType] = useState("personal");
+
+  // Transfer Receipt & Modal
+  const [showTransferReceipt, setShowTransferReceipt] = useState(false);
+  const [lastTransferReceipt, setLastTransferReceipt] = useState(null);
+
+  // Scheduled & Recurring Transfers
+  const [showScheduleTransfer, setShowScheduleTransfer] = useState(false);
+  const [scheduledTransfers, setScheduledTransfers] = useState([
+    {
+      id: 1,
+      recipient: "Sarah Ahmed",
+      amount: 500,
+      frequency: "monthly",
+      nextDate: "2026-03-16",
+      status: "active",
+    },
+  ]);
+  const [scheduleDate, setScheduleDate] = useState("");
+  const [scheduleFrequency, setScheduleFrequency] = useState("once"); // once, weekly, monthly, yearly
+
+  // Transfer Categories
+  const [transferCategory, setTransferCategory] = useState("personal");
+
+  // Transfer Analytics
+  const [analyticsView, setAnalyticsView] = useState(false);
+
+  // Security Features
+  const [requireBiometric, setRequireBiometric] = useState(false);
+  const [showOTPModal, setShowOTPModal] = useState(false);
+  const [otpInput, setOtpInput] = useState("");
+  const [deviceFingerprint] = useState(
+    "device_" + Math.random().toString(36).substr(2, 9),
+  );
+
+  // Offline Support
+  const [isOnline, setIsOnline] = useState(true);
+  const [offlineQueue, setOfflineQueue] = useState([]);
+
+  // Advanced History
+  const [historyFilter, setHistoryFilter] = useState("all"); // all, sent, received, pending
+  const [showDetailedTransaction, setShowDetailedTransaction] = useState(null);
 
   const userAccounts = [
     {
@@ -200,6 +284,131 @@ const App = () => {
       setTransferAmount("");
       setSelectedContact(null);
     }, 2500);
+  };
+
+  // Helper Functions
+  const generateTransactionId = () =>
+    `TXN-${Date.now()}-${Math.random()
+      .toString(36)
+      .substr(2, 9)}`.toUpperCase();
+
+  const generateOTP = () =>
+    Math.floor(100000 + Math.random() * 900000).toString();
+
+  const createTransferReceipt = (transferData) => ({
+    id: generateTransactionId(),
+    timestamp: new Date().toLocaleString(),
+    date: new Date().toLocaleDateString(),
+    recipient: transferData.recipient,
+    amount: transferData.amount,
+    category: transferData.category,
+    status: "completed",
+    method: transferData.method,
+    senderName: "You",
+    senderAccount: "Current Account",
+    recipientEmail: transferData.email,
+    recipientPhone: transferData.phone,
+    isHalal: true,
+    sharahComplianceId: "SC-" + generateTransactionId(),
+  });
+
+  const calculateMonthlyStats = () => {
+    const now = new Date();
+    const thisMonth = transactions.filter((tx) => {
+      const txDate = new Date(tx.time);
+      return (
+        txDate.getMonth() === now.getMonth() &&
+        txDate.getFullYear() === now.getFullYear()
+      );
+    });
+
+    const totalSent = Math.abs(
+      thisMonth
+        .filter((tx) => tx.amount < 0)
+        .reduce((sum, tx) => sum + tx.amount, 0),
+    );
+    const totalReceived = thisMonth
+      .filter((tx) => tx.amount > 0)
+      .reduce((sum, tx) => sum + tx.amount, 0);
+    const transactionCount = thisMonth.length;
+    const avgTransfer =
+      transactionCount > 0 ? (totalSent + totalReceived) / transactionCount : 0;
+
+    return { totalSent, totalReceived, transactionCount, avgTransfer };
+  };
+
+  const getCategoryIcon = (category) => {
+    const icons = {
+      personal: "👤",
+      charity: "❤️",
+      zakat: "🕌",
+      bills: "📄",
+      family: "👨‍👩‍👧",
+      business: "💼",
+    };
+    return icons[category] || "💸";
+  };
+
+  const getTransferStatusColor = (status) => {
+    const colors = {
+      completed: "text-emerald-600 bg-emerald-50",
+      pending: "text-amber-600 bg-amber-50",
+      failed: "text-rose-600 bg-rose-50",
+      cancelled: "text-slate-600 bg-slate-50",
+    };
+    return colors[status] || "text-slate-600 bg-slate-50";
+  };
+
+  const handleAddBeneficiary = () => {
+    if (!newBeneficiaryName || (!newBeneficiaryEmail && !newBeneficiaryPhone))
+      return;
+
+    const newBeneficiary = {
+      id: beneficiaries.length + 1,
+      name: newBeneficiaryName,
+      email: newBeneficiaryEmail,
+      phone: newBeneficiaryPhone,
+      verified: false,
+      favorite: false,
+      type: newBeneficiaryType,
+      addedDate: new Date().toISOString().split("T")[0],
+    };
+
+    setBeneficiaries([...beneficiaries, newBeneficiary]);
+    setNewBeneficiaryName("");
+    setNewBeneficiaryEmail("");
+    setNewBeneficiaryPhone("");
+    setShowAddBeneficiary(false);
+    triggerNotification(
+      "Beneficiary Added",
+      `${newBeneficiaryName} added successfully`,
+    );
+  };
+
+  const toggleFavoriteBeneficiary = (id) => {
+    setBeneficiaries(
+      beneficiaries.map((b) =>
+        b.id === id ? { ...b, favorite: !b.favorite } : b,
+      ),
+    );
+  };
+
+  const handleScheduleTransfer = () => {
+    if (!scheduleDate || !transferAmount) return;
+    const newScheduled = {
+      id: scheduledTransfers.length + 1,
+      recipient: selectedContact?.name || "Scheduled Transfer",
+      amount: parseFloat(transferAmount),
+      frequency: scheduleFrequency,
+      nextDate: scheduleDate,
+      status: "active",
+    };
+    setScheduledTransfers([...scheduledTransfers, newScheduled]);
+    triggerNotification(
+      "Transfer Scheduled",
+      `Transfer scheduled for ${scheduleDate}`,
+    );
+    setShowScheduleTransfer(false);
   };
 
   // Dashboard State
@@ -1103,6 +1312,47 @@ const App = () => {
           </button>
         </div>
 
+        {/* Quick Actions */}
+        <div className="grid grid-cols-3 gap-2 mb-6">
+          <button
+            onClick={() => setActiveTab("beneficiary-manager")}
+            className="bg-white p-4 rounded-2xl border border-slate-200 hover:border-indigo-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
+          >
+            <div className="text-2xl group-hover:scale-110 transition-transform">
+              👥
+            </div>
+            <p className="text-[10px] font-bold text-slate-600 text-center">
+              Beneficiaries
+            </p>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("transfer-history")}
+            className="bg-white p-4 rounded-2xl border border-slate-200 hover:border-emerald-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
+          >
+            <div className="text-2xl group-hover:scale-110 transition-transform">
+              📋
+            </div>
+            <p className="text-[10px] font-bold text-slate-600 text-center">
+              History
+            </p>
+          </button>
+
+          <button
+            onClick={() =>
+              setAnalyticsView(true) || setActiveTab("transfer-analytics")
+            }
+            className="bg-white p-4 rounded-2xl border border-slate-200 hover:border-blue-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
+          >
+            <div className="text-2xl group-hover:scale-110 transition-transform">
+              📊
+            </div>
+            <p className="text-[10px] font-bold text-slate-600 text-center">
+              Analytics
+            </p>
+          </button>
+        </div>
+
         {/* E-Transfer History */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
@@ -1986,6 +2236,566 @@ const App = () => {
         >
           Complete Transfer
         </button>
+      </div>
+    );
+  };
+
+  // Beneficiary Manager
+  const renderBeneficiaryManager = () => {
+    if (showAddBeneficiary) {
+      return (
+        <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
+          <div className="flex items-center justify-between mb-8">
+            <button
+              onClick={() => setShowAddBeneficiary(false)}
+              className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <h2 className="text-lg font-bold">Add Beneficiary</h2>
+            <div className="w-10" />
+          </div>
+
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                Name
+              </label>
+              <input
+                type="text"
+                placeholder="Full Name"
+                value={newBeneficiaryName}
+                onChange={(e) => setNewBeneficiaryName(e.target.value)}
+                className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                Email
+              </label>
+              <input
+                type="email"
+                placeholder="email@example.com"
+                value={newBeneficiaryEmail}
+                onChange={(e) => setNewBeneficiaryEmail(e.target.value)}
+                className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                Phone
+              </label>
+              <input
+                type="tel"
+                placeholder="+1 (555) 123-4567"
+                value={newBeneficiaryPhone}
+                onChange={(e) => setNewBeneficiaryPhone(e.target.value)}
+                className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                Type
+              </label>
+              <div className="grid grid-cols-3 gap-2">
+                {["personal", "charity", "family"].map((type) => (
+                  <button
+                    key={type}
+                    onClick={() => setNewBeneficiaryType(type)}
+                    className={`py-3 px-2 rounded-xl font-bold text-sm capitalize transition-all ${
+                      newBeneficiaryType === type
+                        ? "bg-emerald-100 text-emerald-700"
+                        : "bg-slate-100 text-slate-600"
+                    }`}
+                  >
+                    {type}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <button
+              disabled={
+                !newBeneficiaryName ||
+                (!newBeneficiaryEmail && !newBeneficiaryPhone)
+              }
+              onClick={handleAddBeneficiary}
+              className="w-full mt-auto bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+            >
+              Save Beneficiary
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
+        <div className="flex items-center justify-between mb-8">
+          <button
+            onClick={() => setActiveTab("dashboard")}
+            className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <h2 className="text-xl font-black italic tracking-tighter">
+            noor.{" "}
+            <span className="text-emerald-600 not-italic">Beneficiaries</span>
+          </h2>
+          <button
+            onClick={() => setShowAddBeneficiary(true)}
+            className="text-emerald-600 font-bold text-sm active:scale-90 transition-all"
+          >
+            + Add
+          </button>
+        </div>
+
+        <div className="space-y-3 flex-1">
+          {beneficiaries.map((ben) => (
+            <div
+              key={ben.id}
+              className="bg-white p-4 rounded-2xl border border-slate-100 hover:border-emerald-200 transition-all flex items-center justify-between"
+            >
+              <div className="flex items-center gap-3 flex-1">
+                <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold">
+                  {ben.name.charAt(0)}
+                </div>
+                <div>
+                  <p className="font-bold text-slate-900">{ben.name}</p>
+                  <p className="text-xs text-slate-400">
+                    {ben.email || ben.phone}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                {ben.verified && (
+                  <Check size={16} className="text-emerald-600" />
+                )}
+                <button
+                  onClick={() => toggleFavoriteBeneficiary(ben.id)}
+                  className={`text-lg ${
+                    ben.favorite ? "text-amber-500" : "text-slate-300"
+                  }`}
+                >
+                  ⭐
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  // Transfer Receipt Modal
+  const renderTransferReceipt = () => {
+    if (!lastTransferReceipt) return null;
+    const receipt = lastTransferReceipt;
+
+    return (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[250] p-4 animate-in fade-in duration-300">
+        <div className="bg-white rounded-[2rem] w-full max-w-[400px] p-6 space-y-6 animate-in zoom-in-95 duration-300">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-bold">Transfer Receipt</h2>
+            <button
+              onClick={() => setShowTransferReceipt(false)}
+              className="p-1 hover:bg-slate-100 rounded-lg"
+            >
+              <X size={20} />
+            </button>
+          </div>
+
+          {/* Shariah Compliance Badge */}
+          <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200 text-center">
+            <div className="text-4xl mb-2">✅</div>
+            <p className="font-bold text-emerald-900">Shariah Compliant</p>
+            <p className="text-[10px] text-emerald-700 mt-1">
+              Interest-Free Transfer
+            </p>
+            <p className="text-[9px] text-emerald-600 mt-2">
+              ID: {receipt.sharahComplianceId}
+            </p>
+          </div>
+
+          {/* Receipt Details */}
+          <div className="space-y-3 text-sm">
+            <div className="flex justify-between">
+              <span className="text-slate-600">Transaction ID</span>
+              <span className="font-mono font-bold text-slate-900">
+                {receipt.id}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-600">Date & Time</span>
+              <span className="font-bold text-slate-900">
+                {receipt.timestamp}
+              </span>
+            </div>
+            <div className="h-px bg-slate-200"></div>
+            <div className="flex justify-between">
+              <span className="text-slate-600">Recipient</span>
+              <span className="font-bold text-slate-900">
+                {receipt.recipient}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-600">Category</span>
+              <span className="font-bold text-slate-900 capitalize">
+                {receipt.category}
+              </span>
+            </div>
+            <div className="h-px bg-slate-200"></div>
+            <div className="flex justify-between text-base">
+              <span className="font-bold text-slate-900">Amount</span>
+              <span className="font-black text-emerald-600">
+                ${receipt.amount.toFixed(2)}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-600">Status</span>
+              <span className="font-bold text-emerald-600 capitalize">
+                {receipt.status}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex gap-2 pt-4">
+            <button
+              onClick={() => setShowTransferReceipt(false)}
+              className="flex-1 py-3 bg-slate-100 text-slate-900 rounded-xl font-bold text-sm"
+            >
+              Done
+            </button>
+            <button className="flex-1 py-3 bg-emerald-100 text-emerald-700 rounded-xl font-bold text-sm active:scale-90 transition-transform">
+              Share Receipt
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  // Transfer Analytics Dashboard
+  const renderTransferAnalytics = () => {
+    const stats = calculateMonthlyStats();
+
+    return (
+      <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
+        <div className="flex items-center justify-between mb-8">
+          <button
+            onClick={() => setAnalyticsView(false)}
+            className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <h2 className="text-lg font-bold">Transfer Analytics</h2>
+          <div className="w-10" />
+        </div>
+
+        <div className="space-y-6 flex-1">
+          {/* Monthly Overview */}
+          <div className="space-y-3">
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              This Month
+            </p>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-emerald-50 p-4 rounded-2xl border border-emerald-200">
+                <p className="text-[10px] text-emerald-700 font-bold uppercase mb-2">
+                  Sent
+                </p>
+                <p className="text-2xl font-black text-emerald-900">
+                  ${stats.totalSent.toFixed(0)}
+                </p>
+              </div>
+              <div className="bg-blue-50 p-4 rounded-2xl border border-blue-200">
+                <p className="text-[10px] text-blue-700 font-bold uppercase mb-2">
+                  Received
+                </p>
+                <p className="text-2xl font-black text-blue-900">
+                  ${stats.totalReceived.toFixed(0)}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Statistics */}
+          <div className="space-y-3">
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              Statistics
+            </p>
+            <div className="space-y-2">
+              <div className="flex justify-between bg-white p-3 rounded-xl">
+                <span className="text-slate-600 text-sm">Transactions</span>
+                <span className="font-bold text-slate-900">
+                  {stats.transactionCount}
+                </span>
+              </div>
+              <div className="flex justify-between bg-white p-3 rounded-xl">
+                <span className="text-slate-600 text-sm">Average Transfer</span>
+                <span className="font-bold text-slate-900">
+                  ${stats.avgTransfer.toFixed(2)}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Top Recipients */}
+          <div className="space-y-3">
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              Top Recipients
+            </p>
+            <div className="space-y-2">
+              {beneficiaries.slice(0, 3).map((ben) => (
+                <div
+                  key={ben.id}
+                  className="flex justify-between bg-white p-3 rounded-xl"
+                >
+                  <span className="text-slate-600 text-sm">{ben.name}</span>
+                  <span className="font-bold text-slate-900">3 transfers</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  // Advanced Transfer History with Filters
+  const renderAdvancedTransferHistory = () => {
+    const filteredTransactions = transactions.filter((tx) => {
+      if (historyFilter === "all") return true;
+      if (historyFilter === "sent") return tx.amount < 0;
+      if (historyFilter === "received") return tx.amount > 0;
+      if (historyFilter === "pending") return tx.status === "pending";
+      return true;
+    });
+
+    if (showDetailedTransaction) {
+      const tx = transactions.find((t) => t.id === showDetailedTransaction);
+      if (!tx) return null;
+
+      return (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[250] p-4 animate-in fade-in">
+          <div className="bg-white rounded-[2rem] w-full max-w-[400px] p-6 animate-in zoom-in-95">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-lg font-bold">Transaction Details</h2>
+              <button
+                onClick={() => setShowDetailedTransaction(null)}
+                className="p-1 hover:bg-slate-100 rounded-lg"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex justify-between">
+                <span className="text-slate-600">Type</span>
+                <span className="font-bold capitalize">{tx.type}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-600">Amount</span>
+                <span
+                  className={`font-bold ${
+                    tx.amount > 0 ? "text-emerald-600" : "text-slate-900"
+                  }`}
+                >
+                  {tx.amount > 0 ? "+" : ""}${Math.abs(tx.amount).toFixed(2)}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-600">Date</span>
+                <span className="font-bold">{tx.time}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-600">Status</span>
+                <span
+                  className={`text-xs font-bold uppercase px-3 py-1 rounded-full ${getTransferStatusColor(
+                    tx.status,
+                  )}`}
+                >
+                  {tx.status}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
+        <div className="flex items-center justify-between mb-8">
+          <button
+            onClick={() => setActiveTab("transfer-hub")}
+            className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <h2 className="text-lg font-bold">Transfer History</h2>
+          <div className="w-10" />
+        </div>
+
+        {/* Filter Buttons */}
+        <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+          {["all", "sent", "received", "pending"].map((filter) => (
+            <button
+              key={filter}
+              onClick={() => setHistoryFilter(filter)}
+              className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all ${
+                historyFilter === filter
+                  ? "bg-emerald-100 text-emerald-700"
+                  : "bg-white text-slate-600 border border-slate-200"
+              }`}
+            >
+              {filter.charAt(0).toUpperCase() + filter.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        {/* Transactions List */}
+        <div className="space-y-2 flex-1 overflow-y-auto">
+          {filteredTransactions.map((tx) => (
+            <button
+              key={tx.id}
+              onClick={() => setShowDetailedTransaction(tx.id)}
+              className="w-full bg-white p-4 rounded-xl border border-slate-100 hover:border-emerald-200 transition-all text-left flex items-center justify-between group"
+            >
+              <div className="flex items-center gap-3 flex-1">
+                <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-emerald-50 transition-colors">
+                  {tx.amount > 0 ? (
+                    <ArrowDownRight size={16} className="text-emerald-600" />
+                  ) : (
+                    <ArrowUpRight size={16} className="text-slate-600" />
+                  )}
+                </div>
+                <div className="flex-1">
+                  <p className="font-bold text-sm text-slate-900">{tx.name}</p>
+                  <p className="text-xs text-slate-400">{tx.time}</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p
+                  className={`font-black text-sm ${
+                    tx.amount > 0 ? "text-emerald-600" : "text-slate-900"
+                  }`}
+                >
+                  {tx.amount > 0 ? "+" : ""}${Math.abs(tx.amount).toFixed(2)}
+                </p>
+                <span
+                  className={`text-[10px] font-bold uppercase px-2 py-1 rounded-full ${getTransferStatusColor(
+                    tx.status,
+                  )}`}
+                >
+                  {tx.status}
+                </span>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  // OTP Modal for Large Transfers
+  const renderOTPModal = () => {
+    if (!showOTPModal) return null;
+
+    return (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[300] p-4 animate-in fade-in duration-300">
+        <div className="bg-white rounded-[2rem] w-full max-w-[400px] p-6 space-y-6 animate-in zoom-in-95 duration-300">
+          <div className="text-center">
+            <h2 className="text-lg font-bold">Verify Transfer</h2>
+            <p className="text-slate-500 text-sm mt-2">
+              Enter the OTP sent to your email
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <div className="bg-blue-50 p-4 rounded-xl border border-blue-200">
+              <p className="text-[10px] font-black text-blue-700 uppercase tracking-widest mb-2">
+                Transaction
+              </p>
+              <p className="font-bold text-blue-900">${transferAmount}</p>
+            </div>
+
+            <input
+              type="text"
+              placeholder="000000"
+              value={otpInput}
+              onChange={(e) => setOtpInput(e.target.value.slice(0, 6))}
+              maxLength="6"
+              className="w-full text-center text-2xl tracking-[0.5em] font-bold border-2 border-slate-200 rounded-2xl p-4 focus:ring-2 ring-emerald-500 outline-none"
+            />
+          </div>
+
+          <div className="flex gap-2">
+            <button
+              onClick={() => setShowOTPModal(false)}
+              className="flex-1 py-3 bg-slate-100 text-slate-900 rounded-xl font-bold text-sm"
+            >
+              Cancel
+            </button>
+            <button
+              disabled={otpInput.length < 6}
+              onClick={() => {
+                setShowOTPModal(false);
+                // After OTP, show receipt
+                setLastTransferReceipt(
+                  createTransferReceipt({
+                    recipient: selectedContact?.name || recipientIdentifier,
+                    amount: parseFloat(transferAmount),
+                    category: transferCategory,
+                    method: "E-Transfer",
+                    email: selectedContact?.email || recipientIdentifier,
+                    phone: selectedContact?.phone || "",
+                  }),
+                );
+                setShowTransferReceipt(true);
+                setOtpInput("");
+              }}
+              className="flex-1 py-3 bg-emerald-600 text-white rounded-xl font-bold text-sm active:scale-95 transition-transform disabled:opacity-50"
+            >
+              Verify
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  // Biometric Confirmation Modal
+  const renderBiometricModal = () => {
+    const amt = parseFloat(transferAmount) || 0;
+    if (amt <= 500) return null;
+    if (!requireBiometric) return null;
+
+    return (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[300] p-4 animate-in fade-in duration-300">
+        <div className="bg-white rounded-[2rem] w-full max-w-[400px] p-6 space-y-6 animate-in zoom-in-95 duration-300 text-center">
+          <div className="text-5xl mb-4">🔒</div>
+          <h2 className="text-lg font-bold">Security Verification</h2>
+          <p className="text-slate-500 text-sm">Transfer amount exceeds $500</p>
+          <p className="text-slate-500 text-sm">
+            Use biometric or PIN to proceed
+          </p>
+
+          <div className="space-y-2">
+            <button className="w-full py-4 bg-emerald-50 text-emerald-700 rounded-2xl font-bold border-2 border-emerald-200 hover:bg-emerald-100 transition-all active:scale-95">
+              👆 Use Fingerprint
+            </button>
+            <button className="w-full py-4 bg-blue-50 text-blue-700 rounded-2xl font-bold border-2 border-blue-200 hover:bg-blue-100 transition-all active:scale-95">
+              😊 Use Face ID
+            </button>
+          </div>
+
+          <button className="w-full py-3 text-slate-600 font-bold text-sm">
+            Skip for now
+          </button>
+        </div>
       </div>
     );
   };
@@ -2916,12 +3726,23 @@ const App = () => {
         </div>
       )}
 
+      {/* Modals */}
+      {renderOTPModal()}
+      {renderBiometricModal()}
+      {renderTransferReceipt()}
+      {showTransferReceipt && lastTransferReceipt && renderTransferReceipt()}
+
       <header className="flex justify-between items-center py-4 shrink-0">
         <div className="flex items-center gap-1.5">
           <div className="bg-[#064e3b] p-1.5 rounded-lg">
             <Lock size={12} className="text-white" />
           </div>
           <span className="font-black text-xl tracking-tighter">noor.</span>
+          {!isOnline && (
+            <span className="text-[9px] font-bold px-2 py-1 bg-amber-100 text-amber-700 rounded-full ml-2">
+              Offline
+            </span>
+          )}
         </div>
         <div className="flex items-center gap-3">
           <Bell size={20} className="text-slate-400" />
@@ -2951,6 +3772,9 @@ const App = () => {
         {activeTab === "e-transfer" && renderETransfer()}
         {activeTab === "bank-transfer" && renderBankTransfer()}
         {activeTab === "internal-transfer" && renderInternalTransfer()}
+        {activeTab === "beneficiary-manager" && renderBeneficiaryManager()}
+        {activeTab === "transfer-history" && renderAdvancedTransferHistory()}
+        {activeTab === "transfer-analytics" && renderTransferAnalytics()}
         {activeTab === "success" && renderSuccess()}
         {activeTab === "purify" && (
           <div className="space-y-4 animate-in zoom-in-95 duration-200">
