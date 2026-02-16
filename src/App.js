@@ -292,8 +292,8 @@ const App = () => {
       .toString(36)
       .substr(2, 9)}`.toUpperCase();
 
-  const generateOTP = () =>
-    Math.floor(100000 + Math.random() * 900000).toString();
+  // const _generateOTP = () =>
+  //   Math.floor(100000 + Math.random() * 900000).toString();
 
   const createTransferReceipt = (transferData) => ({
     id: generateTransactionId(),
@@ -337,17 +337,17 @@ const App = () => {
     return { totalSent, totalReceived, transactionCount, avgTransfer };
   };
 
-  const _getCategoryIcon = (category) => {
-    const icons = {
-      personal: "👤",
-      charity: "❤️",
-      zakat: "🕌",
-      bills: "📄",
-      family: "👨‍👩‍👧",
-      business: "💼",
-    };
-    return icons[category] || "💸";
-  };
+  // const _getCategoryIcon = (category) => {
+  //   const icons = {
+  //     personal: "👤",
+  //     charity: "❤️",
+  //     zakat: "🕌",
+  //     bills: "📄",
+  //     family: "👨‍👩‍👧",
+  //     business: "💼",
+  //   };
+  //   return icons[category] || "💸";
+  // };
 
   const getTransferStatusColor = (status) => {
     const colors = {
@@ -393,23 +393,23 @@ const App = () => {
     );
   };
 
-  const _handleScheduleTransfer = () => {
-    if (!_scheduleDate || !transferAmount) return;
-    const newScheduled = {
-      id: scheduledTransfers.length + 1,
-      recipient: selectedContact?.name || "Scheduled Transfer",
-      amount: parseFloat(transferAmount),
-      frequency: _scheduleFrequency,
-      nextDate: _scheduleDate,
-      status: "active",
-    };
-    _setScheduledTransfers([...scheduledTransfers, newScheduled]);
-    triggerNotification(
-      "Transfer Scheduled",
-      `Transfer scheduled for ${_scheduleDate}`,
-    );
-    _setShowScheduleTransfer(false);
-  };
+  // const _handleScheduleTransfer = () => {
+  //   if (!_scheduleDate || !transferAmount) return;
+  //   const newScheduled = {
+  //     id: scheduledTransfers.length + 1,
+  //     recipient: selectedContact?.name || "Scheduled Transfer",
+  //     amount: parseFloat(transferAmount),
+  //     frequency: _scheduleFrequency,
+  //     nextDate: _scheduleDate,
+  //     status: "active",
+  //   };
+  //   _setScheduledTransfers([...scheduledTransfers, newScheduled]);
+  //   triggerNotification(
+  //     "Transfer Scheduled",
+  //     `Transfer scheduled for ${_scheduleDate}`,
+  //   );
+  //   _setShowScheduleTransfer(false);
+  // };
 
   // Dashboard State
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -1339,9 +1339,7 @@ const App = () => {
           </button>
 
           <button
-            onClick={() =>
-              setAnalyticsView(true) || setActiveTab("transfer-analytics")
-            }
+            onClick={() => setActiveTab("transfer-analytics")}
             className="bg-white p-4 rounded-2xl border border-slate-200 hover:border-blue-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
           >
             <div className="text-2xl group-hover:scale-110 transition-transform">
@@ -2486,7 +2484,7 @@ const App = () => {
       <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
         <div className="flex items-center justify-between mb-8">
           <button
-            onClick={() => setAnalyticsView(false)}
+            onClick={() => setActiveTab("transfer-hub")}
             className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
           >
             <ChevronLeft size={24} />
@@ -2748,7 +2746,7 @@ const App = () => {
                   createTransferReceipt({
                     recipient: selectedContact?.name || recipientIdentifier,
                     amount: parseFloat(transferAmount),
-                    category: transferCategory,
+                    category: "personal",
                     method: "E-Transfer",
                     email: selectedContact?.email || recipientIdentifier,
                     phone: selectedContact?.phone || "",
@@ -2771,7 +2769,7 @@ const App = () => {
   const renderBiometricModal = () => {
     const amt = parseFloat(transferAmount) || 0;
     if (amt <= 500) return null;
-    if (!requireBiometric) return null;
+    if (!showOTPModal) return null;
 
     return (
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[300] p-4 animate-in fade-in duration-300">
