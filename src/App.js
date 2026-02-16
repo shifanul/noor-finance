@@ -1930,7 +1930,7 @@ const App = () => {
               (!autodeposit && !securityQuestion)
             }
             onClick={handleETransferSubmit}
-            className="w-full mt-auto mb-4 bg-[#F7F5F0] text-[#C5A059] py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+            className="w-full mt-auto mb-4 bg-[#f7f3e6] text-[#29422b] py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
           >
             Send E-Transfer
           </button>
