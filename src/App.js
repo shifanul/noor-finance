@@ -167,38 +167,38 @@ const App = () => {
   const [showTransferReceipt, setShowTransferReceipt] = useState(false);
   const [lastTransferReceipt, setLastTransferReceipt] = useState(null);
 
-  // Scheduled & Recurring Transfers (future feature)
-  // const [_showScheduleTransfer, _setShowScheduleTransfer] = useState(false);
-  // const [_scheduledTransfers, _setScheduledTransfers] = useState([
-  //   {
-  //     id: 1,
-  //     recipient: "Sarah Ahmed",
-  //     amount: 500,
-  //     frequency: "monthly",
-  //     nextDate: "2026-03-16",
-  //     status: "active",
-  //   },
-  // ]);
-  // const [_scheduleDate, _setScheduleDate] = useState("");
-  // const [_scheduleFrequency, _setScheduleFrequency] = useState("once"); // once, weekly, monthly, yearly
+  // Scheduled & Recurring Transfers
+  const [showScheduleTransfer, setShowScheduleTransfer] = useState(false);
+  const [scheduledTransfers, setScheduledTransfers] = useState([
+    {
+      id: 1,
+      recipient: "Sarah Ahmed",
+      amount: 500,
+      frequency: "monthly",
+      nextDate: "2026-03-16",
+      status: "active",
+    },
+  ]);
+  const [scheduleDate, setScheduleDate] = useState("");
+  const [scheduleFrequency, setScheduleFrequency] = useState("once"); // once, weekly, monthly, yearly
 
-  // Transfer Categories (future feature)
-  // const [_transferCategory, _setTransferCategory] = useState("personal");
+  // Transfer Categories
+  const [transferCategory, setTransferCategory] = useState("personal");
 
-  // Transfer Analytics (future feature)
-  // const [_analyticsView, _setAnalyticsView] = useState(false);
+  // Transfer Analytics
+  const [analyticsView, setAnalyticsView] = useState(false);
 
-  // Security Features (future feature)
-  // const [_requireBiometric, _setRequireBiometric] = useState(false);
+  // Security Features
+  const [requireBiometric, setRequireBiometric] = useState(false);
   const [showOTPModal, setShowOTPModal] = useState(false);
   const [otpInput, setOtpInput] = useState("");
-  // const [_deviceFingerprint] = useState(
-  //   "device_" + Math.random().toString(36).substr(2, 9),
-  // );
+  const [deviceFingerprint] = useState(
+    "device_" + Math.random().toString(36).substr(2, 9),
+  );
 
-  // Offline Support (future feature)
+  // Offline Support
   const [isOnline, setIsOnline] = useState(true);
-  // const [_offlineQueue, _setOfflineQueue] = useState([]);
+  const [offlineQueue, setOfflineQueue] = useState([]);
 
   // Advanced History
   const [historyFilter, setHistoryFilter] = useState("all"); // all, sent, received, pending
@@ -292,8 +292,8 @@ const App = () => {
       .toString(36)
       .substr(2, 9)}`.toUpperCase();
 
-  // const _generateOTP = () =>
-  //   Math.floor(100000 + Math.random() * 900000).toString();
+  const generateOTP = () =>
+    Math.floor(100000 + Math.random() * 900000).toString();
 
   const createTransferReceipt = (transferData) => ({
     id: generateTransactionId(),
@@ -337,17 +337,17 @@ const App = () => {
     return { totalSent, totalReceived, transactionCount, avgTransfer };
   };
 
-  // const _getCategoryIcon = (category) => {
-  //   const icons = {
-  //     personal: "👤",
-  //     charity: "❤️",
-  //     zakat: "🕌",
-  //     bills: "📄",
-  //     family: "👨‍👩‍👧",
-  //     business: "💼",
-  //   };
-  //   return icons[category] || "💸";
-  // };
+  const getCategoryIcon = (category) => {
+    const icons = {
+      personal: "👤",
+      charity: "❤️",
+      zakat: "🕌",
+      bills: "📄",
+      family: "👨‍👩‍👧",
+      business: "💼",
+    };
+    return icons[category] || "💸";
+  };
 
   const getTransferStatusColor = (status) => {
     const colors = {
@@ -393,24 +393,25 @@ const App = () => {
     );
   };
 
-  // Future feature: Schedule recurring transfers
-  // const _handleScheduleTransfer = () => {
-  //   if (!_scheduleDate || !transferAmount) return;
-  //   const newScheduled = {
-  //     id: _scheduledTransfers.length + 1,
-  //     recipient: selectedContact?.name || "Scheduled Transfer",
-  //     amount: parseFloat(transferAmount),
-  //     frequency: _scheduleFrequency,
-  //     nextDate: _scheduleDate,
-  //     status: "active",
-  //   };
-  //   _setScheduledTransfers([..._scheduledTransfers, newScheduled]);
-  //   triggerNotification(
-  //     "Transfer Scheduled",
-  //     `Transfer scheduled for ${_scheduleDate}`,
-  //   );
-  //   _setShowScheduleTransfer(false);
-  // };
+  const handleScheduleTransfer = () => {
+    if (!scheduleDate || !transferAmount) return;
+    const newScheduled = {
+      id: scheduledTransfers.length + 1,
+      recipient: selectedContact?.name || "Scheduled Transfer",
+      amount: parseFloat(transferAmount),
+      frequency: scheduleFrequency,
+      nextDate: scheduleDate,
+      status: "active",
+    };
+    setScheduledTransfers([...scheduledTransfers, newScheduled]);
+    triggerNotification(
+      "Transfer Scheduled",
+      `Transfer scheduled for ${scheduleDate}`,
+    );
+    setShowScheduleTransfer(false);
+    setScheduleDate("");
+    setTransferAmount("");
+  };
 
   // Dashboard State
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -1314,7 +1315,7 @@ const App = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-3 gap-2 mb-6">
+        <div className="grid grid-cols-4 gap-2 mb-6">
           <button
             onClick={() => setActiveTab("beneficiary-manager")}
             className="bg-white p-4 rounded-2xl border border-slate-200 hover:border-indigo-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
@@ -1348,6 +1349,18 @@ const App = () => {
             </div>
             <p className="text-[10px] font-bold text-slate-600 text-center">
               Analytics
+            </p>
+          </button>
+
+          <button
+            onClick={() => setShowScheduleTransfer(true)}
+            className="bg-white p-4 rounded-2xl border border-slate-200 hover:border-amber-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
+          >
+            <div className="text-2xl group-hover:scale-110 transition-transform">
+              ⏰
+            </div>
+            <p className="text-[10px] font-bold text-slate-600 text-center">
+              Schedule
             </p>
           </button>
         </div>
@@ -1430,6 +1443,134 @@ const App = () => {
     );
   };
 
+  const renderScheduleTransfer = () => {
+    if (!showScheduleTransfer) return null;
+
+    return (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[250] p-4 animate-in fade-in duration-300">
+        <div className="bg-white rounded-[2rem] w-full max-w-[450px] p-6 space-y-4 animate-in zoom-in-95 duration-300 max-h-[80vh] overflow-y-auto">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-lg font-bold">Schedule Transfer</h2>
+            <button
+              onClick={() => setShowScheduleTransfer(false)}
+              className="p-2 hover:bg-slate-100 rounded-lg transition-all"
+            >
+              <X size={20} />
+            </button>
+          </div>
+
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                Recipient
+              </label>
+              <select className="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none">
+                <option value="">Select a beneficiary</option>
+                {beneficiaries.map((b) => (
+                  <option key={b.id} value={b.id}>
+                    {b.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                Amount
+              </label>
+              <div className="relative">
+                <DollarSign
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                  size={18}
+                />
+                <input
+                  type="number"
+                  value={transferAmount}
+                  onChange={(e) => setTransferAmount(e.target.value)}
+                  className="w-full bg-white border border-slate-200 rounded-xl p-3 pl-12 text-sm font-bold focus:ring-2 ring-emerald-500 outline-none"
+                  placeholder="0.00"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                Frequency
+              </label>
+              <select
+                value={scheduleFrequency}
+                onChange={(e) => setScheduleFrequency(e.target.value)}
+                className="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+              >
+                <option value="once">One Time</option>
+                <option value="weekly">Weekly</option>
+                <option value="bi-weekly">Bi-Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                Start Date
+              </label>
+              <input
+                type="date"
+                value={scheduleDate}
+                onChange={(e) => setScheduleDate(e.target.value)}
+                className="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                Category
+              </label>
+              <select
+                value={transferCategory}
+                onChange={(e) => setTransferCategory(e.target.value)}
+                className="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+              >
+                <option value="personal">👤 Personal</option>
+                <option value="charity">❤️ Charity</option>
+                <option value="zakat">🕌 Zakat</option>
+                <option value="bills">📄 Bills</option>
+                <option value="family">👨‍👩‍👧 Family</option>
+                <option value="business">💼 Business</option>
+              </select>
+            </div>
+
+            <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 text-xs text-blue-700">
+              <p className="font-bold mb-2">
+                ✓ Scheduled transfers are automatic
+              </p>
+              <p>
+                Your transfer will be processed on the scheduled date(s) without
+                manual intervention.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex gap-3 mt-6">
+            <button
+              onClick={() => setShowScheduleTransfer(false)}
+              className="flex-1 bg-slate-100 text-slate-700 py-3 rounded-xl font-bold transition-all active:scale-95"
+            >
+              Cancel
+            </button>
+            <button
+              disabled={!scheduleDate || !transferAmount}
+              onClick={handleScheduleTransfer}
+              className="flex-1 bg-[#064e3b] text-white py-3 rounded-xl font-bold shadow-lg transition-all active:scale-95 disabled:opacity-50"
+            >
+              Schedule Transfer
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const renderETransfer = () => {
     const MAX_TRANSFER_AMOUNT = 3000;
     const DEFAULT_EXPIRY_DAYS = 30;
@@ -1455,6 +1596,33 @@ const App = () => {
 
       if (eTransferMode === "send" && !autodeposit && !securityQuestion) {
         triggerNotification("Security", "Please set a security question");
+        return;
+      }
+
+      // Check if biometric is required for large transfers
+      if (amt > 500) {
+        setRequireBiometric(true);
+        setShowOTPModal(true);
+        const otp = generateOTP();
+        setOtpInput(otp);
+        triggerNotification("Security Check", `OTP: ${otp}`);
+        return;
+      }
+
+      // Add to offline queue if offline
+      if (!isOnline) {
+        const transfer = {
+          type: "e-transfer",
+          recipient: selectedContact?.email || recipientIdentifier,
+          amount: amt,
+          timestamp: new Date().toISOString(),
+          deviceFingerprint,
+        };
+        setOfflineQueue([...offlineQueue, transfer]);
+        triggerNotification(
+          "Offline Mode",
+          "Transfer queued. Will send when online.",
+        );
         return;
       }
 
@@ -2443,7 +2611,7 @@ const App = () => {
             <div className="flex justify-between">
               <span className="text-slate-600">Category</span>
               <span className="font-bold text-slate-900 capitalize">
-                {receipt.category}
+                {getCategoryIcon(receipt.category)} {receipt.category}
               </span>
             </div>
             <div className="h-px bg-slate-200"></div>
@@ -2747,7 +2915,7 @@ const App = () => {
                   createTransferReceipt({
                     recipient: selectedContact?.name || recipientIdentifier,
                     amount: parseFloat(transferAmount),
-                    category: "personal",
+                    category: transferCategory,
                     method: "E-Transfer",
                     email: selectedContact?.email || recipientIdentifier,
                     phone: selectedContact?.phone || "",
@@ -3775,6 +3943,8 @@ const App = () => {
         {activeTab === "transfer-history" && renderAdvancedTransferHistory()}
         {activeTab === "transfer-analytics" && renderTransferAnalytics()}
         {activeTab === "success" && renderSuccess()}
+        {renderScheduleTransfer()}
+        {renderBiometricModal()}
         {activeTab === "purify" && (
           <div className="space-y-4 animate-in zoom-in-95 duration-200">
             <div className="bg-white p-8 rounded-[2rem] shadow border border-slate-50 text-center">
