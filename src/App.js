@@ -68,6 +68,44 @@ const App = () => {
   const [loginError, setLoginError] = useState(false);
   const [isFaceScanning, setIsFaceScanning] = useState(false);
 
+  const [transferAmount, setTransferAmount] = useState("");
+  const [selectedContact, setSelectedContact] = useState(null);
+  const [transferType, setTransferType] = useState("");
+
+  const contacts = [
+    { id: 1, name: "Sarah Ahmed", initial: "S", color: "bg-indigo-500" },
+    { id: 2, name: "Omar Farooq", initial: "O", color: "bg-emerald-500" },
+    { id: 3, name: "Zainab K.", initial: "Z", color: "bg-amber-500" },
+    { id: 4, name: "Ibrahim J.", initial: "I", color: "bg-rose-500" },
+  ];
+
+  const handleTransferSubmit = () => {
+    const amt = parseFloat(transferAmount) || 0;
+    if (amt <= 0) return;
+
+    setAppState("success");
+    setBalance((prev) => prev - amt);
+    setTransactions((prev) => [
+      {
+        id: Date.now(),
+        name: selectedContact
+          ? `Transfer to ${selectedContact.name}`
+          : `Bank Transfer`,
+        amount: -amt,
+        time: "Just now",
+        status: "completed",
+        type: "transfer",
+      },
+      ...prev,
+    ]);
+
+    setTimeout(() => {
+      setAppState("dashboard");
+      setTransferAmount("");
+      setSelectedContact(null);
+    }, 2500);
+  };
+
   // Dashboard State
   const [activeTab, setActiveTab] = useState("dashboard");
   const [financingSubPage, setFinancingSubPage] = useState("main");
@@ -588,9 +626,11 @@ const App = () => {
         {[
           {
             icon: <ArrowUpRight size={20} />,
-            label: t("transfer"),
+            label: "Transfer",
             color: "bg-emerald-100 text-emerald-700",
+            action: () => setAppState("transfer-hub"),
           },
+          ,
           {
             icon: <ArrowDownRight size={20} />,
             label: t("deposit"),
@@ -685,6 +725,287 @@ const App = () => {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderTransferHub = () => (
+    <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
+      <div className="flex items-center justify-between mb-8">
+        <button
+          onClick={() => setAppState("dashboard")}
+          className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <h2 className="text-xl font-black italic tracking-tighter">
+          oikko. <span className="text-emerald-600 not-italic">transfer</span>
+        </h2>
+        <div className="w-10" />
+      </div>
+
+      <div className="space-y-4">
+        <button
+          onClick={() => {
+            setAppState("e-transfer");
+            setTransferType("E-Transfer");
+          }}
+          className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-transparent hover:border-emerald-500 shadow-sm flex items-center gap-5 group transition-all"
+        >
+          <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
+            <Smartphone size={24} />
+          </div>
+          <div className="text-left">
+            <p className="font-bold text-slate-900">E-transfer</p>
+            <p className="text-xs text-slate-400 font-medium">
+              Send money via phone or email
+            </p>
+          </div>
+          <ArrowRight
+            className="ml-auto text-slate-300 group-hover:text-emerald-500 transition-all"
+            size={20}
+          />
+        </button>
+
+        <button
+          onClick={() => {
+            setAppState("bank-transfer");
+            setTransferType("Bank Transfer");
+          }}
+          className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-transparent hover:border-emerald-500 shadow-sm flex items-center gap-5 group transition-all"
+        >
+          <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all">
+            <Building size={24} />
+          </div>
+          <div className="text-left">
+            <p className="font-bold text-slate-900">Bank Transfer</p>
+            <p className="text-xs text-slate-400 font-medium">
+              Transfer to another account
+            </p>
+          </div>
+          <ArrowRight
+            className="ml-auto text-slate-300 group-hover:text-emerald-500 transition-all"
+            size={20}
+          />
+        </button>
+      </div>
+
+      <div className="mt-12 bg-emerald-50 p-6 rounded-[2rem] border border-emerald-100">
+        <div className="flex gap-4 items-start">
+          <div className="p-2 bg-emerald-100 text-emerald-700 rounded-lg">
+            <ShieldCheck size={20} />
+          </div>
+          <div>
+            <p className="text-sm font-bold text-emerald-900">
+              Interest-Free Routing
+            </p>
+            <p className="text-xs text-emerald-700/70 mt-1 leading-relaxed">
+              Transactions are processed instantly through our ethical clearing
+              network.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderETransfer = () => (
+    <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
+      <div className="flex items-center justify-between mb-8">
+        <button
+          onClick={() => setAppState("transfer-hub")}
+          className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <h2 className="text-lg font-bold">New E-transfer</h2>
+        <div className="w-10" />
+      </div>
+
+      {!selectedContact ? (
+        <div className="space-y-6">
+          <div className="relative">
+            <Search
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+              size={18}
+            />
+            <input
+              type="text"
+              placeholder="Search contacts..."
+              className="w-full bg-slate-100 border-none rounded-2xl py-4 pl-12 pr-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+            />
+          </div>
+
+          <div>
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">
+              Quick Contacts
+            </p>
+            <div className="grid grid-cols-4 gap-4">
+              {contacts.map((contact) => (
+                <button
+                  key={contact.id}
+                  onClick={() => setSelectedContact(contact)}
+                  className="flex flex-col items-center gap-2 group"
+                >
+                  <div
+                    className={`w-14 h-14 rounded-full ${contact.color} flex items-center justify-center text-white font-black text-lg shadow-md group-active:scale-90 transition-all`}
+                  >
+                    {contact.initial}
+                  </div>
+                  <span className="text-[9px] font-bold text-slate-600 text-center">
+                    {contact.name.split(" ")[0]}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="flex-1 flex flex-col items-center">
+          <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mb-4 relative">
+            <div
+              className={`w-full h-full rounded-full ${selectedContact.color} flex items-center justify-center text-white font-black text-2xl`}
+            >
+              {selectedContact.initial}
+            </div>
+            <button
+              onClick={() => setSelectedContact(null)}
+              className="absolute -top-1 -right-1 bg-white border shadow-sm rounded-full p-1"
+            >
+              <X size={14} />
+            </button>
+          </div>
+          <p className="font-bold text-slate-900">{selectedContact.name}</p>
+          <p className="text-xs text-slate-400 mb-8">
+            Sending to mobile account
+          </p>
+
+          <div className="w-full text-center mb-8">
+            <div className="flex items-center justify-center gap-1">
+              <span className="text-4xl font-bold text-slate-300">$</span>
+              <span className="text-6xl font-black tracking-tighter text-slate-900">
+                {transferAmount || "0"}
+              </span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-y-4 gap-x-12 w-full max-w-[280px]">
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, ".", 0, "del"].map((num) => (
+              <button
+                key={num}
+                onClick={() => {
+                  if (num === "del")
+                    setTransferAmount((prev) => prev.slice(0, -1));
+                  else if (num === "." && transferAmount.includes(".")) return;
+                  else if (transferAmount.length < 7)
+                    setTransferAmount((prev) => prev + num);
+                }}
+                className="h-12 flex items-center justify-center text-xl font-bold text-slate-900 active:bg-slate-100 rounded-full transition-all"
+              >
+                {num === "del" ? <RefreshCcw size={20} /> : num}
+              </button>
+            ))}
+          </div>
+
+          <button
+            disabled={!transferAmount}
+            onClick={handleTransferSubmit}
+            className="w-full mt-auto mb-4 bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+          >
+            Confirm & Send
+          </button>
+        </div>
+      )}
+    </div>
+  );
+
+  const renderBankTransfer = () => (
+    <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
+      <div className="flex items-center justify-between mb-8">
+        <button
+          onClick={() => setAppState("transfer-hub")}
+          className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <h2 className="text-lg font-bold">Bank Transfer</h2>
+        <div className="w-10" />
+      </div>
+
+      <div className="space-y-6">
+        <div className="space-y-2">
+          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+            Recipient Name
+          </label>
+          <input
+            type="text"
+            className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+            placeholder="Full Legal Name"
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+            Account Number
+          </label>
+          <input
+            type="text"
+            className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none font-mono"
+            placeholder="0000 0000 0000"
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+            Amount
+          </label>
+          <div className="relative">
+            <DollarSign
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+              size={18}
+            />
+            <input
+              type="number"
+              value={transferAmount}
+              onChange={(e) => setTransferAmount(e.target.value)}
+              className="w-full bg-white border border-slate-200 rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
+              placeholder="0.00"
+            />
+          </div>
+        </div>
+
+        <button
+          onClick={handleTransferSubmit}
+          disabled={!transferAmount}
+          className="w-full mt-4 bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+        >
+          Initiate Transfer
+        </button>
+      </div>
+    </div>
+  );
+
+  const renderSuccess = () => (
+    <div className="fixed inset-0 bg-white flex flex-col items-center justify-center z-[200] p-8 text-center animate-in fade-in duration-500">
+      <div className="w-24 h-24 rounded-full bg-emerald-100 flex items-center justify-center mb-6 animate-in zoom-in-50 duration-500 delay-200">
+        <CheckCircle2 className="text-emerald-600" size={48} />
+      </div>
+      <h2 className="text-3xl font-black text-slate-900 tracking-tighter mb-2">
+        Funds Sent.
+      </h2>
+      <p className="text-slate-500 text-sm font-medium max-w-[200px]">
+        Your transfer is being processed securely.
+      </p>
+
+      <div className="mt-8 pt-8 border-t w-full max-w-[240px] space-y-2">
+        <div className="flex justify-between text-xs font-bold uppercase tracking-tighter">
+          <span className="text-slate-400">Amount</span>
+          <span className="text-slate-900">
+            ${parseFloat(transferAmount).toLocaleString()}
+          </span>
+        </div>
+        <div className="flex justify-between text-xs font-bold uppercase tracking-tighter">
+          <span className="text-slate-400">Method</span>
+          <span className="text-slate-900">{transferType}</span>
         </div>
       </div>
     </div>
@@ -1620,6 +1941,10 @@ const App = () => {
       <main className="flex-1 overflow-y-auto no-scrollbar pb-24">
         {activeTab === "dashboard" && renderDashboard()}
         {activeTab === "financing" && renderEquity()}
+        {activeTab === "transfer-hub" && renderTransferHub()}
+        {activeTab === "e-transfer" && renderETransfer()}
+        {activeTab === "bank-transfer" && renderBankTransfer()}
+        {activeTab === "success" && renderSuccess()}
         {activeTab === "purify" && (
           <div className="space-y-4 animate-in zoom-in-95 duration-200">
             <div className="bg-white p-8 rounded-[2rem] shadow border border-slate-50 text-center">
