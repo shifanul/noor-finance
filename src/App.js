@@ -637,7 +637,6 @@ const App = () => {
               setActiveTab("transfer-hub");
             },
           },
-          ,
           {
             icon: <ArrowDownRight size={20} />,
             label: t("deposit"),
