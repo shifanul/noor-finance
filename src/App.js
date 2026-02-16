@@ -168,8 +168,8 @@ const App = () => {
   const [lastTransferReceipt, setLastTransferReceipt] = useState(null);
 
   // Scheduled & Recurring Transfers
-  const [showScheduleTransfer, setShowScheduleTransfer] = useState(false);
-  const [scheduledTransfers, setScheduledTransfers] = useState([
+  const [_showScheduleTransfer, _setShowScheduleTransfer] = useState(false);
+  const [scheduledTransfers, _setScheduledTransfers] = useState([
     {
       id: 1,
       recipient: "Sarah Ahmed",
@@ -179,26 +179,26 @@ const App = () => {
       status: "active",
     },
   ]);
-  const [scheduleDate, setScheduleDate] = useState("");
-  const [scheduleFrequency, setScheduleFrequency] = useState("once"); // once, weekly, monthly, yearly
+  const [_scheduleDate, _setScheduleDate] = useState("");
+  const [_scheduleFrequency, _setScheduleFrequency] = useState("once"); // once, weekly, monthly, yearly
 
   // Transfer Categories
-  const [transferCategory, setTransferCategory] = useState("personal");
+  const [_transferCategory, _setTransferCategory] = useState("personal");
 
   // Transfer Analytics
-  const [analyticsView, setAnalyticsView] = useState(false);
+  const [_analyticsView, _setAnalyticsView] = useState(false);
 
   // Security Features
-  const [requireBiometric, setRequireBiometric] = useState(false);
+  const [_requireBiometric, _setRequireBiometric] = useState(false);
   const [showOTPModal, setShowOTPModal] = useState(false);
   const [otpInput, setOtpInput] = useState("");
-  const [deviceFingerprint] = useState(
+  const [_deviceFingerprint] = useState(
     "device_" + Math.random().toString(36).substr(2, 9),
   );
 
   // Offline Support
   const [isOnline, setIsOnline] = useState(true);
-  const [offlineQueue, setOfflineQueue] = useState([]);
+  const [_offlineQueue, _setOfflineQueue] = useState([]);
 
   // Advanced History
   const [historyFilter, setHistoryFilter] = useState("all"); // all, sent, received, pending
@@ -337,7 +337,7 @@ const App = () => {
     return { totalSent, totalReceived, transactionCount, avgTransfer };
   };
 
-  const getCategoryIcon = (category) => {
+  const _getCategoryIcon = (category) => {
     const icons = {
       personal: "👤",
       charity: "❤️",
@@ -393,22 +393,22 @@ const App = () => {
     );
   };
 
-  const handleScheduleTransfer = () => {
-    if (!scheduleDate || !transferAmount) return;
+  const _handleScheduleTransfer = () => {
+    if (!_scheduleDate || !transferAmount) return;
     const newScheduled = {
       id: scheduledTransfers.length + 1,
       recipient: selectedContact?.name || "Scheduled Transfer",
       amount: parseFloat(transferAmount),
-      frequency: scheduleFrequency,
-      nextDate: scheduleDate,
+      frequency: _scheduleFrequency,
+      nextDate: _scheduleDate,
       status: "active",
     };
-    setScheduledTransfers([...scheduledTransfers, newScheduled]);
+    _setScheduledTransfers([...scheduledTransfers, newScheduled]);
     triggerNotification(
       "Transfer Scheduled",
-      `Transfer scheduled for ${scheduleDate}`,
+      `Transfer scheduled for ${_scheduleDate}`,
     );
-    setShowScheduleTransfer(false);
+    _setShowScheduleTransfer(false);
   };
 
   // Dashboard State
