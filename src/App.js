@@ -3347,7 +3347,7 @@ const App = () => {
                 </p>
               </div>
             </div>
-            <span className="bg-emerald-500 text-[#C5A059] text-[9px] px-3 py-1 rounded-full font-black uppercase">
+            <span className="bg-emerald-600 text-white text-[9px] px-3 py-1 rounded-full font-black uppercase">
               Active
             </span>
           </div>
