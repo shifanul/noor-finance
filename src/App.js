@@ -111,6 +111,10 @@ const App = () => {
     emailLinked: "user@email.com",
     phoneLinked: "+1 (555) 123-4567",
   });
+  const [showETransferSettings, setShowETransferSettings] = useState(false);
+  const [showAddContact, setShowAddContact] = useState(false);
+  const [newContactName, setNewContactName] = useState("");
+  const [newContactEmail, setNewContactEmail] = useState("");
 
   const contacts = [
     {
@@ -796,11 +800,6 @@ const App = () => {
   );
 
   const renderTransferHub = () => {
-    const [showETransferSettings, setShowETransferSettings] = useState(false);
-    const [showAddContact, setShowAddContact] = useState(false);
-    const [newContactName, setNewContactName] = useState("");
-    const [newContactEmail, setNewContactEmail] = useState("");
-
     if (showETransferSettings) {
       return (
         <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
