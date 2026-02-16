@@ -3837,7 +3837,7 @@ const App = () => {
                   onClick={() => setTerm(t)}
                   className={`py-3 rounded-2xl text-[10px] font-black transition-all ${
                     term === t
-                      ? "bg-amber-600 text-[#C5A059] shadow-md"
+                      ? "bg-amber-600 text-white shadow-md"
                       : "bg-slate-50 text-slate-400"
                   }`}
                 >
@@ -4013,7 +4013,7 @@ const App = () => {
                 Cleansing non-halal earnings.
               </p>
             </div>
-            <div className="bg-[#0f172a] p-6 rounded-[2rem] text-[#C5A059]">
+            <div className="bg-[#0f172a] p-6 rounded-[2rem] text-white">
               <p className="text-slate-400 text-[8px] font-bold uppercase tracking-widest mb-2">
                 To Be Purified
               </p>
@@ -4025,7 +4025,7 @@ const App = () => {
                   setPurificationPending(0);
                   triggerNotification("Purified", "Donated to charity.");
                 }}
-                className="w-full bg-emerald-500 text-[#0f172a] p-4 rounded-xl font-black shadow-lg active:scale-95 transition-transform"
+                className="w-full bg-emerald-600 text-[#0f172a] p-4 rounded-xl font-black shadow-lg active:scale-95 transition-transform"
               >
                 {t("donateNow")}
               </button>
