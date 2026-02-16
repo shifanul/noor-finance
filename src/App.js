@@ -1797,7 +1797,7 @@ const App = () => {
             {/* Quick Contacts */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <p className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest">
+                <p className="text-[10px] font-black text-white/40 uppercase tracking-widest">
                   {t("quick Contacts")}
                 </p>
                 <button
