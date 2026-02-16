@@ -847,7 +847,7 @@ const App = () => {
         {[0, 1, 2, 3].map((i) => (
           <div
             key={i}
-            className={`w-3.5 h-3.5 rounded-full border-2 border-emerald-500/50 transition-all duration-200 ${
+            className={`w-3.5 h-3.5 rounded-full border-2 border-emerald-700/50 transition-all duration-200 ${
               pin.length > i ? "bg-amber-500 border-amber-500 scale-125" : ""
             } ${
               loginError ? "bg-rose-500 border-rose-500 animate-bounce" : ""
@@ -868,7 +868,7 @@ const App = () => {
         ))}
         <button
           onClick={handleFaceId}
-          className="w-14 h-14 rounded-full flex items-center justify-center text-emerald-600 active:bg-white/10"
+          className="w-14 h-14 rounded-full flex items-center justify-center text-emerald-700 active:bg-white/10"
         >
           <ScanFace size={28} />
         </button>
@@ -912,7 +912,7 @@ const App = () => {
 
       <div className="bg-[#F7F5F0] rounded-[2rem] p-6 text-[#C5A059] shadow-xl relative overflow-hidden">
         <div className="relative z-10">
-          <p className="text-emerald-500/80 text-[10px] font-bold uppercase tracking-widest">
+          <p className="text-emerald-700/80 text-[10px] font-bold uppercase tracking-widest">
             {t("totalWealth")}
           </p>
           <h1 className="text-3xl font-bold mt-1 tracking-tight">
