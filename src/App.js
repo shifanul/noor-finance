@@ -43,6 +43,7 @@ import {
   FileText,
   Sparkles,
   CalendarDays,
+  Settings,
 } from "lucide-react";
 import avatarUrl from "./IMG_3519.png";
 import translations from "./i18n";
@@ -77,11 +78,69 @@ const App = () => {
   const [selectedContact, setSelectedContact] = useState(null);
   const [transferType, setTransferType] = useState("");
 
+  // E-Transfer State
+  const [eTransferMode, setETransferMode] = useState("send"); // 'send', 'receive', 'request'
+  const [recipientIdentifier, setRecipientIdentifier] = useState(""); // email or phone
+  const [securityQuestion, setSecurityQuestion] = useState("");
+  const [securityAnswer, setSecurityAnswer] = useState("");
+  const [autodeposit, setAutodeposit] = useState(false);
+  const [useOneTimeContact, setUseOneTimeContact] = useState(false);
+  const [requestAmount, setRequestAmount] = useState("");
+  const [eTransferHistory, setETransferHistory] = useState([
+    {
+      id: 1,
+      recipient: "sarah@email.com",
+      name: "Sarah Ahmed",
+      amount: 150,
+      date: "2 days ago",
+      status: "completed",
+      expiryDate: "Feb 22, 2026",
+    },
+    {
+      id: 2,
+      recipient: "+1 (555) 234-5678",
+      name: "Omar Farooq",
+      amount: 50,
+      date: "1 week ago",
+      status: "completed",
+      expiryDate: "Feb 28, 2026",
+    },
+  ]);
+  const [autoDepositSettings, setAutoDepositSettings] = useState({
+    enabled: false,
+    emailLinked: "user@email.com",
+    phoneLinked: "+1 (555) 123-4567",
+  });
+
   const contacts = [
-    { id: 1, name: "Sarah Ahmed", initial: "S", color: "bg-indigo-500" },
-    { id: 2, name: "Omar Farooq", initial: "O", color: "bg-emerald-500" },
-    { id: 3, name: "Zainab K.", initial: "Z", color: "bg-amber-500" },
-    { id: 4, name: "Ibrahim J.", initial: "I", color: "bg-rose-500" },
+    {
+      id: 1,
+      name: "Sarah Ahmed",
+      initial: "S",
+      color: "bg-indigo-500",
+      email: "sarah@email.com",
+    },
+    {
+      id: 2,
+      name: "Omar Farooq",
+      initial: "O",
+      color: "bg-emerald-500",
+      email: "omar@email.com",
+    },
+    {
+      id: 3,
+      name: "Zainab K.",
+      initial: "Z",
+      color: "bg-amber-500",
+      email: "zainab@email.com",
+    },
+    {
+      id: 4,
+      name: "Ibrahim J.",
+      initial: "I",
+      color: "bg-rose-500",
+      email: "ibrahim@email.com",
+    },
   ];
 
   const handleTransferSubmit = () => {
@@ -736,196 +795,802 @@ const App = () => {
     </div>
   );
 
-  const renderTransferHub = () => (
-    <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
-      <div className="flex items-center justify-between mb-8">
-        <button
-          onClick={() => setActiveTab("dashboard")}
-          className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        <h2 className="text-xl font-black italic tracking-tighter">
-          noor.{" "}
-          <span className="text-emerald-600 not-italic">{t("transfer")}</span>
-        </h2>
-        <div className="w-10" />
-      </div>
+  const renderTransferHub = () => {
+    const [showETransferSettings, setShowETransferSettings] = useState(false);
+    const [showAddContact, setShowAddContact] = useState(false);
+    const [newContactName, setNewContactName] = useState("");
+    const [newContactEmail, setNewContactEmail] = useState("");
 
-      <div className="space-y-4">
-        <button
-          onClick={() => {
-            setActiveTab("e-transfer");
-            setTransferType("E-Transfer");
-          }}
-          className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-transparent hover:border-emerald-500 shadow-sm flex items-center gap-5 group transition-all"
-        >
-          <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
-            <Smartphone size={24} />
+    if (showETransferSettings) {
+      return (
+        <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
+          <div className="flex items-center justify-between mb-8">
+            <button
+              onClick={() => setShowETransferSettings(false)}
+              className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <h2 className="text-lg font-bold">E-Transfer Settings</h2>
+            <div className="w-10" />
           </div>
-          <div className="text-left">
-            <p className="font-bold text-slate-900">E-transfer</p>
-            <p className="text-xs text-slate-400 font-medium">
-              Send money via phone or email
-            </p>
-          </div>
-          <ArrowRight
-            className="ml-auto text-slate-300 group-hover:text-emerald-500 transition-all"
-            size={20}
-          />
-        </button>
 
-        <button
-          onClick={() => {
-            setActiveTab("bank-transfer");
-            setTransferType("Bank Transfer");
-          }}
-          className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-transparent hover:border-emerald-500 shadow-sm flex items-center gap-5 group transition-all"
-        >
-          <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all">
-            <Building size={24} />
-          </div>
-          <div className="text-left">
-            <p className="font-bold text-slate-900">Bank Transfer</p>
-            <p className="text-xs text-slate-400 font-medium">
-              Transfer to another account
-            </p>
-          </div>
-          <ArrowRight
-            className="ml-auto text-slate-300 group-hover:text-emerald-500 transition-all"
-            size={20}
-          />
-        </button>
-      </div>
+          <div className="space-y-6">
+            {/* AutoDeposit Section */}
+            <div className="bg-blue-50 p-6 rounded-[2rem] border border-blue-100">
+              <h3 className="text-sm font-bold text-blue-900 mb-4">
+                AutoDeposit
+              </h3>
+              <p className="text-xs text-blue-700/80 mb-4 leading-relaxed">
+                Link your email or phone to automatically receive E-Transfer
+                funds without needing to enter a security answer. Reduces
+                phishing risks.
+              </p>
 
-      <div className="mt-12 bg-emerald-50 p-6 rounded-[2rem] border border-emerald-100">
-        <div className="flex gap-4 items-start">
-          <div className="p-2 bg-emerald-100 text-emerald-700 rounded-lg">
-            <ShieldCheck size={20} />
+              <div className="space-y-3">
+                <div className="bg-white p-4 rounded-xl">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">
+                    Email Address
+                  </p>
+                  <p className="text-sm font-bold text-slate-900">
+                    {autoDepositSettings.emailLinked}
+                  </p>
+                  <div className="flex gap-2 mt-3">
+                    <button className="text-xs py-2 px-4 rounded-lg bg-blue-100 text-blue-700 font-bold active:scale-90 transition-transform">
+                      Change Email
+                    </button>
+                    <button
+                      className={`text-xs py-2 px-4 rounded-lg font-bold active:scale-90 transition-transform ${
+                        autodeposit &&
+                        recipientIdentifier === autoDepositSettings.emailLinked
+                          ? "bg-emerald-100 text-emerald-700"
+                          : "bg-slate-100 text-slate-600"
+                      }`}
+                    >
+                      {autodeposit &&
+                      recipientIdentifier === autoDepositSettings.emailLinked
+                        ? "✓ Active"
+                        : "Activate"}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="bg-white p-4 rounded-xl">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">
+                    Phone Number
+                  </p>
+                  <p className="text-sm font-bold text-slate-900">
+                    {autoDepositSettings.phoneLinked}
+                  </p>
+                  <div className="flex gap-2 mt-3">
+                    <button className="text-xs py-2 px-4 rounded-lg bg-slate-100 text-slate-600 font-bold active:scale-90 transition-transform">
+                      Change Phone
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Transaction Limits */}
+            <div className="bg-slate-50 p-6 rounded-[2rem] border border-slate-100">
+              <h3 className="text-sm font-bold text-slate-900 mb-4">
+                Transaction Limits
+              </h3>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-xs font-bold text-slate-600">
+                    Max per Transaction
+                  </span>
+                  <span className="text-sm font-black text-slate-900">
+                    $3,000
+                  </span>
+                </div>
+                <div className="w-full bg-slate-200 rounded-full h-2">
+                  <div
+                    className="bg-emerald-500 h-2 rounded-full"
+                    style={{ width: "30%" }}
+                  ></div>
+                </div>
+                <div className="flex justify-between items-center text-xs text-slate-500">
+                  <span>Personal Account</span>
+                  <span>Upgrade to Business for $25,000 limit</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Transaction Details */}
+            <div className="bg-amber-50 p-6 rounded-[2rem] border border-amber-100">
+              <h3 className="text-sm font-bold text-amber-900 mb-4">
+                Important Terms
+              </h3>
+              <div className="space-y-2 text-xs text-amber-700/80">
+                <p>
+                  ✓ <strong>Irreversible:</strong> Once accepted, transfers
+                  cannot be reversed
+                </p>
+                <p>
+                  ✓ <strong>Expiry:</strong> Transfers expire after 30 days if
+                  not accepted
+                </p>
+                <p>
+                  ✓ <strong>Instant:</strong> Funds available within minutes of
+                  acceptance
+                </p>
+                <p>
+                  ✓ <strong>No Bank Info:</strong> Recipients remain anonymous
+                  to senders
+                </p>
+              </div>
+            </div>
           </div>
-          <div>
-            <p className="text-sm font-bold text-emerald-900">
-              Interest-Free Routing
+        </div>
+      );
+    }
+
+    if (showAddContact) {
+      return (
+        <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
+          <div className="flex items-center justify-between mb-8">
+            <button
+              onClick={() => setShowAddContact(false)}
+              className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <h2 className="text-lg font-bold">Add New Contact</h2>
+            <div className="w-10" />
+          </div>
+
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                Full Name
+              </label>
+              <input
+                type="text"
+                placeholder="John Doe"
+                value={newContactName}
+                onChange={(e) => setNewContactName(e.target.value)}
+                className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                Email or Phone
+              </label>
+              <input
+                type="text"
+                placeholder="email@example.com or +1 (555) 123-4567"
+                value={newContactEmail}
+                onChange={(e) => setNewContactEmail(e.target.value)}
+                className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+              />
+            </div>
+
+            <button
+              disabled={!newContactName || !newContactEmail}
+              onClick={() => {
+                setShowAddContact(false);
+                triggerNotification(
+                  "Contact Added",
+                  `Added ${newContactName} to your contacts`,
+                );
+              }}
+              className="w-full mt-auto bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+            >
+              Save Contact
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
+        <div className="flex items-center justify-between mb-8">
+          <button
+            onClick={() => setActiveTab("dashboard")}
+            className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <h2 className="text-xl font-black italic tracking-tighter">
+            noor.{" "}
+            <span className="text-emerald-600 not-italic">{t("transfer")}</span>
+          </h2>
+          <button
+            onClick={() => setShowETransferSettings(true)}
+            className="p-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
+          >
+            <Settings size={20} />
+          </button>
+        </div>
+
+        <div className="space-y-4 mb-6">
+          <button
+            onClick={() => {
+              setActiveTab("e-transfer");
+              setTransferType("E-Transfer");
+              setETransferMode("send");
+            }}
+            className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-transparent hover:border-emerald-500 shadow-sm flex items-center gap-5 group transition-all"
+          >
+            <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
+              <Smartphone size={24} />
+            </div>
+            <div className="text-left">
+              <p className="font-bold text-slate-900">E-transfer</p>
+              <p className="text-xs text-slate-400 font-medium">
+                Send money via phone or email
+              </p>
+            </div>
+            <ArrowRight
+              className="ml-auto text-slate-300 group-hover:text-emerald-500 transition-all"
+              size={20}
+            />
+          </button>
+
+          <button
+            onClick={() => {
+              setActiveTab("bank-transfer");
+              setTransferType("Bank Transfer");
+            }}
+            className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-transparent hover:border-emerald-500 shadow-sm flex items-center gap-5 group transition-all"
+          >
+            <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all">
+              <Building size={24} />
+            </div>
+            <div className="text-left">
+              <p className="font-bold text-slate-900">Bank Transfer</p>
+              <p className="text-xs text-slate-400 font-medium">
+                Transfer to another account
+              </p>
+            </div>
+            <ArrowRight
+              className="ml-auto text-slate-300 group-hover:text-emerald-500 transition-all"
+              size={20}
+            />
+          </button>
+        </div>
+
+        {/* E-Transfer History */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              Recent Transfers
             </p>
-            <p className="text-xs text-emerald-700/70 mt-1 leading-relaxed">
-              Transactions are processed instantly through our ethical clearing
-              network.
-            </p>
+            <button
+              onClick={() => setShowAddContact(true)}
+              className="text-xs font-bold text-emerald-600 hover:text-emerald-700 active:scale-90 transition-all"
+            >
+              + Add Contact
+            </button>
+          </div>
+          <div className="space-y-2 max-h-[180px] overflow-y-auto">
+            {eTransferHistory.slice(0, 3).map((transfer) => (
+              <div
+                key={transfer.id}
+                className="bg-white p-4 rounded-xl border border-slate-100 flex items-center justify-between hover:border-emerald-200 transition-all"
+              >
+                <div className="flex items-center gap-3 flex-1">
+                  <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
+                    <ArrowUpRight
+                      size={16}
+                      className={
+                        transfer.amount >= 0
+                          ? "text-emerald-600"
+                          : "text-slate-600"
+                      }
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-bold text-slate-900 truncate">
+                      {transfer.name}
+                    </p>
+                    <p className="text-xs text-slate-400 font-bold uppercase">
+                      {transfer.date}
+                    </p>
+                  </div>
+                </div>
+                <div className="text-right shrink-0">
+                  <p className="text-sm font-bold text-slate-900">
+                    ${transfer.amount.toFixed(2)}
+                  </p>
+                  <p
+                    className={`text-[10px] font-bold uppercase ${
+                      transfer.status === "completed"
+                        ? "text-emerald-600"
+                        : "text-amber-600"
+                    }`}
+                  >
+                    {transfer.status}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-auto bg-emerald-50 p-6 rounded-[2rem] border border-emerald-100">
+          <div className="flex gap-4 items-start">
+            <div className="p-2 bg-emerald-100 text-emerald-700 rounded-lg">
+              <ShieldCheck size={20} />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-emerald-900">
+                Interest-Free Routing
+              </p>
+              <p className="text-xs text-emerald-700/70 mt-1 leading-relaxed">
+                Transactions are processed instantly through our ethical
+                clearing network.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
-  const renderETransfer = () => (
-    <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
-      <div className="flex items-center justify-between mb-8">
-        <button
-          onClick={() => setActiveTab("transfer-hub")}
-          className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        <h2 className="text-lg font-bold">New E-transfer</h2>
-        <div className="w-10" />
-      </div>
+  const renderETransfer = () => {
+    const MAX_TRANSFER_AMOUNT = 3000;
+    const DEFAULT_EXPIRY_DAYS = 30;
 
-      {!selectedContact ? (
-        <div className="space-y-6">
-          <div className="relative">
-            <Search
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
-              size={18}
-            />
-            <input
-              type="text"
-              placeholder="Search contacts..."
-              className="w-full bg-slate-100 border-none rounded-2xl py-4 pl-12 pr-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
-            />
+    const handleETransferSubmit = () => {
+      const amt = parseFloat(transferAmount) || 0;
+      if (amt <= 0 || amt > MAX_TRANSFER_AMOUNT) {
+        triggerNotification(
+          "Transfer Limit",
+          `Max per transaction: $${MAX_TRANSFER_AMOUNT}`,
+        );
+        return;
+      }
+
+      if (
+        eTransferMode === "send" &&
+        !recipientIdentifier &&
+        !selectedContact
+      ) {
+        triggerNotification("Required", "Please select a recipient");
+        return;
+      }
+
+      if (eTransferMode === "send" && !autodeposit && !securityQuestion) {
+        triggerNotification("Security", "Please set a security question");
+        return;
+      }
+
+      // Add to history
+      const recipient = selectedContact?.email || recipientIdentifier;
+      const name = selectedContact?.name || "One-time recipient";
+      const newTransfer = {
+        id: Date.now(),
+        recipient,
+        name,
+        amount: amt,
+        date: "Just now",
+        status: "pending",
+        expiryDate: new Date(
+          Date.now() + DEFAULT_EXPIRY_DAYS * 24 * 60 * 60 * 1000,
+        ).toLocaleDateString(),
+      };
+
+      setETransferHistory((prev) => [newTransfer, ...prev]);
+      setBalance((prev) => prev - amt);
+
+      // Reset form
+      setTransferAmount("");
+      setSelectedContact(null);
+      setRecipientIdentifier("");
+      setSecurityQuestion("");
+      setSecurityAnswer("");
+      setETransferMode("send");
+      setUseOneTimeContact(false);
+      setRequestAmount("");
+
+      setAppState("success");
+      setTimeout(() => {
+        setAppState("dashboard");
+        setActiveTab("transfer-hub");
+      }, 2500);
+    };
+
+    // Send Mode
+    if (eTransferMode === "send" && !selectedContact) {
+      return (
+        <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
+          <div className="flex items-center justify-between mb-8">
+            <button
+              onClick={() => {
+                setETransferMode("send");
+                setActiveTab("transfer-hub");
+              }}
+              className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <h2 className="text-lg font-bold">New E-Transfer</h2>
+            <div className="w-10" />
           </div>
 
-          <div>
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">
-              Quick Contacts
-            </p>
-            <div className="grid grid-cols-4 gap-4">
-              {contacts.map((contact) => (
-                <button
-                  key={contact.id}
-                  onClick={() => setSelectedContact(contact)}
-                  className="flex flex-col items-center gap-2 group"
-                >
-                  <div
-                    className={`w-14 h-14 rounded-full ${contact.color} flex items-center justify-center text-white font-black text-lg shadow-md group-active:scale-90 transition-all`}
+          {/* Mode Selector */}
+          <div className="flex gap-2 mb-6">
+            <button
+              onClick={() => setETransferMode("send")}
+              className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all ${
+                eTransferMode === "send"
+                  ? "bg-emerald-100 text-emerald-700"
+                  : "bg-white text-slate-600"
+              }`}
+            >
+              Send
+            </button>
+            <button
+              onClick={() => setETransferMode("request")}
+              className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all ${
+                eTransferMode === "request"
+                  ? "bg-emerald-100 text-emerald-700"
+                  : "bg-white text-slate-600"
+              }`}
+            >
+              Request
+            </button>
+          </div>
+
+          {/* Recipient Selection */}
+          <div className="space-y-4 mb-6">
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                Send To (Email or Phone)
+              </label>
+              <input
+                type="text"
+                placeholder="email@example.com or +1 (555) 123-4567"
+                value={recipientIdentifier}
+                onChange={(e) => setRecipientIdentifier(e.target.value)}
+                className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+              />
+            </div>
+
+            {/* One-Time Contact Toggle */}
+            <div className="flex items-center justify-between bg-slate-50 p-4 rounded-xl">
+              <div>
+                <p className="text-sm font-bold text-slate-900">
+                  One-Time Contact
+                </p>
+                <p className="text-xs text-slate-400">Don't save contact</p>
+              </div>
+              <button
+                onClick={() => setUseOneTimeContact(!useOneTimeContact)}
+                className={`w-12 h-6 rounded-full transition-all ${
+                  useOneTimeContact ? "bg-emerald-500" : "bg-slate-300"
+                }`}
+              />
+            </div>
+
+            {/* Quick Contacts */}
+            <div>
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">
+                {t("quick Contacts")}
+              </p>
+              <div className="grid grid-cols-4 gap-3">
+                {contacts.map((contact) => (
+                  <button
+                    key={contact.id}
+                    onClick={() => {
+                      setRecipientIdentifier(contact.email);
+                      setSelectedContact(contact);
+                    }}
+                    className="flex flex-col items-center gap-2 group"
                   >
-                    {contact.initial}
-                  </div>
-                  <span className="text-[9px] font-bold text-slate-600 text-center">
-                    {contact.name.split(" ")[0]}
-                  </span>
+                    <div
+                      className={`w-14 h-14 rounded-full ${contact.color} flex items-center justify-center text-white font-black text-lg shadow-md group-active:scale-90 transition-all`}
+                    >
+                      {contact.initial}
+                    </div>
+                    <span className="text-[9px] font-bold text-slate-600 text-center">
+                      {contact.name.split(" ")[0]}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Security & Autodeposit */}
+          <div className="space-y-4 mb-6">
+            {/* Autodeposit Option */}
+            <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <p className="text-sm font-bold text-blue-900">AutoDeposit</p>
+                  <p className="text-xs text-blue-700/70">
+                    Link email for instant deposits
+                  </p>
+                </div>
+                <button
+                  onClick={() => setAutodeposit(!autodeposit)}
+                  className={`w-12 h-6 rounded-full transition-all ${
+                    autodeposit ? "bg-blue-500" : "bg-slate-300"
+                  }`}
+                />
+              </div>
+              {autodeposit && (
+                <p className="text-xs text-blue-700 bg-white/60 p-2 rounded">
+                  ✓ Recipient will receive funds automatically without security
+                  questions
+                </p>
+              )}
+            </div>
+
+            {/* Security Question (if not Autodeposit) */}
+            {!autodeposit && (
+              <div className="space-y-3">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                    Security Question
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g., What is your favorite color?"
+                    value={securityQuestion}
+                    onChange={(e) => setSecurityQuestion(e.target.value)}
+                    className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                    Answer
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Your answer"
+                    value={securityAnswer}
+                    onChange={(e) => setSecurityAnswer(e.target.value)}
+                    className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Amount Input */}
+          <div className="space-y-2 mb-6">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+              Amount (Max: ${MAX_TRANSFER_AMOUNT})
+            </label>
+            <div className="relative">
+              <DollarSign
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                size={18}
+              />
+              <input
+                type="number"
+                value={transferAmount}
+                onChange={(e) => setTransferAmount(e.target.value)}
+                className="w-full bg-white border border-slate-200 rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
+                placeholder="0.00"
+                max={MAX_TRANSFER_AMOUNT}
+              />
+            </div>
+          </div>
+
+          {/* Info Box */}
+          <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-100 mb-6 text-xs text-emerald-700 space-y-2">
+            <div className="flex gap-2">
+              <Clock size={14} className="shrink-0 mt-0.5" />
+              <span>Typically available within minutes of acceptance</span>
+            </div>
+            <div className="flex gap-2">
+              <Clock size={14} className="shrink-0 mt-0.5" />
+              <span>Expires in {DEFAULT_EXPIRY_DAYS} days if not accepted</span>
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <button
+            disabled={
+              !transferAmount ||
+              !recipientIdentifier ||
+              (!autodeposit && !securityQuestion)
+            }
+            onClick={handleETransferSubmit}
+            className="w-full mt-auto mb-4 bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+          >
+            Send E-Transfer
+          </button>
+        </div>
+      );
+    }
+
+    // Request Money Mode
+    if (eTransferMode === "request") {
+      return (
+        <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
+          <div className="flex items-center justify-between mb-8">
+            <button
+              onClick={() => setETransferMode("send")}
+              className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <h2 className="text-lg font-bold">Request Money</h2>
+            <div className="w-10" />
+          </div>
+
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                Request From (Email or Phone)
+              </label>
+              <input
+                type="text"
+                placeholder="email@example.com or +1 (555) 123-4567"
+                value={recipientIdentifier}
+                onChange={(e) => setRecipientIdentifier(e.target.value)}
+                className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+              />
+            </div>
+
+            <div className="bg-slate-50 rounded-xl p-4">
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">
+                Quick Contacts
+              </p>
+              <div className="grid grid-cols-4 gap-3">
+                {contacts.map((contact) => (
+                  <button
+                    key={contact.id}
+                    onClick={() => setRecipientIdentifier(contact.email)}
+                    className="flex flex-col items-center gap-2 group"
+                  >
+                    <div
+                      className={`w-14 h-14 rounded-full ${contact.color} flex items-center justify-center text-white font-black text-lg shadow-md group-active:scale-90 transition-all`}
+                    >
+                      {contact.initial}
+                    </div>
+                    <span className="text-[9px] font-bold text-slate-600 text-center">
+                      {contact.name.split(" ")[0]}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                Amount to Request (Max: ${MAX_TRANSFER_AMOUNT})
+              </label>
+              <div className="relative">
+                <DollarSign
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                  size={18}
+                />
+                <input
+                  type="number"
+                  value={requestAmount}
+                  onChange={(e) => setRequestAmount(e.target.value)}
+                  className="w-full bg-white border border-slate-200 rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
+                  placeholder="0.00"
+                  max={MAX_TRANSFER_AMOUNT}
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                Reason (Optional)
+              </label>
+              <input
+                type="text"
+                placeholder="e.g., Rent payment, Bill split..."
+                className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+              />
+            </div>
+
+            <div className="bg-amber-50 p-4 rounded-xl border border-amber-100 text-xs text-amber-700">
+              <div className="flex gap-2">
+                <FileText size={14} className="shrink-0 mt-0.5" />
+                <span>
+                  Recipient will receive a request notification and can choose
+                  to accept or decline
+                </span>
+              </div>
+            </div>
+
+            <button
+              disabled={!requestAmount || !recipientIdentifier}
+              onClick={() => {
+                setTransferAmount(requestAmount);
+                handleETransferSubmit();
+              }}
+              className="w-full mt-auto bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+            >
+              Send Request
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    // Confirm Mode (after selection)
+    if (selectedContact) {
+      return (
+        <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
+          <div className="flex items-center justify-between mb-8">
+            <button
+              onClick={() => setSelectedContact(null)}
+              className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <h2 className="text-lg font-bold">Confirm Transfer</h2>
+            <div className="w-10" />
+          </div>
+
+          <div className="flex-1 flex flex-col items-center justify-center">
+            <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mb-4 relative">
+              <div
+                className={`w-full h-full rounded-full ${selectedContact.color} flex items-center justify-center text-white font-black text-2xl`}
+              >
+                {selectedContact.initial}
+              </div>
+              <button
+                onClick={() => setSelectedContact(null)}
+                className="absolute -top-1 -right-1 bg-white border shadow-sm rounded-full p-1"
+              >
+                <X size={14} />
+              </button>
+            </div>
+            <p className="font-bold text-slate-900 mb-1">
+              {selectedContact.name}
+            </p>
+            <p className="text-xs text-slate-400 mb-8">
+              {selectedContact.email}
+            </p>
+
+            <div className="w-full text-center mb-8">
+              <div className="flex items-center justify-center gap-1">
+                <span className="text-4xl font-bold text-slate-300">$</span>
+                <span className="text-6xl font-black tracking-tighter text-slate-900">
+                  {transferAmount || "0"}
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-y-4 gap-x-12 w-full max-w-[280px] mb-8">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, ".", 0, "del"].map((num) => (
+                <button
+                  key={num}
+                  onClick={() => {
+                    if (num === "del")
+                      setTransferAmount((prev) => prev.slice(0, -1));
+                    else if (num === "." && transferAmount.includes("."))
+                      return;
+                    else if (transferAmount.length < 7)
+                      setTransferAmount((prev) => `${prev}${num}`);
+                  }}
+                  className="h-12 flex items-center justify-center text-xl font-bold text-slate-900 active:bg-slate-100 rounded-full transition-all"
+                >
+                  {num === "del" ? <RefreshCcw size={20} /> : num}
                 </button>
               ))}
             </div>
-          </div>
-        </div>
-      ) : (
-        <div className="flex-1 flex flex-col items-center">
-          <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mb-4 relative">
-            <div
-              className={`w-full h-full rounded-full ${selectedContact.color} flex items-center justify-center text-white font-black text-2xl`}
-            >
-              {selectedContact.initial}
-            </div>
+
             <button
-              onClick={() => setSelectedContact(null)}
-              className="absolute -top-1 -right-1 bg-white border shadow-sm rounded-full p-1"
+              disabled={!transferAmount}
+              onClick={handleETransferSubmit}
+              className="w-full mb-4 bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
             >
-              <X size={14} />
+              Confirm & Send
             </button>
           </div>
-          <p className="font-bold text-slate-900">{selectedContact.name}</p>
-          <p className="text-xs text-slate-400 mb-8">
-            Sending to mobile account
-          </p>
-
-          <div className="w-full text-center mb-8">
-            <div className="flex items-center justify-center gap-1">
-              <span className="text-4xl font-bold text-slate-300">$</span>
-              <span className="text-6xl font-black tracking-tighter text-slate-900">
-                {transferAmount || "0"}
-              </span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-3 gap-y-4 gap-x-12 w-full max-w-[280px]">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, ".", 0, "del"].map((num) => (
-              <button
-                key={num}
-                onClick={() => {
-                  if (num === "del")
-                    setTransferAmount((prev) => prev.slice(0, -1));
-                  else if (num === "." && transferAmount.includes(".")) return;
-                  else if (transferAmount.length < 7)
-                    setTransferAmount((prev) => prev + num);
-                }}
-                className="h-12 flex items-center justify-center text-xl font-bold text-slate-900 active:bg-slate-100 rounded-full transition-all"
-              >
-                {num === "del" ? <RefreshCcw size={20} /> : num}
-              </button>
-            ))}
-          </div>
-
-          <button
-            disabled={!transferAmount}
-            onClick={handleTransferSubmit}
-            className="w-full mt-auto mb-4 bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
-          >
-            Confirm & Send
-          </button>
         </div>
-      )}
-    </div>
-  );
+      );
+    }
+
+    return null;
+  };
 
   const renderBankTransfer = () => (
     <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
