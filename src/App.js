@@ -3903,7 +3903,7 @@ const App = () => {
           <h2 className="text-5xl font-black italic tracking-tighter mb-1 animate-pulse">
             Rizq.
           </h2>
-          <p className="text-emerald-600 font-bold tracking-[0.2em] uppercase text-[8px] opacity-80">
+          <p className="text-[#623817] font-bold tracking-[0.2em] uppercase text-[8px] opacity-80">
             {t("slogan")}
           </p>
         </div>
@@ -3916,7 +3916,7 @@ const App = () => {
             />
           </div>
           <div className="flex justify-between mt-3 px-1">
-            <span className="text-[7px] font-bold text-emerald-600 uppercase tracking-widest">
+            <span className="text-[7px] font-bold text-[#623817] uppercase tracking-widest">
               Encrypting
             </span>
             <span className="text-[7px] font-mono text-emerald-600">
