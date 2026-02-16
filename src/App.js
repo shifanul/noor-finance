@@ -240,7 +240,7 @@ const App = () => {
       id: 2,
       name: "Omar Farooq",
       initial: "O",
-      color: "bg-[#0d3b0f]",
+      color: "bg-[#208725]",
       email: "omar@email.com",
     },
     {
@@ -457,7 +457,7 @@ const App = () => {
       name: "Islamic Relief",
       description: "Global emergency aid & development.",
       tag: "International",
-      icon: <Heart className="text-[#0d3b0f]" size={18} />,
+      icon: <Heart className="text-[#208725]" size={18} />,
       url: "https://www.islamic-relief.org/zakat/",
     },
     {
@@ -473,7 +473,7 @@ const App = () => {
       name: "Shaukat Khanum",
       description: "Cancer treatment for the underprivileged.",
       tag: "Healthcare",
-      icon: <Stethoscope className="text-[#0d3b0f]" size={18} />,
+      icon: <Stethoscope className="text-[#208725]" size={18} />,
       url: "https://shaukatkhanum.org.pk/donations/zakat/",
     },
   ];
@@ -632,7 +632,7 @@ const App = () => {
               key={tier.id}
               className={`p-6 rounded-[2rem] border transition-all duration-300 ${
                 currentTier === tier.id
-                  ? "border-[#0d3b0f] bg-white ring-4 ring-[#0d3b0f]/5 shadow-lg"
+                  ? "border-[#208725] bg-white ring-4 ring-[#208725]/5 shadow-lg"
                   : "border-[#E5E2D9] bg-white shadow-sm"
               }`}
             >
@@ -646,7 +646,7 @@ const App = () => {
                   </p>
                 </div>
                 {currentTier === tier.id ? (
-                  <span className="bg-[#0d3b0f] text-white text-[10px] px-3 py-1.5 rounded-full font-black uppercase flex items-center gap-1.5">
+                  <span className="bg-[#208725] text-white text-[10px] px-3 py-1.5 rounded-full font-black uppercase flex items-center gap-1.5">
                     <Check size={12} strokeWidth={3} /> Active
                   </span>
                 ) : (
@@ -912,14 +912,14 @@ const App = () => {
 
       <div className="bg-[#f7f3e6] rounded-[2rem] p-6 text-[#1A2B2A] border border-[#E5E2D9] shadow-xl relative overflow-hidden">
         <div className="relative z-10">
-          <p className="text-[#0d3b0f]/80 text-[10px] font-bold uppercase tracking-widest">
+          <p className="text-[#208725]/80 text-[10px] font-bold uppercase tracking-widest">
             {t("totalWealth")}
           </p>
           <h1 className="text-3xl font-bold mt-1 tracking-tight">
             ${balance.toLocaleString()}
           </h1>
           <div className="mt-4 flex justify-between items-center">
-            <div className="flex items-center gap-1.5 text-[#0d3b0f] font-bold text-xs">
+            <div className="flex items-center gap-1.5 text-[#208725] font-bold text-xs">
               <TrendingUp size={14} /> <span>+4.2% APY</span>
             </div>
             <div className="bg-white/10 px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-tighter">
@@ -934,7 +934,7 @@ const App = () => {
           {
             icon: <ArrowUpRight size={20} />,
             label: t("transfer"),
-            color: "bg-[#0d3b0f]/10 text-[#0d3b0f]",
+            color: "bg-[#208725]/10 text-[#208725]",
             action: () => {
               setActiveTab("transfer-hub");
             },
