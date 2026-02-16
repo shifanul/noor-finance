@@ -910,7 +910,7 @@ const App = () => {
         </button>
       </div>
 
-      <div className="bg-[#faecc3] rounded-[2rem] p-6 text-[#1A2B2A] border border-[#E5E2D9] shadow-xl relative overflow-hidden">
+      <div className="bg-[#ede5ce] rounded-[2rem] p-6 text-[#1A2B2A] border border-[#E5E2D9] shadow-xl relative overflow-hidden">
         <div className="relative z-10">
           <p className="text-[#4CAF50]/80 text-[10px] font-bold uppercase tracking-widest">
             {t("totalWealth")}
