@@ -1193,6 +1193,66 @@ const App = () => {
       }, 2500);
     };
 
+    // Show Add Contact form if requested
+    if (showAddContact) {
+      return (
+        <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
+          <div className="flex items-center justify-between mb-8">
+            <button
+              onClick={() => setShowAddContact(false)}
+              className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <h2 className="text-lg font-bold">Add New Contact</h2>
+            <div className="w-10" />
+          </div>
+
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                Full Name
+              </label>
+              <input
+                type="text"
+                placeholder="John Doe"
+                value={newContactName}
+                onChange={(e) => setNewContactName(e.target.value)}
+                className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                Email or Phone
+              </label>
+              <input
+                type="text"
+                placeholder="email@example.com or +1 (555) 123-4567"
+                value={newContactEmail}
+                onChange={(e) => setNewContactEmail(e.target.value)}
+                className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+              />
+            </div>
+
+            <button
+              disabled={!newContactName || !newContactEmail}
+              onClick={() => {
+                setShowAddContact(false);
+                triggerNotification(
+                  "Contact Added",
+                  `Added ${newContactName} to your contacts`,
+                );
+              }}
+              className="w-full mt-auto bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+            >
+              Save Contact
+            </button>
+          </div>
+        </div>
+      );
+    }
+
     // Send Mode
     if (eTransferMode === "send" && !selectedContact) {
       return (
@@ -1268,9 +1328,17 @@ const App = () => {
 
             {/* Quick Contacts */}
             <div>
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">
-                {t("quick Contacts")}
-              </p>
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  {t("quick Contacts")}
+                </p>
+                <button
+                  onClick={() => setShowAddContact(true)}
+                  className="text-xs font-bold text-emerald-600 hover:text-emerald-700 active:scale-90 transition-all"
+                >
+                  + Add Contact
+                </button>
+              </div>
               <div className="grid grid-cols-4 gap-3">
                 {contacts.map((contact) => (
                   <button
