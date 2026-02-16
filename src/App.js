@@ -3066,7 +3066,7 @@ const App = () => {
 
         {/* Card Visual */}
         <div
-          className={`w-full max-w-[340px] mx-auto aspect-[1.58/1] rounded-[1.5rem] p-6 text-[#C5A059] shadow-2xl relative flex flex-col justify-between transition-all duration-500 overflow-hidden ${
+          className={`w-full max-w-[340px] mx-auto aspect-[1.58/1] rounded-[1.5rem] p-6 text-white shadow-2xl relative flex flex-col justify-between transition-all duration-500 overflow-hidden ${
             isFrozen
               ? "grayscale bg-slate-800"
               : "bg-gradient-to-br from-[#F7F5F0] via-[#043d2e] to-[#022c22]"
@@ -3087,7 +3087,7 @@ const App = () => {
 
           <div className="relative z-10 flex flex-col gap-4">
             <div className="flex items-center gap-3">
-              <p className="text-lg font-mono tracking-[0.15em] font-medium text-[#C5A059]/90">
+              <p className="text-lg font-mono tracking-[0.15em] font-medium text-white/90">
                 {showCardDetails
                   ? "4532 8812 0094 1120"
                   : "•••• •••• •••• 1120"}
@@ -3097,9 +3097,9 @@ const App = () => {
                 className="p-1.5 bg-white/10 hover:bg-white/20 rounded-full transition-colors active:scale-90"
               >
                 {showCardDetails ? (
-                  <EyeOff size={14} className="text-[#C5A059]/70" />
+                  <EyeOff size={14} className="text-white/70" />
                 ) : (
-                  <Eye size={14} className="text-[#C5A059]/70" />
+                  <Eye size={14} className="text-white/70" />
                 )}
               </button>
             </div>
@@ -3125,7 +3125,7 @@ const App = () => {
           </div>
 
           <div className="flex justify-between items-end relative z-10">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-[#C5A059]/90">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-white/90">
               Visa Platinum
             </p>
             <div className="flex -space-x-2">
