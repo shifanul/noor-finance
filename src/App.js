@@ -910,9 +910,9 @@ const App = () => {
         </button>
       </div>
 
-      <div className="bg-[#f7f3e6] rounded-[2rem] p-6 text-[#1A2B2A] border border-[#E5E2D9] shadow-xl relative overflow-hidden">
+      <div className="bg-[#f7f3e6] rounded-[2rem] p-6 text-[#29422b] border border-[#E5E2D9] shadow-xl relative overflow-hidden">
         <div className="relative z-10">
-          <p className="text-[#208725] text-[10px] font-bold uppercase tracking-widest">
+          <p className="text-[#208725]/80 text-[10px] font-bold uppercase tracking-widest">
             {t("totalWealth")}
           </p>
           <h1 className="text-3xl font-bold mt-1 tracking-tight">
