@@ -812,7 +812,7 @@ const App = () => {
         <h1 className="text-4xl font-black italic tracking-tighter text-[#C5A059] mb-2">
           Rizq.
         </h1>
-        <p className="text-emerald-300/60 text-[10px] font-bold uppercase tracking-[0.2em]">
+        <p className="text-[#1A2B2A]/60 text-[10px] font-bold uppercase tracking-[0.2em]">
           {t("secureAccess")}
         </p>
       </div>
@@ -838,7 +838,7 @@ const App = () => {
         <h2 className="text-[#C5A059] font-bold text-lg">
           {t("welcomeBack", { name: "Shifanul" })}
         </h2>
-        <p className="text-emerald-300/40 text-xs mt-1">
+        <p className="text-[#1A2B2A]/40 text-xs mt-1">
           {t("enterPin", { pin: "1234" })}
         </p>
       </div>
@@ -886,7 +886,7 @@ const App = () => {
         </button>
       </div>
 
-      <button className="mt-12 text-emerald-300/40 text-[10px] font-bold uppercase tracking-widest hover:text-[#C5A059] transition-colors">
+      <button className="mt-12 text-[#1A2B2A]/40 text-[10px] font-bold uppercase tracking-widest hover:text-[#C5A059] transition-colors">
         {t("forgotPin")}
       </button>
     </div>
