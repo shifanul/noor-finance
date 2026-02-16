@@ -740,13 +740,14 @@ const App = () => {
     <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
       <div className="flex items-center justify-between mb-8">
         <button
-          onClick={() => setAppState("dashboard")}
+          onClick={() => setActiveTab("dashboard")}
           className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
         >
           <ChevronLeft size={24} />
         </button>
         <h2 className="text-xl font-black italic tracking-tighter">
-          oikko. <span className="text-emerald-600 not-italic">transfer</span>
+          noor.{" "}
+          <span className="text-emerald-600 not-italic">{t("transfer")}</span>
         </h2>
         <div className="w-10" />
       </div>
@@ -754,7 +755,7 @@ const App = () => {
       <div className="space-y-4">
         <button
           onClick={() => {
-            setAppState("e-transfer");
+            setActiveTab("e-transfer");
             setTransferType("E-Transfer");
           }}
           className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-transparent hover:border-emerald-500 shadow-sm flex items-center gap-5 group transition-all"
@@ -776,7 +777,7 @@ const App = () => {
 
         <button
           onClick={() => {
-            setAppState("bank-transfer");
+            setActiveTab("bank-transfer");
             setTransferType("Bank Transfer");
           }}
           className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-transparent hover:border-emerald-500 shadow-sm flex items-center gap-5 group transition-all"
@@ -820,7 +821,7 @@ const App = () => {
     <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
       <div className="flex items-center justify-between mb-8">
         <button
-          onClick={() => setAppState("transfer-hub")}
+          onClick={() => setActiveTab("transfer-hub")}
           className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
         >
           <ChevronLeft size={24} />
@@ -930,7 +931,7 @@ const App = () => {
     <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
       <div className="flex items-center justify-between mb-8">
         <button
-          onClick={() => setAppState("transfer-hub")}
+          onClick={() => setActiveTab("transfer-hub")}
           className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
         >
           <ChevronLeft size={24} />
