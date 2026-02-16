@@ -646,7 +646,7 @@ const App = () => {
                   </p>
                 </div>
                 {currentTier === tier.id ? (
-                  <span className="bg-emerald-500 text-white text-[10px] px-3 py-1.5 rounded-full font-black uppercase flex items-center gap-1.5">
+                  <span className="bg-emerald-500 text-[#C5A059] text-[10px] px-3 py-1.5 rounded-full font-black uppercase flex items-center gap-1.5">
                     <Check size={12} strokeWidth={3} /> Active
                   </span>
                 ) : (
@@ -655,7 +655,7 @@ const App = () => {
                       setCurrentTier(tier.id);
                       triggerNotification(`Upgraded to ${tier.name}`);
                     }}
-                    className="bg-slate-900 text-white text-[10px] px-4 py-1.5 rounded-full font-bold uppercase hover:bg-slate-800 transition-colors"
+                    className="bg-slate-900 text-[#C5A059] text-[10px] px-4 py-1.5 rounded-full font-bold uppercase hover:bg-slate-800 transition-colors"
                   >
                     Select Plan
                   </button>
@@ -809,7 +809,7 @@ const App = () => {
   const renderLogin = () => (
     <div className="fixed inset-0 bg-[#F7F5F0] z-[150] flex flex-col items-center px-8 pt-20 animate-in fade-in zoom-in-95 duration-500">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-black italic tracking-tighter text-white mb-2">
+        <h1 className="text-4xl font-black italic tracking-tighter text-[#C5A059] mb-2">
           Rizq.
         </h1>
         <p className="text-emerald-300/60 text-[10px] font-bold uppercase tracking-[0.2em]">
@@ -835,7 +835,7 @@ const App = () => {
             </div>
           )}
         </div>
-        <h2 className="text-white font-bold text-lg">
+        <h2 className="text-[#C5A059] font-bold text-lg">
           {t("welcomeBack", { name: "Shifanul" })}
         </h2>
         <p className="text-emerald-300/40 text-xs mt-1">
@@ -861,7 +861,7 @@ const App = () => {
           <button
             key={num}
             onClick={() => pin.length < 4 && setPin(pin + num)}
-            className="w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl font-medium active:bg-white/10 transition-colors"
+            className="w-14 h-14 rounded-full flex items-center justify-center text-[#C5A059] text-2xl font-medium active:bg-white/10 transition-colors"
           >
             {num}
           </button>
@@ -874,19 +874,19 @@ const App = () => {
         </button>
         <button
           onClick={() => pin.length < 4 && setPin(pin + "0")}
-          className="w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl font-medium active:bg-white/10"
+          className="w-14 h-14 rounded-full flex items-center justify-center text-[#C5A059] text-2xl font-medium active:bg-white/10"
         >
           0
         </button>
         <button
           onClick={() => setPin(pin.slice(0, -1))}
-          className="w-14 h-14 rounded-full flex items-center justify-center text-white/40 active:bg-white/10"
+          className="w-14 h-14 rounded-full flex items-center justify-center text-[#C5A059]/40 active:bg-white/10"
         >
           <ChevronLeft size={24} />
         </button>
       </div>
 
-      <button className="mt-12 text-emerald-300/40 text-[10px] font-bold uppercase tracking-widest hover:text-white transition-colors">
+      <button className="mt-12 text-emerald-300/40 text-[10px] font-bold uppercase tracking-widest hover:text-[#C5A059] transition-colors">
         {t("forgotPin")}
       </button>
     </div>
@@ -897,20 +897,20 @@ const App = () => {
       <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
         <button
           onClick={simulateSync}
-          className="whitespace-nowrap bg-amber-600 text-white text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
+          className="whitespace-nowrap bg-amber-600 text-[#C5A059] text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
         >
           <RefreshCcw size={12} className={isSyncing ? "animate-spin" : ""} />{" "}
           {t("sync")}
         </button>
         <button
           onClick={addRandomTransaction}
-          className="whitespace-nowrap bg-[#F7F5F0] text-white text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
+          className="whitespace-nowrap bg-[#F7F5F0] text-[#C5A059] text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
         >
           <Zap size={12} /> {t("simulate")}
         </button>
       </div>
 
-      <div className="bg-[#F7F5F0] rounded-[2rem] p-6 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-[#F7F5F0] rounded-[2rem] p-6 text-[#C5A059] shadow-xl relative overflow-hidden">
         <div className="relative z-10">
           <p className="text-emerald-300/80 text-[10px] font-bold uppercase tracking-widest">
             {t("totalWealth")}
@@ -1215,7 +1215,7 @@ const App = () => {
                   `Added ${newContactName} to your contacts`,
                 );
               }}
-              className="w-full mt-auto bg-[#F7F5F0] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+              className="w-full mt-auto bg-[#F7F5F0] text-[#C5A059] py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
             >
               Save Contact
             </button>
@@ -1254,7 +1254,7 @@ const App = () => {
             }}
             className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-transparent hover:border-emerald-500 shadow-sm flex items-center gap-5 group transition-all"
           >
-            <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
+            <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-[#C5A059] transition-all">
               <Smartphone size={24} />
             </div>
             <div className="text-left">
@@ -1276,7 +1276,7 @@ const App = () => {
             }}
             className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-transparent hover:border-emerald-500 shadow-sm flex items-center gap-5 group transition-all"
           >
-            <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all">
+            <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-[#C5A059] transition-all">
               <Building size={24} />
             </div>
             <div className="text-left">
@@ -1298,7 +1298,7 @@ const App = () => {
             }}
             className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-transparent hover:border-emerald-500 shadow-sm flex items-center gap-5 group transition-all"
           >
-            <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:bg-amber-600 group-hover:text-white transition-all">
+            <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:bg-amber-600 group-hover:text-[#C5A059] transition-all">
               <RefreshCcw size={24} />
             </div>
             <div className="text-left">
@@ -1561,7 +1561,7 @@ const App = () => {
             <button
               disabled={!scheduleDate || !transferAmount}
               onClick={handleScheduleTransfer}
-              className="flex-1 bg-[#F7F5F0] text-white py-3 rounded-xl font-bold shadow-lg transition-all active:scale-95 disabled:opacity-50"
+              className="flex-1 bg-[#F7F5F0] text-[#C5A059] py-3 rounded-xl font-bold shadow-lg transition-all active:scale-95 disabled:opacity-50"
             >
               Schedule Transfer
             </button>
@@ -1712,7 +1712,7 @@ const App = () => {
                   `Added ${newContactName} to your contacts`,
                 );
               }}
-              className="w-full mt-auto bg-[#F7F5F0] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+              className="w-full mt-auto bg-[#F7F5F0] text-[#C5A059] py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
             >
               Save Contact
             </button>
@@ -1818,7 +1818,7 @@ const App = () => {
                     className="flex flex-col items-center gap-2 group"
                   >
                     <div
-                      className={`w-14 h-14 rounded-full ${contact.color} flex items-center justify-center text-white font-black text-lg shadow-md group-active:scale-90 transition-all`}
+                      className={`w-14 h-14 rounded-full ${contact.color} flex items-center justify-center text-[#C5A059] font-black text-lg shadow-md group-active:scale-90 transition-all`}
                     >
                       {contact.initial}
                     </div>
@@ -1930,7 +1930,7 @@ const App = () => {
               (!autodeposit && !securityQuestion)
             }
             onClick={handleETransferSubmit}
-            className="w-full mt-auto mb-4 bg-[#F7F5F0] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+            className="w-full mt-auto mb-4 bg-[#F7F5F0] text-[#C5A059] py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
           >
             Send E-Transfer
           </button>
@@ -1979,7 +1979,7 @@ const App = () => {
                     className="flex flex-col items-center gap-2 group"
                   >
                     <div
-                      className={`w-14 h-14 rounded-full ${contact.color} flex items-center justify-center text-white font-black text-lg shadow-md group-active:scale-90 transition-all`}
+                      className={`w-14 h-14 rounded-full ${contact.color} flex items-center justify-center text-[#C5A059] font-black text-lg shadow-md group-active:scale-90 transition-all`}
                     >
                       {contact.initial}
                     </div>
@@ -2038,7 +2038,7 @@ const App = () => {
                 setTransferAmount(requestAmount);
                 handleETransferSubmit();
               }}
-              className="w-full mt-auto bg-[#F7F5F0] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+              className="w-full mt-auto bg-[#F7F5F0] text-[#C5A059] py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
             >
               Send Request
             </button>
@@ -2065,7 +2065,7 @@ const App = () => {
           <div className="flex-1 flex flex-col items-center justify-center">
             <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mb-4 relative">
               <div
-                className={`w-full h-full rounded-full ${selectedContact.color} flex items-center justify-center text-white font-black text-2xl`}
+                className={`w-full h-full rounded-full ${selectedContact.color} flex items-center justify-center text-[#C5A059] font-black text-2xl`}
               >
                 {selectedContact.initial}
               </div>
@@ -2114,7 +2114,7 @@ const App = () => {
             <button
               disabled={!transferAmount}
               onClick={handleETransferSubmit}
-              className="w-full mb-4 bg-[#F7F5F0] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+              className="w-full mb-4 bg-[#F7F5F0] text-[#C5A059] py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
             >
               Confirm & Send
             </button>
@@ -2182,7 +2182,7 @@ const App = () => {
         <button
           onClick={handleTransferSubmit}
           disabled={!transferAmount}
-          className="w-full mt-4 bg-[#F7F5F0] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+          className="w-full mt-4 bg-[#F7F5F0] text-[#C5A059] py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
         >
           Initiate Transfer
         </button>
@@ -2399,7 +2399,7 @@ const App = () => {
         <button
           onClick={handleInternalTransfer}
           disabled={!internalTransferAmount || fromAccount === toAccount}
-          className="w-full mt-auto mb-4 bg-[#F7F5F0] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+          className="w-full mt-auto mb-4 bg-[#F7F5F0] text-[#C5A059] py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
         >
           Complete Transfer
         </button>
@@ -2490,7 +2490,7 @@ const App = () => {
                 (!newBeneficiaryEmail && !newBeneficiaryPhone)
               }
               onClick={handleAddBeneficiary}
-              className="w-full mt-auto bg-[#F7F5F0] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+              className="w-full mt-auto bg-[#F7F5F0] text-[#C5A059] py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
             >
               Save Beneficiary
             </button>
@@ -2964,7 +2964,7 @@ const App = () => {
                 setShowTransferReceipt(true);
                 setOtpInput("");
               }}
-              className="flex-1 py-3 bg-emerald-600 text-white rounded-xl font-bold text-sm active:scale-95 transition-transform disabled:opacity-50"
+              className="flex-1 py-3 bg-emerald-600 text-[#C5A059] rounded-xl font-bold text-sm active:scale-95 transition-transform disabled:opacity-50"
             >
               Verify
             </button>
@@ -3066,7 +3066,7 @@ const App = () => {
 
         {/* Card Visual */}
         <div
-          className={`w-full max-w-[340px] mx-auto aspect-[1.58/1] rounded-[1.5rem] p-6 text-white shadow-2xl relative flex flex-col justify-between transition-all duration-500 overflow-hidden ${
+          className={`w-full max-w-[340px] mx-auto aspect-[1.58/1] rounded-[1.5rem] p-6 text-[#C5A059] shadow-2xl relative flex flex-col justify-between transition-all duration-500 overflow-hidden ${
             isFrozen
               ? "grayscale bg-slate-800"
               : "bg-gradient-to-br from-[#F7F5F0] via-[#043d2e] to-[#022c22]"
@@ -3087,7 +3087,7 @@ const App = () => {
 
           <div className="relative z-10 flex flex-col gap-4">
             <div className="flex items-center gap-3">
-              <p className="text-lg font-mono tracking-[0.15em] font-medium text-white/90">
+              <p className="text-lg font-mono tracking-[0.15em] font-medium text-[#C5A059]/90">
                 {showCardDetails
                   ? "4532 8812 0094 1120"
                   : "•••• •••• •••• 1120"}
@@ -3097,9 +3097,9 @@ const App = () => {
                 className="p-1.5 bg-white/10 hover:bg-white/20 rounded-full transition-colors active:scale-90"
               >
                 {showCardDetails ? (
-                  <EyeOff size={14} className="text-white/70" />
+                  <EyeOff size={14} className="text-[#C5A059]/70" />
                 ) : (
-                  <Eye size={14} className="text-white/70" />
+                  <Eye size={14} className="text-[#C5A059]/70" />
                 )}
               </button>
             </div>
@@ -3125,7 +3125,7 @@ const App = () => {
           </div>
 
           <div className="flex justify-between items-end relative z-10">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-white/90">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[#C5A059]/90">
               Visa Platinum
             </p>
             <div className="flex -space-x-2">
@@ -3242,7 +3242,7 @@ const App = () => {
         </div>
 
         {/* Why Subscription */}
-        <div className="p-6 bg-slate-900 rounded-[2.5rem] text-white">
+        <div className="p-6 bg-slate-900 rounded-[2.5rem] text-[#C5A059]">
           <div className="flex items-center gap-2 mb-3">
             <Info size={16} className="text-emerald-400" />
             <h3 className="text-[10px] font-black uppercase tracking-widest text-emerald-400">
@@ -3345,7 +3345,7 @@ const App = () => {
                 </p>
               </div>
             </div>
-            <span className="bg-emerald-500 text-white text-[9px] px-3 py-1 rounded-full font-black uppercase">
+            <span className="bg-emerald-500 text-[#C5A059] text-[9px] px-3 py-1 rounded-full font-black uppercase">
               Active
             </span>
           </div>
@@ -3497,7 +3497,7 @@ const App = () => {
           </div>
           <button
             onClick={() => setZakatStep(2)}
-            className="w-full bg-indigo-600 text-white p-6 rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-900/20 active:scale-[0.98] transition-all"
+            className="w-full bg-indigo-600 text-[#C5A059] p-6 rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-900/20 active:scale-[0.98] transition-all"
           >
             Continue to Liabilities
           </button>
@@ -3557,7 +3557,7 @@ const App = () => {
           </div>
           <button
             onClick={() => setZakatStep(3)}
-            className="w-full bg-indigo-600 text-white p-6 rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-900/20 active:scale-[0.98] transition-all"
+            className="w-full bg-indigo-600 text-[#C5A059] p-6 rounded-[2rem] font-black text-lg shadow-xl shadow-indigo-900/20 active:scale-[0.98] transition-all"
           >
             Review Calculation
           </button>
@@ -3567,7 +3567,7 @@ const App = () => {
       {/* Step 3: Calculation Review */}
       {zakatStep === 3 && (
         <div className="space-y-6 animate-in fade-in duration-300">
-          <div className="bg-indigo-900 p-8 rounded-[3rem] text-white shadow-2xl relative overflow-hidden text-center">
+          <div className="bg-indigo-900 p-8 rounded-[3rem] text-[#C5A059] shadow-2xl relative overflow-hidden text-center">
             <div className="absolute top-0 right-0 opacity-10 p-4">
               <Fingerprint size={100} />
             </div>
@@ -3616,7 +3616,7 @@ const App = () => {
             disabled={zakatDue <= 0}
             className={`w-full p-6 rounded-[2rem] font-black text-lg transition-all flex items-center justify-center gap-3 shadow-xl ${
               zakatDue > 0
-                ? "bg-indigo-600 text-white shadow-indigo-900/20 active:scale-[0.98]"
+                ? "bg-indigo-600 text-[#C5A059] shadow-indigo-900/20 active:scale-[0.98]"
                 : "bg-slate-200 text-slate-400 cursor-not-allowed"
             }`}
           >
@@ -3662,7 +3662,7 @@ const App = () => {
                       <span
                         className={`text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
                           selectedCharity === charity.id
-                            ? "bg-indigo-600 text-white"
+                            ? "bg-indigo-600 text-[#C5A059]"
                             : "bg-slate-200 text-slate-500"
                         }`}
                       >
@@ -3683,7 +3683,7 @@ const App = () => {
             disabled={!selectedCharity}
             className={`w-full p-6 rounded-[2rem] font-black text-lg transition-all flex items-center justify-center gap-3 shadow-xl ${
               selectedCharity
-                ? "bg-indigo-600 text-white shadow-indigo-900/20 active:scale-[0.98]"
+                ? "bg-indigo-600 text-[#C5A059] shadow-indigo-900/20 active:scale-[0.98]"
                 : "bg-slate-200 text-slate-400 cursor-not-allowed"
             }`}
           >
@@ -3735,7 +3735,7 @@ const App = () => {
         </div>
 
         {/* Dynamic Payment Card */}
-        <div className="bg-amber-600 rounded-[2.5rem] p-8 text-white shadow-xl relative overflow-hidden">
+        <div className="bg-amber-600 rounded-[2.5rem] p-8 text-[#C5A059] shadow-xl relative overflow-hidden">
           <div className="absolute -right-4 -top-4 opacity-10 rotate-12">
             <Car size={120} />
           </div>
@@ -3835,7 +3835,7 @@ const App = () => {
                   onClick={() => setTerm(t)}
                   className={`py-3 rounded-2xl text-[10px] font-black transition-all ${
                     term === t
-                      ? "bg-amber-600 text-white shadow-md"
+                      ? "bg-amber-600 text-[#C5A059] shadow-md"
                       : "bg-slate-50 text-slate-400"
                   }`}
                 >
@@ -3885,7 +3885,7 @@ const App = () => {
               `${frequencyLabel} plan submitted for approval.`,
             )
           }
-          className="w-full bg-slate-900 text-white p-5 rounded-[2rem] font-black text-lg shadow-xl active:scale-95 transition-all flex items-center justify-center gap-3"
+          className="w-full bg-slate-900 text-[#C5A059] p-5 rounded-[2rem] font-black text-lg shadow-xl active:scale-95 transition-all flex items-center justify-center gap-3"
         >
           Request Approval <CalendarDays size={20} />
         </button>
@@ -3896,7 +3896,7 @@ const App = () => {
   // Splash Screen
   if (appState === "splash") {
     return (
-      <div className="fixed inset-0 bg-[#F7F5F0] z-[200] flex flex-col items-center justify-center text-white p-6">
+      <div className="fixed inset-0 bg-[#F7F5F0] z-[200] flex flex-col items-center justify-center text-[#C5A059] p-6">
         <div className="flex-1 flex flex-col items-center justify-center">
           <h2 className="text-5xl font-black italic tracking-tighter mb-1 animate-pulse">
             Rizq.
@@ -3957,7 +3957,7 @@ const App = () => {
       <header className="flex justify-between items-center py-4 shrink-0">
         <div className="flex items-center gap-1.5">
           <div className="bg-[#F7F5F0] p-1.5 rounded-lg">
-            <Lock size={12} className="text-white" />
+            <Lock size={12} className="text-[#C5A059]" />
           </div>
           <span className="font-black text-xl tracking-tighter">Rizq.</span>
           {!isOnline && (
@@ -4011,7 +4011,7 @@ const App = () => {
                 Cleansing non-halal earnings.
               </p>
             </div>
-            <div className="bg-[#0f172a] p-6 rounded-[2rem] text-white">
+            <div className="bg-[#0f172a] p-6 rounded-[2rem] text-[#C5A059]">
               <p className="text-slate-400 text-[8px] font-bold uppercase tracking-widest mb-2">
                 To Be Purified
               </p>
