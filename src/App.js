@@ -37,7 +37,6 @@ import {
   ArrowRight,
   Building,
   X,
-  Search,
   DollarSign,
   Clock,
   FileText,
@@ -106,11 +105,11 @@ const App = () => {
       expiryDate: "Feb 28, 2026",
     },
   ]);
-  const [autoDepositSettings, setAutoDepositSettings] = useState({
+  const autoDepositSettings = {
     enabled: false,
     emailLinked: "user@email.com",
     phoneLinked: "+1 (555) 123-4567",
-  });
+  };
   const [showETransferSettings, setShowETransferSettings] = useState(false);
   const [showAddContact, setShowAddContact] = useState(false);
   const [newContactName, setNewContactName] = useState("");
