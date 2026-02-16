@@ -351,7 +351,7 @@ const App = () => {
 
   const getTransferStatusColor = (status) => {
     const colors = {
-      completed: "text-emerald-600 bg-emerald-50",
+      completed: "text-emerald-800 bg-emerald-50",
       pending: "text-amber-600 bg-amber-50",
       failed: "text-rose-600 bg-rose-50",
       cancelled: "text-slate-600 bg-slate-50",
@@ -465,7 +465,7 @@ const App = () => {
       name: "National Zakat Foundation",
       description: "Local distribution to those in need.",
       tag: "Local Support",
-      icon: <Building2 className="text-emerald-600" size={18} />,
+      icon: <Building2 className="text-emerald-800" size={18} />,
       url: "https://nzf.org.uk/pay-zakat/",
     },
     {
@@ -587,7 +587,7 @@ const App = () => {
         price: "$9.99/mo",
         hardware: "rPVC Ocean Plastic",
         color: "bg-emerald-600",
-        icon: <CheckCircle2 className="text-emerald-600" size={20} />,
+        icon: <CheckCircle2 className="text-emerald-800" size={20} />,
         features: [
           "0.5% Cash-back",
           "rPVC Card Delivery",
@@ -671,7 +671,7 @@ const App = () => {
                       size={16}
                       className={
                         currentTier === tier.id
-                          ? "text-emerald-500"
+                          ? "text-emerald-700"
                           : "text-slate-300"
                       }
                     />
@@ -685,7 +685,7 @@ const App = () => {
 
         <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm">
           <div className="flex items-center gap-2 mb-3">
-            <FileText size={16} className="text-emerald-600" />
+            <FileText size={16} className="text-emerald-800" />
             <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400">
               Membership Agreement
             </h3>
@@ -824,7 +824,7 @@ const App = () => {
           }`}
         >
           {isFaceScanning ? (
-            <ScanFace className="text-emerald-400 animate-pulse" size={40} />
+            <ScanFace className="text-emerald-600 animate-pulse" size={40} />
           ) : (
             <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-white/20 bg-emerald-800/40">
               <img
@@ -868,7 +868,7 @@ const App = () => {
         ))}
         <button
           onClick={handleFaceId}
-          className="w-14 h-14 rounded-full flex items-center justify-center text-emerald-400 active:bg-white/10"
+          className="w-14 h-14 rounded-full flex items-center justify-center text-emerald-600 active:bg-white/10"
         >
           <ScanFace size={28} />
         </button>
@@ -912,14 +912,14 @@ const App = () => {
 
       <div className="bg-[#F7F5F0] rounded-[2rem] p-6 text-[#C5A059] shadow-xl relative overflow-hidden">
         <div className="relative z-10">
-          <p className="text-emerald-300/80 text-[10px] font-bold uppercase tracking-widest">
+          <p className="text-emerald-500/80 text-[10px] font-bold uppercase tracking-widest">
             {t("totalWealth")}
           </p>
           <h1 className="text-3xl font-bold mt-1 tracking-tight">
             ${balance.toLocaleString()}
           </h1>
           <div className="mt-4 flex justify-between items-center">
-            <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-xs">
+            <div className="flex items-center gap-1.5 text-emerald-600 font-bold text-xs">
               <TrendingUp size={14} /> <span>+4.2% APY</span>
             </div>
             <div className="bg-white/10 px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-tighter">
@@ -934,7 +934,7 @@ const App = () => {
           {
             icon: <ArrowUpRight size={20} />,
             label: t("transfer"),
-            color: "bg-emerald-100 text-emerald-700",
+            color: "bg-emerald-100 text-emerald-900",
             action: () => {
               setActiveTab("transfer-hub");
             },
@@ -1000,7 +1000,7 @@ const App = () => {
                   {tx.status === "declined" ? (
                     <ShieldX size={16} />
                   ) : tx.type === "profit" ? (
-                    <Zap size={16} className="text-emerald-500" />
+                    <Zap size={16} className="text-emerald-700" />
                   ) : (
                     <CreditCard size={16} />
                   )}
@@ -1081,7 +1081,7 @@ const App = () => {
                       className={`text-xs py-2 px-4 rounded-lg font-bold active:scale-90 transition-transform ${
                         autodeposit &&
                         recipientIdentifier === autoDepositSettings.emailLinked
-                          ? "bg-emerald-100 text-emerald-700"
+                          ? "bg-emerald-100 text-emerald-900"
                           : "bg-slate-100 text-slate-600"
                       }`}
                     >
@@ -1235,7 +1235,7 @@ const App = () => {
           </button>
           <h2 className="text-xl font-black italic tracking-tighter">
             Rizq.{" "}
-            <span className="text-emerald-600 not-italic">{t("transfer")}</span>
+            <span className="text-emerald-800 not-italic">{t("transfer")}</span>
           </h2>
           <button
             onClick={() => setShowETransferSettings(true)}
@@ -1264,7 +1264,7 @@ const App = () => {
               </p>
             </div>
             <ArrowRight
-              className="ml-auto text-slate-300 group-hover:text-emerald-500 transition-all"
+              className="ml-auto text-slate-300 group-hover:text-emerald-700 transition-all"
               size={20}
             />
           </button>
@@ -1276,7 +1276,7 @@ const App = () => {
             }}
             className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-transparent hover:border-emerald-500 shadow-sm flex items-center gap-5 group transition-all"
           >
-            <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-[#C5A059] transition-all">
+            <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-800 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-[#C5A059] transition-all">
               <Building size={24} />
             </div>
             <div className="text-left">
@@ -1286,7 +1286,7 @@ const App = () => {
               </p>
             </div>
             <ArrowRight
-              className="ml-auto text-slate-300 group-hover:text-emerald-500 transition-all"
+              className="ml-auto text-slate-300 group-hover:text-emerald-700 transition-all"
               size={20}
             />
           </button>
@@ -1308,7 +1308,7 @@ const App = () => {
               </p>
             </div>
             <ArrowRight
-              className="ml-auto text-slate-300 group-hover:text-emerald-500 transition-all"
+              className="ml-auto text-slate-300 group-hover:text-emerald-700 transition-all"
               size={20}
             />
           </button>
@@ -1373,7 +1373,7 @@ const App = () => {
             </p>
             <button
               onClick={() => setShowAddContact(true)}
-              className="text-xs font-bold text-emerald-600 hover:text-emerald-700 active:scale-90 transition-all"
+              className="text-xs font-bold text-emerald-800 hover:text-emerald-900 active:scale-90 transition-all"
             >
               + Add Contact
             </button>
@@ -1390,7 +1390,7 @@ const App = () => {
                       size={16}
                       className={
                         transfer.amount >= 0
-                          ? "text-emerald-600"
+                          ? "text-emerald-800"
                           : "text-slate-600"
                       }
                     />
@@ -1411,7 +1411,7 @@ const App = () => {
                   <p
                     className={`text-[10px] font-bold uppercase ${
                       transfer.status === "completed"
-                        ? "text-emerald-600"
+                        ? "text-emerald-800"
                         : "text-amber-600"
                     }`}
                   >
@@ -1425,14 +1425,14 @@ const App = () => {
 
         <div className="mt-auto bg-emerald-50 p-6 rounded-[2rem] border border-emerald-100">
           <div className="flex gap-4 items-start">
-            <div className="p-2 bg-emerald-100 text-emerald-700 rounded-lg">
+            <div className="p-2 bg-emerald-100 text-emerald-900 rounded-lg">
               <ShieldCheck size={20} />
             </div>
             <div>
               <p className="text-sm font-bold text-emerald-900">
                 Interest-Free Routing
               </p>
-              <p className="text-xs text-emerald-700/70 mt-1 leading-relaxed">
+              <p className="text-xs text-emerald-900/70 mt-1 leading-relaxed">
                 Transactions are processed instantly through our ethical
                 clearing network.
               </p>
@@ -1745,7 +1745,7 @@ const App = () => {
               onClick={() => setETransferMode("send")}
               className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all ${
                 eTransferMode === "send"
-                  ? "bg-emerald-100 text-emerald-700"
+                  ? "bg-emerald-100 text-emerald-900"
                   : "bg-white text-slate-600"
               }`}
             >
@@ -1755,7 +1755,7 @@ const App = () => {
               onClick={() => setETransferMode("request")}
               className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all ${
                 eTransferMode === "request"
-                  ? "bg-emerald-100 text-emerald-700"
+                  ? "bg-emerald-100 text-emerald-900"
                   : "bg-white text-slate-600"
               }`}
             >
@@ -1802,7 +1802,7 @@ const App = () => {
                 </p>
                 <button
                   onClick={() => setShowAddContact(true)}
-                  className="text-xs font-bold text-emerald-600 hover:text-emerald-700 active:scale-90 transition-all"
+                  className="text-xs font-bold text-emerald-800 hover:text-emerald-900 active:scale-90 transition-all"
                 >
                   + Add Contact
                 </button>
@@ -1911,7 +1911,7 @@ const App = () => {
           </div>
 
           {/* Info Box */}
-          <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-100 mb-6 text-xs text-emerald-700 space-y-2">
+          <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-100 mb-6 text-xs text-emerald-900 space-y-2">
             <div className="flex gap-2">
               <Clock size={14} className="shrink-0 mt-0.5" />
               <span>Typically available within minutes of acceptance</span>
@@ -2387,7 +2387,7 @@ const App = () => {
                 <div className="h-px bg-slate-300 my-2"></div>
                 <div className="flex justify-between text-base font-black">
                   <span>Amount:</span>
-                  <span className="text-emerald-600">
+                  <span className="text-emerald-800">
                     ${parseFloat(internalTransferAmount).toFixed(2)}
                   </span>
                 </div>
@@ -2474,7 +2474,7 @@ const App = () => {
                     onClick={() => setNewBeneficiaryType(type)}
                     className={`py-3 px-2 rounded-xl font-bold text-sm capitalize transition-all ${
                       newBeneficiaryType === type
-                        ? "bg-emerald-100 text-emerald-700"
+                        ? "bg-emerald-100 text-emerald-900"
                         : "bg-slate-100 text-slate-600"
                     }`}
                   >
@@ -2510,11 +2510,11 @@ const App = () => {
           </button>
           <h2 className="text-xl font-black italic tracking-tighter">
             Rizq.{" "}
-            <span className="text-emerald-600 not-italic">Beneficiaries</span>
+            <span className="text-emerald-800 not-italic">Beneficiaries</span>
           </h2>
           <button
             onClick={() => setShowAddBeneficiary(true)}
-            className="text-emerald-600 font-bold text-sm active:scale-90 transition-all"
+            className="text-emerald-800 font-bold text-sm active:scale-90 transition-all"
           >
             + Add
           </button>
@@ -2527,7 +2527,7 @@ const App = () => {
               className="bg-white p-4 rounded-2xl border border-slate-100 hover:border-emerald-200 transition-all flex items-center justify-between"
             >
               <div className="flex items-center gap-3 flex-1">
-                <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold">
+                <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-800 font-bold">
                   {ben.name.charAt(0)}
                 </div>
                 <div>
@@ -2539,7 +2539,7 @@ const App = () => {
               </div>
               <div className="flex items-center gap-2">
                 {ben.verified && (
-                  <Check size={16} className="text-emerald-600" />
+                  <Check size={16} className="text-emerald-800" />
                 )}
                 <button
                   onClick={() => toggleFavoriteBeneficiary(ben.id)}
@@ -2579,10 +2579,10 @@ const App = () => {
           <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200 text-center">
             <div className="text-4xl mb-2">✅</div>
             <p className="font-bold text-emerald-900">Shariah Compliant</p>
-            <p className="text-[10px] text-emerald-700 mt-1">
+            <p className="text-[10px] text-emerald-900 mt-1">
               Interest-Free Transfer
             </p>
-            <p className="text-[9px] text-emerald-600 mt-2">
+            <p className="text-[9px] text-emerald-800 mt-2">
               ID: {receipt.sharahComplianceId}
             </p>
           </div>
@@ -2617,13 +2617,13 @@ const App = () => {
             <div className="h-px bg-slate-200"></div>
             <div className="flex justify-between text-base">
               <span className="font-bold text-slate-900">Amount</span>
-              <span className="font-black text-emerald-600">
+              <span className="font-black text-emerald-800">
                 ${receipt.amount.toFixed(2)}
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-slate-600">Status</span>
-              <span className="font-bold text-emerald-600 capitalize">
+              <span className="font-bold text-emerald-800 capitalize">
                 {receipt.status}
               </span>
             </div>
@@ -2636,7 +2636,7 @@ const App = () => {
             >
               Done
             </button>
-            <button className="flex-1 py-3 bg-emerald-100 text-emerald-700 rounded-xl font-bold text-sm active:scale-90 transition-transform">
+            <button className="flex-1 py-3 bg-emerald-100 text-emerald-900 rounded-xl font-bold text-sm active:scale-90 transition-transform">
               Share Receipt
             </button>
           </div>
@@ -2677,7 +2677,7 @@ const App = () => {
                 </p>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="bg-emerald-50 p-4 rounded-2xl border border-emerald-200">
-                    <p className="text-[10px] text-emerald-700 font-bold uppercase mb-2">
+                    <p className="text-[10px] text-emerald-900 font-bold uppercase mb-2">
                       Sent
                     </p>
                     <p className="text-2xl font-black text-emerald-900">
@@ -2699,7 +2699,7 @@ const App = () => {
             <>
               {/* Detailed View */}
               <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-6 rounded-[2rem] border border-emerald-200">
-                <p className="text-[10px] text-emerald-700 font-black uppercase mb-2">
+                <p className="text-[10px] text-emerald-900 font-black uppercase mb-2">
                   Performance
                 </p>
                 <div className="space-y-3">
@@ -2807,7 +2807,7 @@ const App = () => {
                 <span className="text-slate-600">Amount</span>
                 <span
                   className={`font-bold ${
-                    tx.amount > 0 ? "text-emerald-600" : "text-slate-900"
+                    tx.amount > 0 ? "text-emerald-800" : "text-slate-900"
                   }`}
                 >
                   {tx.amount > 0 ? "+" : ""}${Math.abs(tx.amount).toFixed(2)}
@@ -2854,7 +2854,7 @@ const App = () => {
               onClick={() => setHistoryFilter(filter)}
               className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all ${
                 historyFilter === filter
-                  ? "bg-emerald-100 text-emerald-700"
+                  ? "bg-emerald-100 text-emerald-900"
                   : "bg-white text-slate-600 border border-slate-200"
               }`}
             >
@@ -2874,7 +2874,7 @@ const App = () => {
               <div className="flex items-center gap-3 flex-1">
                 <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-emerald-50 transition-colors">
                   {tx.amount > 0 ? (
-                    <ArrowDownRight size={16} className="text-emerald-600" />
+                    <ArrowDownRight size={16} className="text-emerald-800" />
                   ) : (
                     <ArrowUpRight size={16} className="text-slate-600" />
                   )}
@@ -2887,7 +2887,7 @@ const App = () => {
               <div className="text-right">
                 <p
                   className={`font-black text-sm ${
-                    tx.amount > 0 ? "text-emerald-600" : "text-slate-900"
+                    tx.amount > 0 ? "text-emerald-800" : "text-slate-900"
                   }`}
                 >
                   {tx.amount > 0 ? "+" : ""}${Math.abs(tx.amount).toFixed(2)}
@@ -2996,7 +2996,7 @@ const App = () => {
                 setRequireBiometric(false);
                 triggerNotification("Verified", "Fingerprint authenticated");
               }}
-              className="w-full py-4 bg-emerald-50 text-emerald-700 rounded-2xl font-bold border-2 border-emerald-200 hover:bg-emerald-100 transition-all active:scale-95"
+              className="w-full py-4 bg-emerald-50 text-emerald-900 rounded-2xl font-bold border-2 border-emerald-200 hover:bg-emerald-100 transition-all active:scale-95"
             >
               👆 Use Fingerprint
             </button>
@@ -3025,7 +3025,7 @@ const App = () => {
   const renderSuccess = () => (
     <div className="fixed inset-0 bg-white flex flex-col items-center justify-center z-[200] p-8 text-center animate-in fade-in duration-500">
       <div className="w-24 h-24 rounded-full bg-emerald-100 flex items-center justify-center mb-6 animate-in zoom-in-50 duration-500 delay-200">
-        <CheckCircle2 className="text-emerald-600" size={48} />
+        <CheckCircle2 className="text-emerald-800" size={48} />
       </div>
       <h2 className="text-3xl font-black text-slate-900 tracking-tighter mb-2">
         Funds Sent.
@@ -3057,8 +3057,8 @@ const App = () => {
         <div className="flex justify-between items-center px-1">
           <h2 className="text-xl font-bold text-slate-900">{t("yourCard")}</h2>
           <div className="bg-emerald-50 px-3 py-1 rounded-full flex items-center gap-1.5">
-            <Gem size={12} className="text-emerald-600" />
-            <span className="text-[10px] font-black uppercase text-emerald-700 tracking-tighter">
+            <Gem size={12} className="text-emerald-800" />
+            <span className="text-[10px] font-black uppercase text-emerald-900 tracking-tighter">
               {currentTier}
             </span>
           </div>
@@ -3106,7 +3106,7 @@ const App = () => {
 
             <div className="flex gap-8 items-center">
               <div className="flex flex-col">
-                <span className="text-[7px] font-bold uppercase tracking-[0.2em] text-emerald-400/70 mb-0.5">
+                <span className="text-[7px] font-bold uppercase tracking-[0.2em] text-emerald-600/70 mb-0.5">
                   Expiry
                 </span>
                 <span className="text-sm font-mono font-medium tracking-widest">
@@ -3114,7 +3114,7 @@ const App = () => {
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-[7px] font-bold uppercase tracking-[0.2em] text-emerald-400/70 mb-0.5">
+                <span className="text-[7px] font-bold uppercase tracking-[0.2em] text-emerald-600/70 mb-0.5">
                   CVV
                 </span>
                 <span className="text-sm font-mono font-medium tracking-widest">
@@ -3203,7 +3203,7 @@ const App = () => {
         <div className="bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
           <div className="space-y-6">
             <div className="flex gap-4">
-              <ShieldCheck className="text-emerald-600 shrink-0" size={20} />
+              <ShieldCheck className="text-emerald-800 shrink-0" size={20} />
               <div>
                 <p className="text-xs font-bold text-slate-800">
                   The Active Halal Filter
@@ -3244,8 +3244,8 @@ const App = () => {
         {/* Why Subscription */}
         <div className="p-6 bg-slate-900 rounded-[2.5rem] text-[#C5A059]">
           <div className="flex items-center gap-2 mb-3">
-            <Info size={16} className="text-emerald-400" />
-            <h3 className="text-[10px] font-black uppercase tracking-widest text-emerald-400">
+            <Info size={16} className="text-emerald-600" />
+            <h3 className="text-[10px] font-black uppercase tracking-widest text-emerald-600">
               {t("whySubscription")}
             </h3>
           </div>
@@ -3335,7 +3335,7 @@ const App = () => {
         <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-emerald-50 rounded-2xl text-emerald-600">
+              <div className="p-3 bg-emerald-50 rounded-2xl text-emerald-800">
                 <Gem size={20} />
               </div>
               <div>
@@ -3354,7 +3354,7 @@ const App = () => {
 
           <div className="space-y-4 pt-2">
             <div className="flex gap-4">
-              <ShieldCheck className="text-emerald-600 shrink-0" size={20} />
+              <ShieldCheck className="text-emerald-800 shrink-0" size={20} />
               <div>
                 <p className="text-xs font-bold text-slate-800">
                   The Active Halal Filter
@@ -3428,12 +3428,12 @@ const App = () => {
             <div className="space-y-4">
               <div className="flex justify-between items-center p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
                 <div className="flex items-center gap-3">
-                  <Wallet className="text-emerald-600" size={20} />
+                  <Wallet className="text-emerald-800" size={20} />
                   <span className="font-bold text-slate-700">
                     Rizq. Balance (Auto)
                   </span>
                 </div>
-                <span className="font-black text-emerald-700">
+                <span className="font-black text-emerald-900">
                   ${balance.toLocaleString()}
                 </span>
               </div>
@@ -3578,7 +3578,7 @@ const App = () => {
               ${zakatDue.toFixed(2)}
             </h3>
             <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full text-[10px] font-bold">
-              <ShieldCheck size={14} className="text-emerald-400" /> Shariah
+              <ShieldCheck size={14} className="text-emerald-600" /> Shariah
               Compliant
             </div>
           </div>
@@ -3860,7 +3860,7 @@ const App = () => {
             <p className="text-[9px] font-bold text-slate-400 uppercase mb-0.5">
               Fixed Markup
             </p>
-            <p className="text-sm font-black text-emerald-600">
+            <p className="text-sm font-black text-emerald-800">
               $
               {totalProfit.toLocaleString(undefined, {
                 maximumFractionDigits: 0,
@@ -3901,7 +3901,7 @@ const App = () => {
           <h2 className="text-5xl font-black italic tracking-tighter mb-1 animate-pulse">
             Rizq.
           </h2>
-          <p className="text-emerald-400 font-bold tracking-[0.2em] uppercase text-[8px] opacity-80">
+          <p className="text-emerald-600 font-bold tracking-[0.2em] uppercase text-[8px] opacity-80">
             {t("slogan")}
           </p>
         </div>
@@ -3914,10 +3914,10 @@ const App = () => {
             />
           </div>
           <div className="flex justify-between mt-3 px-1">
-            <span className="text-[7px] font-bold text-emerald-400 uppercase tracking-widest">
+            <span className="text-[7px] font-bold text-emerald-600 uppercase tracking-widest">
               Encrypting
             </span>
-            <span className="text-[7px] font-mono text-emerald-400">
+            <span className="text-[7px] font-mono text-emerald-600">
               {loadProgress}%
             </span>
           </div>
@@ -3936,7 +3936,7 @@ const App = () => {
     <div className="min-h-screen bg-[#f8fafc] flex flex-col px-5 pt-[env(safe-area-inset-top,20px)] select-none overflow-hidden font-sans">
       {notification && (
         <div className="fixed top-8 left-5 right-5 z-[100] bg-white shadow-2xl rounded-2xl p-3 border-l-4 border-emerald-500 animate-in slide-in-from-top-4 flex items-center gap-3">
-          <CheckCircle2 className="text-emerald-500 shrink-0" size={18} />
+          <CheckCircle2 className="text-emerald-700 shrink-0" size={18} />
           <div className="truncate">
             <p className="font-bold text-xs text-slate-900 leading-tight truncate">
               {notification.title}
@@ -4070,7 +4070,7 @@ const NavButton = ({ active, onClick, icon, label }) => (
   <button
     onClick={onClick}
     className={`flex flex-col items-center justify-center gap-1 transition-all duration-200 min-w-[50px] ${
-      active ? "text-emerald-700" : "text-slate-300"
+      active ? "text-emerald-900" : "text-slate-300"
     }`}
   >
     <div
