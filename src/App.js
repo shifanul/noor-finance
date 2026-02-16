@@ -631,9 +631,11 @@ const App = () => {
         {[
           {
             icon: <ArrowUpRight size={20} />,
-            label: "Transfer",
+            label: t("transfer"),
             color: "bg-emerald-100 text-emerald-700",
-            action: () => setAppState("transfer-hub"),
+            action: () => {
+              setActiveTab("transfer-hub");
+            },
           },
           ,
           {
