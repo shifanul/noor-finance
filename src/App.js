@@ -2659,34 +2659,74 @@ const App = () => {
             <ChevronLeft size={24} />
           </button>
           <h2 className="text-lg font-bold">Transfer Analytics</h2>
-          <div className="w-10" />
+          <button
+            onClick={() => setAnalyticsView(!analyticsView)}
+            className="p-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
+          >
+            {analyticsView ? "📊" : "📈"}
+          </button>
         </div>
 
         <div className="space-y-6 flex-1">
-          {/* Monthly Overview */}
-          <div className="space-y-3">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-              This Month
-            </p>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-emerald-50 p-4 rounded-2xl border border-emerald-200">
-                <p className="text-[10px] text-emerald-700 font-bold uppercase mb-2">
-                  Sent
+          {!analyticsView ? (
+            <>
+              {/* Summary View */}
+              <div className="space-y-3">
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  This Month
                 </p>
-                <p className="text-2xl font-black text-emerald-900">
-                  ${stats.totalSent.toFixed(0)}
-                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-emerald-50 p-4 rounded-2xl border border-emerald-200">
+                    <p className="text-[10px] text-emerald-700 font-bold uppercase mb-2">
+                      Sent
+                    </p>
+                    <p className="text-2xl font-black text-emerald-900">
+                      ${stats.totalSent.toFixed(0)}
+                    </p>
+                  </div>
+                  <div className="bg-blue-50 p-4 rounded-2xl border border-blue-200">
+                    <p className="text-[10px] text-blue-700 font-bold uppercase mb-2">
+                      Received
+                    </p>
+                    <p className="text-2xl font-black text-blue-900">
+                      ${stats.totalReceived.toFixed(0)}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="bg-blue-50 p-4 rounded-2xl border border-blue-200">
-                <p className="text-[10px] text-blue-700 font-bold uppercase mb-2">
-                  Received
+            </>
+          ) : (
+            <>
+              {/* Detailed View */}
+              <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-6 rounded-[2rem] border border-emerald-200">
+                <p className="text-[10px] text-emerald-700 font-black uppercase mb-2">
+                  Performance
                 </p>
-                <p className="text-2xl font-black text-blue-900">
-                  ${stats.totalReceived.toFixed(0)}
-                </p>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-700 font-bold">
+                      Total Volume
+                    </span>
+                    <span className="text-2xl font-black text-emerald-900">
+                      ${(stats.totalSent + stats.totalReceived).toFixed(0)}
+                    </span>
+                  </div>
+                  <div className="w-full bg-white/50 rounded-full h-3">
+                    <div
+                      className="bg-emerald-500 h-3 rounded-full transition-all"
+                      style={{
+                        width: `${Math.min(
+                          ((stats.totalSent + stats.totalReceived) / 5000) *
+                            100,
+                          100,
+                        )}%`,
+                      }}
+                    ></div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            </>
+          )}
 
           {/* Statistics */}
           <div className="space-y-3">
@@ -2938,7 +2978,7 @@ const App = () => {
   const renderBiometricModal = () => {
     const amt = parseFloat(transferAmount) || 0;
     if (amt <= 500) return null;
-    if (!showOTPModal) return null;
+    if (!showOTPModal || !requireBiometric) return null;
 
     return (
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[300] p-4 animate-in fade-in duration-300">
@@ -2951,15 +2991,30 @@ const App = () => {
           </p>
 
           <div className="space-y-2">
-            <button className="w-full py-4 bg-emerald-50 text-emerald-700 rounded-2xl font-bold border-2 border-emerald-200 hover:bg-emerald-100 transition-all active:scale-95">
+            <button
+              onClick={() => {
+                setRequireBiometric(false);
+                triggerNotification("Verified", "Fingerprint authenticated");
+              }}
+              className="w-full py-4 bg-emerald-50 text-emerald-700 rounded-2xl font-bold border-2 border-emerald-200 hover:bg-emerald-100 transition-all active:scale-95"
+            >
               👆 Use Fingerprint
             </button>
-            <button className="w-full py-4 bg-blue-50 text-blue-700 rounded-2xl font-bold border-2 border-blue-200 hover:bg-blue-100 transition-all active:scale-95">
+            <button
+              onClick={() => {
+                setRequireBiometric(false);
+                triggerNotification("Verified", "Face ID authenticated");
+              }}
+              className="w-full py-4 bg-blue-50 text-blue-700 rounded-2xl font-bold border-2 border-blue-200 hover:bg-blue-100 transition-all active:scale-95"
+            >
               😊 Use Face ID
             </button>
           </div>
 
-          <button className="w-full py-3 text-slate-600 font-bold text-sm">
+          <button
+            onClick={() => setRequireBiometric(false)}
+            className="w-full py-3 text-slate-600 font-bold text-sm"
+          >
             Skip for now
           </button>
         </div>
