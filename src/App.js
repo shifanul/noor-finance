@@ -1797,7 +1797,7 @@ const App = () => {
             {/* Quick Contacts */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <p className="text-[10px] font-black text-white/40 uppercase tracking-widest">
+                <p className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest">
                   {t("quick Contacts")}
                 </p>
                 <button
@@ -1818,7 +1818,7 @@ const App = () => {
                     className="flex flex-col items-center gap-2 group"
                   >
                     <div
-                      className={`w-14 h-14 rounded-full ${contact.color} flex items-center justify-center text-[#C5A059] font-black text-lg shadow-md group-active:scale-90 transition-all`}
+                      className={`w-14 h-14 rounded-full ${contact.color} flex items-center justify-center text-white font-black text-lg shadow-md group-active:scale-90 transition-all`}
                     >
                       {contact.initial}
                     </div>
@@ -1930,7 +1930,7 @@ const App = () => {
               (!autodeposit && !securityQuestion)
             }
             onClick={handleETransferSubmit}
-            className="w-full mt-auto mb-4 bg-[#f7f3e6] text-[#29422b] py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+            className="w-full mt-auto mb-4 bg-[#f7f3e6] text-[#C5A059] py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
           >
             Send E-Transfer
           </button>
