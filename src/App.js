@@ -3741,7 +3741,7 @@ const App = () => {
           <div className="absolute -right-4 -top-4 opacity-10 rotate-12">
             <Car size={120} />
           </div>
-          <p className="text-[#1A2B2A]/70 text-[10px] font-bold uppercase tracking-widest relative z-10">
+          <p className="text-white/70 text-[10px] font-bold uppercase tracking-widest relative z-10">
             {frequencyLabel} Installment
           </p>
           <h3 className="text-5xl font-black mt-1 tracking-tighter relative z-10">
@@ -3752,7 +3752,7 @@ const App = () => {
             })}
           </h3>
           <div className="mt-4 flex items-center gap-2 relative z-10">
-            <ShieldCheck size={14} className="text-[#1A2B2A]/70" />
+            <ShieldCheck size={14} className="text-emerald-600/70" />
             <span className="text-[10px] font-bold text-amber-100 uppercase tracking-tight">
               2.00% Fixed Markup
             </span>
@@ -3767,7 +3767,7 @@ const App = () => {
               onClick={() => setFrequency(f)}
               className={`flex-1 py-2.5 rounded-xl text-[10px] font-black uppercase transition-all ${
                 frequency === f
-                  ? "bg-white text-amber-600 shadow-sm"
+                  ? "bg-white text-[#C5A059] shadow-sm"
                   : "text-slate-400 hover:text-slate-600"
               }`}
             >
@@ -3837,7 +3837,7 @@ const App = () => {
                   onClick={() => setTerm(t)}
                   className={`py-3 rounded-2xl text-[10px] font-black transition-all ${
                     term === t
-                      ? "bg-amber-600 text-white shadow-md"
+                      ? "bg-[#C5A059] text-white shadow-md"
                       : "bg-slate-50 text-slate-400"
                   }`}
                 >
