@@ -115,6 +115,35 @@ const App = () => {
   const [newContactName, setNewContactName] = useState("");
   const [newContactEmail, setNewContactEmail] = useState("");
 
+  // Internal Transfer State
+  const [fromAccount, setFromAccount] = useState("current");
+  const [toAccount, setToAccount] = useState("investment");
+  const [internalTransferAmount, setInternalTransferAmount] = useState("");
+
+  const userAccounts = [
+    {
+      id: "current",
+      name: "Current Account",
+      balance: 12450.75,
+      type: "current",
+      description: "For daily transactions",
+    },
+    {
+      id: "investment",
+      name: "Investment Account",
+      balance: 5200.0,
+      type: "investment",
+      description: "Halal investments (Mudharabah)",
+    },
+    {
+      id: "emergency",
+      name: "Emergency Fund",
+      balance: 8950.5,
+      type: "emergency",
+      description: "Safe capital preservation",
+    },
+  ];
+
   const contacts = [
     {
       id: 1,
@@ -1050,6 +1079,28 @@ const App = () => {
               size={20}
             />
           </button>
+
+          <button
+            onClick={() => {
+              setActiveTab("internal-transfer");
+              setTransferType("Internal Transfer");
+            }}
+            className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-transparent hover:border-emerald-500 shadow-sm flex items-center gap-5 group transition-all"
+          >
+            <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:bg-amber-600 group-hover:text-white transition-all">
+              <RefreshCcw size={24} />
+            </div>
+            <div className="text-left">
+              <p className="font-bold text-slate-900">Internal Transfer</p>
+              <p className="text-xs text-slate-400 font-medium">
+                Move between your accounts
+              </p>
+            </div>
+            <ArrowRight
+              className="ml-auto text-slate-300 group-hover:text-emerald-500 transition-all"
+              size={20}
+            />
+          </button>
         </div>
 
         {/* E-Transfer History */}
@@ -1721,6 +1772,223 @@ const App = () => {
       </div>
     </div>
   );
+
+  const renderInternalTransfer = () => {
+    const fromAccountData = userAccounts.find((acc) => acc.id === fromAccount);
+    const toAccountData = userAccounts.find((acc) => acc.id === toAccount);
+
+    const handleInternalTransfer = () => {
+      const amt = parseFloat(internalTransferAmount) || 0;
+      if (amt <= 0) {
+        triggerNotification(
+          "Invalid Amount",
+          "Please enter an amount greater than 0",
+        );
+        return;
+      }
+
+      if (fromAccountData.balance < amt) {
+        triggerNotification(
+          "Insufficient Balance",
+          `Your ${fromAccountData.name} has insufficient funds`,
+        );
+        return;
+      }
+
+      if (fromAccount === toAccount) {
+        triggerNotification("Same Account", "Select different accounts");
+        return;
+      }
+
+      // Update balances
+      setBalance((prev) => prev - amt); // Deduct from checking (main balance)
+      setTransactions((prev) => [
+        {
+          id: Date.now(),
+          name: `Transfer: ${fromAccountData.name} → ${toAccountData.name}`,
+          amount: -amt,
+          time: "Just now",
+          status: "completed",
+          type: "transfer",
+        },
+        ...prev,
+      ]);
+
+      // Reset form
+      setInternalTransferAmount("");
+      setFromAccount("current");
+      setToAccount("investment");
+
+      triggerNotification(
+        "Transfer Complete",
+        `$${amt.toFixed(2)} moved to ${toAccountData.name}`,
+      );
+
+      setTimeout(() => {
+        setActiveTab("transfer-hub");
+      }, 1500);
+    };
+
+    return (
+      <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
+        <div className="flex items-center justify-between mb-8">
+          <button
+            onClick={() => setActiveTab("transfer-hub")}
+            className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <h2 className="text-lg font-bold">Internal Transfer</h2>
+          <div className="w-10" />
+        </div>
+
+        <div className="space-y-6">
+          {/* From Account */}
+          <div className="space-y-3">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+              From Account
+            </label>
+            <div className="space-y-2">
+              {userAccounts
+                .filter((acc) => acc.id !== toAccount)
+                .map((account) => (
+                  <button
+                    key={account.id}
+                    onClick={() => setFromAccount(account.id)}
+                    className={`w-full p-4 rounded-2xl border-2 transition-all text-left ${
+                      fromAccount === account.id
+                        ? "border-emerald-500 bg-emerald-50"
+                        : "border-slate-200 bg-white hover:border-emerald-300"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-bold text-slate-900">
+                          {account.name}
+                        </p>
+                        <p className="text-xs text-slate-400 font-bold uppercase">
+                          Available Balance
+                        </p>
+                      </div>
+                      <p className="font-black text-slate-900">
+                        ${account.balance.toFixed(2)}
+                      </p>
+                    </div>
+                  </button>
+                ))}
+            </div>
+          </div>
+
+          {/* Swap Button */}
+          <div className="flex justify-center">
+            <button
+              onClick={() => {
+                setFromAccount(toAccount);
+                setToAccount(fromAccount);
+              }}
+              className="p-2 rounded-full bg-amber-100 text-amber-600 hover:bg-amber-200 active:scale-90 transition-all"
+            >
+              <RefreshCcw size={20} />
+            </button>
+          </div>
+
+          {/* To Account */}
+          <div className="space-y-3">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+              To Account
+            </label>
+            <div className="space-y-2">
+              {userAccounts
+                .filter((acc) => acc.id !== fromAccount)
+                .map((account) => (
+                  <button
+                    key={account.id}
+                    onClick={() => setToAccount(account.id)}
+                    className={`w-full p-4 rounded-2xl border-2 transition-all text-left ${
+                      toAccount === account.id
+                        ? "border-emerald-500 bg-emerald-50"
+                        : "border-slate-200 bg-white hover:border-emerald-300"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-bold text-slate-900">
+                          {account.name}
+                        </p>
+                        <p className="text-xs text-slate-400 font-bold uppercase">
+                          Current Balance
+                        </p>
+                      </div>
+                      <p className="font-black text-slate-900">
+                        ${account.balance.toFixed(2)}
+                      </p>
+                    </div>
+                  </button>
+                ))}
+            </div>
+          </div>
+
+          {/* Amount */}
+          <div className="space-y-2">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+              Amount
+            </label>
+            <div className="relative">
+              <DollarSign
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                size={18}
+              />
+              <input
+                type="number"
+                value={internalTransferAmount}
+                onChange={(e) => setInternalTransferAmount(e.target.value)}
+                className="w-full bg-white border border-slate-200 rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
+                placeholder="0.00"
+              />
+            </div>
+          </div>
+
+          {/* Transfer Summary */}
+          {internalTransferAmount && fromAccountData && toAccountData && (
+            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">
+                Transfer Summary
+              </p>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-slate-600">From:</span>
+                  <span className="font-bold text-slate-900">
+                    {fromAccountData.name}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-600">To:</span>
+                  <span className="font-bold text-slate-900">
+                    {toAccountData.name}
+                  </span>
+                </div>
+                <div className="h-px bg-slate-300 my-2"></div>
+                <div className="flex justify-between text-base font-black">
+                  <span>Amount:</span>
+                  <span className="text-emerald-600">
+                    ${parseFloat(internalTransferAmount).toFixed(2)}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <button
+          onClick={handleInternalTransfer}
+          disabled={!internalTransferAmount || fromAccount === toAccount}
+          className="w-full mt-auto mb-4 bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+        >
+          Complete Transfer
+        </button>
+      </div>
+    );
+  };
 
   const renderSuccess = () => (
     <div className="fixed inset-0 bg-white flex flex-col items-center justify-center z-[200] p-8 text-center animate-in fade-in duration-500">
@@ -2682,6 +2950,7 @@ const App = () => {
         {activeTab === "transfer-hub" && renderTransferHub()}
         {activeTab === "e-transfer" && renderETransfer()}
         {activeTab === "bank-transfer" && renderBankTransfer()}
+        {activeTab === "internal-transfer" && renderInternalTransfer()}
         {activeTab === "success" && renderSuccess()}
         {activeTab === "purify" && (
           <div className="space-y-4 animate-in zoom-in-95 duration-200">
