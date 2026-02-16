@@ -807,7 +807,7 @@ const App = () => {
   // --- RENDERING COMPONENTS ---
 
   const renderLogin = () => (
-    <div className="fixed inset-0 bg-[#064e3b] z-[150] flex flex-col items-center px-8 pt-20 animate-in fade-in zoom-in-95 duration-500">
+    <div className="fixed inset-0 bg-[#F7F5F0] z-[150] flex flex-col items-center px-8 pt-20 animate-in fade-in zoom-in-95 duration-500">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-black italic tracking-tighter text-white mb-2">
           Rizq.
@@ -904,13 +904,13 @@ const App = () => {
         </button>
         <button
           onClick={addRandomTransaction}
-          className="whitespace-nowrap bg-[#064e3b] text-white text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
+          className="whitespace-nowrap bg-[#F7F5F0] text-white text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
         >
           <Zap size={12} /> {t("simulate")}
         </button>
       </div>
 
-      <div className="bg-[#064e3b] rounded-[2rem] p-6 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-[#F7F5F0] rounded-[2rem] p-6 text-white shadow-xl relative overflow-hidden">
         <div className="relative z-10">
           <p className="text-emerald-300/80 text-[10px] font-bold uppercase tracking-widest">
             {t("totalWealth")}
@@ -1215,7 +1215,7 @@ const App = () => {
                   `Added ${newContactName} to your contacts`,
                 );
               }}
-              className="w-full mt-auto bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+              className="w-full mt-auto bg-[#F7F5F0] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
             >
               Save Contact
             </button>
@@ -1561,7 +1561,7 @@ const App = () => {
             <button
               disabled={!scheduleDate || !transferAmount}
               onClick={handleScheduleTransfer}
-              className="flex-1 bg-[#064e3b] text-white py-3 rounded-xl font-bold shadow-lg transition-all active:scale-95 disabled:opacity-50"
+              className="flex-1 bg-[#F7F5F0] text-white py-3 rounded-xl font-bold shadow-lg transition-all active:scale-95 disabled:opacity-50"
             >
               Schedule Transfer
             </button>
@@ -1712,7 +1712,7 @@ const App = () => {
                   `Added ${newContactName} to your contacts`,
                 );
               }}
-              className="w-full mt-auto bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+              className="w-full mt-auto bg-[#F7F5F0] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
             >
               Save Contact
             </button>
@@ -1930,7 +1930,7 @@ const App = () => {
               (!autodeposit && !securityQuestion)
             }
             onClick={handleETransferSubmit}
-            className="w-full mt-auto mb-4 bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+            className="w-full mt-auto mb-4 bg-[#F7F5F0] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
           >
             Send E-Transfer
           </button>
@@ -2038,7 +2038,7 @@ const App = () => {
                 setTransferAmount(requestAmount);
                 handleETransferSubmit();
               }}
-              className="w-full mt-auto bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+              className="w-full mt-auto bg-[#F7F5F0] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
             >
               Send Request
             </button>
@@ -2114,7 +2114,7 @@ const App = () => {
             <button
               disabled={!transferAmount}
               onClick={handleETransferSubmit}
-              className="w-full mb-4 bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+              className="w-full mb-4 bg-[#F7F5F0] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
             >
               Confirm & Send
             </button>
@@ -2182,7 +2182,7 @@ const App = () => {
         <button
           onClick={handleTransferSubmit}
           disabled={!transferAmount}
-          className="w-full mt-4 bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+          className="w-full mt-4 bg-[#F7F5F0] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
         >
           Initiate Transfer
         </button>
@@ -2399,7 +2399,7 @@ const App = () => {
         <button
           onClick={handleInternalTransfer}
           disabled={!internalTransferAmount || fromAccount === toAccount}
-          className="w-full mt-auto mb-4 bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+          className="w-full mt-auto mb-4 bg-[#F7F5F0] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
         >
           Complete Transfer
         </button>
@@ -2490,7 +2490,7 @@ const App = () => {
                 (!newBeneficiaryEmail && !newBeneficiaryPhone)
               }
               onClick={handleAddBeneficiary}
-              className="w-full mt-auto bg-[#064e3b] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
+              className="w-full mt-auto bg-[#F7F5F0] text-white py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-xl active:scale-[0.98] transition-all disabled:opacity-50"
             >
               Save Beneficiary
             </button>
@@ -3069,7 +3069,7 @@ const App = () => {
           className={`w-full max-w-[340px] mx-auto aspect-[1.58/1] rounded-[1.5rem] p-6 text-white shadow-2xl relative flex flex-col justify-between transition-all duration-500 overflow-hidden ${
             isFrozen
               ? "grayscale bg-slate-800"
-              : "bg-gradient-to-br from-[#064e3b] via-[#043d2e] to-[#022c22]"
+              : "bg-gradient-to-br from-[#F7F5F0] via-[#043d2e] to-[#022c22]"
           }`}
         >
           <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-400/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
@@ -3896,7 +3896,7 @@ const App = () => {
   // Splash Screen
   if (appState === "splash") {
     return (
-      <div className="fixed inset-0 bg-[#064e3b] z-[200] flex flex-col items-center justify-center text-white p-6">
+      <div className="fixed inset-0 bg-[#F7F5F0] z-[200] flex flex-col items-center justify-center text-white p-6">
         <div className="flex-1 flex flex-col items-center justify-center">
           <h2 className="text-5xl font-black italic tracking-tighter mb-1 animate-pulse">
             Rizq.
@@ -3956,7 +3956,7 @@ const App = () => {
 
       <header className="flex justify-between items-center py-4 shrink-0">
         <div className="flex items-center gap-1.5">
-          <div className="bg-[#064e3b] p-1.5 rounded-lg">
+          <div className="bg-[#F7F5F0] p-1.5 rounded-lg">
             <Lock size={12} className="text-white" />
           </div>
           <span className="font-black text-xl tracking-tighter">Rizq.</span>
