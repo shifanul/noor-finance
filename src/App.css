@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  background-color: #f7f5f0;
+  min-height: 100vh;
+  color: #1a2b2a;
 }
 
 .App-logo {
@@ -14,18 +17,98 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #1a2b2a;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #f7f5f0;
 }
 
 .App-link {
-  color: #61dafb;
+  color: #c5a059;
+}
+
+/* Theme Colors */
+.theme-primary {
+  color: #c5a059;
+}
+
+.theme-secondary {
+  color: #1a2b2a;
+}
+
+.theme-background {
+  background-color: #f7f5f0;
+}
+
+.theme-accent {
+  color: #e5e2d9;
+}
+
+.theme-success {
+  color: #4caf50;
+}
+
+/* Button Styling */
+button,
+.btn {
+  background-color: #c5a059;
+  color: #f7f5f0;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+button:hover,
+.btn:hover {
+  background-color: #b08c45;
+}
+
+button:active,
+.btn:active {
+  background-color: #a27a3a;
+}
+
+button:disabled,
+.btn:disabled {
+  background-color: #e5e2d9;
+  color: #1a2b2a;
+  cursor: not-allowed;
+}
+
+/* Card Styling */
+.card {
+  background-color: #f7f5f0;
+  border: 1px solid #e5e2d9;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(26, 43, 42, 0.1);
+}
+
+/* Input Styling */
+input,
+textarea,
+select {
+  background-color: #ffffff;
+  color: #1a2b2a;
+  border: 1px solid #e5e2d9;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #c5a059;
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.1);
 }
 
 @keyframes App-logo-spin {

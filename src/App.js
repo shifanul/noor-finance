@@ -233,28 +233,28 @@ const App = () => {
       id: 1,
       name: "Sarah Ahmed",
       initial: "S",
-      color: "bg-indigo-500",
+      color: "bg-[#C5A059]",
       email: "sarah@email.com",
     },
     {
       id: 2,
       name: "Omar Farooq",
       initial: "O",
-      color: "bg-emerald-500",
+      color: "bg-[#4CAF50]",
       email: "omar@email.com",
     },
     {
       id: 3,
       name: "Zainab K.",
       initial: "Z",
-      color: "bg-amber-500",
+      color: "bg-[#E5E2D9]",
       email: "zainab@email.com",
     },
     {
       id: 4,
       name: "Ibrahim J.",
       initial: "I",
-      color: "bg-rose-500",
+      color: "bg-[#1A2B2A]",
       email: "ibrahim@email.com",
     },
   ];
@@ -354,9 +354,9 @@ const App = () => {
       completed: "text-emerald-800 bg-emerald-50",
       pending: "text-amber-600 bg-amber-50",
       failed: "text-rose-600 bg-rose-50",
-      cancelled: "text-slate-600 bg-slate-50",
+      cancelled: "text-[#1A2B2A]/70 bg-[#F7F5F0]",
     };
-    return colors[status] || "text-slate-600 bg-slate-50";
+    return colors[status] || "text-[#1A2B2A]/70 bg-[#F7F5F0]";
   };
 
   const handleAddBeneficiary = () => {
@@ -449,7 +449,7 @@ const App = () => {
       name: "LaunchGood",
       description: "Crowdfunded Zakat campaigns.",
       tag: "Featured",
-      icon: <Globe className="text-indigo-600" size={18} />,
+      icon: <Globe className="text-[#C5A059]" size={18} />,
       url: "https://www.launchgood.com/zakat",
     },
     {
@@ -457,7 +457,7 @@ const App = () => {
       name: "Islamic Relief",
       description: "Global emergency aid & development.",
       tag: "International",
-      icon: <Heart className="text-rose-500" size={18} />,
+      icon: <Heart className="text-[#4CAF50]" size={18} />,
       url: "https://www.islamic-relief.org/zakat/",
     },
     {
@@ -465,7 +465,7 @@ const App = () => {
       name: "National Zakat Foundation",
       description: "Local distribution to those in need.",
       tag: "Local Support",
-      icon: <Building2 className="text-emerald-800" size={18} />,
+      icon: <Building2 className="text-[#1A2B2A]" size={18} />,
       url: "https://nzf.org.uk/pay-zakat/",
     },
     {
@@ -473,7 +473,7 @@ const App = () => {
       name: "Shaukat Khanum",
       description: "Cancer treatment for the underprivileged.",
       tag: "Healthcare",
-      icon: <Stethoscope className="text-blue-600" size={18} />,
+      icon: <Stethoscope className="text-[#4CAF50]" size={18} />,
       url: "https://shaukatkhanum.org.pk/donations/zakat/",
     },
   ];
@@ -573,8 +573,8 @@ const App = () => {
         name: "Rizq. Basic",
         price: "Free",
         hardware: "Virtual Card Only",
-        color: "bg-slate-100",
-        icon: <Smartphone className="text-slate-500" size={20} />,
+        color: "bg-[#E5E2D9]",
+        icon: <Smartphone className="text-[#1A2B2A]/60" size={20} />,
         features: [
           "Halal Filter AI (Digital)",
           "Standard Digital Card",
@@ -600,7 +600,7 @@ const App = () => {
         name: "Rizq. Elite",
         price: "$24.99/mo",
         hardware: "Metal Veneer Card",
-        color: "bg-slate-900",
+        color: "bg-[#1A2B2A]",
         icon: <Gem className="text-amber-500" size={20} />,
         features: [
           "1.0% Cash-back",
@@ -617,11 +617,11 @@ const App = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setSubscriptionView("overview")}
-            className="p-2 bg-white rounded-xl shadow-sm border border-slate-100"
+            className="p-2 bg-white rounded-xl shadow-sm border border-[#E5E2D9]"
           >
             <ChevronLeft size={18} />
           </button>
-          <h2 className="text-xl font-bold text-slate-900">
+          <h2 className="text-xl font-bold text-[#1A2B2A]">
             {t("subscriptionPlans")}
           </h2>
         </div>
@@ -632,21 +632,21 @@ const App = () => {
               key={tier.id}
               className={`p-6 rounded-[2rem] border transition-all duration-300 ${
                 currentTier === tier.id
-                  ? "border-emerald-500 bg-white ring-4 ring-emerald-500/5 shadow-lg"
-                  : "border-slate-100 bg-white shadow-sm"
+                  ? "border-[#4CAF50] bg-white ring-4 ring-[#4CAF50]/5 shadow-lg"
+                  : "border-[#E5E2D9] bg-white shadow-sm"
               }`}
             >
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h3 className="font-bold text-lg text-slate-900">
+                  <h3 className="font-bold text-lg text-[#1A2B2A]">
                     {tier.name}
                   </h3>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">
+                  <p className="text-xs font-bold text-[#1A2B2A]/40 uppercase tracking-widest">
                     {tier.price}
                   </p>
                 </div>
                 {currentTier === tier.id ? (
-                  <span className="bg-emerald-500 text-[#C5A059] text-[10px] px-3 py-1.5 rounded-full font-black uppercase flex items-center gap-1.5">
+                  <span className="bg-[#4CAF50] text-white text-[10px] px-3 py-1.5 rounded-full font-black uppercase flex items-center gap-1.5">
                     <Check size={12} strokeWidth={3} /> Active
                   </span>
                 ) : (
@@ -655,7 +655,7 @@ const App = () => {
                       setCurrentTier(tier.id);
                       triggerNotification(`Upgraded to ${tier.name}`);
                     }}
-                    className="bg-slate-900 text-[#C5A059] text-[10px] px-4 py-1.5 rounded-full font-bold uppercase hover:bg-slate-800 transition-colors"
+                    className="bg-[#1A2B2A] text-[#C5A059] text-[10px] px-4 py-1.5 rounded-full font-bold uppercase hover:bg-[#243332] transition-colors"
                   >
                     Select Plan
                   </button>
@@ -665,14 +665,14 @@ const App = () => {
                 {tier.features.map((feature, idx) => (
                   <li
                     key={idx}
-                    className="flex items-center gap-2.5 text-xs text-slate-500 font-medium"
+                    className="flex items-center gap-2.5 text-xs text-[#1A2B2A]/60 font-medium"
                   >
                     <CheckCircle2
                       size={16}
                       className={
                         currentTier === tier.id
                           ? "text-emerald-700"
-                          : "text-slate-300"
+                          : "text-[#E5E2D9]"
                       }
                     />
                     {feature}
@@ -683,22 +683,22 @@ const App = () => {
           ))}
         </div>
 
-        <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm">
+        <div className="bg-white p-6 rounded-[2rem] border border-[#E5E2D9] shadow-sm">
           <div className="flex items-center gap-2 mb-3">
             <FileText size={16} className="text-emerald-800" />
-            <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+            <h3 className="text-[10px] font-black uppercase tracking-widest text-[#1A2B2A]/40">
               Membership Agreement
             </h3>
           </div>
           <div className="space-y-3">
-            <p className="text-[11px] text-slate-500 leading-relaxed">
+            <p className="text-[11px] text-[#1A2B2A]/60 leading-relaxed">
               By subscribing, you enter into a{" "}
-              <span className="text-slate-900 font-bold">
+              <span className="text-[#1A2B2A] font-bold">
                 Wakalah Agreement
               </span>{" "}
               where Rizq. acts as your agent for ethical financial management.
             </p>
-            <div className="flex items-start gap-2 text-[10px] text-slate-400 bg-slate-50 p-3 rounded-xl border border-slate-100">
+            <div className="flex items-start gap-2 text-[10px] text-[#1A2B2A]/40 bg-[#F7F5F0] p-3 rounded-xl border border-[#E5E2D9]">
               <Clock size={12} className="mt-0.5 shrink-0" />
               <p>
                 Monthly fees are billed on the 1st of every month. No interest
@@ -897,29 +897,29 @@ const App = () => {
       <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
         <button
           onClick={simulateSync}
-          className="whitespace-nowrap bg-amber-600 text-[#C5A059] text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
+          className="whitespace-nowrap bg-[#C5A059] text-white text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
         >
           <RefreshCcw size={12} className={isSyncing ? "animate-spin" : ""} />{" "}
           {t("sync")}
         </button>
         <button
           onClick={addRandomTransaction}
-          className="whitespace-nowrap bg-[#F7F5F0] text-[#C5A059] text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
+          className="whitespace-nowrap bg-[#E5E2D9] text-[#1A2B2A] text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
         >
           <Zap size={12} /> {t("simulate")}
         </button>
       </div>
 
-      <div className="bg-[#F7F5F0] rounded-[2rem] p-6 text-[#C5A059] shadow-xl relative overflow-hidden">
+      <div className="bg-white rounded-[2rem] p-6 text-[#1A2B2A] border border-[#E5E2D9] shadow-xl relative overflow-hidden">
         <div className="relative z-10">
-          <p className="text-emerald-700/80 text-[10px] font-bold uppercase tracking-widest">
+          <p className="text-[#4CAF50]/80 text-[10px] font-bold uppercase tracking-widest">
             {t("totalWealth")}
           </p>
           <h1 className="text-3xl font-bold mt-1 tracking-tight">
             ${balance.toLocaleString()}
           </h1>
           <div className="mt-4 flex justify-between items-center">
-            <div className="flex items-center gap-1.5 text-emerald-600 font-bold text-xs">
+            <div className="flex items-center gap-1.5 text-[#4CAF50] font-bold text-xs">
               <TrendingUp size={14} /> <span>+4.2% APY</span>
             </div>
             <div className="bg-white/10 px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-tighter">
@@ -934,7 +934,7 @@ const App = () => {
           {
             icon: <ArrowUpRight size={20} />,
             label: t("transfer"),
-            color: "bg-emerald-100 text-emerald-900",
+            color: "bg-[#4CAF50]/10 text-[#4CAF50]",
             action: () => {
               setActiveTab("transfer-hub");
             },
@@ -942,12 +942,12 @@ const App = () => {
           {
             icon: <ArrowDownRight size={20} />,
             label: t("deposit"),
-            color: "bg-amber-100 text-amber-700",
+            color: "bg-[#C5A059]/10 text-[#C5A059]",
           },
           {
             icon: <Wallet size={20} />,
             label: t("equity"),
-            color: "bg-slate-100 text-slate-700",
+            color: "bg-[#E5E2D9] text-[#1A2B2A]/70",
             action: () => {
               setActiveTab("financing");
             },
@@ -955,7 +955,7 @@ const App = () => {
           {
             icon: <Fingerprint size={20} />,
             label: t("zakat"),
-            color: "bg-indigo-100 text-indigo-700",
+            color: "bg-[#E5E2D9] text-[#C5A059]",
             action: () => {
               setActiveTab("financing");
               setFinancingSubPage("zakat");
@@ -968,7 +968,7 @@ const App = () => {
             className="flex flex-col items-center gap-1.5 active:scale-90 transition-transform"
           >
             <div className={`p-3.5 rounded-2xl ${item.color}`}>{item.icon}</div>
-            <span className="text-[9px] font-bold text-slate-500 uppercase tracking-tighter">
+            <span className="text-[9px] font-bold text-[#1A2B2A]/60 uppercase tracking-tighter">
               {item.label}
             </span>
           </button>
@@ -976,7 +976,7 @@ const App = () => {
       </div>
 
       <div className="mt-2">
-        <h2 className="text-lg font-bold mb-3 px-1 text-slate-900">
+        <h2 className="text-lg font-bold mb-3 px-1 text-[#1A2B2A]">
           {t("activity")}
         </h2>
         <div className="space-y-2">
@@ -986,7 +986,7 @@ const App = () => {
               className={`bg-white p-3.5 rounded-2xl border flex items-center justify-between shadow-sm ${
                 tx.status === "declined"
                   ? "border-rose-100 opacity-80"
-                  : "border-slate-50"
+                  : "border-[#F7F5F0]"
               }`}
             >
               <div className="flex items-center gap-3 overflow-hidden">
@@ -994,7 +994,7 @@ const App = () => {
                   className={`p-2.5 rounded-xl shrink-0 ${
                     tx.status === "declined"
                       ? "bg-rose-50 text-rose-500"
-                      : "bg-slate-50 text-slate-600"
+                      : "bg-[#F7F5F0] text-[#1A2B2A]/70"
                   }`}
                 >
                   {tx.status === "declined" ? (
@@ -1010,12 +1010,12 @@ const App = () => {
                     className={`font-bold text-xs truncate ${
                       tx.status === "declined"
                         ? "text-rose-900"
-                        : "text-slate-900"
+                        : "text-[#1A2B2A]"
                     }`}
                   >
                     {tx.name}
                   </p>
-                  <p className="text-[9px] text-slate-400 font-bold uppercase">
+                  <p className="text-[9px] text-[#1A2B2A]/40 font-bold uppercase">
                     {tx.time}
                   </p>
                 </div>
@@ -1025,7 +1025,7 @@ const App = () => {
                   className={`font-bold text-xs ${
                     tx.status === "declined"
                       ? "text-rose-300 line-through"
-                      : "text-slate-900"
+                      : "text-[#1A2B2A]"
                   }`}
                 >
                   {tx.amount > 0 ? "+" : ""}${Math.abs(tx.amount).toFixed(2)}
@@ -1067,10 +1067,10 @@ const App = () => {
 
               <div className="space-y-3">
                 <div className="bg-white p-4 rounded-xl">
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">
+                  <p className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest mb-2">
                     Email Address
                   </p>
-                  <p className="text-sm font-bold text-slate-900">
+                  <p className="text-sm font-bold text-[#1A2B2A]">
                     {autoDepositSettings.emailLinked}
                   </p>
                   <div className="flex gap-2 mt-3">
@@ -1082,7 +1082,7 @@ const App = () => {
                         autodeposit &&
                         recipientIdentifier === autoDepositSettings.emailLinked
                           ? "bg-emerald-100 text-emerald-900"
-                          : "bg-slate-100 text-slate-600"
+                          : "bg-[#E5E2D9] text-[#1A2B2A]/70"
                       }`}
                     >
                       {autodeposit &&
@@ -1094,14 +1094,14 @@ const App = () => {
                 </div>
 
                 <div className="bg-white p-4 rounded-xl">
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">
+                  <p className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest mb-2">
                     Phone Number
                   </p>
-                  <p className="text-sm font-bold text-slate-900">
+                  <p className="text-sm font-bold text-[#1A2B2A]">
                     {autoDepositSettings.phoneLinked}
                   </p>
                   <div className="flex gap-2 mt-3">
-                    <button className="text-xs py-2 px-4 rounded-lg bg-slate-100 text-slate-600 font-bold active:scale-90 transition-transform">
+                    <button className="text-xs py-2 px-4 rounded-lg bg-[#E5E2D9] text-[#1A2B2A]/70 font-bold active:scale-90 transition-transform">
                       Change Phone
                     </button>
                   </div>
@@ -1110,26 +1110,26 @@ const App = () => {
             </div>
 
             {/* Transaction Limits */}
-            <div className="bg-slate-50 p-6 rounded-[2rem] border border-slate-100">
-              <h3 className="text-sm font-bold text-slate-900 mb-4">
+            <div className="bg-[#F7F5F0] p-6 rounded-[2rem] border border-[#E5E2D9]">
+              <h3 className="text-sm font-bold text-[#1A2B2A] mb-4">
                 Transaction Limits
               </h3>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-xs font-bold text-slate-600">
+                  <span className="text-xs font-bold text-[#1A2B2A]/70">
                     Max per Transaction
                   </span>
-                  <span className="text-sm font-black text-slate-900">
+                  <span className="text-sm font-black text-[#1A2B2A]">
                     $3,000
                   </span>
                 </div>
-                <div className="w-full bg-slate-200 rounded-full h-2">
+                <div className="w-full bg-[#E5E2D9] rounded-full h-2">
                   <div
                     className="bg-emerald-500 h-2 rounded-full"
                     style={{ width: "30%" }}
                   ></div>
                 </div>
-                <div className="flex justify-between items-center text-xs text-slate-500">
+                <div className="flex justify-between items-center text-xs text-[#1A2B2A]/60">
                   <span>Personal Account</span>
                   <span>Upgrade to Business for $25,000 limit</span>
                 </div>
@@ -1254,12 +1254,12 @@ const App = () => {
             }}
             className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-transparent hover:border-emerald-500 shadow-sm flex items-center gap-5 group transition-all"
           >
-            <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-[#C5A059] transition-all">
+            <div className="w-14 h-14 rounded-2xl bg-[#E5E2D9] text-[#C5A059] flex items-center justify-center group-hover:bg-[#C5A059] group-hover:text-[#F7F5F0] transition-all">
               <Smartphone size={24} />
             </div>
             <div className="text-left">
-              <p className="font-bold text-slate-900">E-transfer</p>
-              <p className="text-xs text-slate-400 font-medium">
+              <p className="font-bold text-[#1A2B2A]">E-transfer</p>
+              <p className="text-xs text-[#1A2B2A]/40 font-medium">
                 Send money via phone or email
               </p>
             </div>
@@ -1280,8 +1280,8 @@ const App = () => {
               <Building size={24} />
             </div>
             <div className="text-left">
-              <p className="font-bold text-slate-900">Bank Transfer</p>
-              <p className="text-xs text-slate-400 font-medium">
+              <p className="font-bold text-[#1A2B2A]">Bank Transfer</p>
+              <p className="text-xs text-[#1A2B2A]/40 font-medium">
                 Transfer to another account
               </p>
             </div>
@@ -1302,8 +1302,8 @@ const App = () => {
               <RefreshCcw size={24} />
             </div>
             <div className="text-left">
-              <p className="font-bold text-slate-900">Internal Transfer</p>
-              <p className="text-xs text-slate-400 font-medium">
+              <p className="font-bold text-[#1A2B2A]">Internal Transfer</p>
+              <p className="text-xs text-[#1A2B2A]/40 font-medium">
                 Move between your accounts
               </p>
             </div>
@@ -1318,48 +1318,48 @@ const App = () => {
         <div className="grid grid-cols-4 gap-2 mb-6">
           <button
             onClick={() => setActiveTab("beneficiary-manager")}
-            className="bg-white p-4 rounded-2xl border border-slate-200 hover:border-indigo-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
+            className="bg-white p-4 rounded-2xl border border-[#E5E2D9] hover:border-[#C5A059] flex flex-col items-center gap-2 group transition-all active:scale-95"
           >
             <div className="text-2xl group-hover:scale-110 transition-transform">
               👥
             </div>
-            <p className="text-[10px] font-bold text-slate-600 text-center">
+            <p className="text-[10px] font-bold text-[#1A2B2A]/70 text-center">
               Beneficiaries
             </p>
           </button>
 
           <button
             onClick={() => setActiveTab("transfer-history")}
-            className="bg-white p-4 rounded-2xl border border-slate-200 hover:border-emerald-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
+            className="bg-white p-4 rounded-2xl border border-[#E5E2D9] hover:border-emerald-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
           >
             <div className="text-2xl group-hover:scale-110 transition-transform">
               📋
             </div>
-            <p className="text-[10px] font-bold text-slate-600 text-center">
+            <p className="text-[10px] font-bold text-[#1A2B2A]/70 text-center">
               History
             </p>
           </button>
 
           <button
             onClick={() => setActiveTab("transfer-analytics")}
-            className="bg-white p-4 rounded-2xl border border-slate-200 hover:border-blue-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
+            className="bg-white p-4 rounded-2xl border border-[#E5E2D9] hover:border-blue-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
           >
             <div className="text-2xl group-hover:scale-110 transition-transform">
               📊
             </div>
-            <p className="text-[10px] font-bold text-slate-600 text-center">
+            <p className="text-[10px] font-bold text-[#1A2B2A]/70 text-center">
               Analytics
             </p>
           </button>
 
           <button
             onClick={() => setShowScheduleTransfer(true)}
-            className="bg-white p-4 rounded-2xl border border-slate-200 hover:border-amber-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
+            className="bg-white p-4 rounded-2xl border border-[#E5E2D9] hover:border-amber-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
           >
             <div className="text-2xl group-hover:scale-110 transition-transform">
               ⏰
             </div>
-            <p className="text-[10px] font-bold text-slate-600 text-center">
+            <p className="text-[10px] font-bold text-[#1A2B2A]/70 text-center">
               Schedule
             </p>
           </button>
@@ -1368,7 +1368,7 @@ const App = () => {
         {/* E-Transfer History */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+            <p className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest">
               Recent Transfers
             </p>
             <button
@@ -1382,30 +1382,30 @@ const App = () => {
             {eTransferHistory.slice(0, 3).map((transfer) => (
               <div
                 key={transfer.id}
-                className="bg-white p-4 rounded-xl border border-slate-100 flex items-center justify-between hover:border-emerald-200 transition-all"
+                className="bg-white p-4 rounded-xl border border-[#E5E2D9] flex items-center justify-between hover:border-emerald-200 transition-all"
               >
                 <div className="flex items-center gap-3 flex-1">
-                  <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-[#E5E2D9] flex items-center justify-center">
                     <ArrowUpRight
                       size={16}
                       className={
                         transfer.amount >= 0
                           ? "text-emerald-800"
-                          : "text-slate-600"
+                          : "text-[#1A2B2A]/70"
                       }
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold text-slate-900 truncate">
+                    <p className="text-sm font-bold text-[#1A2B2A] truncate">
                       {transfer.name}
                     </p>
-                    <p className="text-xs text-slate-400 font-bold uppercase">
+                    <p className="text-xs text-[#1A2B2A]/40 font-bold uppercase">
                       {transfer.date}
                     </p>
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="text-sm font-bold text-slate-900">
+                  <p className="text-sm font-bold text-[#1A2B2A]">
                     ${transfer.amount.toFixed(2)}
                   </p>
                   <p
@@ -1453,7 +1453,7 @@ const App = () => {
             <h2 className="text-lg font-bold">Schedule Transfer</h2>
             <button
               onClick={() => setShowScheduleTransfer(false)}
-              className="p-2 hover:bg-slate-100 rounded-lg transition-all"
+              className="p-2 hover:bg-[#F7F5F0] rounded-lg transition-all"
             >
               <X size={20} />
             </button>
@@ -1461,10 +1461,10 @@ const App = () => {
 
           <div className="space-y-4">
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest">
                 Recipient
               </label>
-              <select className="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none">
+              <select className="w-full bg-white border border-[#E5E2D9] rounded-xl p-3 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none">
                 <option value="">Select a beneficiary</option>
                 {beneficiaries.map((b) => (
                   <option key={b.id} value={b.id}>
@@ -1475,32 +1475,32 @@ const App = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest">
                 Amount
               </label>
               <div className="relative">
                 <DollarSign
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-[#1A2B2A]/40"
                   size={18}
                 />
                 <input
                   type="number"
                   value={transferAmount}
                   onChange={(e) => setTransferAmount(e.target.value)}
-                  className="w-full bg-white border border-slate-200 rounded-xl p-3 pl-12 text-sm font-bold focus:ring-2 ring-emerald-500 outline-none"
+                  className="w-full bg-white border border-[#E5E2D9] rounded-xl p-3 pl-12 text-sm font-bold focus:ring-2 ring-emerald-500 outline-none"
                   placeholder="0.00"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest">
                 Frequency
               </label>
               <select
                 value={scheduleFrequency}
                 onChange={(e) => setScheduleFrequency(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-white border border-[#E5E2D9] rounded-xl p-3 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               >
                 <option value="once">One Time</option>
                 <option value="weekly">Weekly</option>
@@ -1511,25 +1511,25 @@ const App = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest">
                 Start Date
               </label>
               <input
                 type="date"
                 value={scheduleDate}
                 onChange={(e) => setScheduleDate(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-white border border-[#E5E2D9] rounded-xl p-3 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest">
                 Category
               </label>
               <select
                 value={transferCategory}
                 onChange={(e) => setTransferCategory(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-white border border-[#E5E2D9] rounded-xl p-3 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               >
                 <option value="personal">👤 Personal</option>
                 <option value="charity">❤️ Charity</option>
@@ -1554,7 +1554,7 @@ const App = () => {
           <div className="flex gap-3 mt-6">
             <button
               onClick={() => setShowScheduleTransfer(false)}
-              className="flex-1 bg-slate-100 text-slate-700 py-3 rounded-xl font-bold transition-all active:scale-95"
+              className="flex-1 bg-[#E5E2D9] text-[#1A2B2A]/70 py-3 rounded-xl font-bold transition-all active:scale-95"
             >
               Cancel
             </button>
@@ -1766,7 +1766,7 @@ const App = () => {
           {/* Recipient Selection */}
           <div className="space-y-4 mb-6">
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+              <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest ml-1">
                 Send To (Email or Phone)
               </label>
               <input
@@ -1774,22 +1774,22 @@ const App = () => {
                 placeholder="email@example.com or +1 (555) 123-4567"
                 value={recipientIdentifier}
                 onChange={(e) => setRecipientIdentifier(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-white border border-[#E5E2D9] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               />
             </div>
 
             {/* One-Time Contact Toggle */}
-            <div className="flex items-center justify-between bg-slate-50 p-4 rounded-xl">
+            <div className="flex items-center justify-between bg-[#F7F5F0] p-4 rounded-xl">
               <div>
-                <p className="text-sm font-bold text-slate-900">
+                <p className="text-sm font-bold text-[#1A2B2A]">
                   One-Time Contact
                 </p>
-                <p className="text-xs text-slate-400">Don't save contact</p>
+                <p className="text-xs text-[#1A2B2A]/40">Don't save contact</p>
               </div>
               <button
                 onClick={() => setUseOneTimeContact(!useOneTimeContact)}
                 className={`w-12 h-6 rounded-full transition-all ${
-                  useOneTimeContact ? "bg-emerald-500" : "bg-slate-300"
+                  useOneTimeContact ? "bg-emerald-500" : "bg-[#E5E2D9]"
                 }`}
               />
             </div>
@@ -1797,7 +1797,7 @@ const App = () => {
             {/* Quick Contacts */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                <p className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest">
                   {t("quick Contacts")}
                 </p>
                 <button
@@ -1845,7 +1845,7 @@ const App = () => {
                 <button
                   onClick={() => setAutodeposit(!autodeposit)}
                   className={`w-12 h-6 rounded-full transition-all ${
-                    autodeposit ? "bg-blue-500" : "bg-slate-300"
+                    autodeposit ? "bg-blue-500" : "bg-[#E5E2D9]"
                   }`}
                 />
               </div>
@@ -1861,7 +1861,7 @@ const App = () => {
             {!autodeposit && (
               <div className="space-y-3">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                  <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest ml-1">
                     Security Question
                   </label>
                   <input
@@ -1869,12 +1869,12 @@ const App = () => {
                     placeholder="e.g., What is your favorite color?"
                     value={securityQuestion}
                     onChange={(e) => setSecurityQuestion(e.target.value)}
-                    className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                    className="w-full bg-white border border-[#E5E2D9] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                  <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest ml-1">
                     Answer
                   </label>
                   <input
@@ -1882,7 +1882,7 @@ const App = () => {
                     placeholder="Your answer"
                     value={securityAnswer}
                     onChange={(e) => setSecurityAnswer(e.target.value)}
-                    className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                    className="w-full bg-white border border-[#E5E2D9] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
                   />
                 </div>
               </div>
@@ -1891,19 +1891,19 @@ const App = () => {
 
           {/* Amount Input */}
           <div className="space-y-2 mb-6">
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+            <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest ml-1">
               Amount (Max: ${MAX_TRANSFER_AMOUNT})
             </label>
             <div className="relative">
               <DollarSign
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-[#1A2B2A]/40"
                 size={18}
               />
               <input
                 type="number"
                 value={transferAmount}
                 onChange={(e) => setTransferAmount(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-white border border-[#E5E2D9] rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
                 placeholder="0.00"
                 max={MAX_TRANSFER_AMOUNT}
               />
@@ -1955,7 +1955,7 @@ const App = () => {
 
           <div className="space-y-6">
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+              <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest ml-1">
                 Request From (Email or Phone)
               </label>
               <input
@@ -1963,12 +1963,12 @@ const App = () => {
                 placeholder="email@example.com or +1 (555) 123-4567"
                 value={recipientIdentifier}
                 onChange={(e) => setRecipientIdentifier(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-white border border-[#E5E2D9] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               />
             </div>
 
-            <div className="bg-slate-50 rounded-xl p-4">
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">
+            <div className="bg-[#F7F5F0] rounded-xl p-4">
+              <p className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest mb-3">
                 Quick Contacts
               </p>
               <div className="grid grid-cols-4 gap-3">
@@ -1992,19 +1992,19 @@ const App = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+              <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest ml-1">
                 Amount to Request (Max: ${MAX_TRANSFER_AMOUNT})
               </label>
               <div className="relative">
                 <DollarSign
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-[#1A2B2A]/40"
                   size={18}
                 />
                 <input
                   type="number"
                   value={requestAmount}
                   onChange={(e) => setRequestAmount(e.target.value)}
-                  className="w-full bg-white border border-slate-200 rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
+                  className="w-full bg-white border border-[#E5E2D9] rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
                   placeholder="0.00"
                   max={MAX_TRANSFER_AMOUNT}
                 />
@@ -2012,13 +2012,13 @@ const App = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+              <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest ml-1">
                 Reason (Optional)
               </label>
               <input
                 type="text"
                 placeholder="e.g., Rent payment, Bill split..."
-                className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-white border border-[#E5E2D9] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               />
             </div>
 
@@ -2063,7 +2063,7 @@ const App = () => {
           </div>
 
           <div className="flex-1 flex flex-col items-center justify-center">
-            <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mb-4 relative">
+            <div className="w-20 h-20 rounded-full bg-[#E5E2D9] flex items-center justify-center mb-4 relative">
               <div
                 className={`w-full h-full rounded-full ${selectedContact.color} flex items-center justify-center text-[#C5A059] font-black text-2xl`}
               >
@@ -2076,17 +2076,17 @@ const App = () => {
                 <X size={14} />
               </button>
             </div>
-            <p className="font-bold text-slate-900 mb-1">
+            <p className="font-bold text-[#1A2B2A] mb-1">
               {selectedContact.name}
             </p>
-            <p className="text-xs text-slate-400 mb-8">
+            <p className="text-xs text-[#1A2B2A]/40 mb-8">
               {selectedContact.email}
             </p>
 
             <div className="w-full text-center mb-8">
               <div className="flex items-center justify-center gap-1">
-                <span className="text-4xl font-bold text-slate-300">$</span>
-                <span className="text-6xl font-black tracking-tighter text-slate-900">
+                <span className="text-4xl font-bold text-[#E5E2D9]">$</span>
+                <span className="text-6xl font-black tracking-tighter text-[#1A2B2A]">
                   {transferAmount || "0"}
                 </span>
               </div>
@@ -2104,7 +2104,7 @@ const App = () => {
                     else if (transferAmount.length < 7)
                       setTransferAmount((prev) => `${prev}${num}`);
                   }}
-                  className="h-12 flex items-center justify-center text-xl font-bold text-slate-900 active:bg-slate-100 rounded-full transition-all"
+                  className="h-12 flex items-center justify-center text-xl font-bold text-[#1A2B2A] active:bg-[#F7F5F0] rounded-full transition-all"
                 >
                   {num === "del" ? <RefreshCcw size={20} /> : num}
                 </button>
@@ -2151,29 +2151,29 @@ const App = () => {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+          <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest ml-1">
             Account Number
           </label>
           <input
             type="text"
-            className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none font-mono"
+            className="w-full bg-white border border-[#E5E2D9] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none font-mono"
             placeholder="0000 0000 0000"
           />
         </div>
         <div className="space-y-2">
-          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+          <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest ml-1">
             Amount
           </label>
           <div className="relative">
             <DollarSign
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-[#1A2B2A]/40"
               size={18}
             />
             <input
               type="number"
               value={transferAmount}
               onChange={(e) => setTransferAmount(e.target.value)}
-              className="w-full bg-white border border-slate-200 rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
+              className="w-full bg-white border border-[#E5E2D9] rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
               placeholder="0.00"
             />
           </div>
@@ -2262,7 +2262,7 @@ const App = () => {
         <div className="space-y-6">
           {/* From Account */}
           <div className="space-y-3">
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+            <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest ml-1">
               From Account
             </label>
             <div className="space-y-2">
@@ -2275,19 +2275,19 @@ const App = () => {
                     className={`w-full p-4 rounded-2xl border-2 transition-all text-left ${
                       fromAccount === account.id
                         ? "border-emerald-500 bg-emerald-50"
-                        : "border-slate-200 bg-white hover:border-emerald-300"
+                        : "border-[#E5E2D9] bg-white hover:border-emerald-300"
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="font-bold text-slate-900">
+                        <p className="font-bold text-[#1A2B2A]">
                           {account.name}
                         </p>
-                        <p className="text-xs text-slate-400 font-bold uppercase">
+                        <p className="text-xs text-[#1A2B2A]/40 font-bold uppercase">
                           Available Balance
                         </p>
                       </div>
-                      <p className="font-black text-slate-900">
+                      <p className="font-black text-[#1A2B2A]">
                         ${account.balance.toFixed(2)}
                       </p>
                     </div>
@@ -2311,7 +2311,7 @@ const App = () => {
 
           {/* To Account */}
           <div className="space-y-3">
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+            <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest ml-1">
               To Account
             </label>
             <div className="space-y-2">
@@ -2324,19 +2324,19 @@ const App = () => {
                     className={`w-full p-4 rounded-2xl border-2 transition-all text-left ${
                       toAccount === account.id
                         ? "border-emerald-500 bg-emerald-50"
-                        : "border-slate-200 bg-white hover:border-emerald-300"
+                        : "border-[#E5E2D9] bg-white hover:border-emerald-300"
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="font-bold text-slate-900">
+                        <p className="font-bold text-[#1A2B2A]">
                           {account.name}
                         </p>
-                        <p className="text-xs text-slate-400 font-bold uppercase">
+                        <p className="text-xs text-[#1A2B2A]/40 font-bold uppercase">
                           Current Balance
                         </p>
                       </div>
-                      <p className="font-black text-slate-900">
+                      <p className="font-black text-[#1A2B2A]">
                         ${account.balance.toFixed(2)}
                       </p>
                     </div>
@@ -2347,19 +2347,19 @@ const App = () => {
 
           {/* Amount */}
           <div className="space-y-2">
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+            <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest ml-1">
               Amount
             </label>
             <div className="relative">
               <DollarSign
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-[#1A2B2A]/40"
                 size={18}
               />
               <input
                 type="number"
                 value={internalTransferAmount}
                 onChange={(e) => setInternalTransferAmount(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-white border border-[#E5E2D9] rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
                 placeholder="0.00"
               />
             </div>
@@ -2367,20 +2367,20 @@ const App = () => {
 
           {/* Transfer Summary */}
           {internalTransferAmount && fromAccountData && toAccountData && (
-            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200">
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">
+            <div className="bg-[#F7F5F0] p-4 rounded-2xl border border-[#E5E2D9]">
+              <p className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest mb-3">
                 Transfer Summary
               </p>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-slate-600">From:</span>
-                  <span className="font-bold text-slate-900">
+                  <span className="text-[#1A2B2A]/70">From:</span>
+                  <span className="font-bold text-[#1A2B2A]">
                     {fromAccountData.name}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-600">To:</span>
-                  <span className="font-bold text-slate-900">
+                  <span className="text-[#1A2B2A]/70">To:</span>
+                  <span className="font-bold text-[#1A2B2A]">
                     {toAccountData.name}
                   </span>
                 </div>
@@ -2425,7 +2425,7 @@ const App = () => {
 
           <div className="space-y-6">
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+              <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest ml-1">
                 Name
               </label>
               <input
@@ -2433,12 +2433,12 @@ const App = () => {
                 placeholder="Full Name"
                 value={newBeneficiaryName}
                 onChange={(e) => setNewBeneficiaryName(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-white border border-[#E5E2D9] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+              <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest ml-1">
                 Email
               </label>
               <input
@@ -2446,12 +2446,12 @@ const App = () => {
                 placeholder="email@example.com"
                 value={newBeneficiaryEmail}
                 onChange={(e) => setNewBeneficiaryEmail(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-white border border-[#E5E2D9] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+              <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest ml-1">
                 Phone
               </label>
               <input
@@ -2459,12 +2459,12 @@ const App = () => {
                 placeholder="+1 (555) 123-4567"
                 value={newBeneficiaryPhone}
                 onChange={(e) => setNewBeneficiaryPhone(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-white border border-[#E5E2D9] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+              <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest ml-1">
                 Type
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -2475,7 +2475,7 @@ const App = () => {
                     className={`py-3 px-2 rounded-xl font-bold text-sm capitalize transition-all ${
                       newBeneficiaryType === type
                         ? "bg-emerald-100 text-emerald-900"
-                        : "bg-slate-100 text-slate-600"
+                        : "bg-[#E5E2D9] text-[#1A2B2A]/70"
                     }`}
                   >
                     {type}
@@ -2524,7 +2524,7 @@ const App = () => {
           {beneficiaries.map((ben) => (
             <div
               key={ben.id}
-              className="bg-white p-4 rounded-2xl border border-slate-100 hover:border-emerald-200 transition-all flex items-center justify-between"
+              className="bg-white p-4 rounded-2xl border border-[#E5E2D9] hover:border-emerald-200 transition-all flex items-center justify-between"
             >
               <div className="flex items-center gap-3 flex-1">
                 <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-800 font-bold">
@@ -2590,39 +2590,39 @@ const App = () => {
           {/* Receipt Details */}
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
-              <span className="text-slate-600">Transaction ID</span>
-              <span className="font-mono font-bold text-slate-900">
+              <span className="text-[#1A2B2A]/70">Transaction ID</span>
+              <span className="font-mono font-bold text-[#1A2B2A]">
                 {receipt.id}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-600">Date & Time</span>
-              <span className="font-bold text-slate-900">
+              <span className="text-[#1A2B2A]/70">Date & Time</span>
+              <span className="font-bold text-[#1A2B2A]">
                 {receipt.timestamp}
               </span>
             </div>
-            <div className="h-px bg-slate-200"></div>
+            <div className="h-px bg-[#E5E2D9]"></div>
             <div className="flex justify-between">
-              <span className="text-slate-600">Recipient</span>
-              <span className="font-bold text-slate-900">
+              <span className="text-[#1A2B2A]/70">Recipient</span>
+              <span className="font-bold text-[#1A2B2A]">
                 {receipt.recipient}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-600">Category</span>
-              <span className="font-bold text-slate-900 capitalize">
+              <span className="text-[#1A2B2A]/70">Category</span>
+              <span className="font-bold text-[#1A2B2A] capitalize">
                 {getCategoryIcon(receipt.category)} {receipt.category}
               </span>
             </div>
-            <div className="h-px bg-slate-200"></div>
+            <div className="h-px bg-[#E5E2D9]"></div>
             <div className="flex justify-between text-base">
-              <span className="font-bold text-slate-900">Amount</span>
+              <span className="font-bold text-[#1A2B2A]">Amount</span>
               <span className="font-black text-emerald-800">
                 ${receipt.amount.toFixed(2)}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-600">Status</span>
+              <span className="text-[#1A2B2A]/70">Status</span>
               <span className="font-bold text-emerald-800 capitalize">
                 {receipt.status}
               </span>
@@ -2632,7 +2632,7 @@ const App = () => {
           <div className="flex gap-2 pt-4">
             <button
               onClick={() => setShowTransferReceipt(false)}
-              className="flex-1 py-3 bg-slate-100 text-slate-900 rounded-xl font-bold text-sm"
+              className="flex-1 py-3 bg-[#E5E2D9] text-[#1A2B2A]/70 rounded-xl font-bold text-sm"
             >
               Done
             </button>
@@ -2800,25 +2800,25 @@ const App = () => {
 
             <div className="space-y-4">
               <div className="flex justify-between">
-                <span className="text-slate-600">Type</span>
+                <span className="text-[#1A2B2A]/70">Type</span>
                 <span className="font-bold capitalize">{tx.type}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-600">Amount</span>
+                <span className="text-[#1A2B2A]/70">Amount</span>
                 <span
                   className={`font-bold ${
-                    tx.amount > 0 ? "text-emerald-800" : "text-slate-900"
+                    tx.amount > 0 ? "text-emerald-800" : "text-[#1A2B2A]"
                   }`}
                 >
                   {tx.amount > 0 ? "+" : ""}${Math.abs(tx.amount).toFixed(2)}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-600">Date</span>
+                <span className="text-[#1A2B2A]/70">Date</span>
                 <span className="font-bold">{tx.time}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-600">Status</span>
+                <span className="text-[#1A2B2A]/70">Status</span>
                 <span
                   className={`text-xs font-bold uppercase px-3 py-1 rounded-full ${getTransferStatusColor(
                     tx.status,
@@ -2855,7 +2855,7 @@ const App = () => {
               className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all ${
                 historyFilter === filter
                   ? "bg-emerald-100 text-emerald-900"
-                  : "bg-white text-slate-600 border border-slate-200"
+                  : "bg-white text-[#1A2B2A]/70 border border-[#E5E2D9]"
               }`}
             >
               {filter.charAt(0).toUpperCase() + filter.slice(1)}
@@ -2869,7 +2869,7 @@ const App = () => {
             <button
               key={tx.id}
               onClick={() => setShowDetailedTransaction(tx.id)}
-              className="w-full bg-white p-4 rounded-xl border border-slate-100 hover:border-emerald-200 transition-all text-left flex items-center justify-between group"
+              className="w-full bg-white p-4 rounded-xl border border-[#E5E2D9] hover:border-emerald-200 transition-all text-left flex items-center justify-between group"
             >
               <div className="flex items-center gap-3 flex-1">
                 <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-emerald-50 transition-colors">
@@ -2887,7 +2887,7 @@ const App = () => {
               <div className="text-right">
                 <p
                   className={`font-black text-sm ${
-                    tx.amount > 0 ? "text-emerald-800" : "text-slate-900"
+                    tx.amount > 0 ? "text-emerald-800" : "text-[#1A2B2A]"
                   }`}
                 >
                   {tx.amount > 0 ? "+" : ""}${Math.abs(tx.amount).toFixed(2)}
@@ -2935,14 +2935,14 @@ const App = () => {
               value={otpInput}
               onChange={(e) => setOtpInput(e.target.value.slice(0, 6))}
               maxLength="6"
-              className="w-full text-center text-2xl tracking-[0.5em] font-bold border-2 border-slate-200 rounded-2xl p-4 focus:ring-2 ring-emerald-500 outline-none"
+              className="w-full text-center text-2xl tracking-[0.5em] font-bold border-2 border-[#E5E2D9] rounded-2xl p-4 focus:ring-2 ring-emerald-500 outline-none"
             />
           </div>
 
           <div className="flex gap-2">
             <button
               onClick={() => setShowOTPModal(false)}
-              className="flex-1 py-3 bg-slate-100 text-slate-900 rounded-xl font-bold text-sm"
+              className="flex-1 py-3 bg-[#E5E2D9] text-[#1A2B2A]/70 rounded-xl font-bold text-sm"
             >
               Cancel
             </button>
@@ -2985,8 +2985,10 @@ const App = () => {
         <div className="bg-white rounded-[2rem] w-full max-w-[400px] p-6 space-y-6 animate-in zoom-in-95 duration-300 text-center">
           <div className="text-5xl mb-4">🔒</div>
           <h2 className="text-lg font-bold">Security Verification</h2>
-          <p className="text-slate-500 text-sm">Transfer amount exceeds $500</p>
-          <p className="text-slate-500 text-sm">
+          <p className="text-[#1A2B2A]/70 text-sm">
+            Transfer amount exceeds $500
+          </p>
+          <p className="text-[#1A2B2A]/70 text-sm">
             Use biometric or PIN to proceed
           </p>
 
@@ -3027,23 +3029,23 @@ const App = () => {
       <div className="w-24 h-24 rounded-full bg-emerald-100 flex items-center justify-center mb-6 animate-in zoom-in-50 duration-500 delay-200">
         <CheckCircle2 className="text-emerald-800" size={48} />
       </div>
-      <h2 className="text-3xl font-black text-slate-900 tracking-tighter mb-2">
+      <h2 className="text-3xl font-black text-[#1A2B2A] tracking-tighter mb-2">
         Funds Sent.
       </h2>
-      <p className="text-slate-500 text-sm font-medium max-w-[200px]">
+      <p className="text-[#1A2B2A]/70 text-sm font-medium max-w-[200px]">
         Your transfer is being processed securely.
       </p>
 
       <div className="mt-8 pt-8 border-t w-full max-w-[240px] space-y-2">
         <div className="flex justify-between text-xs font-bold uppercase tracking-tighter">
-          <span className="text-slate-400">Amount</span>
-          <span className="text-slate-900">
+          <span className="text-[#1A2B2A]/40">Amount</span>
+          <span className="text-[#1A2B2A]">
             ${parseFloat(transferAmount).toLocaleString()}
           </span>
         </div>
         <div className="flex justify-between text-xs font-bold uppercase tracking-tighter">
-          <span className="text-slate-400">Method</span>
-          <span className="text-slate-900">{transferType}</span>
+          <span className="text-[#1A2B2A]/40">Method</span>
+          <span className="text-[#1A2B2A]">{transferType}</span>
         </div>
       </div>
     </div>
@@ -3055,7 +3057,7 @@ const App = () => {
     return (
       <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
         <div className="flex justify-between items-center px-1">
-          <h2 className="text-xl font-bold text-slate-900">{t("yourCard")}</h2>
+          <h2 className="text-xl font-bold text-[#1A2B2A]">{t("yourCard")}</h2>
           <div className="bg-emerald-50 px-3 py-1 rounded-full flex items-center gap-1.5">
             <Gem size={12} className="text-emerald-800" />
             <span className="text-[10px] font-black uppercase text-emerald-900 tracking-tighter">
@@ -3136,8 +3138,8 @@ const App = () => {
         </div>
 
         {/* Toggles */}
-        <div className="bg-white rounded-[1.5rem] p-1 border border-slate-100 shadow-sm">
-          <div className="flex items-center justify-between p-4 border-b border-slate-50">
+        <div className="bg-white rounded-[1.5rem] p-1 border border-[#E5E2D9] shadow-sm">
+          <div className="flex items-center justify-between p-4 border-b border-[#F7F5F0]">
             <div className="flex items-center gap-3">
               <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
                 <Zap size={20} />
@@ -3200,7 +3202,7 @@ const App = () => {
         </div>
 
         {/* Feature Highlights Component */}
-        <div className="bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
+        <div className="bg-white rounded-[1.5rem] p-6 border border-[#E5E2D9] shadow-sm">
           <div className="space-y-6">
             <div className="flex gap-4">
               <ShieldCheck className="text-emerald-800 shrink-0" size={20} />
@@ -3249,7 +3251,7 @@ const App = () => {
               {t("whySubscription")}
             </h3>
           </div>
-          <p className="text-[11px] text-slate-300 leading-relaxed">
+          <p className="text-[11px] text-[#E5E2D9] leading-relaxed">
             Traditional banks make money by lending yours out at interest
             (Riba). <strong>Rizq. does not.</strong> To keep our infrastructure
             interest-free and purely ethical, we charge a transparent monthly
@@ -3260,7 +3262,7 @@ const App = () => {
 
         <button
           onClick={() => setSubscriptionView("manage")}
-          className="w-full bg-white border border-slate-200 text-slate-900 p-5 rounded-[2rem] font-bold text-sm shadow-sm active:scale-95 transition-all flex items-center justify-center gap-2"
+          className="w-full bg-white border border-[#E5E2D9] text-[#1A2B2A] p-5 rounded-[2rem] font-bold text-sm shadow-sm active:scale-95 transition-all flex items-center justify-center gap-2"
         >
           {t("viewSubscriptionAgreement")} <ArrowUpRight size={16} />
         </button>
@@ -3273,8 +3275,8 @@ const App = () => {
     if (financingSubPage === "murabaha") return renderMurabaha();
     return (
       <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
-        <div className="bg-white p-6 rounded-[2rem] shadow-lg border border-slate-50 text-center">
-          <h2 className="text-xl font-bold mb-1 text-slate-900">Home Equity</h2>
+        <div className="bg-white p-6 rounded-[2rem] shadow-lg border border-[#E5E2D9] text-center">
+          <h2 className="text-xl font-bold mb-1 text-[#1A2B2A]">Home Equity</h2>
           <div className="relative w-40 h-40 mx-auto my-6 flex items-center justify-center">
             <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
               <circle
@@ -3332,15 +3334,15 @@ const App = () => {
           </div>
         </div>
         {/* Subscription Info */}
-        <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-4">
+        <div className="bg-white p-6 rounded-[2.5rem] border border-[#E5E2D9] shadow-sm space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="p-3 bg-emerald-50 rounded-2xl text-emerald-800">
                 <Gem size={20} />
               </div>
               <div>
-                <p className="font-black text-slate-900">Rizq. Premium</p>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                <p className="font-black text-[#1A2B2A]">Rizq. Premium</p>
+                <p className="text-[10px] text-[#1A2B2A]/40 font-bold uppercase tracking-widest">
                   $9.99 / Month
                 </p>
               </div>
@@ -3350,7 +3352,7 @@ const App = () => {
             </span>
           </div>
 
-          <div className="h-px bg-slate-50"></div>
+          <div className="h-px bg-[#E5E2D9]"></div>
 
           <div className="space-y-4 pt-2">
             <div className="flex gap-4">
@@ -3394,11 +3396,11 @@ const App = () => {
               else if (typeof setFinancingSubPage === "function")
                 setFinancingSubPage("main");
             }}
-            className="p-3 bg-white rounded-2xl shadow-sm border border-slate-100 active:scale-95 transition-transform"
+            className="p-3 bg-white rounded-2xl shadow-sm border border-[#E5E2D9] active:scale-95 transition-transform"
           >
-            <ChevronLeft className="text-slate-600" />
+            <ChevronLeft className="text-[#1A2B2A]/70" />
           </button>
-          <h2 className="text-xl font-black text-slate-900 tracking-tight">
+          <h2 className="text-xl font-black text-[#1A2B2A] tracking-tight">
             Zakat Portal
           </h2>
         </div>
@@ -3407,7 +3409,7 @@ const App = () => {
             <div
               key={s}
               className={`h-1.5 w-6 rounded-full transition-all duration-500 ${
-                zakatStep >= s ? "bg-indigo-600" : "bg-slate-200"
+                zakatStep >= s ? "bg-[#C5A059]" : "bg-[#E5E2D9]"
               }`}
             ></div>
           ))}
@@ -3417,10 +3419,10 @@ const App = () => {
       {/* Step 1: Assets */}
       {zakatStep === 1 && (
         <div className="space-y-6 animate-in fade-in duration-300">
-          <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6">
+          <div className="bg-white p-6 rounded-[2.5rem] border border-[#E5E2D9] shadow-sm space-y-6">
             <div className="flex items-center gap-3 px-2">
-              <TrendingUp className="text-indigo-600" size={20} />
-              <h3 className="font-bold text-slate-900">
+              <TrendingUp className="text-[#C5A059]" size={20} />
+              <h3 className="font-bold text-[#1A2B2A]">
                 Step 1: Zakatable Assets
               </h3>
             </div>
@@ -3507,12 +3509,12 @@ const App = () => {
       {/* Step 2: Liabilities */}
       {zakatStep === 2 && (
         <div className="space-y-6 animate-in fade-in duration-300">
-          <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6">
+          <div className="bg-white p-6 rounded-[2.5rem] border border-[#E5E2D9] shadow-sm space-y-6">
             <div className="flex items-center gap-3 px-2 text-rose-600">
               <TrendingDown size={20} />
-              <h3 className="font-bold text-slate-900">Step 2: Liabilities</h3>
+              <h3 className="font-bold text-[#1A2B2A]">Step 2: Liabilities</h3>
             </div>
-            <p className="text-xs text-slate-400 px-2 leading-relaxed">
+            <p className="text-xs text-[#1A2B2A]/40 px-2 leading-relaxed">
               Subtract debts or bills due immediately to calculate your net
               wealth.
             </p>
@@ -3531,7 +3533,7 @@ const App = () => {
                 },
               ].map((lib) => (
                 <div key={lib.key} className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2">
+                  <label className="text-[10px] font-black text-[#1A2B2A]/40 uppercase tracking-widest px-2">
                     {lib.label}
                   </label>
                   <div className="relative">
@@ -3589,15 +3591,15 @@ const App = () => {
               <span className="font-bold">${totalAssets.toLocaleString()}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-slate-400">Total Liabilities</span>
+              <span className="text-[#1A2B2A]/70">Total Liabilities</span>
               <span className="font-bold text-rose-500">
                 -${totalLiabilities.toLocaleString()}
               </span>
             </div>
-            <div className="h-px bg-slate-50 my-2"></div>
+            <div className="h-px bg-[#E5E2D9] my-2"></div>
             <div className="flex justify-between text-sm">
-              <span className="text-slate-900 font-bold">Zakatable Wealth</span>
-              <span className="font-black text-indigo-600">
+              <span className="text-[#1A2B2A] font-bold">Zakatable Wealth</span>
+              <span className="font-black text-[#C5A059]">
                 ${netZakatableWealth.toLocaleString()}
               </span>
             </div>
@@ -3616,8 +3618,8 @@ const App = () => {
             disabled={zakatDue <= 0}
             className={`w-full p-6 rounded-[2rem] font-black text-lg transition-all flex items-center justify-center gap-3 shadow-xl ${
               zakatDue > 0
-                ? "bg-indigo-600 text-[#C5A059] shadow-indigo-900/20 active:scale-[0.98]"
-                : "bg-slate-200 text-slate-400 cursor-not-allowed"
+                ? "bg-[#C5A059] text-[#1A2B2A] shadow-[#C5A059]/20 active:scale-[0.98]"
+                : "bg-[#E5E2D9] text-[#1A2B2A]/40 cursor-not-allowed"
             }`}
           >
             {t("selectDistribution")} <Heart size={20} />
@@ -3628,10 +3630,10 @@ const App = () => {
       {/* Step 4: Charity Selection */}
       {zakatStep === 4 && (
         <div className="space-y-6 animate-in fade-in duration-300">
-          <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6">
+          <div className="bg-white p-6 rounded-[2.5rem] border border-[#E5E2D9] shadow-sm space-y-6">
             <div className="flex items-center gap-3 px-2">
-              <Heart className="text-indigo-600" size={20} />
-              <h3 className="font-bold text-slate-900">
+              <Heart className="text-[#C5A059]" size={20} />
+              <h3 className="font-bold text-[#1A2B2A]">
                 Step 4: Choose Charity
               </h3>
             </div>
@@ -3643,15 +3645,15 @@ const App = () => {
                   onClick={() => setSelectedCharity(charity.id)}
                   className={`w-full p-4 rounded-3xl text-left transition-all border-2 flex items-start gap-4 ${
                     selectedCharity === charity.id
-                      ? "border-indigo-600 bg-indigo-50 shadow-sm"
-                      : "border-slate-50 bg-slate-50/30 hover:bg-slate-50"
+                      ? "border-[#C5A059] bg-[#F7F5F0] shadow-sm"
+                      : "border-[#E5E2D9] bg-[#F7F5F0]/30 hover:bg-[#F7F5F0]"
                   }`}
                 >
                   <div
                     className={`p-3 rounded-2xl ${
                       selectedCharity === charity.id
                         ? "bg-white shadow-sm"
-                        : "bg-white border border-slate-100"
+                        : "bg-white border border-[#E5E2D9]"
                     }`}
                   >
                     {charity.icon}
@@ -3662,14 +3664,14 @@ const App = () => {
                       <span
                         className={`text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
                           selectedCharity === charity.id
-                            ? "bg-indigo-600 text-[#C5A059]"
-                            : "bg-slate-200 text-slate-500"
+                            ? "bg-[#C5A059] text-[#1A2B2A]"
+                            : "bg-[#E5E2D9] text-[#1A2B2A]/70"
                         }`}
                       >
                         {charity.tag}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-500 leading-snug">
+                    <p className="text-xs text-[#1A2B2A]/70 leading-snug">
                       {charity.description}
                     </p>
                   </div>
@@ -3683,8 +3685,8 @@ const App = () => {
             disabled={!selectedCharity}
             className={`w-full p-6 rounded-[2rem] font-black text-lg transition-all flex items-center justify-center gap-3 shadow-xl ${
               selectedCharity
-                ? "bg-indigo-600 text-[#C5A059] shadow-indigo-900/20 active:scale-[0.98]"
-                : "bg-slate-200 text-slate-400 cursor-not-allowed"
+                ? "bg-[#C5A059] text-[#1A2B2A] shadow-[#C5A059]/20 active:scale-[0.98]"
+                : "bg-[#E5E2D9] text-[#1A2B2A]/40 cursor-not-allowed"
             }`}
           >
             {t("confirmAndDistribute")} <ExternalLink size={20} />
@@ -3735,11 +3737,11 @@ const App = () => {
         </div>
 
         {/* Dynamic Payment Card */}
-        <div className="bg-amber-600 rounded-[2.5rem] p-8 text-[#C5A059] shadow-xl relative overflow-hidden">
+        <div className="bg-[#C5A059] rounded-[2.5rem] p-8 text-[#1A2B2A] shadow-xl relative overflow-hidden">
           <div className="absolute -right-4 -top-4 opacity-10 rotate-12">
             <Car size={120} />
           </div>
-          <p className="text-amber-200 text-[10px] font-bold uppercase tracking-widest relative z-10">
+          <p className="text-[#1A2B2A]/70 text-[10px] font-bold uppercase tracking-widest relative z-10">
             {frequencyLabel} Installment
           </p>
           <h3 className="text-5xl font-black mt-1 tracking-tighter relative z-10">
@@ -3750,7 +3752,7 @@ const App = () => {
             })}
           </h3>
           <div className="mt-4 flex items-center gap-2 relative z-10">
-            <ShieldCheck size={14} className="text-amber-200" />
+            <ShieldCheck size={14} className="text-[#1A2B2A]/70" />
             <span className="text-[10px] font-bold text-amber-100 uppercase tracking-tight">
               2.00% Fixed Markup
             </span>

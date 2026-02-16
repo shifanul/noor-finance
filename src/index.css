@@ -2,20 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Finance App Theme */
+:root {
+  --color-primary: #c5a059;
+  --color-secondary: #1a2b2a;
+  --color-background: #f7f5f0;
+  --color-accent: #e5e2d9;
+  --color-success: #4caf50;
+  --sat: env(safe-area-inset-top);
+  --sar: env(safe-area-inset-right);
+  --sab: env(safe-area-inset-bottom);
+  --sal: env(safe-area-inset-left);
+}
+
 body {
   margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
+  background-color: var(--color-background);
+  color: var(--color-secondary);
 }
 
-/* Support for iPhone Notch/Safe Areas */
-:root {
-  --sat: env(safe-area-inset-top);
-  --sar: env(safe-area-inset-right);
-  --sab: env(safe-area-inset-bottom);
-  --sal: env(safe-area-inset-left);
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+/* Text Selections */
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+}
+
+::-moz-selection {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
 }
