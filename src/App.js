@@ -570,7 +570,7 @@ const App = () => {
     const tiers = [
       {
         id: "basic",
-        name: "Noor Basic",
+        name: "Rizq. Basic",
         price: "Free",
         hardware: "Virtual Card Only",
         color: "bg-slate-100",
@@ -583,7 +583,7 @@ const App = () => {
       },
       {
         id: "premium",
-        name: "Noor Premium",
+        name: "Rizq. Premium",
         price: "$9.99/mo",
         hardware: "rPVC Ocean Plastic",
         color: "bg-emerald-600",
@@ -597,7 +597,7 @@ const App = () => {
       },
       {
         id: "elite",
-        name: "Noor Elite",
+        name: "Rizq. Elite",
         price: "$24.99/mo",
         hardware: "Metal Veneer Card",
         color: "bg-slate-900",
@@ -696,7 +696,7 @@ const App = () => {
               <span className="text-slate-900 font-bold">
                 Wakalah Agreement
               </span>{" "}
-              where Noor acts as your agent for ethical financial management.
+              where Rizq. acts as your agent for ethical financial management.
             </p>
             <div className="flex items-start gap-2 text-[10px] text-slate-400 bg-slate-50 p-3 rounded-xl border border-slate-100">
               <Clock size={12} className="mt-0.5 shrink-0" />
@@ -810,7 +810,7 @@ const App = () => {
     <div className="fixed inset-0 bg-[#064e3b] z-[150] flex flex-col items-center px-8 pt-20 animate-in fade-in zoom-in-95 duration-500">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-black italic tracking-tighter text-white mb-2">
-          noor.
+          Rizq.
         </h1>
         <p className="text-emerald-300/60 text-[10px] font-bold uppercase tracking-[0.2em]">
           {t("secureAccess")}
@@ -1234,7 +1234,7 @@ const App = () => {
             <ChevronLeft size={24} />
           </button>
           <h2 className="text-xl font-black italic tracking-tighter">
-            noor.{" "}
+            Rizq.{" "}
             <span className="text-emerald-600 not-italic">{t("transfer")}</span>
           </h2>
           <button
@@ -2509,7 +2509,7 @@ const App = () => {
             <ChevronLeft size={24} />
           </button>
           <h2 className="text-xl font-black italic tracking-tighter">
-            noor.{" "}
+            Rizq.{" "}
             <span className="text-emerald-600 not-italic">Beneficiaries</span>
           </h2>
           <button
@@ -3077,7 +3077,7 @@ const App = () => {
 
           <div className="flex justify-between items-start relative z-10">
             <span className="font-black text-2xl italic tracking-tighter">
-              noor.
+              Rizq.
             </span>
             <div className="w-10 h-7 bg-gradient-to-br from-amber-200 to-amber-500/80 rounded flex flex-col justify-around p-1 shadow-inner">
               <div className="w-full h-[1px] bg-black/10"></div>
@@ -3251,7 +3251,7 @@ const App = () => {
           </div>
           <p className="text-[11px] text-slate-300 leading-relaxed">
             Traditional banks make money by lending yours out at interest
-            (Riba). <strong>Noor does not.</strong> To keep our infrastructure
+            (Riba). <strong>Rizq. does not.</strong> To keep our infrastructure
             interest-free and purely ethical, we charge a transparent monthly
             fee. This ensures our interests are aligned with your values, not
             bank profits.
@@ -3339,7 +3339,7 @@ const App = () => {
                 <Gem size={20} />
               </div>
               <div>
-                <p className="font-black text-slate-900">Noor Premium</p>
+                <p className="font-black text-slate-900">Rizq. Premium</p>
                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
                   $9.99 / Month
                 </p>
@@ -3430,7 +3430,7 @@ const App = () => {
                 <div className="flex items-center gap-3">
                   <Wallet className="text-emerald-600" size={20} />
                   <span className="font-bold text-slate-700">
-                    Noor Balance (Auto)
+                    Rizq. Balance (Auto)
                   </span>
                 </div>
                 <span className="font-black text-emerald-700">
@@ -3899,7 +3899,7 @@ const App = () => {
       <div className="fixed inset-0 bg-[#064e3b] z-[200] flex flex-col items-center justify-center text-white p-6">
         <div className="flex-1 flex flex-col items-center justify-center">
           <h2 className="text-5xl font-black italic tracking-tighter mb-1 animate-pulse">
-            noor.
+            Rizq.
           </h2>
           <p className="text-emerald-400 font-bold tracking-[0.2em] uppercase text-[8px] opacity-80">
             {t("slogan")}
@@ -3959,7 +3959,7 @@ const App = () => {
           <div className="bg-[#064e3b] p-1.5 rounded-lg">
             <Lock size={12} className="text-white" />
           </div>
-          <span className="font-black text-xl tracking-tighter">noor.</span>
+          <span className="font-black text-xl tracking-tighter">Rizq.</span>
           {!isOnline && (
             <span className="text-[9px] font-bold px-2 py-1 bg-amber-100 text-amber-700 rounded-full ml-2">
               Offline
