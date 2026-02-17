@@ -910,9 +910,9 @@ const App = () => {
         </button>
       </div>
 
-      <div className="bg-[#F2F1EF] rounded-[2rem] p-6 text-[#0D2B1D] border border-[#AEC3B0] shadow-xl relative overflow-hidden">
+      <div className="bg-[#AEC3B0] rounded-[2rem] p-6 text-[#0D2B1D] border border-[#AEC3B0] shadow-xl relative overflow-hidden">
         <div className="relative z-10">
-          <p className="text-[#0D2B1D]/80 text-[10px] font-bold uppercase tracking-widest">
+          <p className="text-white/80 text-[10px] font-bold uppercase tracking-widest">
             {t("totalWealth")}
           </p>
           <h1 className="text-3xl font-bold mt-1 tracking-tight">
@@ -934,7 +934,7 @@ const App = () => {
           {
             icon: <ArrowUpRight size={20} />,
             label: t("transfer"),
-            color: "bg-[#0D2B1D]/10 text-[#0D2B1D]",
+            color: "bg-[#0D2B1D] text-[#AEC3B0]/70",
             action: () => {
               setActiveTab("transfer-hub");
             },
@@ -942,12 +942,12 @@ const App = () => {
           {
             icon: <ArrowDownRight size={20} />,
             label: t("deposit"),
-            color: "bg-[#D9B18E]/10 text-[#D9B18E]",
+            color: "bg-[#0D2B1D] text-[#AEC3B0]/70",
           },
           {
             icon: <Wallet size={20} />,
             label: t("equity"),
-            color: "bg-[#AEC3B0] text-[#0D2B1D]/70",
+            color: "bg-[#0D2B1D] text-[#AEC3B0]/70",
             action: () => {
               setActiveTab("financing");
             },
@@ -955,7 +955,7 @@ const App = () => {
           {
             icon: <Fingerprint size={20} />,
             label: t("zakat"),
-            color: "bg-[#AEC3B0] text-[#D9B18E]",
+            color: "bg-[#0D2B1D] text-[#AEC3B0]/70",
             action: () => {
               setActiveTab("financing");
               setFinancingSubPage("zakat");
@@ -983,7 +983,7 @@ const App = () => {
           {transactions.map((tx) => (
             <div
               key={tx.id}
-              className={`bg-[#F2F1EF] p-3.5 rounded-2xl border flex items-center justify-between shadow-sm ${
+              className={`bg-[#AEC3B0] p-3.5 rounded-2xl border flex items-center justify-between shadow-sm ${
                 tx.status === "declined"
                   ? "border-rose-100 opacity-80"
                   : "border-[#F7F5F0]"
@@ -1015,7 +1015,7 @@ const App = () => {
                   >
                     {tx.name}
                   </p>
-                  <p className="text-[9px] text-[#0D2B1D]/40 font-bold uppercase">
+                  <p className="text-[9px] text-white/40 font-bold uppercase">
                     {tx.time}
                   </p>
                 </div>
