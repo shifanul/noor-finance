@@ -983,7 +983,7 @@ const App = () => {
           {transactions.map((tx) => (
             <div
               key={tx.id}
-              className={`bg-\[#F2F1EF\] p-3.5 rounded-2xl border flex items-center justify-between shadow-sm ${
+              className={`bg-[#F2F1EF] p-3.5 rounded-2xl border flex items-center justify-between shadow-sm ${
                 tx.status === "declined"
                   ? "border-rose-100 opacity-80"
                   : "border-[#F7F5F0]"
@@ -3165,7 +3165,7 @@ const App = () => {
               }`}
             >
               <div
-                className={`w-4 h-4 bg-\[#F2F1EF\] rounded-full shadow-sm transition-transform ${
+                className={`w-4 h-4 bg-[#F2F1EF] rounded-full shadow-sm transition-transform ${
                   halalFilterActive ? "translate-x-6" : ""
                 }`}
               />
@@ -3193,7 +3193,7 @@ const App = () => {
               }`}
             >
               <div
-                className={`w-4 h-4 bg-\[#F2F1EF\] rounded-full shadow-sm transition-transform ${
+                className={`w-4 h-4 bg-[#F2F1EF] rounded-full shadow-sm transition-transform ${
                   isFrozen ? "translate-x-6" : ""
                 }`}
               />
