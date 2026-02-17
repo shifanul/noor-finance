@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Finance App Theme */
+/* Finance App Theme - Light Luxury */
 :root {
-  --color-primary: #c5a059;
-  --color-secondary: #1a2b2a;
-  --color-background: #f7f5f0;
-  --color-accent: #e5e2d9;
+  --color-primary: #aec3b0;
+  --color-secondary: #0d2b1d;
+  --color-background: #f8f7f5;
+  --color-accent: #d9b18e;
   --color-success: #4caf50;
   --sat: env(safe-area-inset-top);
   --sar: env(safe-area-inset-right);
@@ -24,8 +24,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
-  background-color: var(--color-background);
-  color: var(--color-secondary);
+  background-color: #f8f7f5;
+  color: #0d2b1d;
 }
 
 html,

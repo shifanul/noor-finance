@@ -1,11 +1,12 @@
 /* ============================================
-   ROOT VARIABLES - Emerald Essence Luxury 2026
+   ROOT VARIABLES - Light Luxury 2026
    ============================================ */
 :root {
-  --primary-emerald: #0d2b1d;
-  --secondary-sage: #aec3b0;
+  --primary-light: #f8f7f5;
+  --primary-sage: #aec3b0;
+  --secondary-dark: #0d2b1d;
   --accent-copper: #d9b18e;
-  --neutral-oyster: #f2f1ef;
+  --accent-light: #f2f1ef;
   --radius-lg: 24px;
 }
 
@@ -19,8 +20,8 @@
 }
 
 body {
-  background-color: var(--neutral-oyster);
-  color: var(--primary-emerald);
+  background-color: #f8f7f5;
+  color: #0d2b1d;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -35,7 +36,7 @@ h4,
 h5,
 h6 {
   font-family: "Georgia", "Garamond", "Times New Roman", serif;
-  color: var(--primary-emerald);
+  color: #0d2b1d;
   margin: 0;
 }
 
@@ -85,27 +86,27 @@ select,
 
 /* Bank Card Component */
 .bank-card {
-  background: rgba(174, 195, 176, 0.15);
+  background: rgba(174, 195, 176, 0.25);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(174, 195, 176, 0.3);
+  border: 1px solid rgba(174, 195, 176, 0.4);
   border-radius: var(--radius-lg);
   padding: 24px;
-  box-shadow: 0 10px 30px rgba(13, 43, 29, 0.08);
+  box-shadow: 0 5px 20px rgba(13, 43, 29, 0.06);
   transition: all 0.3s ease;
 }
 
 .bank-card:hover {
-  box-shadow: 0 15px 40px rgba(13, 43, 29, 0.12);
+  box-shadow: 0 10px 30px rgba(13, 43, 29, 0.1);
   transform: translateY(-2px);
-  border-color: rgba(217, 177, 142, 0.4);
+  border-color: rgba(217, 177, 142, 0.5);
 }
 
 /* Primary Button */
 .btn-primary {
   display: inline-block;
-  background-color: var(--primary-emerald);
-  color: var(--neutral-oyster);
+  background-color: #aec3b0;
+  color: #0d2b1d;
   border: none;
   border-radius: 500px;
   padding: 14px 32px;
@@ -118,9 +119,9 @@ select,
 }
 
 .btn-primary:hover {
-  background-color: #0a1f14;
+  background-color: #9ab09c;
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(13, 43, 29, 0.25);
+  box-shadow: 0 10px 20px rgba(174, 195, 176, 0.3);
 }
 
 .btn-primary:active {
@@ -138,8 +139,8 @@ select,
 .btn-ghost {
   display: inline-block;
   background-color: transparent;
-  color: var(--primary-emerald);
-  border: 2px solid var(--secondary-sage);
+  color: #0d2b1d;
+  border: 2px solid #aec3b0;
   border-radius: 500px;
   padding: 14px 32px;
   font-size: 16px;
@@ -151,9 +152,9 @@ select,
 }
 
 .btn-ghost:hover {
-  background-color: rgba(174, 195, 176, 0.2);
+  background-color: rgba(174, 195, 176, 0.15);
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(174, 195, 176, 0.2);
+  box-shadow: 0 10px 20px rgba(174, 195, 176, 0.15);
 }
 
 .btn-ghost:active {
@@ -170,13 +171,13 @@ select,
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(242, 241, 239, 0.8);
+  background: rgba(248, 247, 245, 0.9);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  border-bottom: 1px solid rgba(13, 43, 29, 0.1);
+  border-bottom: 1px solid rgba(174, 195, 176, 0.2);
   padding: 16px 24px;
   border-radius: var(--radius-lg);
-  box-shadow: 0 5px 15px rgba(13, 43, 29, 0.05);
+  box-shadow: 0 2px 10px rgba(13, 43, 29, 0.04);
   margin: 0;
 }
 
@@ -185,7 +186,7 @@ select,
   font-family: "Georgia", "Garamond", "Times New Roman", serif;
   font-size: 48px;
   font-weight: 300;
-  color: var(--primary-emerald);
+  color: #0d2b1d;
   letter-spacing: -0.5px;
   line-height: 1.2;
 }
@@ -197,8 +198,8 @@ select,
 .App {
   width: 100%;
   min-height: 100vh;
-  background-color: var(--neutral-oyster);
-  color: var(--primary-emerald);
+  background-color: #f8f7f5;
+  color: #0d2b1d;
 }
 
 .container {
@@ -214,23 +215,23 @@ select,
 
 /* Default Card Fallback */
 .card {
-  background: rgba(174, 195, 176, 0.1);
+  background: rgba(174, 195, 176, 0.15);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(174, 195, 176, 0.2);
+  border: 1px solid rgba(174, 195, 176, 0.3);
   border-radius: var(--radius-lg);
   padding: 24px;
-  box-shadow: 0 5px 15px rgba(13, 43, 29, 0.05);
+  box-shadow: 0 5px 15px rgba(13, 43, 29, 0.04);
 }
 
 /* Input Fields */
 input,
 textarea,
 select {
-  background: rgba(242, 241, 239, 0.8);
+  background: rgba(242, 241, 239, 0.6);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  color: var(--primary-emerald);
+  color: #0d2b1d;
   border: 1px solid rgba(174, 195, 176, 0.3);
   border-radius: var(--radius-lg);
   padding: 12px 16px;
@@ -242,18 +243,18 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: var(--accent-copper);
-  box-shadow: 0 0 0 3px rgba(217, 177, 142, 0.15);
-  background: rgba(242, 241, 239, 0.95);
+  border-color: #aec3b0;
+  box-shadow: 0 0 0 3px rgba(174, 195, 176, 0.1);
+  background: rgba(242, 241, 239, 0.9);
 }
 
 /* Text Selection */
 ::selection {
-  background-color: var(--secondary-sage);
-  color: var(--primary-emerald);
+  background-color: #aec3b0;
+  color: #0d2b1d;
 }
 
 ::-moz-selection {
-  background-color: var(--secondary-sage);
-  color: var(--primary-emerald);
+  background-color: #aec3b0;
+  color: #0d2b1d;
 }
