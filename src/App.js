@@ -617,7 +617,7 @@ const App = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setSubscriptionView("overview")}
-            className="p-2 bg-white rounded-xl shadow-sm border border-[#4a3728]"
+            className="p-2 bg-[#4a3728] rounded-xl shadow-sm border border-[#4a3728]"
           >
             <ChevronLeft size={18} />
           </button>
@@ -632,8 +632,8 @@ const App = () => {
               key={tier.id}
               className={`p-6 rounded-[2rem] border transition-all duration-300 ${
                 currentTier === tier.id
-                  ? "border-[#c9a876] bg-white ring-4 ring-[#c9a876]/5 shadow-lg"
-                  : "border-[#4a3728] bg-white shadow-sm"
+                  ? "border-[#c9a876] bg-[#4a3728] ring-4 ring-[#c9a876]/5 shadow-lg"
+                  : "border-[#4a3728] bg-[#4a3728] shadow-sm"
               }`}
             >
               <div className="flex justify-between items-start mb-4">
@@ -683,7 +683,7 @@ const App = () => {
           ))}
         </div>
 
-        <div className="bg-white p-6 rounded-[2rem] border border-[#4a3728] shadow-sm">
+        <div className="bg-[#4a3728] p-6 rounded-[2rem] border border-[#4a3728] shadow-sm">
           <div className="flex items-center gap-2 mb-3">
             <FileText size={16} className="text-[#c9a876]" />
             <h3 className="text-[10px] font-black uppercase tracking-widest text-[#f5f1e9]/40">
@@ -861,26 +861,26 @@ const App = () => {
           <button
             key={num}
             onClick={() => pin.length < 4 && setPin(pin + num)}
-            className="w-14 h-14 rounded-full flex items-center justify-center text-[#c9a876] text-2xl font-medium active:bg-white/10 transition-colors"
+            className="w-14 h-14 rounded-full flex items-center justify-center text-[#c9a876] text-2xl font-medium active:bg-[#4a3728]/10 transition-colors"
           >
             {num}
           </button>
         ))}
         <button
           onClick={handleFaceId}
-          className="w-14 h-14 rounded-full flex items-center justify-center text-[#c9a876] active:bg-white/10"
+          className="w-14 h-14 rounded-full flex items-center justify-center text-[#c9a876] active:bg-[#4a3728]/10"
         >
           <ScanFace size={28} />
         </button>
         <button
           onClick={() => pin.length < 4 && setPin(pin + "0")}
-          className="w-14 h-14 rounded-full flex items-center justify-center text-[#c9a876] text-2xl font-medium active:bg-white/10"
+          className="w-14 h-14 rounded-full flex items-center justify-center text-[#c9a876] text-2xl font-medium active:bg-[#4a3728]/10"
         >
           0
         </button>
         <button
           onClick={() => setPin(pin.slice(0, -1))}
-          className="w-14 h-14 rounded-full flex items-center justify-center text-[#c9a876]/40 active:bg-white/10"
+          className="w-14 h-14 rounded-full flex items-center justify-center text-[#c9a876]/40 active:bg-[#4a3728]/10"
         >
           <ChevronLeft size={24} />
         </button>
@@ -922,7 +922,7 @@ const App = () => {
             <div className="flex items-center gap-1.5 text-[#c9a876] font-bold text-xs">
               <TrendingUp size={14} /> <span>+4.2% APY</span>
             </div>
-            <div className="bg-white/10 px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-tighter">
+            <div className="bg-[#4a3728]/10 px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-tighter">
               Mudarabah
             </div>
           </div>
@@ -983,7 +983,7 @@ const App = () => {
           {transactions.map((tx) => (
             <div
               key={tx.id}
-              className={`bg-white p-3.5 rounded-2xl border flex items-center justify-between shadow-sm ${
+              className={`bg-[#4a3728] p-3.5 rounded-2xl border flex items-center justify-between shadow-sm ${
                 tx.status === "declined"
                   ? "border-[#E74C3C] opacity-80"
                   : "border-[#1a1410]"
@@ -1066,7 +1066,7 @@ const App = () => {
               </p>
 
               <div className="space-y-3">
-                <div className="bg-white p-4 rounded-xl">
+                <div className="bg-[#4a3728] p-4 rounded-xl">
                   <p className="text-[10px] font-black text-[#f5f1e9]/40 uppercase tracking-widest mb-2">
                     Email Address
                   </p>
@@ -1093,7 +1093,7 @@ const App = () => {
                   </div>
                 </div>
 
-                <div className="bg-white p-4 rounded-xl">
+                <div className="bg-[#4a3728] p-4 rounded-xl">
                   <p className="text-[10px] font-black text-[#f5f1e9]/40 uppercase tracking-widest mb-2">
                     Phone Number
                   </p>
@@ -1189,7 +1189,7 @@ const App = () => {
                 placeholder="John Doe"
                 value={newContactName}
                 onChange={(e) => setNewContactName(e.target.value)}
-                className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none"
+                className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
               />
             </div>
 
@@ -1202,7 +1202,7 @@ const App = () => {
                 placeholder="email@example.com or +1 (555) 123-4567"
                 value={newContactEmail}
                 onChange={(e) => setNewContactEmail(e.target.value)}
-                className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none"
+                className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
               />
             </div>
 
@@ -1252,7 +1252,7 @@ const App = () => {
               setTransferType("E-Transfer");
               setETransferMode("send");
             }}
-            className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-transparent hover:border-[#c9a876] shadow-sm flex items-center gap-5 group transition-all"
+            className="w-full bg-[#4a3728] p-6 rounded-[2.5rem] border-2 border-transparent hover:border-[#c9a876] shadow-sm flex items-center gap-5 group transition-all"
           >
             <div className="w-14 h-14 rounded-2xl bg-[#4a3728] text-[#c9a876] flex items-center justify-center group-hover:bg-[#c9a876] group-hover:text-[#1a1410] transition-all">
               <Smartphone size={24} />
@@ -1274,7 +1274,7 @@ const App = () => {
               setActiveTab("bank-transfer");
               setTransferType("Bank Transfer");
             }}
-            className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-transparent hover:border-[#c9a876] shadow-sm flex items-center gap-5 group transition-all"
+            className="w-full bg-[#4a3728] p-6 rounded-[2.5rem] border-2 border-transparent hover:border-[#c9a876] shadow-sm flex items-center gap-5 group transition-all"
           >
             <div className="w-14 h-14 rounded-2xl bg-[#1a1410] text-[#c9a876] flex items-center justify-center group-hover:bg-[#c9a876] group-hover:text-[#1a1410] transition-all">
               <Building size={24} />
@@ -1296,7 +1296,7 @@ const App = () => {
               setActiveTab("internal-transfer");
               setTransferType("Internal Transfer");
             }}
-            className="w-full bg-white p-6 rounded-[2.5rem] border-2 border-transparent hover:border-[#c9a876] shadow-sm flex items-center gap-5 group transition-all"
+            className="w-full bg-[#4a3728] p-6 rounded-[2.5rem] border-2 border-transparent hover:border-[#c9a876] shadow-sm flex items-center gap-5 group transition-all"
           >
             <div className="w-14 h-14 rounded-2xl bg-[#1a1410] text-[#c9a876]/60 flex items-center justify-center group-hover:bg-[#c9a876]/60 group-hover:text-[#1a1410] transition-all">
               <RefreshCcw size={24} />
@@ -1318,7 +1318,7 @@ const App = () => {
         <div className="grid grid-cols-4 gap-2 mb-6">
           <button
             onClick={() => setActiveTab("beneficiary-manager")}
-            className="bg-white p-4 rounded-2xl border border-[#4a3728] hover:border-[#c9a876] flex flex-col items-center gap-2 group transition-all active:scale-95"
+            className="bg-[#4a3728] p-4 rounded-2xl border border-[#4a3728] hover:border-[#c9a876] flex flex-col items-center gap-2 group transition-all active:scale-95"
           >
             <div className="text-2xl group-hover:scale-110 transition-transform">
               👥
@@ -1330,7 +1330,7 @@ const App = () => {
 
           <button
             onClick={() => setActiveTab("transfer-history")}
-            className="bg-white p-4 rounded-2xl border border-[#4a3728] hover:border-[#c9a876] flex flex-col items-center gap-2 group transition-all active:scale-95"
+            className="bg-[#4a3728] p-4 rounded-2xl border border-[#4a3728] hover:border-[#c9a876] flex flex-col items-center gap-2 group transition-all active:scale-95"
           >
             <div className="text-2xl group-hover:scale-110 transition-transform">
               📋
@@ -1342,7 +1342,7 @@ const App = () => {
 
           <button
             onClick={() => setActiveTab("transfer-analytics")}
-            className="bg-white p-4 rounded-2xl border border-[#4a3728] hover:border-[#c9a876] flex flex-col items-center gap-2 group transition-all active:scale-95"
+            className="bg-[#4a3728] p-4 rounded-2xl border border-[#4a3728] hover:border-[#c9a876] flex flex-col items-center gap-2 group transition-all active:scale-95"
           >
             <div className="text-2xl group-hover:scale-110 transition-transform">
               📊
@@ -1354,7 +1354,7 @@ const App = () => {
 
           <button
             onClick={() => setShowScheduleTransfer(true)}
-            className="bg-white p-4 rounded-2xl border border-[#4a3728] hover:border-[#c9a876]-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
+            className="bg-[#4a3728] p-4 rounded-2xl border border-[#4a3728] hover:border-[#c9a876]-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
           >
             <div className="text-2xl group-hover:scale-110 transition-transform">
               ⏰
@@ -1382,7 +1382,7 @@ const App = () => {
             {eTransferHistory.slice(0, 3).map((transfer) => (
               <div
                 key={transfer.id}
-                className="bg-white p-4 rounded-xl border border-[#4a3728] flex items-center justify-between hover:border-[#c9a876]/30 transition-all"
+                className="bg-[#4a3728] p-4 rounded-xl border border-[#4a3728] flex items-center justify-between hover:border-[#c9a876]/30 transition-all"
               >
                 <div className="flex items-center gap-3 flex-1">
                   <div className="w-10 h-10 rounded-full bg-[#4a3728] flex items-center justify-center">
@@ -1448,7 +1448,7 @@ const App = () => {
 
     return (
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[250] p-4 animate-in fade-in duration-300">
-        <div className="bg-white rounded-[2rem] w-full max-w-[450px] p-6 space-y-4 animate-in zoom-in-95 duration-300 max-h-[80vh] overflow-y-auto">
+        <div className="bg-[#4a3728] rounded-[2rem] w-full max-w-[450px] p-6 space-y-4 animate-in zoom-in-95 duration-300 max-h-[80vh] overflow-y-auto">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-bold">Schedule Transfer</h2>
             <button
@@ -1464,7 +1464,7 @@ const App = () => {
               <label className="text-[10px] font-black text-[#f5f1e9]/40 uppercase tracking-widest">
                 Recipient
               </label>
-              <select className="w-full bg-white border border-[#4a3728] rounded-xl p-3 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none">
+              <select className="w-full bg-[#4a3728] border border-[#4a3728] rounded-xl p-3 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none">
                 <option value="">Select a beneficiary</option>
                 {beneficiaries.map((b) => (
                   <option key={b.id} value={b.id}>
@@ -1487,7 +1487,7 @@ const App = () => {
                   type="number"
                   value={transferAmount}
                   onChange={(e) => setTransferAmount(e.target.value)}
-                  className="w-full bg-white border border-[#4a3728] rounded-xl p-3 pl-12 text-sm font-bold focus:ring-2 ring-[#c9a876] outline-none"
+                  className="w-full bg-[#4a3728] border border-[#4a3728] rounded-xl p-3 pl-12 text-sm font-bold text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
                   placeholder="0.00"
                 />
               </div>
@@ -1500,7 +1500,7 @@ const App = () => {
               <select
                 value={scheduleFrequency}
                 onChange={(e) => setScheduleFrequency(e.target.value)}
-                className="w-full bg-white border border-[#4a3728] rounded-xl p-3 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none"
+                className="w-full bg-[#4a3728] border border-[#4a3728] rounded-xl p-3 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
               >
                 <option value="once">One Time</option>
                 <option value="weekly">Weekly</option>
@@ -1518,7 +1518,7 @@ const App = () => {
                 type="date"
                 value={scheduleDate}
                 onChange={(e) => setScheduleDate(e.target.value)}
-                className="w-full bg-white border border-[#4a3728] rounded-xl p-3 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none"
+                className="w-full bg-[#4a3728] border border-[#4a3728] rounded-xl p-3 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
               />
             </div>
 
@@ -1529,7 +1529,7 @@ const App = () => {
               <select
                 value={transferCategory}
                 onChange={(e) => setTransferCategory(e.target.value)}
-                className="w-full bg-white border border-[#4a3728] rounded-xl p-3 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none"
+                className="w-full bg-[#4a3728] border border-[#4a3728] rounded-xl p-3 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
               >
                 <option value="personal">👤 Personal</option>
                 <option value="charity">❤️ Charity</option>
@@ -1686,7 +1686,7 @@ const App = () => {
                 placeholder="John Doe"
                 value={newContactName}
                 onChange={(e) => setNewContactName(e.target.value)}
-                className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none"
+                className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
               />
             </div>
 
@@ -1699,7 +1699,7 @@ const App = () => {
                 placeholder="email@example.com or +1 (555) 123-4567"
                 value={newContactEmail}
                 onChange={(e) => setNewContactEmail(e.target.value)}
-                className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none"
+                className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
               />
             </div>
 
@@ -1746,7 +1746,7 @@ const App = () => {
               className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all ${
                 eTransferMode === "send"
                   ? "bg-[#1a1410] text-[#c9a876]"
-                  : "bg-white text-[#f5f1e9]600"
+                  : "bg-[#4a3728] text-[#f5f1e9]/60"
               }`}
             >
               Send
@@ -1756,7 +1756,7 @@ const App = () => {
               className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all ${
                 eTransferMode === "request"
                   ? "bg-[#1a1410] text-[#c9a876]"
-                  : "bg-white text-[#f5f1e9]600"
+                  : "bg-[#4a3728] text-[#f5f1e9]/60"
               }`}
             >
               Request
@@ -1774,7 +1774,7 @@ const App = () => {
                 placeholder="email@example.com or +1 (555) 123-4567"
                 value={recipientIdentifier}
                 onChange={(e) => setRecipientIdentifier(e.target.value)}
-                className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none"
+                className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
               />
             </div>
 
@@ -1822,7 +1822,7 @@ const App = () => {
                     >
                       {contact.initial}
                     </div>
-                    <span className="text-[9px] font-bold text-[#f5f1e9]600 text-center">
+                    <span className="text-[9px] font-bold text-[#f5f1e9]/60 text-center">
                       {contact.name.split(" ")[0]}
                     </span>
                   </button>
@@ -1852,7 +1852,7 @@ const App = () => {
                 />
               </div>
               {autodeposit && (
-                <p className="text-xs text-[#c9a876] bg-white/60 p-2 rounded">
+                <p className="text-xs text-[#c9a876] bg-[#4a3728]/60 p-2 rounded">
                   ✓ Recipient will receive funds automatically without security
                   questions
                 </p>
@@ -1871,7 +1871,7 @@ const App = () => {
                     placeholder="e.g., What is your favorite color?"
                     value={securityQuestion}
                     onChange={(e) => setSecurityQuestion(e.target.value)}
-                    className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none"
+                    className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
                   />
                 </div>
 
@@ -1884,7 +1884,7 @@ const App = () => {
                     placeholder="Your answer"
                     value={securityAnswer}
                     onChange={(e) => setSecurityAnswer(e.target.value)}
-                    className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none"
+                    className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
                   />
                 </div>
               </div>
@@ -1905,7 +1905,7 @@ const App = () => {
                 type="number"
                 value={transferAmount}
                 onChange={(e) => setTransferAmount(e.target.value)}
-                className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-[#c9a876] outline-none"
+                className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 pl-12 text-sm font-black text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
                 placeholder="0.00"
                 max={MAX_TRANSFER_AMOUNT}
               />
@@ -1965,7 +1965,7 @@ const App = () => {
                 placeholder="email@example.com or +1 (555) 123-4567"
                 value={recipientIdentifier}
                 onChange={(e) => setRecipientIdentifier(e.target.value)}
-                className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none"
+                className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
               />
             </div>
 
@@ -1985,7 +1985,7 @@ const App = () => {
                     >
                       {contact.initial}
                     </div>
-                    <span className="text-[9px] font-bold text-[#f5f1e9]600 text-center">
+                    <span className="text-[9px] font-bold text-[#f5f1e9]/60 text-center">
                       {contact.name.split(" ")[0]}
                     </span>
                   </button>
@@ -2006,7 +2006,7 @@ const App = () => {
                   type="number"
                   value={requestAmount}
                   onChange={(e) => setRequestAmount(e.target.value)}
-                  className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-[#c9a876] outline-none"
+                  className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 pl-12 text-sm font-black text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
                   placeholder="0.00"
                   max={MAX_TRANSFER_AMOUNT}
                 />
@@ -2020,7 +2020,7 @@ const App = () => {
               <input
                 type="text"
                 placeholder="e.g., Rent payment, Bill split..."
-                className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none"
+                className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
               />
             </div>
 
@@ -2073,7 +2073,7 @@ const App = () => {
               </div>
               <button
                 onClick={() => setSelectedContact(null)}
-                className="absolute -top-1 -right-1 bg-white border shadow-sm rounded-full p-1"
+                className="absolute -top-1 -right-1 bg-[#4a3728] border shadow-sm rounded-full p-1"
               >
                 <X size={14} />
               </button>
@@ -2148,7 +2148,7 @@ const App = () => {
           </label>
           <input
             type="text"
-            className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none"
+            className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
             placeholder="Full Legal Name"
           />
         </div>
@@ -2158,7 +2158,7 @@ const App = () => {
           </label>
           <input
             type="text"
-            className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none font-mono"
+            className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none font-mono"
             placeholder="0000 0000 0000"
           />
         </div>
@@ -2175,7 +2175,7 @@ const App = () => {
               type="number"
               value={transferAmount}
               onChange={(e) => setTransferAmount(e.target.value)}
-              className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-[#c9a876] outline-none"
+              className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 pl-12 text-sm font-black text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
               placeholder="0.00"
             />
           </div>
@@ -2277,7 +2277,7 @@ const App = () => {
                     className={`w-full p-4 rounded-2xl border-2 transition-all text-left ${
                       fromAccount === account.id
                         ? "border-[#c9a876] bg-[#1a1410]"
-                        : "border-[#4a3728] bg-white hover:border-[#c9a876]"
+                        : "border-[#4a3728] bg-[#4a3728] hover:border-[#c9a876]"
                     }`}
                   >
                     <div className="flex items-center justify-between">
@@ -2326,7 +2326,7 @@ const App = () => {
                     className={`w-full p-4 rounded-2xl border-2 transition-all text-left ${
                       toAccount === account.id
                         ? "border-[#c9a876] bg-[#1a1410]"
-                        : "border-[#4a3728] bg-white hover:border-[#c9a876]"
+                        : "border-[#4a3728] bg-[#4a3728] hover:border-[#c9a876]"
                     }`}
                   >
                     <div className="flex items-center justify-between">
@@ -2361,7 +2361,7 @@ const App = () => {
                 type="number"
                 value={internalTransferAmount}
                 onChange={(e) => setInternalTransferAmount(e.target.value)}
-                className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-[#c9a876] outline-none"
+                className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 pl-12 text-sm font-black text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
                 placeholder="0.00"
               />
             </div>
@@ -2435,7 +2435,7 @@ const App = () => {
                 placeholder="Full Name"
                 value={newBeneficiaryName}
                 onChange={(e) => setNewBeneficiaryName(e.target.value)}
-                className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none"
+                className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
               />
             </div>
 
@@ -2448,7 +2448,7 @@ const App = () => {
                 placeholder="email@example.com"
                 value={newBeneficiaryEmail}
                 onChange={(e) => setNewBeneficiaryEmail(e.target.value)}
-                className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none"
+                className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
               />
             </div>
 
@@ -2461,7 +2461,7 @@ const App = () => {
                 placeholder="+1 (555) 123-4567"
                 value={newBeneficiaryPhone}
                 onChange={(e) => setNewBeneficiaryPhone(e.target.value)}
-                className="w-full bg-white border border-[#4a3728] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-[#c9a876] outline-none"
+                className="w-full bg-[#4a3728] border border-[#4a3728] rounded-2xl p-4 text-sm font-medium text-[#f5f1e9] focus:ring-2 ring-[#c9a876] outline-none"
               />
             </div>
 
@@ -2526,7 +2526,7 @@ const App = () => {
           {beneficiaries.map((ben) => (
             <div
               key={ben.id}
-              className="bg-white p-4 rounded-2xl border border-[#4a3728] hover:border-[#c9a876]/30 transition-all flex items-center justify-between"
+              className="bg-[#4a3728] p-4 rounded-2xl border border-[#4a3728] hover:border-[#c9a876]/30 transition-all flex items-center justify-between"
             >
               <div className="flex items-center gap-3 flex-1">
                 <div className="w-10 h-10 rounded-full bg-[#1a1410] flex items-center justify-center text-[#c9a876] font-bold">
@@ -2564,7 +2564,7 @@ const App = () => {
 
     return (
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[250] p-4 animate-in fade-in duration-300">
-        <div className="bg-white rounded-[2rem] w-full max-w-[400px] p-6 space-y-6 animate-in zoom-in-95 duration-300">
+        <div className="bg-[#4a3728] rounded-[2rem] w-full max-w-[400px] p-6 space-y-6 animate-in zoom-in-95 duration-300">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-bold">Transfer Receipt</h2>
             <button
@@ -2711,7 +2711,7 @@ const App = () => {
                       ${(stats.totalSent + stats.totalReceived).toFixed(0)}
                     </span>
                   </div>
-                  <div className="w-full bg-white/50 rounded-full h-3">
+                  <div className="w-full bg-[#4a3728]/50 rounded-full h-3">
                     <div
                       className="bg-[#c9a876] h-3 rounded-full transition-all"
                       style={{
@@ -2734,14 +2734,14 @@ const App = () => {
               Statistics
             </p>
             <div className="space-y-2">
-              <div className="flex justify-between bg-white p-3 rounded-xl">
-                <span className="text-[#f5f1e9]600 text-sm">Transactions</span>
+              <div className="flex justify-between bg-[#4a3728] p-3 rounded-xl">
+                <span className="text-[#f5f1e9]/60 text-sm">Transactions</span>
                 <span className="font-bold text-[#f5f1e9]900">
                   {stats.transactionCount}
                 </span>
               </div>
-              <div className="flex justify-between bg-white p-3 rounded-xl">
-                <span className="text-[#f5f1e9]600 text-sm">
+              <div className="flex justify-between bg-[#4a3728] p-3 rounded-xl">
+                <span className="text-[#f5f1e9]/60 text-sm">
                   Average Transfer
                 </span>
                 <span className="font-bold text-[#f5f1e9]900">
@@ -2760,9 +2760,9 @@ const App = () => {
               {beneficiaries.slice(0, 3).map((ben) => (
                 <div
                   key={ben.id}
-                  className="flex justify-between bg-white p-3 rounded-xl"
+                  className="flex justify-between bg-[#4a3728] p-3 rounded-xl"
                 >
-                  <span className="text-[#f5f1e9]600 text-sm">{ben.name}</span>
+                  <span className="text-[#f5f1e9]/60 text-sm">{ben.name}</span>
                   <span className="font-bold text-[#f5f1e9]900">
                     3 transfers
                   </span>
@@ -2791,7 +2791,7 @@ const App = () => {
 
       return (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[250] p-4 animate-in fade-in">
-          <div className="bg-white rounded-[2rem] w-full max-w-[400px] p-6 animate-in zoom-in-95">
+          <div className="bg-[#4a3728] rounded-[2rem] w-full max-w-[400px] p-6 animate-in zoom-in-95">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-bold">Transaction Details</h2>
               <button
@@ -2859,7 +2859,7 @@ const App = () => {
               className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all ${
                 historyFilter === filter
                   ? "bg-[#1a1410] text-[#c9a876]"
-                  : "bg-white text-[#f5f1e9]/70 border border-[#4a3728]"
+                  : "bg-[#4a3728] text-[#f5f1e9]/70 border border-[#4a3728]"
               }`}
             >
               {filter.charAt(0).toUpperCase() + filter.slice(1)}
@@ -2873,14 +2873,14 @@ const App = () => {
             <button
               key={tx.id}
               onClick={() => setShowDetailedTransaction(tx.id)}
-              className="w-full bg-white p-4 rounded-xl border border-[#4a3728] hover:border-[#c9a876]/30 transition-all text-left flex items-center justify-between group"
+              className="w-full bg-[#4a3728] p-4 rounded-xl border border-[#4a3728] hover:border-[#c9a876]/30 transition-all text-left flex items-center justify-between group"
             >
               <div className="flex items-center gap-3 flex-1">
                 <div className="w-10 h-10 rounded-full bg-[#1a1410] flex items-center justify-center group-hover:bg-[#1a1410] transition-colors">
                   {tx.amount > 0 ? (
                     <ArrowDownRight size={16} className="text-[#c9a876]" />
                   ) : (
-                    <ArrowUpRight size={16} className="text-[#f5f1e9]600" />
+                    <ArrowUpRight size={16} className="text-[#f5f1e9]/60" />
                   )}
                 </div>
                 <div className="flex-1">
@@ -2919,7 +2919,7 @@ const App = () => {
 
     return (
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[300] p-4 animate-in fade-in duration-300">
-        <div className="bg-white rounded-[2rem] w-full max-w-[400px] p-6 space-y-6 animate-in zoom-in-95 duration-300">
+        <div className="bg-[#4a3728] rounded-[2rem] w-full max-w-[400px] p-6 space-y-6 animate-in zoom-in-95 duration-300">
           <div className="text-center">
             <h2 className="text-lg font-bold">Verify Transfer</h2>
             <p className="text-[#f5f1e9]500 text-sm mt-2">
@@ -2988,7 +2988,7 @@ const App = () => {
 
     return (
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[300] p-4 animate-in fade-in duration-300">
-        <div className="bg-white rounded-[2rem] w-full max-w-[400px] p-6 space-y-6 animate-in zoom-in-95 duration-300 text-center">
+        <div className="bg-[#4a3728] rounded-[2rem] w-full max-w-[400px] p-6 space-y-6 animate-in zoom-in-95 duration-300 text-center">
           <div className="text-5xl mb-4">🔒</div>
           <h2 className="text-lg font-bold">Security Verification</h2>
           <p className="text-[#f5f1e9]/70 text-sm">
@@ -3021,7 +3021,7 @@ const App = () => {
 
           <button
             onClick={() => setRequireBiometric(false)}
-            className="w-full py-3 text-[#f5f1e9]600 font-bold text-sm"
+            className="w-full py-3 text-[#f5f1e9]/60 font-bold text-sm"
           >
             Skip for now
           </button>
@@ -3031,7 +3031,7 @@ const App = () => {
   };
 
   const renderSuccess = () => (
-    <div className="fixed inset-0 bg-white flex flex-col items-center justify-center z-[200] p-8 text-center animate-in fade-in duration-500">
+    <div className="fixed inset-0 bg-[#4a3728] flex flex-col items-center justify-center z-[200] p-8 text-center animate-in fade-in duration-500">
       <div className="w-24 h-24 rounded-full bg-[#1a1410] flex items-center justify-center mb-6 animate-in zoom-in-50 duration-500 delay-200">
         <CheckCircle2 className="text-[#c9a876]" size={48} />
       </div>
@@ -3102,7 +3102,7 @@ const App = () => {
               </p>
               <button
                 onClick={() => setShowCardDetails(!showCardDetails)}
-                className="p-1.5 bg-white/10 hover:bg-white/20 rounded-full transition-colors active:scale-90"
+                className="p-1.5 bg-[#4a3728]/10 hover:bg-[#4a3728]/20 rounded-full transition-colors active:scale-90"
               >
                 {showCardDetails ? (
                   <EyeOff size={14} className="text-white/70" />
@@ -3144,7 +3144,7 @@ const App = () => {
         </div>
 
         {/* Toggles */}
-        <div className="bg-white rounded-[1.5rem] p-1 border border-[#4a3728] shadow-sm">
+        <div className="bg-[#4a3728] rounded-[1.5rem] p-1 border border-[#4a3728] shadow-sm">
           <div className="flex items-center justify-between p-4 border-b border-[#1a1410]">
             <div className="flex items-center gap-3">
               <div className="p-2.5 bg-[#1a1410] text-[#c9a876]/60 rounded-xl">
@@ -3171,7 +3171,7 @@ const App = () => {
               }`}
             >
               <div
-                className={`w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${
+                className={`w-4 h-4 bg-[#4a3728] rounded-full shadow-sm transition-transform ${
                   halalFilterActive ? "translate-x-6" : ""
                 }`}
               />
@@ -3199,7 +3199,7 @@ const App = () => {
               }`}
             >
               <div
-                className={`w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${
+                className={`w-4 h-4 bg-[#4a3728] rounded-full shadow-sm transition-transform ${
                   isFrozen ? "translate-x-6" : ""
                 }`}
               />
@@ -3208,7 +3208,7 @@ const App = () => {
         </div>
 
         {/* Feature Highlights Component */}
-        <div className="bg-white rounded-[1.5rem] p-6 border border-[#4a3728] shadow-sm">
+        <div className="bg-[#4a3728] rounded-[1.5rem] p-6 border border-[#4a3728] shadow-sm">
           <div className="space-y-6">
             <div className="flex gap-4">
               <ShieldCheck className="text-[#c9a876] shrink-0" size={20} />
@@ -3268,7 +3268,7 @@ const App = () => {
 
         <button
           onClick={() => setSubscriptionView("manage")}
-          className="w-full bg-white border border-[#4a3728] text-[#f5f1e9] p-5 rounded-[2rem] font-bold text-sm shadow-sm active:scale-95 transition-all flex items-center justify-center gap-2"
+          className="w-full bg-[#4a3728] border border-[#4a3728] text-[#f5f1e9] p-5 rounded-[2rem] font-bold text-sm shadow-sm active:scale-95 transition-all flex items-center justify-center gap-2"
         >
           {t("viewSubscriptionAgreement")} <ArrowUpRight size={16} />
         </button>
@@ -3281,7 +3281,7 @@ const App = () => {
     if (financingSubPage === "murabaha") return renderMurabaha();
     return (
       <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
-        <div className="bg-white p-6 rounded-[2rem] shadow-lg border border-[#4a3728] text-center">
+        <div className="bg-[#4a3728] p-6 rounded-[2rem] shadow-lg border border-[#4a3728] text-center">
           <h2 className="text-xl font-bold mb-1 text-[#f5f1e9]">Home Equity</h2>
           <div className="relative w-40 h-40 mx-auto my-6 flex items-center justify-center">
             <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
@@ -3322,7 +3322,7 @@ const App = () => {
             onClick={() => setFinancingSubPage("zakat")}
             className="p-5 bg-[#c9a876]-50 rounded-[1.5rem] border border-[#c9a876]/20 cursor-pointer active:scale-95 transition-transform"
           >
-            <Fingerprint className="text-[#f5f1e9]600 mb-3" size={24} />
+            <Fingerprint className="text-[#f5f1e9]/60 mb-3" size={24} />
             <p className="font-bold text-xs text-[#f5f1e9]900">Zakat</p>
             <p className="text-[8px] text-[#f5f1e9]/40 font-bold uppercase mt-0.5">
               Calculator
@@ -3340,7 +3340,7 @@ const App = () => {
           </div>
         </div>
         {/* Subscription Info */}
-        <div className="bg-white p-6 rounded-[2.5rem] border border-[#4a3728] shadow-sm space-y-4">
+        <div className="bg-[#4a3728] p-6 rounded-[2.5rem] border border-[#4a3728] shadow-sm space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="p-3 bg-[#1a1410] rounded-2xl text-[#c9a876]">
@@ -3402,7 +3402,7 @@ const App = () => {
               else if (typeof setFinancingSubPage === "function")
                 setFinancingSubPage("main");
             }}
-            className="p-3 bg-white rounded-2xl shadow-sm border border-[#4a3728] active:scale-95 transition-transform"
+            className="p-3 bg-[#4a3728] rounded-2xl shadow-sm border border-[#4a3728] active:scale-95 transition-transform"
           >
             <ChevronLeft className="text-[#f5f1e9]/70" />
           </button>
@@ -3425,7 +3425,7 @@ const App = () => {
       {/* Step 1: Assets */}
       {zakatStep === 1 && (
         <div className="space-y-6 animate-in fade-in duration-300">
-          <div className="bg-white p-6 rounded-[2.5rem] border border-[#4a3728] shadow-sm space-y-6">
+          <div className="bg-[#4a3728] p-6 rounded-[2.5rem] border border-[#4a3728] shadow-sm space-y-6">
             <div className="flex items-center gap-3 px-2">
               <TrendingUp className="text-[#c9a876]" size={20} />
               <h3 className="font-bold text-[#f5f1e9]">
@@ -3515,7 +3515,7 @@ const App = () => {
       {/* Step 2: Liabilities */}
       {zakatStep === 2 && (
         <div className="space-y-6 animate-in fade-in duration-300">
-          <div className="bg-white p-6 rounded-[2.5rem] border border-[#4a3728] shadow-sm space-y-6">
+          <div className="bg-[#4a3728] p-6 rounded-[2.5rem] border border-[#4a3728] shadow-sm space-y-6">
             <div className="flex items-center gap-3 px-2 text-[#E74C3C]">
               <TrendingDown size={20} />
               <h3 className="font-bold text-[#f5f1e9]">Step 2: Liabilities</h3>
@@ -3585,13 +3585,13 @@ const App = () => {
             <h3 className="text-5xl font-black tracking-tighter mb-4">
               ${zakatDue.toFixed(2)}
             </h3>
-            <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full text-[10px] font-bold">
+            <div className="inline-flex items-center gap-2 bg-[#4a3728]/10 px-4 py-2 rounded-full text-[10px] font-bold">
               <ShieldCheck size={14} className="text-[#c9a876]" /> Shariah
               Compliant
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 space-y-3">
+          <div className="bg-[#4a3728] p-6 rounded-[2.5rem] border border-slate-100 space-y-3">
             <div className="flex justify-between text-sm">
               <span className="text-[#f5f1e9]/40">Total Assets</span>
               <span className="font-bold">${totalAssets.toLocaleString()}</span>
@@ -3636,7 +3636,7 @@ const App = () => {
       {/* Step 4: Charity Selection */}
       {zakatStep === 4 && (
         <div className="space-y-6 animate-in fade-in duration-300">
-          <div className="bg-white p-6 rounded-[2.5rem] border border-[#4a3728] shadow-sm space-y-6">
+          <div className="bg-[#4a3728] p-6 rounded-[2.5rem] border border-[#4a3728] shadow-sm space-y-6">
             <div className="flex items-center gap-3 px-2">
               <Heart className="text-[#c9a876]" size={20} />
               <h3 className="font-bold text-[#f5f1e9]">
@@ -3658,8 +3658,8 @@ const App = () => {
                   <div
                     className={`p-3 rounded-2xl ${
                       selectedCharity === charity.id
-                        ? "bg-white shadow-sm"
-                        : "bg-white border border-[#4a3728]"
+                        ? "bg-[#4a3728] shadow-sm"
+                        : "bg-[#4a3728] border border-[#4a3728]"
                     }`}
                   >
                     {charity.icon}
@@ -3737,7 +3737,7 @@ const App = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setFinancingSubPage("main")}
-            className="p-2 bg-white rounded-lg shadow-sm active:scale-90 transition-transform"
+            className="p-2 bg-[#4a3728] rounded-lg shadow-sm active:scale-90 transition-transform"
           >
             <ChevronLeft size={18} />
           </button>
@@ -3775,8 +3775,8 @@ const App = () => {
               onClick={() => setFrequency(f)}
               className={`flex-1 py-2.5 rounded-xl text-[10px] font-black uppercase transition-all ${
                 frequency === f
-                  ? "bg-white text-[#c9a876] shadow-sm"
-                  : "text-[#f5f1e9]/40 hover:text-[#f5f1e9]600"
+                  ? "bg-[#4a3728] text-[#c9a876] shadow-sm"
+                  : "text-[#f5f1e9]/40 hover:text-[#f5f1e9]/60"
               }`}
             >
               {f.replace("-", " ")}
@@ -3785,7 +3785,7 @@ const App = () => {
         </div>
 
         {/* Input Sliders */}
-        <div className="bg-white p-6 rounded-[2rem] border border-slate-100 space-y-6 shadow-sm">
+        <div className="bg-[#4a3728] p-6 rounded-[2rem] border border-slate-100 space-y-6 shadow-sm">
           {/* Car Price Slider */}
           <div className="space-y-3">
             <div className="flex justify-between items-end">
@@ -3857,7 +3857,7 @@ const App = () => {
         </div>
 
         {/* Breakdown & Compliance */}
-        <div className="bg-white p-5 rounded-[1.5rem] border border-dashed border-[#4a3728] grid grid-cols-2 gap-4">
+        <div className="bg-[#4a3728] p-5 rounded-[1.5rem] border border-dashed border-[#4a3728] grid grid-cols-2 gap-4">
           <div>
             <p className="text-[9px] font-bold text-[#f5f1e9]/40 uppercase mb-0.5">
               Financed Amount
@@ -3917,7 +3917,7 @@ const App = () => {
         </div>
 
         <div className="w-full max-w-[200px] mb-20">
-          <div className="h-[3px] w-full bg-white/10 rounded-full overflow-hidden relative">
+          <div className="h-[3px] w-full bg-[#4a3728]/10 rounded-full overflow-hidden relative">
             <div
               className="h-full bg-[#c9a876] shadow-[0_0_8px_rgba(45,67,54,0.5)] transition-all duration-100 ease-out"
               style={{ width: `${loadProgress}%` }}
@@ -3943,9 +3943,9 @@ const App = () => {
 
   // Main App (Authenticated)
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex flex-col px-5 pt-[env(safe-area-inset-top,20px)] select-none overflow-hidden font-sans">
+    <div className="min-h-screen bg-[#1a1410] flex flex-col px-5 pt-[env(safe-area-inset-top,20px)] select-none overflow-hidden font-sans">
       {notification && (
-        <div className="fixed top-8 left-5 right-5 z-[100] bg-white shadow-2xl rounded-2xl p-3 border-l-4 border-[#c9a876] animate-in slide-in-from-top-4 flex items-center gap-3">
+        <div className="fixed top-8 left-5 right-5 z-[100] bg-[#4a3728] shadow-2xl rounded-2xl p-3 border-l-4 border-[#c9a876] animate-in slide-in-from-top-4 flex items-center gap-3">
           <CheckCircle2 className="text-[#c9a876] shrink-0" size={18} />
           <div className="truncate">
             <p className="font-bold text-xs text-[#f5f1e9]900 leading-tight truncate">
@@ -3981,7 +3981,7 @@ const App = () => {
           <select
             value={locale}
             onChange={(e) => setLocale(e.target.value)}
-            className="text-xs bg-white border rounded px-2 py-1"
+            className="text-xs bg-[#4a3728] border rounded px-2 py-1"
             aria-label="Language selector"
           >
             <option value="en">English</option>
@@ -4012,7 +4012,7 @@ const App = () => {
         {renderBiometricModal()}
         {activeTab === "purify" && (
           <div className="space-y-4 animate-in zoom-in-95 duration-200">
-            <div className="bg-white p-8 rounded-[2rem] shadow border border-slate-50 text-center">
+            <div className="bg-[#4a3728] p-8 rounded-[2rem] shadow border border-slate-50 text-center">
               <div className="w-16 h-16 bg-[#1a1410] text-[#c9a876]-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Droplets size={32} />
               </div>
@@ -4043,7 +4043,7 @@ const App = () => {
         {activeTab === "settings" && renderCard()}
       </main>
 
-      <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-slate-50 px-6 flex justify-between items-center h-[75px] pb-safe">
+      <nav className="fixed bottom-0 left-0 right-0 bg-[#4a3728]/95 backdrop-blur-xl border-t border-slate-50 px-6 flex justify-between items-center h-[75px] pb-safe">
         <NavButton
           active={activeTab === "dashboard"}
           onClick={() => setActiveTab("dashboard")}
