@@ -983,7 +983,7 @@ const App = () => {
           {transactions.map((tx) => (
             <div
               key={tx.id}
-              className={`bg-[#AEC3B0] p-3.5 rounded-2xl border flex items-center justify-between shadow-sm ${
+              className={`bg-[#F2F1EF] p-3.5 rounded-2xl border flex items-center justify-between shadow-sm ${
                 tx.status === "declined"
                   ? "border-rose-100 opacity-80"
                   : "border-[#F7F5F0]"
@@ -1015,7 +1015,7 @@ const App = () => {
                   >
                     {tx.name}
                   </p>
-                  <p className="text-[9px] text-white/40 font-bold uppercase">
+                  <p className="text-[9px] text-[#0D2B1D]/40 font-bold uppercase">
                     {tx.time}
                   </p>
                 </div>
