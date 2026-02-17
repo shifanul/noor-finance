@@ -621,7 +621,7 @@ const App = () => {
           >
             <ChevronLeft size={18} />
           </button>
-          <h2 className="text-xl font-bold text-[#0D2B1D]">
+          <h2 className="text-xl font-semibold text-[#0D2B1D]">
             {t("subscriptionPlans")}
           </h2>
         </div>
@@ -638,15 +638,15 @@ const App = () => {
             >
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h3 className="font-bold text-lg text-[#0D2B1D]">
+                  <h3 className="font-semibold text-lg text-[#0D2B1D]">
                     {tier.name}
                   </h3>
-                  <p className="text-xs font-bold text-[#0D2B1D]/40 uppercase tracking-widest">
+                  <p className="text-xs font-semibold text-[#0D2B1D]/40 uppercase tracking-widest">
                     {tier.price}
                   </p>
                 </div>
                 {currentTier === tier.id ? (
-                  <span className="bg-[#0D2B1D] text-white text-[10px] px-3 py-1.5 rounded-full font-black uppercase flex items-center gap-1.5">
+                  <span className="bg-[#0D2B1D] text-white text-xs px-3 py-1.5 rounded-full font-black uppercase flex items-center gap-1.5">
                     <Check size={12} strokeWidth={3} /> Active
                   </span>
                 ) : (
@@ -655,7 +655,7 @@ const App = () => {
                       setCurrentTier(tier.id);
                       triggerNotification(`Upgraded to ${tier.name}`);
                     }}
-                    className="bg-[#0D2B1D] text-[#D9B18E] text-[10px] px-4 py-1.5 rounded-full font-bold uppercase hover:bg-[#243332] transition-colors"
+                    className="bg-[#0D2B1D] text-[#D9B18E] text-xs px-4 py-1.5 rounded-full font-semibold uppercase hover:bg-[#243332] transition-colors"
                   >
                     Select Plan
                   </button>
@@ -686,19 +686,19 @@ const App = () => {
         <div className="bg-\[#F2F1EF\] p-6 rounded-[2rem] border border-[#AEC3B0] shadow-sm">
           <div className="flex items-center gap-2 mb-3">
             <FileText size={16} className="text-[#0d2b1d]" />
-            <h3 className="text-[10px] font-black uppercase tracking-widest text-[#0D2B1D]/40">
+            <h3 className="text-xs font-black uppercase tracking-widest text-[#0D2B1D]/40">
               Membership Agreement
             </h3>
           </div>
           <div className="space-y-3">
             <p className="text-[11px] text-[#0D2B1D]/60 leading-relaxed">
               By subscribing, you enter into a{" "}
-              <span className="text-[#0D2B1D] font-bold">
+              <span className="text-[#0D2B1D] font-semibold">
                 Wakalah Agreement
               </span>{" "}
               where Rizq. acts as your agent for ethical financial management.
             </p>
-            <div className="flex items-start gap-2 text-[10px] text-[#0D2B1D]/40 bg-[#F7F5F0] p-3 rounded-xl border border-[#AEC3B0]">
+            <div className="flex items-start gap-2 text-xs text-[#0D2B1D]/40 bg-[#F7F5F0] p-3 rounded-xl border border-[#AEC3B0]">
               <Clock size={12} className="mt-0.5 shrink-0" />
               <p>
                 Monthly fees are billed on the 1st of every month. No interest
@@ -812,7 +812,7 @@ const App = () => {
         <h1 className="text-4xl font-black italic tracking-tighter text-[#D9B18E] mb-2">
           Rizq.
         </h1>
-        <p className="text-[#0D2B1D]/60 text-[10px] font-bold uppercase tracking-[0.2em]">
+        <p className="text-[#0D2B1D]/60 text-xs font-semibold uppercase tracking-[0.2em]">
           {t("secureAccess")}
         </p>
       </div>
@@ -835,7 +835,7 @@ const App = () => {
             </div>
           )}
         </div>
-        <h2 className="text-[#D9B18E] font-bold text-lg">
+        <h2 className="text-[#D9B18E] font-semibold text-lg">
           {t("welcomeBack", { name: "Shifanul" })}
         </h2>
         <p className="text-[#0D2B1D]/40 text-xs mt-1">
@@ -886,7 +886,7 @@ const App = () => {
         </button>
       </div>
 
-      <button className="mt-12 text-[#0D2B1D]/40 text-[10px] font-bold uppercase tracking-widest hover:text-[#D9B18E] transition-colors">
+      <button className="mt-12 text-[#0D2B1D]/40 text-xs font-semibold uppercase tracking-widest hover:text-[#D9B18E] transition-colors">
         {t("forgotPin")}
       </button>
     </div>
@@ -897,65 +897,67 @@ const App = () => {
       <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
         <button
           onClick={simulateSync}
-          className="whitespace-nowrap bg-[#D9B18E] text-white text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
+          className="whitespace-nowrap bg-[#D9B18E] text-white text-xs font-semibold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
         >
           <RefreshCcw size={12} className={isSyncing ? "animate-spin" : ""} />{" "}
           {t("sync")}
         </button>
         <button
           onClick={addRandomTransaction}
-          className="whitespace-nowrap bg-[#AEC3B0] text-[#0D2B1D] text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
+          className="whitespace-nowrap bg-[#AEC3B0] text-[#0D2B1D] text-xs font-semibold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
         >
           <Zap size={12} /> {t("simulate")}
         </button>
       </div>
 
-      <div className="bg-[#AEC3B0] rounded-[2rem] p-6 text-[#0D2B1D] border border-[#AEC3B0] shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-br from-[#aec3b0] to-[#9ab09c] rounded-[2rem] p-7 text-[#0D2B1D] shadow-lg relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -mr-20 -mt-20"></div>
         <div className="relative z-10">
-          <p className="text-white/80 text-[10px] font-bold uppercase tracking-widest">
+          <p className="text-[#0D2B1D]/70 text-xs font-semibold uppercase tracking-widest">
             {t("totalWealth")}
           </p>
-          <h1 className="text-3xl font-bold mt-1 tracking-tight">
+          <h1 className="text-5xl font-semibold mt-2 tracking-tight">
             ${balance.toLocaleString()}
           </h1>
-          <div className="mt-4 flex justify-between items-center">
-            <div className="flex items-center gap-1.5 text-[#0D2B1D] font-bold text-xs">
-              <TrendingUp size={14} /> <span>+4.2% APY</span>
+          <div className="mt-6 flex justify-between items-center">
+            <div className="flex items-center gap-2 text-[#0D2B1D] font-semibold text-sm">
+              <TrendingUp size={16} /> <span>+4.2% APY</span>
             </div>
-            <div className="bg-\[#F2F1EF\]/10 px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-tighter">
+            <div className="bg-white/20 backdrop-blur px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest">
               Mudarabah
             </div>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-4 gap-3">
         {[
           {
-            icon: <ArrowUpRight size={20} />,
+            icon: <ArrowUpRight size={22} />,
             label: t("transfer"),
-            color: "bg-[#0D2B1D] text-[#AEC3B0]/70",
+            color: "bg-[#aec3b0] text-white shadow-md hover:shadow-lg",
             action: () => {
               setActiveTab("transfer-hub");
             },
           },
           {
-            icon: <ArrowDownRight size={20} />,
+            icon: <ArrowDownRight size={22} />,
             label: t("deposit"),
-            color: "bg-[#0D2B1D] text-[#AEC3B0]/70",
+            color: "bg-[#d9b18e] text-white shadow-md hover:shadow-lg",
           },
           {
-            icon: <Wallet size={20} />,
+            icon: <Wallet size={22} />,
             label: t("equity"),
-            color: "bg-[#0D2B1D] text-[#AEC3B0]/70",
+            color: "bg-[#0d2b1d] text-[#aec3b0] shadow-md hover:shadow-lg",
             action: () => {
               setActiveTab("financing");
             },
           },
           {
-            icon: <Fingerprint size={20} />,
+            icon: <Fingerprint size={22} />,
             label: t("zakat"),
-            color: "bg-[#0D2B1D] text-[#AEC3B0]/70",
+            color:
+              "bg-gradient-to-br from-[#aec3b0] to-[#d9b18e] text-white shadow-md hover:shadow-lg",
             action: () => {
               setActiveTab("financing");
               setFinancingSubPage("zakat");
@@ -965,10 +967,12 @@ const App = () => {
           <button
             key={idx}
             onClick={item.action}
-            className="flex flex-col items-center gap-1.5 active:scale-90 transition-transform"
+            className="flex flex-col items-center gap-2 active:scale-95 transition-all"
           >
-            <div className={`p-3.5 rounded-2xl ${item.color}`}>{item.icon}</div>
-            <span className="text-[9px] font-bold text-[#0D2B1D]/60 uppercase tracking-tighter">
+            <div className={`p-4 rounded-xl transition-all ${item.color}`}>
+              {item.icon}
+            </div>
+            <span className="text-xs font-semibold text-[#0d2b1d] uppercase tracking-wider">
               {item.label}
             </span>
           </button>
@@ -976,17 +980,17 @@ const App = () => {
       </div>
 
       <div className="mt-2">
-        <h2 className="text-lg font-bold mb-3 px-1 text-[#0D2B1D]">
+        <h2 className="text-xl font-semibold mb-5 px-1 text-[#0d2b1d] tracking-tight">
           {t("activity")}
         </h2>
-        <div className="space-y-2">
+        <div className="space-y-3">
           {transactions.map((tx) => (
             <div
               key={tx.id}
-              className={`bg-[#F2F1EF] p-3.5 rounded-2xl border flex items-center justify-between shadow-sm ${
+              className={`bg-white p-4 rounded-xl border flex items-center justify-between transition-all hover:shadow-md ${
                 tx.status === "declined"
-                  ? "border-rose-100 opacity-80"
-                  : "border-[#F7F5F0]"
+                  ? "border-[#ffb9b9] opacity-75"
+                  : "border-[#aec3b0]/20"
               }`}
             >
               <div className="flex items-center gap-3 overflow-hidden">
@@ -1007,7 +1011,7 @@ const App = () => {
                 </div>
                 <div className="truncate">
                   <p
-                    className={`font-bold text-xs truncate ${
+                    className={`font-semibold text-xs truncate ${
                       tx.status === "declined"
                         ? "text-rose-900"
                         : "text-[#0D2B1D]"
@@ -1015,14 +1019,14 @@ const App = () => {
                   >
                     {tx.name}
                   </p>
-                  <p className="text-[9px] text-[#0D2B1D]/40 font-bold uppercase">
+                  <p className="text-xs text-[#0D2B1D]/40 font-semibold uppercase">
                     {tx.time}
                   </p>
                 </div>
               </div>
               <div className="text-right shrink-0 ml-2">
                 <p
-                  className={`font-bold text-xs ${
+                  className={`font-semibold text-xs ${
                     tx.status === "declined"
                       ? "text-rose-300 line-through"
                       : "text-[#0D2B1D]"
@@ -1049,14 +1053,14 @@ const App = () => {
             >
               <ChevronLeft size={24} />
             </button>
-            <h2 className="text-lg font-bold">E-Transfer Settings</h2>
+            <h2 className="text-lg font-semibold">E-Transfer Settings</h2>
             <div className="w-10" />
           </div>
 
           <div className="space-y-6">
             {/* AutoDeposit Section */}
             <div className="bg-blue-50 p-6 rounded-[2rem] border border-blue-100">
-              <h3 className="text-sm font-bold text-blue-900 mb-4">
+              <h3 className="text-sm font-semibold text-blue-900 mb-4">
                 AutoDeposit
               </h3>
               <p className="text-xs text-blue-700/80 mb-4 leading-relaxed">
@@ -1067,18 +1071,18 @@ const App = () => {
 
               <div className="space-y-3">
                 <div className="bg-\[#F2F1EF\] p-4 rounded-xl">
-                  <p className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest mb-2">
+                  <p className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest mb-2">
                     Email Address
                   </p>
-                  <p className="text-sm font-bold text-[#0D2B1D]">
+                  <p className="text-sm font-semibold text-[#0D2B1D]">
                     {autoDepositSettings.emailLinked}
                   </p>
                   <div className="flex gap-2 mt-3">
-                    <button className="text-xs py-2 px-4 rounded-lg bg-blue-100 text-blue-700 font-bold active:scale-90 transition-transform">
+                    <button className="text-xs py-2 px-4 rounded-xl bg-blue-100 text-blue-700 font-semibold active:scale-90 transition-transform">
                       Change Email
                     </button>
                     <button
-                      className={`text-xs py-2 px-4 rounded-lg font-bold active:scale-90 transition-transform ${
+                      className={`text-xs py-2 px-4 rounded-xl font-semibold active:scale-90 transition-transform ${
                         autodeposit &&
                         recipientIdentifier === autoDepositSettings.emailLinked
                           ? "bg-[#f2f1ef] text-[#0d2b1d]"
@@ -1094,14 +1098,14 @@ const App = () => {
                 </div>
 
                 <div className="bg-\[#F2F1EF\] p-4 rounded-xl">
-                  <p className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest mb-2">
+                  <p className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest mb-2">
                     Phone Number
                   </p>
-                  <p className="text-sm font-bold text-[#0D2B1D]">
+                  <p className="text-sm font-semibold text-[#0D2B1D]">
                     {autoDepositSettings.phoneLinked}
                   </p>
                   <div className="flex gap-2 mt-3">
-                    <button className="text-xs py-2 px-4 rounded-lg bg-[#AEC3B0] text-[#0D2B1D]/70 font-bold active:scale-90 transition-transform">
+                    <button className="text-xs py-2 px-4 rounded-xl bg-[#AEC3B0] text-[#0D2B1D]/70 font-semibold active:scale-90 transition-transform">
                       Change Phone
                     </button>
                   </div>
@@ -1111,12 +1115,12 @@ const App = () => {
 
             {/* Transaction Limits */}
             <div className="bg-[#F7F5F0] p-6 rounded-[2rem] border border-[#AEC3B0]">
-              <h3 className="text-sm font-bold text-[#0D2B1D] mb-4">
+              <h3 className="text-sm font-semibold text-[#0D2B1D] mb-4">
                 Transaction Limits
               </h3>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-xs font-bold text-[#0D2B1D]/70">
+                  <span className="text-xs font-semibold text-[#0D2B1D]/70">
                     Max per Transaction
                   </span>
                   <span className="text-sm font-black text-[#0D2B1D]">
@@ -1138,7 +1142,7 @@ const App = () => {
 
             {/* Transaction Details */}
             <div className="bg-amber-50 p-6 rounded-[2rem] border border-amber-100">
-              <h3 className="text-sm font-bold text-amber-900 mb-4">
+              <h3 className="text-sm font-semibold text-amber-900 mb-4">
                 Important Terms
               </h3>
               <div className="space-y-2 text-xs text-amber-700/80">
@@ -1175,13 +1179,13 @@ const App = () => {
             >
               <ChevronLeft size={24} />
             </button>
-            <h2 className="text-lg font-bold">Add New Contact</h2>
+            <h2 className="text-lg font-semibold">Add New Contact</h2>
             <div className="w-10" />
           </div>
 
           <div className="space-y-6">
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+              <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">
                 Full Name
               </label>
               <input
@@ -1189,12 +1193,12 @@ const App = () => {
                 placeholder="John Doe"
                 value={newContactName}
                 onChange={(e) => setNewContactName(e.target.value)}
-                className="w-full bg-\[#F2F1EF\] border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-\[#F2F1EF\] border border-slate-200 rounded-xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+              <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">
                 Email or Phone
               </label>
               <input
@@ -1202,7 +1206,7 @@ const App = () => {
                 placeholder="email@example.com or +1 (555) 123-4567"
                 value={newContactEmail}
                 onChange={(e) => setNewContactEmail(e.target.value)}
-                className="w-full bg-\[#F2F1EF\] border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-\[#F2F1EF\] border border-slate-200 rounded-xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               />
             </div>
 
@@ -1254,11 +1258,11 @@ const App = () => {
             }}
             className="w-full bg-\[#F2F1EF\] p-6 rounded-[2.5rem] border-2 border-transparent hover:border-[#aec3b0] shadow-sm flex items-center gap-5 group transition-all"
           >
-            <div className="w-14 h-14 rounded-2xl bg-[#AEC3B0] text-[#D9B18E] flex items-center justify-center group-hover:bg-[#D9B18E] group-hover:text-[#F7F5F0] transition-all">
+            <div className="w-14 h-14 rounded-xl bg-[#AEC3B0] text-[#D9B18E] flex items-center justify-center group-hover:bg-[#D9B18E] group-hover:text-[#F7F5F0] transition-all">
               <Smartphone size={24} />
             </div>
             <div className="text-left">
-              <p className="font-bold text-[#0D2B1D]">E-transfer</p>
+              <p className="font-semibold text-[#0D2B1D]">E-transfer</p>
               <p className="text-xs text-[#0D2B1D]/40 font-medium">
                 Send money via phone or email
               </p>
@@ -1276,11 +1280,11 @@ const App = () => {
             }}
             className="w-full bg-\[#F2F1EF\] p-6 rounded-[2.5rem] border-2 border-transparent hover:border-[#aec3b0] shadow-sm flex items-center gap-5 group transition-all"
           >
-            <div className="w-14 h-14 rounded-2xl bg-[#f2f1ef] text-[#0d2b1d] flex items-center justify-center group-hover:bg-[#aec3b0] group-hover:text-[#D9B18E] transition-all">
+            <div className="w-14 h-14 rounded-xl bg-[#f2f1ef] text-[#0d2b1d] flex items-center justify-center group-hover:bg-[#aec3b0] group-hover:text-[#D9B18E] transition-all">
               <Building size={24} />
             </div>
             <div className="text-left">
-              <p className="font-bold text-[#0D2B1D]">Bank Transfer</p>
+              <p className="font-semibold text-[#0D2B1D]">Bank Transfer</p>
               <p className="text-xs text-[#0D2B1D]/40 font-medium">
                 Transfer to another account
               </p>
@@ -1298,11 +1302,11 @@ const App = () => {
             }}
             className="w-full bg-\[#F2F1EF\] p-6 rounded-[2.5rem] border-2 border-transparent hover:border-[#aec3b0] shadow-sm flex items-center gap-5 group transition-all"
           >
-            <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:bg-amber-600 group-hover:text-[#D9B18E] transition-all">
+            <div className="w-14 h-14 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:bg-amber-600 group-hover:text-[#D9B18E] transition-all">
               <RefreshCcw size={24} />
             </div>
             <div className="text-left">
-              <p className="font-bold text-[#0D2B1D]">Internal Transfer</p>
+              <p className="font-semibold text-[#0D2B1D]">Internal Transfer</p>
               <p className="text-xs text-[#0D2B1D]/40 font-medium">
                 Move between your accounts
               </p>
@@ -1318,48 +1322,48 @@ const App = () => {
         <div className="grid grid-cols-4 gap-2 mb-6">
           <button
             onClick={() => setActiveTab("beneficiary-manager")}
-            className="bg-\[#F2F1EF\] p-4 rounded-2xl border border-[#AEC3B0] hover:border-[#D9B18E] flex flex-col items-center gap-2 group transition-all active:scale-95"
+            className="bg-\[#F2F1EF\] p-4 rounded-xl border border-[#AEC3B0] hover:border-[#D9B18E] flex flex-col items-center gap-2 group transition-all active:scale-95"
           >
             <div className="text-2xl group-hover:scale-110 transition-transform">
               👥
             </div>
-            <p className="text-[10px] font-bold text-[#0D2B1D]/70 text-center">
+            <p className="text-xs font-semibold text-[#0D2B1D]/70 text-center">
               Beneficiaries
             </p>
           </button>
 
           <button
             onClick={() => setActiveTab("transfer-history")}
-            className="bg-\[#F2F1EF\] p-4 rounded-2xl border border-[#AEC3B0] hover:border-emerald-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
+            className="bg-\[#F2F1EF\] p-4 rounded-xl border border-[#AEC3B0] hover:border-emerald-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
           >
             <div className="text-2xl group-hover:scale-110 transition-transform">
               📋
             </div>
-            <p className="text-[10px] font-bold text-[#0D2B1D]/70 text-center">
+            <p className="text-xs font-semibold text-[#0D2B1D]/70 text-center">
               History
             </p>
           </button>
 
           <button
             onClick={() => setActiveTab("transfer-analytics")}
-            className="bg-\[#F2F1EF\] p-4 rounded-2xl border border-[#AEC3B0] hover:border-blue-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
+            className="bg-\[#F2F1EF\] p-4 rounded-xl border border-[#AEC3B0] hover:border-blue-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
           >
             <div className="text-2xl group-hover:scale-110 transition-transform">
               📊
             </div>
-            <p className="text-[10px] font-bold text-[#0D2B1D]/70 text-center">
+            <p className="text-xs font-semibold text-[#0D2B1D]/70 text-center">
               Analytics
             </p>
           </button>
 
           <button
             onClick={() => setShowScheduleTransfer(true)}
-            className="bg-\[#F2F1EF\] p-4 rounded-2xl border border-[#AEC3B0] hover:border-amber-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
+            className="bg-\[#F2F1EF\] p-4 rounded-xl border border-[#AEC3B0] hover:border-amber-300 flex flex-col items-center gap-2 group transition-all active:scale-95"
           >
             <div className="text-2xl group-hover:scale-110 transition-transform">
               ⏰
             </div>
-            <p className="text-[10px] font-bold text-[#0D2B1D]/70 text-center">
+            <p className="text-xs font-semibold text-[#0D2B1D]/70 text-center">
               Schedule
             </p>
           </button>
@@ -1368,12 +1372,12 @@ const App = () => {
         {/* E-Transfer History */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest">
+            <p className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest">
               Recent Transfers
             </p>
             <button
               onClick={() => setShowAddContact(true)}
-              className="text-xs font-bold text-[#0d2b1d] hover:text-[#0d2b1d] active:scale-90 transition-all"
+              className="text-xs font-semibold text-[#0d2b1d] hover:text-[#0d2b1d] active:scale-90 transition-all"
             >
               + Add Contact
             </button>
@@ -1396,20 +1400,20 @@ const App = () => {
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold text-[#0D2B1D] truncate">
+                    <p className="text-sm font-semibold text-[#0D2B1D] truncate">
                       {transfer.name}
                     </p>
-                    <p className="text-xs text-[#0D2B1D]/40 font-bold uppercase">
+                    <p className="text-xs text-[#0D2B1D]/40 font-semibold uppercase">
                       {transfer.date}
                     </p>
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="text-sm font-bold text-[#0D2B1D]">
+                  <p className="text-sm font-semibold text-[#0D2B1D]">
                     ${transfer.amount.toFixed(2)}
                   </p>
                   <p
-                    className={`text-[10px] font-bold uppercase ${
+                    className={`text-xs font-semibold uppercase ${
                       transfer.status === "completed"
                         ? "text-[#0d2b1d]"
                         : "text-amber-600"
@@ -1425,11 +1429,11 @@ const App = () => {
 
         <div className="mt-auto bg-[#f2f1ef] p-6 rounded-[2rem] border border-[#aec3b0]">
           <div className="flex gap-4 items-start">
-            <div className="p-2 bg-[#f2f1ef] text-[#0d2b1d] rounded-lg">
+            <div className="p-2 bg-[#f2f1ef] text-[#0d2b1d] rounded-xl">
               <ShieldCheck size={20} />
             </div>
             <div>
-              <p className="text-sm font-bold text-[#0d2b1d]">
+              <p className="text-sm font-semibold text-[#0d2b1d]">
                 Interest-Free Routing
               </p>
               <p className="text-xs text-[#0d2b1d]/70 mt-1 leading-relaxed">
@@ -1450,10 +1454,10 @@ const App = () => {
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[250] p-4 animate-in fade-in duration-300">
         <div className="bg-\[#F2F1EF\] rounded-[2rem] w-full max-w-[450px] p-6 space-y-4 animate-in zoom-in-95 duration-300 max-h-[80vh] overflow-y-auto">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-bold">Schedule Transfer</h2>
+            <h2 className="text-lg font-semibold">Schedule Transfer</h2>
             <button
               onClick={() => setShowScheduleTransfer(false)}
-              className="p-2 hover:bg-[#F7F5F0] rounded-lg transition-all"
+              className="p-2 hover:bg-[#F7F5F0] rounded-xl transition-all"
             >
               <X size={20} />
             </button>
@@ -1461,7 +1465,7 @@ const App = () => {
 
           <div className="space-y-4">
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest">
+              <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest">
                 Recipient
               </label>
               <select className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-xl p-3 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none">
@@ -1475,7 +1479,7 @@ const App = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest">
+              <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest">
                 Amount
               </label>
               <div className="relative">
@@ -1487,14 +1491,14 @@ const App = () => {
                   type="number"
                   value={transferAmount}
                   onChange={(e) => setTransferAmount(e.target.value)}
-                  className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-xl p-3 pl-12 text-sm font-bold focus:ring-2 ring-emerald-500 outline-none"
+                  className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-xl p-3 pl-12 text-sm font-semibold focus:ring-2 ring-emerald-500 outline-none"
                   placeholder="0.00"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest">
+              <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest">
                 Frequency
               </label>
               <select
@@ -1511,7 +1515,7 @@ const App = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest">
+              <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest">
                 Start Date
               </label>
               <input
@@ -1523,7 +1527,7 @@ const App = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest">
+              <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest">
                 Category
               </label>
               <select
@@ -1541,7 +1545,7 @@ const App = () => {
             </div>
 
             <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 text-xs text-blue-700">
-              <p className="font-bold mb-2">
+              <p className="font-semibold mb-2">
                 ✓ Scheduled transfers are automatic
               </p>
               <p>
@@ -1554,14 +1558,14 @@ const App = () => {
           <div className="flex gap-3 mt-6">
             <button
               onClick={() => setShowScheduleTransfer(false)}
-              className="flex-1 bg-[#AEC3B0] text-[#0D2B1D]/70 py-3 rounded-xl font-bold transition-all active:scale-95"
+              className="flex-1 bg-[#AEC3B0] text-[#0D2B1D]/70 py-3 rounded-xl font-semibold transition-all active:scale-95"
             >
               Cancel
             </button>
             <button
               disabled={!scheduleDate || !transferAmount}
               onClick={handleScheduleTransfer}
-              className="flex-1 bg-[#F7F5F0] text-[#D9B18E] py-3 rounded-xl font-bold shadow-lg transition-all active:scale-95 disabled:opacity-50"
+              className="flex-1 bg-[#F7F5F0] text-[#D9B18E] py-3 rounded-xl font-semibold shadow-lg transition-all active:scale-95 disabled:opacity-50"
             >
               Schedule Transfer
             </button>
@@ -1672,13 +1676,13 @@ const App = () => {
             >
               <ChevronLeft size={24} />
             </button>
-            <h2 className="text-lg font-bold">Add New Contact</h2>
+            <h2 className="text-lg font-semibold">Add New Contact</h2>
             <div className="w-10" />
           </div>
 
           <div className="space-y-6">
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+              <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">
                 Full Name
               </label>
               <input
@@ -1686,12 +1690,12 @@ const App = () => {
                 placeholder="John Doe"
                 value={newContactName}
                 onChange={(e) => setNewContactName(e.target.value)}
-                className="w-full bg-\[#F2F1EF\] border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-\[#F2F1EF\] border border-slate-200 rounded-xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+              <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">
                 Email or Phone
               </label>
               <input
@@ -1699,7 +1703,7 @@ const App = () => {
                 placeholder="email@example.com or +1 (555) 123-4567"
                 value={newContactEmail}
                 onChange={(e) => setNewContactEmail(e.target.value)}
-                className="w-full bg-\[#F2F1EF\] border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-\[#F2F1EF\] border border-slate-200 rounded-xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               />
             </div>
 
@@ -1735,7 +1739,7 @@ const App = () => {
             >
               <ChevronLeft size={24} />
             </button>
-            <h2 className="text-lg font-bold">New E-Transfer</h2>
+            <h2 className="text-lg font-semibold">New E-Transfer</h2>
             <div className="w-10" />
           </div>
 
@@ -1743,7 +1747,7 @@ const App = () => {
           <div className="flex gap-2 mb-6">
             <button
               onClick={() => setETransferMode("send")}
-              className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all ${
+              className={`flex-1 py-3 rounded-xl font-semibold text-sm transition-all ${
                 eTransferMode === "send"
                   ? "bg-[#f2f1ef] text-[#0d2b1d]"
                   : "bg-[#F2F1EF] text-slate-600"
@@ -1753,7 +1757,7 @@ const App = () => {
             </button>
             <button
               onClick={() => setETransferMode("request")}
-              className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all ${
+              className={`flex-1 py-3 rounded-xl font-semibold text-sm transition-all ${
                 eTransferMode === "request"
                   ? "bg-[#f2f1ef] text-[#0d2b1d]"
                   : "bg-[#F2F1EF] text-slate-600"
@@ -1766,7 +1770,7 @@ const App = () => {
           {/* Recipient Selection */}
           <div className="space-y-4 mb-6">
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
+              <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
                 Send To (Email or Phone)
               </label>
               <input
@@ -1774,14 +1778,14 @@ const App = () => {
                 placeholder="email@example.com or +1 (555) 123-4567"
                 value={recipientIdentifier}
                 onChange={(e) => setRecipientIdentifier(e.target.value)}
-                className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               />
             </div>
 
             {/* One-Time Contact Toggle */}
             <div className="flex items-center justify-between bg-[#F7F5F0] p-4 rounded-xl">
               <div>
-                <p className="text-sm font-bold text-[#0D2B1D]">
+                <p className="text-sm font-semibold text-[#0D2B1D]">
                   One-Time Contact
                 </p>
                 <p className="text-xs text-[#0D2B1D]/40">Don't save contact</p>
@@ -1797,12 +1801,12 @@ const App = () => {
             {/* Quick Contacts */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <p className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest">
+                <p className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest">
                   {t("quick Contacts")}
                 </p>
                 <button
                   onClick={() => setShowAddContact(true)}
-                  className="text-xs font-bold text-[#0d2b1d] hover:text-[#0d2b1d] active:scale-90 transition-all"
+                  className="text-xs font-semibold text-[#0d2b1d] hover:text-[#0d2b1d] active:scale-90 transition-all"
                 >
                   + Add Contact
                 </button>
@@ -1822,7 +1826,7 @@ const App = () => {
                     >
                       {contact.initial}
                     </div>
-                    <span className="text-[9px] font-bold text-slate-600 text-center">
+                    <span className="text-xs font-semibold text-slate-600 text-center">
                       {contact.name.split(" ")[0]}
                     </span>
                   </button>
@@ -1837,7 +1841,9 @@ const App = () => {
             <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <p className="text-sm font-bold text-blue-900">AutoDeposit</p>
+                  <p className="text-sm font-semibold text-blue-900">
+                    AutoDeposit
+                  </p>
                   <p className="text-xs text-blue-700/70">
                     Link email for instant deposits
                   </p>
@@ -1861,7 +1867,7 @@ const App = () => {
             {!autodeposit && (
               <div className="space-y-3">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
+                  <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
                     Security Question
                   </label>
                   <input
@@ -1869,12 +1875,12 @@ const App = () => {
                     placeholder="e.g., What is your favorite color?"
                     value={securityQuestion}
                     onChange={(e) => setSecurityQuestion(e.target.value)}
-                    className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                    className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
+                  <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
                     Answer
                   </label>
                   <input
@@ -1882,7 +1888,7 @@ const App = () => {
                     placeholder="Your answer"
                     value={securityAnswer}
                     onChange={(e) => setSecurityAnswer(e.target.value)}
-                    className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                    className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
                   />
                 </div>
               </div>
@@ -1891,7 +1897,7 @@ const App = () => {
 
           {/* Amount Input */}
           <div className="space-y-2 mb-6">
-            <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
+            <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
               Amount (Max: ${MAX_TRANSFER_AMOUNT})
             </label>
             <div className="relative">
@@ -1903,7 +1909,7 @@ const App = () => {
                 type="number"
                 value={transferAmount}
                 onChange={(e) => setTransferAmount(e.target.value)}
-                className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
                 placeholder="0.00"
                 max={MAX_TRANSFER_AMOUNT}
               />
@@ -1949,13 +1955,13 @@ const App = () => {
             >
               <ChevronLeft size={24} />
             </button>
-            <h2 className="text-lg font-bold">Request Money</h2>
+            <h2 className="text-lg font-semibold">Request Money</h2>
             <div className="w-10" />
           </div>
 
           <div className="space-y-6">
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
+              <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
                 Request From (Email or Phone)
               </label>
               <input
@@ -1963,12 +1969,12 @@ const App = () => {
                 placeholder="email@example.com or +1 (555) 123-4567"
                 value={recipientIdentifier}
                 onChange={(e) => setRecipientIdentifier(e.target.value)}
-                className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               />
             </div>
 
             <div className="bg-[#F7F5F0] rounded-xl p-4">
-              <p className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest mb-3">
+              <p className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest mb-3">
                 Quick Contacts
               </p>
               <div className="grid grid-cols-4 gap-3">
@@ -1983,7 +1989,7 @@ const App = () => {
                     >
                       {contact.initial}
                     </div>
-                    <span className="text-[9px] font-bold text-slate-600 text-center">
+                    <span className="text-xs font-semibold text-slate-600 text-center">
                       {contact.name.split(" ")[0]}
                     </span>
                   </button>
@@ -1992,7 +1998,7 @@ const App = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
+              <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
                 Amount to Request (Max: ${MAX_TRANSFER_AMOUNT})
               </label>
               <div className="relative">
@@ -2004,7 +2010,7 @@ const App = () => {
                   type="number"
                   value={requestAmount}
                   onChange={(e) => setRequestAmount(e.target.value)}
-                  className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
+                  className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
                   placeholder="0.00"
                   max={MAX_TRANSFER_AMOUNT}
                 />
@@ -2012,13 +2018,13 @@ const App = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
+              <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
                 Reason (Optional)
               </label>
               <input
                 type="text"
                 placeholder="e.g., Rent payment, Bill split..."
-                className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               />
             </div>
 
@@ -2058,7 +2064,7 @@ const App = () => {
             >
               <ChevronLeft size={24} />
             </button>
-            <h2 className="text-lg font-bold">Confirm Transfer</h2>
+            <h2 className="text-lg font-semibold">Confirm Transfer</h2>
             <div className="w-10" />
           </div>
 
@@ -2076,7 +2082,7 @@ const App = () => {
                 <X size={14} />
               </button>
             </div>
-            <p className="font-bold text-[#0D2B1D] mb-1">
+            <p className="font-semibold text-[#0D2B1D] mb-1">
               {selectedContact.name}
             </p>
             <p className="text-xs text-[#0D2B1D]/40 mb-8">
@@ -2085,7 +2091,7 @@ const App = () => {
 
             <div className="w-full text-center mb-8">
               <div className="flex items-center justify-center gap-1">
-                <span className="text-4xl font-bold text-[#AEC3B0]">$</span>
+                <span className="text-4xl font-semibold text-[#AEC3B0]">$</span>
                 <span className="text-6xl font-black tracking-tighter text-[#0D2B1D]">
                   {transferAmount || "0"}
                 </span>
@@ -2104,7 +2110,7 @@ const App = () => {
                     else if (transferAmount.length < 7)
                       setTransferAmount((prev) => `${prev}${num}`);
                   }}
-                  className="h-12 flex items-center justify-center text-xl font-bold text-[#0D2B1D] active:bg-[#F7F5F0] rounded-full transition-all"
+                  className="h-12 flex items-center justify-center text-xl font-semibold text-[#0D2B1D] active:bg-[#F7F5F0] rounded-full transition-all"
                 >
                   {num === "del" ? <RefreshCcw size={20} /> : num}
                 </button>
@@ -2135,33 +2141,33 @@ const App = () => {
         >
           <ChevronLeft size={24} />
         </button>
-        <h2 className="text-lg font-bold">Bank Transfer</h2>
+        <h2 className="text-lg font-semibold">Bank Transfer</h2>
         <div className="w-10" />
       </div>
 
       <div className="space-y-6">
         <div className="space-y-2">
-          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+          <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">
             Recipient Name
           </label>
           <input
             type="text"
-            className="w-full bg-\[#F2F1EF\] border border-slate-200 rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+            className="w-full bg-\[#F2F1EF\] border border-slate-200 rounded-xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
             placeholder="Full Legal Name"
           />
         </div>
         <div className="space-y-2">
-          <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
+          <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
             Account Number
           </label>
           <input
             type="text"
-            className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none font-mono"
+            className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none font-mono"
             placeholder="0000 0000 0000"
           />
         </div>
         <div className="space-y-2">
-          <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
+          <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
             Amount
           </label>
           <div className="relative">
@@ -2173,7 +2179,7 @@ const App = () => {
               type="number"
               value={transferAmount}
               onChange={(e) => setTransferAmount(e.target.value)}
-              className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
+              className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
               placeholder="0.00"
             />
           </div>
@@ -2255,14 +2261,14 @@ const App = () => {
           >
             <ChevronLeft size={24} />
           </button>
-          <h2 className="text-lg font-bold">Internal Transfer</h2>
+          <h2 className="text-lg font-semibold">Internal Transfer</h2>
           <div className="w-10" />
         </div>
 
         <div className="space-y-6">
           {/* From Account */}
           <div className="space-y-3">
-            <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
+            <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
               From Account
             </label>
             <div className="space-y-2">
@@ -2272,7 +2278,7 @@ const App = () => {
                   <button
                     key={account.id}
                     onClick={() => setFromAccount(account.id)}
-                    className={`w-full p-4 rounded-2xl border-2 transition-all text-left ${
+                    className={`w-full p-4 rounded-xl border-2 transition-all text-left ${
                       fromAccount === account.id
                         ? "border-[#aec3b0] bg-[#f2f1ef]"
                         : "border-[#AEC3B0] bg-[#F2F1EF] hover:border-emerald-300"
@@ -2280,10 +2286,10 @@ const App = () => {
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="font-bold text-[#0D2B1D]">
+                        <p className="font-semibold text-[#0D2B1D]">
                           {account.name}
                         </p>
-                        <p className="text-xs text-[#0D2B1D]/40 font-bold uppercase">
+                        <p className="text-xs text-[#0D2B1D]/40 font-semibold uppercase">
                           Available Balance
                         </p>
                       </div>
@@ -2311,7 +2317,7 @@ const App = () => {
 
           {/* To Account */}
           <div className="space-y-3">
-            <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
+            <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
               To Account
             </label>
             <div className="space-y-2">
@@ -2321,7 +2327,7 @@ const App = () => {
                   <button
                     key={account.id}
                     onClick={() => setToAccount(account.id)}
-                    className={`w-full p-4 rounded-2xl border-2 transition-all text-left ${
+                    className={`w-full p-4 rounded-xl border-2 transition-all text-left ${
                       toAccount === account.id
                         ? "border-[#aec3b0] bg-[#f2f1ef]"
                         : "border-[#AEC3B0] bg-[#F2F1EF] hover:border-emerald-300"
@@ -2329,10 +2335,10 @@ const App = () => {
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="font-bold text-[#0D2B1D]">
+                        <p className="font-semibold text-[#0D2B1D]">
                           {account.name}
                         </p>
-                        <p className="text-xs text-[#0D2B1D]/40 font-bold uppercase">
+                        <p className="text-xs text-[#0D2B1D]/40 font-semibold uppercase">
                           Current Balance
                         </p>
                       </div>
@@ -2347,7 +2353,7 @@ const App = () => {
 
           {/* Amount */}
           <div className="space-y-2">
-            <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
+            <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
               Amount
             </label>
             <div className="relative">
@@ -2359,7 +2365,7 @@ const App = () => {
                 type="number"
                 value={internalTransferAmount}
                 onChange={(e) => setInternalTransferAmount(e.target.value)}
-                className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-2xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-xl p-4 pl-12 text-sm font-black focus:ring-2 ring-emerald-500 outline-none"
                 placeholder="0.00"
               />
             </div>
@@ -2367,20 +2373,20 @@ const App = () => {
 
           {/* Transfer Summary */}
           {internalTransferAmount && fromAccountData && toAccountData && (
-            <div className="bg-[#F7F5F0] p-4 rounded-2xl border border-[#AEC3B0]">
-              <p className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest mb-3">
+            <div className="bg-[#F7F5F0] p-4 rounded-xl border border-[#AEC3B0]">
+              <p className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest mb-3">
                 Transfer Summary
               </p>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-[#0D2B1D]/70">From:</span>
-                  <span className="font-bold text-[#0D2B1D]">
+                  <span className="font-semibold text-[#0D2B1D]">
                     {fromAccountData.name}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-[#0D2B1D]/70">To:</span>
-                  <span className="font-bold text-[#0D2B1D]">
+                  <span className="font-semibold text-[#0D2B1D]">
                     {toAccountData.name}
                   </span>
                 </div>
@@ -2419,13 +2425,13 @@ const App = () => {
             >
               <ChevronLeft size={24} />
             </button>
-            <h2 className="text-lg font-bold">Add Beneficiary</h2>
+            <h2 className="text-lg font-semibold">Add Beneficiary</h2>
             <div className="w-10" />
           </div>
 
           <div className="space-y-6">
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
+              <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
                 Name
               </label>
               <input
@@ -2433,12 +2439,12 @@ const App = () => {
                 placeholder="Full Name"
                 value={newBeneficiaryName}
                 onChange={(e) => setNewBeneficiaryName(e.target.value)}
-                className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
+              <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
                 Email
               </label>
               <input
@@ -2446,12 +2452,12 @@ const App = () => {
                 placeholder="email@example.com"
                 value={newBeneficiaryEmail}
                 onChange={(e) => setNewBeneficiaryEmail(e.target.value)}
-                className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
+              <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
                 Phone
               </label>
               <input
@@ -2459,12 +2465,12 @@ const App = () => {
                 placeholder="+1 (555) 123-4567"
                 value={newBeneficiaryPhone}
                 onChange={(e) => setNewBeneficiaryPhone(e.target.value)}
-                className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-2xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
+                className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] rounded-xl p-4 text-sm font-medium focus:ring-2 ring-emerald-500 outline-none"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
+              <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest ml-1">
                 Type
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -2472,7 +2478,7 @@ const App = () => {
                   <button
                     key={type}
                     onClick={() => setNewBeneficiaryType(type)}
-                    className={`py-3 px-2 rounded-xl font-bold text-sm capitalize transition-all ${
+                    className={`py-3 px-2 rounded-xl font-semibold text-sm capitalize transition-all ${
                       newBeneficiaryType === type
                         ? "bg-[#f2f1ef] text-[#0d2b1d]"
                         : "bg-[#AEC3B0] text-[#0D2B1D]/70"
@@ -2514,7 +2520,7 @@ const App = () => {
           </h2>
           <button
             onClick={() => setShowAddBeneficiary(true)}
-            className="text-[#0d2b1d] font-bold text-sm active:scale-90 transition-all"
+            className="text-[#0d2b1d] font-semibold text-sm active:scale-90 transition-all"
           >
             + Add
           </button>
@@ -2524,14 +2530,14 @@ const App = () => {
           {beneficiaries.map((ben) => (
             <div
               key={ben.id}
-              className="bg-\[#F2F1EF\] p-4 rounded-2xl border border-[#AEC3B0] hover:border-[#aec3b0] transition-all flex items-center justify-between"
+              className="bg-\[#F2F1EF\] p-4 rounded-xl border border-[#AEC3B0] hover:border-[#aec3b0] transition-all flex items-center justify-between"
             >
               <div className="flex items-center gap-3 flex-1">
-                <div className="w-10 h-10 rounded-full bg-[#f2f1ef] flex items-center justify-center text-[#0d2b1d] font-bold">
+                <div className="w-10 h-10 rounded-full bg-[#f2f1ef] flex items-center justify-center text-[#0d2b1d] font-semibold">
                   {ben.name.charAt(0)}
                 </div>
                 <div>
-                  <p className="font-bold text-slate-900">{ben.name}</p>
+                  <p className="font-semibold text-slate-900">{ben.name}</p>
                   <p className="text-xs text-slate-400">
                     {ben.email || ben.phone}
                   </p>
@@ -2564,10 +2570,10 @@ const App = () => {
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[250] p-4 animate-in fade-in duration-300">
         <div className="bg-\[#F2F1EF\] rounded-[2rem] w-full max-w-[400px] p-6 space-y-6 animate-in zoom-in-95 duration-300">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold">Transfer Receipt</h2>
+            <h2 className="text-lg font-semibold">Transfer Receipt</h2>
             <button
               onClick={() => setShowTransferReceipt(false)}
-              className="p-1 hover:bg-slate-100 rounded-lg"
+              className="p-1 hover:bg-slate-100 rounded-xl"
             >
               <X size={20} />
             </button>
@@ -2576,11 +2582,11 @@ const App = () => {
           {/* Shariah Compliance Badge */}
           <div className="bg-[#f2f1ef] p-4 rounded-xl border border-[#aec3b0] text-center">
             <div className="text-4xl mb-2">✅</div>
-            <p className="font-bold text-[#0d2b1d]">Shariah Compliant</p>
-            <p className="text-[10px] text-[#0d2b1d] mt-1">
+            <p className="font-semibold text-[#0d2b1d]">Shariah Compliant</p>
+            <p className="text-xs text-[#0d2b1d] mt-1">
               Interest-Free Transfer
             </p>
-            <p className="text-[9px] text-[#0d2b1d] mt-2">
+            <p className="text-xs text-[#0d2b1d] mt-2">
               ID: {receipt.sharahComplianceId}
             </p>
           </div>
@@ -2589,39 +2595,39 @@ const App = () => {
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
               <span className="text-[#0D2B1D]/70">Transaction ID</span>
-              <span className="font-mono font-bold text-[#0D2B1D]">
+              <span className="font-mono font-semibold text-[#0D2B1D]">
                 {receipt.id}
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-[#0D2B1D]/70">Date & Time</span>
-              <span className="font-bold text-[#0D2B1D]">
+              <span className="font-semibold text-[#0D2B1D]">
                 {receipt.timestamp}
               </span>
             </div>
             <div className="h-px bg-[#AEC3B0]"></div>
             <div className="flex justify-between">
               <span className="text-[#0D2B1D]/70">Recipient</span>
-              <span className="font-bold text-[#0D2B1D]">
+              <span className="font-semibold text-[#0D2B1D]">
                 {receipt.recipient}
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-[#0D2B1D]/70">Category</span>
-              <span className="font-bold text-[#0D2B1D] capitalize">
+              <span className="font-semibold text-[#0D2B1D] capitalize">
                 {getCategoryIcon(receipt.category)} {receipt.category}
               </span>
             </div>
             <div className="h-px bg-[#AEC3B0]"></div>
             <div className="flex justify-between text-base">
-              <span className="font-bold text-[#0D2B1D]">Amount</span>
+              <span className="font-semibold text-[#0D2B1D]">Amount</span>
               <span className="font-black text-[#0d2b1d]">
                 ${receipt.amount.toFixed(2)}
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-[#0D2B1D]/70">Status</span>
-              <span className="font-bold text-[#0d2b1d] capitalize">
+              <span className="font-semibold text-[#0d2b1d] capitalize">
                 {receipt.status}
               </span>
             </div>
@@ -2630,11 +2636,11 @@ const App = () => {
           <div className="flex gap-2 pt-4">
             <button
               onClick={() => setShowTransferReceipt(false)}
-              className="flex-1 py-3 bg-[#AEC3B0] text-[#0D2B1D]/70 rounded-xl font-bold text-sm"
+              className="flex-1 py-3 bg-[#AEC3B0] text-[#0D2B1D]/70 rounded-xl font-semibold text-sm"
             >
               Done
             </button>
-            <button className="flex-1 py-3 bg-[#f2f1ef] text-[#0d2b1d] rounded-xl font-bold text-sm active:scale-90 transition-transform">
+            <button className="flex-1 py-3 bg-[#f2f1ef] text-[#0d2b1d] rounded-xl font-semibold text-sm active:scale-90 transition-transform">
               Share Receipt
             </button>
           </div>
@@ -2656,7 +2662,7 @@ const App = () => {
           >
             <ChevronLeft size={24} />
           </button>
-          <h2 className="text-lg font-bold">Transfer Analytics</h2>
+          <h2 className="text-lg font-semibold">Transfer Analytics</h2>
           <button
             onClick={() => setAnalyticsView(!analyticsView)}
             className="p-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
@@ -2670,20 +2676,20 @@ const App = () => {
             <>
               {/* Summary View */}
               <div className="space-y-3">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                <p className="text-xs font-black text-slate-400 uppercase tracking-widest">
                   This Month
                 </p>
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="bg-[#f2f1ef] p-4 rounded-2xl border border-[#aec3b0]">
-                    <p className="text-[10px] text-[#0d2b1d] font-bold uppercase mb-2">
+                  <div className="bg-[#f2f1ef] p-4 rounded-xl border border-[#aec3b0]">
+                    <p className="text-xs text-[#0d2b1d] font-semibold uppercase mb-2">
                       Sent
                     </p>
                     <p className="text-2xl font-black text-[#0d2b1d]">
                       ${stats.totalSent.toFixed(0)}
                     </p>
                   </div>
-                  <div className="bg-blue-50 p-4 rounded-2xl border border-blue-200">
-                    <p className="text-[10px] text-blue-700 font-bold uppercase mb-2">
+                  <div className="bg-blue-50 p-4 rounded-xl border border-blue-200">
+                    <p className="text-xs text-blue-700 font-semibold uppercase mb-2">
                       Received
                     </p>
                     <p className="text-2xl font-black text-blue-900">
@@ -2697,12 +2703,12 @@ const App = () => {
             <>
               {/* Detailed View */}
               <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-6 rounded-[2rem] border border-[#aec3b0]">
-                <p className="text-[10px] text-[#0d2b1d] font-black uppercase mb-2">
+                <p className="text-xs text-[#0d2b1d] font-black uppercase mb-2">
                   Performance
                 </p>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-700 font-bold">
+                    <span className="text-slate-700 font-semibold">
                       Total Volume
                     </span>
                     <span className="text-2xl font-black text-[#0d2b1d]">
@@ -2728,19 +2734,19 @@ const App = () => {
 
           {/* Statistics */}
           <div className="space-y-3">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+            <p className="text-xs font-black text-slate-400 uppercase tracking-widest">
               Statistics
             </p>
             <div className="space-y-2">
               <div className="flex justify-between bg-\[#F2F1EF\] p-3 rounded-xl">
                 <span className="text-slate-600 text-sm">Transactions</span>
-                <span className="font-bold text-slate-900">
+                <span className="font-semibold text-slate-900">
                   {stats.transactionCount}
                 </span>
               </div>
               <div className="flex justify-between bg-\[#F2F1EF\] p-3 rounded-xl">
                 <span className="text-slate-600 text-sm">Average Transfer</span>
-                <span className="font-bold text-slate-900">
+                <span className="font-semibold text-slate-900">
                   ${stats.avgTransfer.toFixed(2)}
                 </span>
               </div>
@@ -2749,7 +2755,7 @@ const App = () => {
 
           {/* Top Recipients */}
           <div className="space-y-3">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+            <p className="text-xs font-black text-slate-400 uppercase tracking-widest">
               Top Recipients
             </p>
             <div className="space-y-2">
@@ -2759,7 +2765,9 @@ const App = () => {
                   className="flex justify-between bg-\[#F2F1EF\] p-3 rounded-xl"
                 >
                   <span className="text-slate-600 text-sm">{ben.name}</span>
-                  <span className="font-bold text-slate-900">3 transfers</span>
+                  <span className="font-semibold text-slate-900">
+                    3 transfers
+                  </span>
                 </div>
               ))}
             </div>
@@ -2787,10 +2795,10 @@ const App = () => {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[250] p-4 animate-in fade-in">
           <div className="bg-\[#F2F1EF\] rounded-[2rem] w-full max-w-[400px] p-6 animate-in zoom-in-95">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-bold">Transaction Details</h2>
+              <h2 className="text-lg font-semibold">Transaction Details</h2>
               <button
                 onClick={() => setShowDetailedTransaction(null)}
-                className="p-1 hover:bg-slate-100 rounded-lg"
+                className="p-1 hover:bg-slate-100 rounded-xl"
               >
                 <X size={20} />
               </button>
@@ -2799,12 +2807,12 @@ const App = () => {
             <div className="space-y-4">
               <div className="flex justify-between">
                 <span className="text-[#0D2B1D]/70">Type</span>
-                <span className="font-bold capitalize">{tx.type}</span>
+                <span className="font-semibold capitalize">{tx.type}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-[#0D2B1D]/70">Amount</span>
                 <span
-                  className={`font-bold ${
+                  className={`font-semibold ${
                     tx.amount > 0 ? "text-[#0d2b1d]" : "text-[#0D2B1D]"
                   }`}
                 >
@@ -2813,12 +2821,12 @@ const App = () => {
               </div>
               <div className="flex justify-between">
                 <span className="text-[#0D2B1D]/70">Date</span>
-                <span className="font-bold">{tx.time}</span>
+                <span className="font-semibold">{tx.time}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-[#0D2B1D]/70">Status</span>
                 <span
-                  className={`text-xs font-bold uppercase px-3 py-1 rounded-full ${getTransferStatusColor(
+                  className={`text-xs font-semibold uppercase px-3 py-1 rounded-full ${getTransferStatusColor(
                     tx.status,
                   )}`}
                 >
@@ -2840,7 +2848,7 @@ const App = () => {
           >
             <ChevronLeft size={24} />
           </button>
-          <h2 className="text-lg font-bold">Transfer History</h2>
+          <h2 className="text-lg font-semibold">Transfer History</h2>
           <div className="w-10" />
         </div>
 
@@ -2850,7 +2858,7 @@ const App = () => {
             <button
               key={filter}
               onClick={() => setHistoryFilter(filter)}
-              className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all ${
+              className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
                 historyFilter === filter
                   ? "bg-[#f2f1ef] text-[#0d2b1d]"
                   : "bg-[#F2F1EF] text-[#0D2B1D]/70 border border-[#AEC3B0]"
@@ -2878,7 +2886,9 @@ const App = () => {
                   )}
                 </div>
                 <div className="flex-1">
-                  <p className="font-bold text-sm text-slate-900">{tx.name}</p>
+                  <p className="font-semibold text-sm text-slate-900">
+                    {tx.name}
+                  </p>
                   <p className="text-xs text-slate-400">{tx.time}</p>
                 </div>
               </div>
@@ -2891,7 +2901,7 @@ const App = () => {
                   {tx.amount > 0 ? "+" : ""}${Math.abs(tx.amount).toFixed(2)}
                 </p>
                 <span
-                  className={`text-[10px] font-bold uppercase px-2 py-1 rounded-full ${getTransferStatusColor(
+                  className={`text-xs font-semibold uppercase px-2 py-1 rounded-full ${getTransferStatusColor(
                     tx.status,
                   )}`}
                 >
@@ -2913,7 +2923,7 @@ const App = () => {
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[300] p-4 animate-in fade-in duration-300">
         <div className="bg-\[#F2F1EF\] rounded-[2rem] w-full max-w-[400px] p-6 space-y-6 animate-in zoom-in-95 duration-300">
           <div className="text-center">
-            <h2 className="text-lg font-bold">Verify Transfer</h2>
+            <h2 className="text-lg font-semibold">Verify Transfer</h2>
             <p className="text-slate-500 text-sm mt-2">
               Enter the OTP sent to your email
             </p>
@@ -2921,10 +2931,10 @@ const App = () => {
 
           <div className="space-y-4">
             <div className="bg-blue-50 p-4 rounded-xl border border-blue-200">
-              <p className="text-[10px] font-black text-blue-700 uppercase tracking-widest mb-2">
+              <p className="text-xs font-black text-blue-700 uppercase tracking-widest mb-2">
                 Transaction
               </p>
-              <p className="font-bold text-blue-900">${transferAmount}</p>
+              <p className="font-semibold text-blue-900">${transferAmount}</p>
             </div>
 
             <input
@@ -2933,14 +2943,14 @@ const App = () => {
               value={otpInput}
               onChange={(e) => setOtpInput(e.target.value.slice(0, 6))}
               maxLength="6"
-              className="w-full text-center text-2xl tracking-[0.5em] font-bold border-2 border-[#AEC3B0] rounded-2xl p-4 focus:ring-2 ring-emerald-500 outline-none"
+              className="w-full text-center text-2xl tracking-[0.5em] font-semibold border-2 border-[#AEC3B0] rounded-xl p-4 focus:ring-2 ring-emerald-500 outline-none"
             />
           </div>
 
           <div className="flex gap-2">
             <button
               onClick={() => setShowOTPModal(false)}
-              className="flex-1 py-3 bg-[#AEC3B0] text-[#0D2B1D]/70 rounded-xl font-bold text-sm"
+              className="flex-1 py-3 bg-[#AEC3B0] text-[#0D2B1D]/70 rounded-xl font-semibold text-sm"
             >
               Cancel
             </button>
@@ -2962,7 +2972,7 @@ const App = () => {
                 setShowTransferReceipt(true);
                 setOtpInput("");
               }}
-              className="flex-1 py-3 bg-[#aec3b0] text-[#D9B18E] rounded-xl font-bold text-sm active:scale-95 transition-transform disabled:opacity-50"
+              className="flex-1 py-3 bg-[#aec3b0] text-[#D9B18E] rounded-xl font-semibold text-sm active:scale-95 transition-transform disabled:opacity-50"
             >
               Verify
             </button>
@@ -2982,7 +2992,7 @@ const App = () => {
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[300] p-4 animate-in fade-in duration-300">
         <div className="bg-\[#F2F1EF\] rounded-[2rem] w-full max-w-[400px] p-6 space-y-6 animate-in zoom-in-95 duration-300 text-center">
           <div className="text-5xl mb-4">🔒</div>
-          <h2 className="text-lg font-bold">Security Verification</h2>
+          <h2 className="text-lg font-semibold">Security Verification</h2>
           <p className="text-[#0D2B1D]/70 text-sm">
             Transfer amount exceeds $500
           </p>
@@ -2996,7 +3006,7 @@ const App = () => {
                 setRequireBiometric(false);
                 triggerNotification("Verified", "Fingerprint authenticated");
               }}
-              className="w-full py-4 bg-[#f2f1ef] text-[#0d2b1d] rounded-2xl font-bold border-2 border-[#aec3b0] hover:bg-[#f2f1ef] transition-all active:scale-95"
+              className="w-full py-4 bg-[#f2f1ef] text-[#0d2b1d] rounded-xl font-semibold border-2 border-[#aec3b0] hover:bg-[#f2f1ef] transition-all active:scale-95"
             >
               👆 Use Fingerprint
             </button>
@@ -3005,7 +3015,7 @@ const App = () => {
                 setRequireBiometric(false);
                 triggerNotification("Verified", "Face ID authenticated");
               }}
-              className="w-full py-4 bg-blue-50 text-blue-700 rounded-2xl font-bold border-2 border-blue-200 hover:bg-blue-100 transition-all active:scale-95"
+              className="w-full py-4 bg-blue-50 text-blue-700 rounded-xl font-semibold border-2 border-blue-200 hover:bg-blue-100 transition-all active:scale-95"
             >
               😊 Use Face ID
             </button>
@@ -3013,7 +3023,7 @@ const App = () => {
 
           <button
             onClick={() => setRequireBiometric(false)}
-            className="w-full py-3 text-slate-600 font-bold text-sm"
+            className="w-full py-3 text-slate-600 font-semibold text-sm"
           >
             Skip for now
           </button>
@@ -3035,13 +3045,13 @@ const App = () => {
       </p>
 
       <div className="mt-8 pt-8 border-t w-full max-w-[240px] space-y-2">
-        <div className="flex justify-between text-xs font-bold uppercase tracking-tighter">
+        <div className="flex justify-between text-xs font-semibold uppercase tracking-tighter">
           <span className="text-[#0D2B1D]/40">Amount</span>
           <span className="text-[#0D2B1D]">
             ${parseFloat(transferAmount).toLocaleString()}
           </span>
         </div>
-        <div className="flex justify-between text-xs font-bold uppercase tracking-tighter">
+        <div className="flex justify-between text-xs font-semibold uppercase tracking-tighter">
           <span className="text-[#0D2B1D]/40">Method</span>
           <span className="text-[#0D2B1D]">{transferType}</span>
         </div>
@@ -3055,10 +3065,12 @@ const App = () => {
     return (
       <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
         <div className="flex justify-between items-center px-1">
-          <h2 className="text-xl font-bold text-[#0D2B1D]">{t("yourCard")}</h2>
+          <h2 className="text-xl font-semibold text-[#0D2B1D]">
+            {t("yourCard")}
+          </h2>
           <div className="bg-[#f2f1ef] px-3 py-1 rounded-full flex items-center gap-1.5">
             <Gem size={12} className="text-[#0d2b1d]" />
-            <span className="text-[10px] font-black uppercase text-[#0d2b1d] tracking-tighter">
+            <span className="text-xs font-black uppercase text-[#0d2b1d] tracking-tighter">
               {currentTier}
             </span>
           </div>
@@ -3106,7 +3118,7 @@ const App = () => {
 
             <div className="flex gap-8 items-center">
               <div className="flex flex-col">
-                <span className="text-[7px] font-bold uppercase tracking-[0.2em] text-emerald-600/70 mb-0.5">
+                <span className="text-[7px] font-semibold uppercase tracking-[0.2em] text-emerald-600/70 mb-0.5">
                   Expiry
                 </span>
                 <span className="text-sm font-mono font-medium tracking-widest">
@@ -3114,7 +3126,7 @@ const App = () => {
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-[7px] font-bold uppercase tracking-[0.2em] text-emerald-600/70 mb-0.5">
+                <span className="text-[7px] font-semibold uppercase tracking-[0.2em] text-emerald-600/70 mb-0.5">
                   CVV
                 </span>
                 <span className="text-sm font-mono font-medium tracking-widest">
@@ -3125,7 +3137,7 @@ const App = () => {
           </div>
 
           <div className="flex justify-between items-end relative z-10">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-white/90">
+            <p className="text-xs font-semibold uppercase tracking-widest text-white/90">
               Visa Platinum
             </p>
             <div className="flex -space-x-2">
@@ -3143,8 +3155,8 @@ const App = () => {
                 <Zap size={20} />
               </div>
               <div>
-                <p className="font-bold text-sm">Halal Filter AI</p>
-                <p className="text-[10px] text-slate-400">
+                <p className="font-semibold text-sm">Halal Filter AI</p>
+                <p className="text-xs text-slate-400">
                   Strict Shariah Compliance
                 </p>
               </div>
@@ -3175,10 +3187,8 @@ const App = () => {
                 <Lock size={20} />
               </div>
               <div>
-                <p className="font-bold text-sm">Freeze Card</p>
-                <p className="text-[10px] text-slate-400">
-                  Instant security lock
-                </p>
+                <p className="font-semibold text-sm">Freeze Card</p>
+                <p className="text-xs text-slate-400">Instant security lock</p>
               </div>
             </div>
             <button
@@ -3205,10 +3215,10 @@ const App = () => {
             <div className="flex gap-4">
               <ShieldCheck className="text-[#0d2b1d] shrink-0" size={20} />
               <div>
-                <p className="text-xs font-bold text-slate-800">
+                <p className="text-xs font-semibold text-slate-800">
                   The Active Halal Filter
                 </p>
-                <p className="text-[10px] text-slate-500 leading-relaxed mt-0.5">
+                <p className="text-xs text-slate-500 leading-relaxed mt-0.5">
                   Automated Shariah-compliance at 1.2M+ merchants. We instantly
                   block non-ethical categories like gambling or alcohol.
                 </p>
@@ -3217,10 +3227,10 @@ const App = () => {
             <div className="flex gap-4">
               <Sparkles className="text-amber-500 shrink-0" size={20} />
               <div>
-                <p className="text-xs font-bold text-slate-800">
+                <p className="text-xs font-semibold text-slate-800">
                   0.5% Cash-Back (Halal Merchants)
                 </p>
-                <p className="text-[10px] text-slate-500 leading-relaxed mt-0.5">
+                <p className="text-xs text-slate-500 leading-relaxed mt-0.5">
                   Earn rewards on every ethical purchase, delivered as monthly
                   profit-share directly to your balance.
                 </p>
@@ -3229,10 +3239,10 @@ const App = () => {
             <div className="flex gap-4">
               <RefreshCcw className="text-blue-500 shrink-0" size={20} />
               <div>
-                <p className="text-xs font-bold text-slate-800">
+                <p className="text-xs font-semibold text-slate-800">
                   Auto-Purification Logic
                 </p>
-                <p className="text-[10px] text-slate-500 leading-relaxed mt-0.5">
+                <p className="text-xs text-slate-500 leading-relaxed mt-0.5">
                   Accidental interest earned is automatically identified and
                   transferred to your Purification sub-account for charity.
                 </p>
@@ -3245,7 +3255,7 @@ const App = () => {
         <div className="p-6 bg-slate-900 rounded-[2.5rem] text-[#D9B18E]">
           <div className="flex items-center gap-2 mb-3">
             <Info size={16} className="text-emerald-600" />
-            <h3 className="text-[10px] font-black uppercase tracking-widest text-emerald-600">
+            <h3 className="text-xs font-black uppercase tracking-widest text-emerald-600">
               {t("whySubscription")}
             </h3>
           </div>
@@ -3260,7 +3270,7 @@ const App = () => {
 
         <button
           onClick={() => setSubscriptionView("manage")}
-          className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] text-[#0D2B1D] p-5 rounded-[2rem] font-bold text-sm shadow-sm active:scale-95 transition-all flex items-center justify-center gap-2"
+          className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] text-[#0D2B1D] p-5 rounded-[2rem] font-semibold text-sm shadow-sm active:scale-95 transition-all flex items-center justify-center gap-2"
         >
           {t("viewSubscriptionAgreement")} <ArrowUpRight size={16} />
         </button>
@@ -3274,7 +3284,9 @@ const App = () => {
     return (
       <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
         <div className="bg-\[#F2F1EF\] p-6 rounded-[2rem] shadow-lg border border-[#AEC3B0] text-center">
-          <h2 className="text-xl font-bold mb-1 text-[#0D2B1D]">Home Equity</h2>
+          <h2 className="text-xl font-semibold mb-1 text-[#0D2B1D]">
+            Home Equity
+          </h2>
           <div className="relative w-40 h-40 mx-auto my-6 flex items-center justify-center">
             <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
               <circle
@@ -3302,7 +3314,7 @@ const App = () => {
               <span className="text-3xl font-black text-slate-900 tracking-tighter">
                 {userEquity}%
               </span>
-              <span className="text-[7px] font-bold text-slate-400 uppercase tracking-widest text-center">
+              <span className="text-[7px] font-semibold text-slate-400 uppercase tracking-widest text-center">
                 Owned
               </span>
             </div>
@@ -3315,8 +3327,8 @@ const App = () => {
             className="p-5 bg-indigo-50 rounded-[1.5rem] border border-indigo-100 cursor-pointer active:scale-95 transition-transform"
           >
             <Fingerprint className="text-indigo-600 mb-3" size={24} />
-            <p className="font-bold text-xs text-indigo-900">Zakat</p>
-            <p className="text-[8px] text-indigo-400 font-bold uppercase mt-0.5">
+            <p className="font-semibold text-xs text-indigo-900">Zakat</p>
+            <p className="text-[8px] text-indigo-400 font-semibold uppercase mt-0.5">
               Calculator
             </p>
           </div>
@@ -3325,8 +3337,8 @@ const App = () => {
             className="p-5 bg-amber-50 rounded-[1.5rem] border border-amber-100 cursor-pointer active:scale-95 transition-transform"
           >
             <Car className="text-amber-600 mb-3" size={24} />
-            <p className="font-bold text-xs text-amber-900">Murabaha</p>
-            <p className="text-[8px] text-amber-400 font-bold uppercase mt-0.5">
+            <p className="font-semibold text-xs text-amber-900">Murabaha</p>
+            <p className="text-[8px] text-amber-400 font-semibold uppercase mt-0.5">
               Auto
             </p>
           </div>
@@ -3335,17 +3347,17 @@ const App = () => {
         <div className="bg-\[#F2F1EF\] p-6 rounded-[2.5rem] border border-[#AEC3B0] shadow-sm space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-[#f2f1ef] rounded-2xl text-[#0d2b1d]">
+              <div className="p-3 bg-[#f2f1ef] rounded-xl text-[#0d2b1d]">
                 <Gem size={20} />
               </div>
               <div>
                 <p className="font-black text-[#0D2B1D]">Rizq. Premium</p>
-                <p className="text-[10px] text-[#0D2B1D]/40 font-bold uppercase tracking-widest">
+                <p className="text-xs text-[#0D2B1D]/40 font-semibold uppercase tracking-widest">
                   $9.99 / Month
                 </p>
               </div>
             </div>
-            <span className="bg-[#aec3b0] text-white text-[9px] px-3 py-1 rounded-full font-black uppercase">
+            <span className="bg-[#aec3b0] text-white text-xs px-3 py-1 rounded-full font-black uppercase">
               Active
             </span>
           </div>
@@ -3356,10 +3368,10 @@ const App = () => {
             <div className="flex gap-4">
               <ShieldCheck className="text-[#0d2b1d] shrink-0" size={20} />
               <div>
-                <p className="text-xs font-bold text-slate-800">
+                <p className="text-xs font-semibold text-slate-800">
                   The Active Halal Filter
                 </p>
-                <p className="text-[10px] text-slate-500 leading-relaxed mt-0.5">
+                <p className="text-xs text-slate-500 leading-relaxed mt-0.5">
                   Automated Shariah-compliance at 1.2M+ merchants. We instantly
                   block non-ethical categories like gambling or alcohol.
                 </p>
@@ -3368,10 +3380,10 @@ const App = () => {
             <div className="flex gap-4">
               <RefreshCcw className="text-blue-500 shrink-0" size={20} />
               <div>
-                <p className="text-xs font-bold text-slate-800">
+                <p className="text-xs font-semibold text-slate-800">
                   Auto-Purification Logic
                 </p>
-                <p className="text-[10px] text-slate-500 leading-relaxed mt-0.5">
+                <p className="text-xs text-slate-500 leading-relaxed mt-0.5">
                   Accidental interest earned is automatically identified and
                   transferred to your Purification sub-account for charity.
                 </p>
@@ -3394,7 +3406,7 @@ const App = () => {
               else if (typeof setFinancingSubPage === "function")
                 setFinancingSubPage("main");
             }}
-            className="p-3 bg-\[#F2F1EF\] rounded-2xl shadow-sm border border-[#AEC3B0] active:scale-95 transition-transform"
+            className="p-3 bg-\[#F2F1EF\] rounded-xl shadow-sm border border-[#AEC3B0] active:scale-95 transition-transform"
           >
             <ChevronLeft className="text-[#0D2B1D]/70" />
           </button>
@@ -3420,16 +3432,16 @@ const App = () => {
           <div className="bg-\[#F2F1EF\] p-6 rounded-[2.5rem] border border-[#AEC3B0] shadow-sm space-y-6">
             <div className="flex items-center gap-3 px-2">
               <TrendingUp className="text-[#D9B18E]" size={20} />
-              <h3 className="font-bold text-[#0D2B1D]">
+              <h3 className="font-semibold text-[#0D2B1D]">
                 Step 1: Zakatable Assets
               </h3>
             </div>
 
             <div className="space-y-4">
-              <div className="flex justify-between items-center p-4 bg-[#f2f1ef] rounded-2xl border border-[#aec3b0]">
+              <div className="flex justify-between items-center p-4 bg-[#f2f1ef] rounded-xl border border-[#aec3b0]">
                 <div className="flex items-center gap-3">
                   <Wallet className="text-[#0d2b1d]" size={20} />
-                  <span className="font-bold text-slate-700">
+                  <span className="font-semibold text-slate-700">
                     Rizq. Balance (Auto)
                   </span>
                 </div>
@@ -3471,7 +3483,7 @@ const App = () => {
                 },
               ].map((asset) => (
                 <div key={asset.key} className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2">
+                  <label className="text-xs font-black text-slate-400 uppercase tracking-widest px-2">
                     {asset.label}
                   </label>
                   <div className="relative">
@@ -3487,7 +3499,7 @@ const App = () => {
                           [asset.key]: Number(e.target.value),
                         })
                       }
-                      className="w-full bg-slate-50 border-none rounded-2xl py-4 pl-12 pr-4 font-bold focus:ring-2 focus:ring-indigo-500"
+                      className="w-full bg-slate-50 border-none rounded-xl py-4 pl-12 pr-4 font-semibold focus:ring-2 focus:ring-indigo-500"
                       placeholder="0.00"
                     />
                   </div>
@@ -3510,7 +3522,9 @@ const App = () => {
           <div className="bg-\[#F2F1EF\] p-6 rounded-[2.5rem] border border-[#AEC3B0] shadow-sm space-y-6">
             <div className="flex items-center gap-3 px-2 text-rose-600">
               <TrendingDown size={20} />
-              <h3 className="font-bold text-[#0D2B1D]">Step 2: Liabilities</h3>
+              <h3 className="font-semibold text-[#0D2B1D]">
+                Step 2: Liabilities
+              </h3>
             </div>
             <p className="text-xs text-[#0D2B1D]/40 px-2 leading-relaxed">
               Subtract debts or bills due immediately to calculate your net
@@ -3531,7 +3545,7 @@ const App = () => {
                 },
               ].map((lib) => (
                 <div key={lib.key} className="space-y-2">
-                  <label className="text-[10px] font-black text-[#0D2B1D]/40 uppercase tracking-widest px-2">
+                  <label className="text-xs font-black text-[#0D2B1D]/40 uppercase tracking-widest px-2">
                     {lib.label}
                   </label>
                   <div className="relative">
@@ -3547,7 +3561,7 @@ const App = () => {
                           [lib.key]: Number(e.target.value),
                         })
                       }
-                      className="w-full bg-slate-50 border-none rounded-2xl py-4 pl-12 pr-4 font-bold focus:ring-2 focus:ring-indigo-500"
+                      className="w-full bg-slate-50 border-none rounded-xl py-4 pl-12 pr-4 font-semibold focus:ring-2 focus:ring-indigo-500"
                       placeholder="0.00"
                     />
                   </div>
@@ -3571,13 +3585,13 @@ const App = () => {
             <div className="absolute top-0 right-0 opacity-10 p-4">
               <Fingerprint size={100} />
             </div>
-            <p className="text-indigo-300 text-[10px] font-bold uppercase tracking-[0.2em] mb-2">
+            <p className="text-indigo-300 text-xs font-semibold uppercase tracking-[0.2em] mb-2">
               {t("totalZakatObligation")}
             </p>
             <h3 className="text-5xl font-black tracking-tighter mb-4">
               ${zakatDue.toFixed(2)}
             </h3>
-            <div className="inline-flex items-center gap-2 bg-\[#F2F1EF\]/10 px-4 py-2 rounded-full text-[10px] font-bold">
+            <div className="inline-flex items-center gap-2 bg-\[#F2F1EF\]/10 px-4 py-2 rounded-full text-xs font-semibold">
               <ShieldCheck size={14} className="text-emerald-600" /> Shariah
               Compliant
             </div>
@@ -3586,26 +3600,30 @@ const App = () => {
           <div className="bg-\[#F2F1EF\] p-6 rounded-[2.5rem] border border-slate-100 space-y-3">
             <div className="flex justify-between text-sm">
               <span className="text-slate-400">Total Assets</span>
-              <span className="font-bold">${totalAssets.toLocaleString()}</span>
+              <span className="font-semibold">
+                ${totalAssets.toLocaleString()}
+              </span>
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-[#0D2B1D]/70">Total Liabilities</span>
-              <span className="font-bold text-rose-500">
+              <span className="font-semibold text-rose-500">
                 -${totalLiabilities.toLocaleString()}
               </span>
             </div>
             <div className="h-px bg-[#AEC3B0] my-2"></div>
             <div className="flex justify-between text-sm">
-              <span className="text-[#0D2B1D] font-bold">Zakatable Wealth</span>
+              <span className="text-[#0D2B1D] font-semibold">
+                Zakatable Wealth
+              </span>
               <span className="font-black text-[#D9B18E]">
                 ${netZakatableWealth.toLocaleString()}
               </span>
             </div>
           </div>
 
-          <div className="p-4 bg-amber-50 rounded-2xl border border-amber-100 flex gap-3">
+          <div className="p-4 bg-amber-50 rounded-xl border border-amber-100 flex gap-3">
             <Info className="text-amber-600 shrink-0" size={18} />
-            <p className="text-[10px] text-amber-800 font-medium leading-normal">
+            <p className="text-xs text-amber-800 font-medium leading-normal">
               Nisab is currently <b>${nisabValue}</b>. Your net wealth is{" "}
               {isEligible ? "above" : "below"} this threshold.
             </p>
@@ -3631,7 +3649,7 @@ const App = () => {
           <div className="bg-\[#F2F1EF\] p-6 rounded-[2.5rem] border border-[#AEC3B0] shadow-sm space-y-6">
             <div className="flex items-center gap-3 px-2">
               <Heart className="text-[#D9B18E]" size={20} />
-              <h3 className="font-bold text-[#0D2B1D]">
+              <h3 className="font-semibold text-[#0D2B1D]">
                 Step 4: Choose Charity
               </h3>
             </div>
@@ -3648,7 +3666,7 @@ const App = () => {
                   }`}
                 >
                   <div
-                    className={`p-3 rounded-2xl ${
+                    className={`p-3 rounded-xl ${
                       selectedCharity === charity.id
                         ? "bg-[#F2F1EF] shadow-sm"
                         : "bg-[#F2F1EF] border border-[#AEC3B0]"
@@ -3658,9 +3676,11 @@ const App = () => {
                   </div>
                   <div className="flex-1">
                     <div className="flex justify-between items-center mb-1">
-                      <p className="font-bold text-slate-900">{charity.name}</p>
+                      <p className="font-semibold text-slate-900">
+                        {charity.name}
+                      </p>
                       <span
-                        className={`text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
+                        className={`text-xs px-2 py-0.5 rounded-full font-semibold uppercase tracking-wider ${
                           selectedCharity === charity.id
                             ? "bg-[#D9B18E] text-[#0D2B1D]"
                             : "bg-[#AEC3B0] text-[#0D2B1D]/70"
@@ -3727,11 +3747,11 @@ const App = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setFinancingSubPage("main")}
-            className="p-2 bg-\[#F2F1EF\] rounded-lg shadow-sm active:scale-90 transition-transform"
+            className="p-2 bg-\[#F2F1EF\] rounded-xl shadow-sm active:scale-90 transition-transform"
           >
             <ChevronLeft size={18} />
           </button>
-          <h2 className="text-lg font-bold">Murabaha Auto Finance</h2>
+          <h2 className="text-lg font-semibold">Murabaha Auto Finance</h2>
         </div>
 
         {/* Dynamic Payment Card */}
@@ -3739,7 +3759,7 @@ const App = () => {
           <div className="absolute -right-4 -top-4 opacity-10 rotate-12">
             <Car size={120} />
           </div>
-          <p className="text-white/70 text-[10px] font-bold uppercase tracking-widest relative z-10">
+          <p className="text-white/70 text-xs font-semibold uppercase tracking-widest relative z-10">
             {frequencyLabel} Installment
           </p>
           <h3 className="text-5xl font-black mt-1 tracking-tighter relative z-10">
@@ -3751,19 +3771,19 @@ const App = () => {
           </h3>
           <div className="mt-4 flex items-center gap-2 relative z-10">
             <ShieldCheck size={14} className="text-emerald-600/70" />
-            <span className="text-[10px] font-bold text-amber-100 uppercase tracking-tight">
+            <span className="text-xs font-semibold text-amber-100 uppercase tracking-tight">
               2.00% Fixed Markup
             </span>
           </div>
         </div>
 
         {/* Payment Frequency Toggle */}
-        <div className="bg-slate-100/50 p-1.5 rounded-2xl flex gap-1">
+        <div className="bg-slate-100/50 p-1.5 rounded-xl flex gap-1">
           {["weekly", "bi-weekly", "monthly"].map((f) => (
             <button
               key={f}
               onClick={() => setFrequency(f)}
-              className={`flex-1 py-2.5 rounded-xl text-[10px] font-black uppercase transition-all ${
+              className={`flex-1 py-2.5 rounded-xl text-xs font-black uppercase transition-all ${
                 frequency === f
                   ? "bg-[#F2F1EF] text-[#D9B18E] shadow-sm"
                   : "text-slate-400 hover:text-slate-600"
@@ -3779,7 +3799,7 @@ const App = () => {
           {/* Car Price Slider */}
           <div className="space-y-3">
             <div className="flex justify-between items-end">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+              <label className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
                 Vehicle Price
               </label>
               <span className="text-lg font-black text-slate-900">
@@ -3798,14 +3818,14 @@ const App = () => {
                 if (downPayment > val * 0.9)
                   setDownPayment(Math.floor(val * 0.1));
               }}
-              className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-amber-600"
+              className="w-full h-2 bg-slate-100 rounded-xl appearance-none cursor-pointer accent-amber-600"
             />
           </div>
 
           {/* Down Payment Slider */}
           <div className="space-y-3">
             <div className="flex justify-between items-end">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+              <label className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
                 Down Payment
               </label>
               <span className="text-lg font-black text-slate-900">
@@ -3819,13 +3839,13 @@ const App = () => {
               step="500"
               value={downPayment}
               onChange={(e) => setDownPayment(parseInt(e.target.value))}
-              className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-amber-600"
+              className="w-full h-2 bg-slate-100 rounded-xl appearance-none cursor-pointer accent-amber-600"
             />
           </div>
 
           {/* Term Selection */}
           <div className="pt-2">
-            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-3">
+            <label className="text-xs font-semibold text-slate-400 uppercase tracking-widest block mb-3">
               Financing Duration
             </label>
             <div className="grid grid-cols-3 gap-3">
@@ -3833,7 +3853,7 @@ const App = () => {
                 <button
                   key={t}
                   onClick={() => setTerm(t)}
-                  className={`py-3 rounded-2xl text-[10px] font-black transition-all ${
+                  className={`py-3 rounded-xl text-xs font-black transition-all ${
                     term === t
                       ? "bg-[#D9B18E] text-white shadow-md"
                       : "bg-slate-50 text-slate-400"
@@ -3849,7 +3869,7 @@ const App = () => {
         {/* Breakdown & Compliance */}
         <div className="bg-\[#F2F1EF\] p-5 rounded-[1.5rem] border border-dashed border-slate-200 grid grid-cols-2 gap-4">
           <div>
-            <p className="text-[9px] font-bold text-slate-400 uppercase mb-0.5">
+            <p className="text-xs font-semibold text-slate-400 uppercase mb-0.5">
               Financed Amount
             </p>
             <p className="text-sm font-black text-slate-800">
@@ -3857,7 +3877,7 @@ const App = () => {
             </p>
           </div>
           <div className="text-right">
-            <p className="text-[9px] font-bold text-slate-400 uppercase mb-0.5">
+            <p className="text-xs font-semibold text-slate-400 uppercase mb-0.5">
               Fixed Markup
             </p>
             <p className="text-sm font-black text-[#0d2b1d]">
@@ -3868,10 +3888,10 @@ const App = () => {
             </p>
           </div>
           <div className="col-span-2 pt-2 border-t border-slate-50 flex items-center gap-3">
-            <div className="bg-amber-50 p-2 rounded-lg">
+            <div className="bg-amber-50 p-2 rounded-xl">
               <Info size={14} className="text-amber-600" />
             </div>
-            <p className="text-[10px] text-slate-500 leading-snug">
+            <p className="text-xs text-slate-500 leading-snug">
               This is a <strong>Cost-Plus</strong> agreement. The bank's profit
               is fixed at 2% per annum and added to the purchase price. No
               compounding interest.
@@ -3901,7 +3921,7 @@ const App = () => {
           <h2 className="text-5xl font-black italic tracking-tighter mb-1 animate-pulse">
             Rizq.
           </h2>
-          <p className="text-[#623817] font-bold tracking-[0.2em] uppercase text-[8px] opacity-80">
+          <p className="text-[#623817] font-semibold tracking-[0.2em] uppercase text-[8px] opacity-80">
             {t("slogan")}
           </p>
         </div>
@@ -3914,7 +3934,7 @@ const App = () => {
             />
           </div>
           <div className="flex justify-between mt-3 px-1">
-            <span className="text-[7px] font-bold text-[#623817] uppercase tracking-widest">
+            <span className="text-[7px] font-semibold text-[#623817] uppercase tracking-widest">
               Encrypting
             </span>
             <span className="text-[7px] font-mono text-emerald-600">
@@ -3938,13 +3958,13 @@ const App = () => {
       dir={locale === "ar" ? "rtl" : "ltr"}
     >
       {notification && (
-        <div className="fixed top-8 left-5 right-5 z-[100] bg-[#aec3b0] shadow-2xl rounded-2xl p-3 border-l-4 border-[#d9b18e] animate-in slide-in-from-top-4 flex items-center gap-3">
+        <div className="fixed top-8 left-5 right-5 z-[100] bg-[#aec3b0] shadow-2xl rounded-xl p-3 border-l-4 border-[#d9b18e] animate-in slide-in-from-top-4 flex items-center gap-3">
           <CheckCircle2 className="text-[#0d2b1d] shrink-0" size={18} />
           <div className="truncate">
-            <p className="font-bold text-xs text-slate-900 leading-tight truncate">
+            <p className="font-semibold text-xs text-slate-900 leading-tight truncate">
               {notification.title}
             </p>
-            <p className="text-[10px] text-slate-500 truncate">
+            <p className="text-xs text-slate-500 truncate">
               {notification.message}
             </p>
           </div>
@@ -3957,31 +3977,35 @@ const App = () => {
       {renderTransferReceipt()}
       {showTransferReceipt && lastTransferReceipt && renderTransferReceipt()}
 
-      <header className="flex justify-between items-center py-4 shrink-0">
-        <div className="flex items-center gap-1.5">
-          <div className="bg-[#F7F5F0] p-1.5 rounded-lg">
-            <Lock size={12} className="text-[#D9B18E]" />
+      <header className="flex justify-between items-center py-5 shrink-0">
+        <div className="flex items-center gap-3">
+          <div className="bg-gradient-to-br from-[#aec3b0] to-[#9ab09c] p-2 rounded-xl shadow-sm">
+            <Lock size={14} className="text-white" />
           </div>
-          <span className="font-black text-xl tracking-tighter">Rizq.</span>
+          <span className="font-black text-2xl tracking-tighter text-[#0d2b1d]">
+            Rizq.
+          </span>
           {!isOnline && (
-            <span className="text-[9px] font-bold px-2 py-1 bg-amber-100 text-amber-700 rounded-full ml-2">
+            <span className="text-xs font-semibold px-3 py-1.5 bg-amber-100 text-amber-800 rounded-full ml-1 border border-amber-200">
               Offline
             </span>
           )}
         </div>
-        <div className="flex items-center gap-3">
-          <Bell size={20} className="text-slate-400" />
+        <div className="flex items-center gap-4">
+          <button className="p-2.5 hover:bg-[#aec3b0]/10 rounded-xl transition-colors">
+            <Bell size={20} className="text-[#0d2b1d]/60" />
+          </button>
           <select
             value={locale}
             onChange={(e) => setLocale(e.target.value)}
-            className="text-xs bg-[#F2F1EF] border rounded px-2 py-1 text-[#0D2B1D]"
+            className="text-xs font-semibold bg-white border-1.5 border-[#aec3b0]/30 rounded-lg px-3 py-2 text-[#0d2b1d] cursor-pointer hover:border-[#aec3b0]/50 transition-colors"
             aria-label="Language selector"
           >
             <option value="en">English</option>
             <option value="fr_qc">Français (QC)</option>
             <option value="ar">العربية</option>
           </select>
-          <div className="w-8 h-8 rounded-full bg-[#aec3b0] border border-[#aec3b0]/20 overflow-hidden shadow-sm">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#aec3b0] to-[#9ab09c] border-2 border-white overflow-hidden shadow-md">
             <img
               src={avatarUrl}
               alt="Shifanul"
@@ -4007,16 +4031,16 @@ const App = () => {
         {activeTab === "purify" && (
           <div className="space-y-4 animate-in zoom-in-95 duration-200">
             <div className="bg-\[#F2F1EF\] p-8 rounded-[2rem] shadow border border-slate-50 text-center">
-              <div className="w-16 h-16 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mx-auto mb-4">
                 <Droplets size={32} />
               </div>
-              <h2 className="text-xl font-bold">Wealth Purity</h2>
+              <h2 className="text-xl font-semibold">Wealth Purity</h2>
               <p className="text-slate-400 text-xs mt-1 leading-relaxed">
                 Cleansing non-halal earnings.
               </p>
             </div>
             <div className="bg-[#0f172a] p-6 rounded-[2rem] text-white">
-              <p className="text-slate-400 text-[8px] font-bold uppercase tracking-widest mb-2">
+              <p className="text-slate-400 text-[8px] font-semibold uppercase tracking-widest mb-2">
                 To Be Purified
               </p>
               <h3 className="text-4xl font-black mb-6 tracking-tighter">
@@ -4078,14 +4102,14 @@ const NavButton = ({ active, onClick, icon, label }) => (
     }`}
   >
     <div
-      className={`p-2 rounded-lg transition-all ${
+      className={`p-2 rounded-xl transition-all ${
         active ? "bg-[#f2f1ef]" : "bg-transparent"
       }`}
     >
       {React.cloneElement(icon, { size: 20, strokeWidth: active ? 2.5 : 2 })}
     </div>
     <span
-      className={`text-[8px] font-bold uppercase tracking-tighter ${
+      className={`text-[8px] font-semibold uppercase tracking-tighter ${
         active ? "opacity-100" : "opacity-0 translate-y-1"
       }`}
     >

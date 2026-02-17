@@ -27,6 +27,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.3px;
 }
 
 h1,
@@ -35,9 +36,13 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Georgia", "Garamond", "Times New Roman", serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   color: #0d2b1d;
   margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.4px;
 }
 
 p,
@@ -86,20 +91,22 @@ select,
 
 /* Bank Card Component */
 .bank-card {
-  background: rgba(174, 195, 176, 0.25);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(174, 195, 176, 0.4);
+  background: rgba(248, 247, 245, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(174, 195, 176, 0.25);
   border-radius: var(--radius-lg);
   padding: 24px;
-  box-shadow: 0 5px 20px rgba(13, 43, 29, 0.06);
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(13, 43, 29, 0.04),
+    0 0 0 1px rgba(174, 195, 176, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bank-card:hover {
-  box-shadow: 0 10px 30px rgba(13, 43, 29, 0.1);
+  box-shadow: 0 12px 28px rgba(13, 43, 29, 0.08),
+    0 0 0 1px rgba(174, 195, 176, 0.2);
   transform: translateY(-2px);
-  border-color: rgba(217, 177, 142, 0.5);
+  border-color: rgba(217, 177, 142, 0.3);
 }
 
 /* Primary Button */
@@ -109,19 +116,20 @@ select,
   color: #0d2b1d;
   border: none;
   border-radius: 500px;
-  padding: 14px 32px;
+  padding: 16px 36px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   text-decoration: none;
   text-align: center;
+  box-shadow: 0 2px 8px rgba(174, 195, 176, 0.15);
 }
 
 .btn-primary:hover {
   background-color: #9ab09c;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(174, 195, 176, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(174, 195, 176, 0.25);
 }
 
 .btn-primary:active {
@@ -144,17 +152,17 @@ select,
   border-radius: 500px;
   padding: 14px 32px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   text-decoration: none;
   text-align: center;
 }
 
 .btn-ghost:hover {
-  background-color: rgba(174, 195, 176, 0.15);
+  background-color: rgba(174, 195, 176, 0.1);
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(174, 195, 176, 0.15);
+  box-shadow: 0 8px 16px rgba(174, 195, 176, 0.12);
 }
 
 .btn-ghost:active {
@@ -171,13 +179,13 @@ select,
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(248, 247, 245, 0.9);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border-bottom: 1px solid rgba(174, 195, 176, 0.2);
+  background: rgba(248, 247, 245, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(174, 195, 176, 0.15);
   padding: 16px 24px;
   border-radius: var(--radius-lg);
-  box-shadow: 0 2px 10px rgba(13, 43, 29, 0.04);
+  box-shadow: 0 2px 12px rgba(13, 43, 29, 0.03);
   margin: 0;
 }
 
@@ -228,15 +236,21 @@ select,
 input,
 textarea,
 select {
-  background: rgba(242, 241, 239, 0.6);
+  background: rgba(242, 241, 239, 0.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: #0d2b1d;
-  border: 1px solid rgba(174, 195, 176, 0.3);
+  border: 1.5px solid rgba(174, 195, 176, 0.2);
   border-radius: var(--radius-lg);
-  padding: 12px 16px;
+  padding: 14px 18px;
   font-size: 16px;
-  transition: all 0.3s ease;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(13, 43, 29, 0.45);
 }
 
 input:focus,
@@ -244,8 +258,9 @@ textarea:focus,
 select:focus {
   outline: none;
   border-color: #aec3b0;
-  box-shadow: 0 0 0 3px rgba(174, 195, 176, 0.1);
-  background: rgba(242, 241, 239, 0.9);
+  box-shadow: 0 0 0 4px rgba(174, 195, 176, 0.08),
+    inset 0 0 0 1px rgba(174, 195, 176, 0.1);
+  background: rgba(248, 247, 245, 0.95);
 }
 
 /* Text Selection */
