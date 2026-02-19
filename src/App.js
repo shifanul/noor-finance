@@ -894,48 +894,49 @@ const App = () => {
   );
 
   const renderDashboard = () => (
-    <div className="space-y-4 pb-24 animate-in fade-in duration-500">
-      <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
-        <button
-          onClick={simulateSync}
-          className="whitespace-nowrap bg-[#D9B18E] text-white text-xs font-semibold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
-        >
-          <RefreshCcw size={12} className={isSyncing ? "animate-spin" : ""} />{" "}
-          {t("sync")}
-        </button>
-        <button
-          onClick={addRandomTransaction}
-          className="whitespace-nowrap bg-[#AEC3B0] text-[#0D2B1D] text-xs font-semibold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
-        >
-          <Zap size={12} /> {t("simulate")}
-        </button>
-      </div>
+    <div className="bg-[#aec3b0]">
+      <div className="space-y-4 pb-24 animate-in fade-in duration-500">
+        <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
+          <button
+            onClick={simulateSync}
+            className="whitespace-nowrap bg-[#D9B18E] text-white text-xs font-semibold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
+          >
+            <RefreshCcw size={12} className={isSyncing ? "animate-spin" : ""} />{" "}
+            {t("sync")}
+          </button>
+          <button
+            onClick={addRandomTransaction}
+            className="whitespace-nowrap bg-[#AEC3B0] text-[#0D2B1D] text-xs font-semibold px-3 py-2 rounded-xl flex items-center gap-2 shadow hover:opacity-90 active:scale-95 transition-all"
+          >
+            <Zap size={12} /> {t("simulate")}
+          </button>
+        </div>
 
-      <div className="bg-gradient-to-br from-[#aec3b0] to-[#9ab09c] rounded-[2rem] p-7 text-[#0D2B1D] shadow-lg relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -mr-20 -mt-20"></div>
-        <div className="relative z-10">
-          <p className="text-[#0D2B1D]/70 text-xs font-semibold uppercase tracking-widest">
-            {t("totalWealth")}
-          </p>
-          <h1 className="text-5xl font-semibold mt-2 tracking-tight">
-            ${balance.toLocaleString()}
-          </h1>
-          <div className="mt-6 flex justify-between items-center">
-            <div className="flex items-center gap-2 text-[#0D2B1D] font-semibold text-sm">
-              <TrendingUp size={16} /> <span>+4.2% APY</span>
-            </div>
-            <div className="bg-white/20 backdrop-blur px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest">
-              Mudarabah
+        <div className="bg-gradient-to-br from-[#aec3b0] to-[#9ab09c] rounded-[2rem] p-7 text-[#0D2B1D] shadow-lg relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -mr-20 -mt-20"></div>
+          <div className="relative z-10">
+            <p className="text-[#0D2B1D]/70 text-xs font-semibold uppercase tracking-widest">
+              {t("totalWealth")}
+            </p>
+            <h1 className="text-5xl font-semibold mt-2 tracking-tight">
+              ${balance.toLocaleString()}
+            </h1>
+            <div className="mt-6 flex justify-between items-center">
+              <div className="flex items-center gap-2 text-[#0D2B1D] font-semibold text-sm">
+                <TrendingUp size={16} /> <span>+4.2% APY</span>
+              </div>
+              <div className="bg-white/20 backdrop-blur px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest">
+                Mudarabah
+              </div>
             </div>
           </div>
+          <img
+            src={MajidImage}
+            alt="Decorative background"
+            className="absolute bottom-0 left-0 w-full h-32 object-cover opacity-40 mix-blend-overlay pointer-events-none"
+          />
         </div>
-        <img
-          src={MajidImage}
-          alt="Decorative background"
-          className="absolute bottom-0 left-0 w-full h-32 object-cover opacity-40 mix-blend-overlay pointer-events-none"
-        />
       </div>
-
       <div className="grid grid-cols-4 gap-3">
         {[
           {
