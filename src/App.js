@@ -46,7 +46,7 @@ import {
 } from "lucide-react";
 import avatarUrl from "./IMG_3519.png";
 import translations from "./i18n";
-import MajidImage from "./images/Majid.png";
+import MajidImage from "./images/Masjid.png";
 
 const App = () => {
   const [locale, setLocale] = useState(localStorage.getItem("locale") || "en");
