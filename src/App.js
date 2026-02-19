@@ -894,8 +894,8 @@ const App = () => {
   );
 
   const renderDashboard = () => (
-    <div className="bg-[#aec3b0]">
-      <div className="space-y-4 pb-24 animate-in fade-in duration-500">
+    <div>
+      <div className="bg-[#aec3b0]">
         <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
           <button
             onClick={simulateSync}
