@@ -931,6 +931,7 @@ const App = () => {
         </div>
         <img
           src={MajidImage}
+          alt="Majid in the background where total wealth card is located"
           className="absolute bottom-0 right-0 w-40 h-40 object-cover opacity-10 bg-white/20 rounded-full -mb-10 -mr-10"
         />
       </div>
