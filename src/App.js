@@ -932,7 +932,7 @@ const App = () => {
         <img
           src={MajidImage}
           alt="Decorative background"
-          className="absolute bottom-0 left-0 w-full h-32 object-cover opacity-20 mix-blend-overlay pointer-events-none"
+          className="absolute bottom-0 left-0 w-full h-32 object-cover opacity-40 mix-blend-overlay pointer-events-none"
         />
       </div>
 
