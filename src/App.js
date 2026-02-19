@@ -46,6 +46,7 @@ import {
 } from "lucide-react";
 import avatarUrl from "./IMG_3519.png";
 import translations from "./i18n";
+import MajidImage from "./images/majid.png";
 
 const App = () => {
   const [locale, setLocale] = useState(localStorage.getItem("locale") || "en");
@@ -928,6 +929,10 @@ const App = () => {
             </div>
           </div>
         </div>
+        <img
+          src={MajidImage}
+          className="absolute bottom-0 right-0 w-40 h-40 object-cover opacity-10 bg-white/20 rounded-full -mb-10 -mr-10"
+        />
       </div>
 
       <div className="grid grid-cols-4 gap-3">
