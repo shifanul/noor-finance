@@ -1237,7 +1237,7 @@ const App = () => {
 
     return (
       <div className="animate-in slide-in-from-right-10 duration-300 h-full flex flex-col pt-4">
-        <div className="flex items-center justify-between mb-8">
+        <div className="bg-[#aec3b0] flex items-center justify-between mb-8">
           <button
             onClick={() => setActiveTab("dashboard")}
             className="p-2 -ml-2 rounded-full hover:bg-slate-100 active:scale-90 transition-all"
