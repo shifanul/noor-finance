@@ -44,6 +44,7 @@ import {
   CalendarDays,
   Settings,
   Plus,
+  Loader2,
 } from "lucide-react";
 import avatarUrl from "./IMG_3519.png";
 import translations from "./i18n";
@@ -133,6 +134,17 @@ const App = () => {
   const [cards, setCards] = useState([
     { id: 1, theme: "mocha", number: "•••• •••• •••• 1120" },
   ]);
+
+  // States for the Entry and Linking flow
+  const [view, setView] = useState("main"); // "main", "entry", "linking"
+  const [linkStep, setLinkStep] = useState(0);
+
+  // Form State
+  const [formData, setFormData] = useState({
+    number: "",
+    expiry: "",
+    cvv: "",
+  });
 
   const handleStartEntry = () => {
     setFormData({ number: "", expiry: "", cvv: "" });
