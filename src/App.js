@@ -40,10 +40,11 @@ import {
   DollarSign,
   Clock,
   FileText,
-  Sparkles,
+  // Sparkles,
   CalendarDays,
   Settings,
   Plus,
+  Shield,
   Loader2,
 } from "lucide-react";
 import avatarUrl from "./IMG_3519.png";
