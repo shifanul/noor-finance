@@ -3076,6 +3076,7 @@ const App = () => {
     const cardThemes = {
       mocha: "from-[#2A1B14] via-[#3C2A21] to-[#1A0F0A]",
       sage: "from-[#2d3a30] via-[#3d4d41] to-[#1e2620]",
+      black: "from-[#1a1a1a] via-[#0a0a0a] to-[#000000]",
       olive: "from-[#3a3a1a] via-[#4d4d26] to-[#262610]",
       clay: "from-[#4a342a] via-[#5d4336] to-[#2e211b]",
     };
@@ -3128,11 +3129,8 @@ const App = () => {
                   : cardThemes[card.theme || "mocha"]
               }`}
             >
-              {/* Complex Geometric Poly-Patterns */}
+              {/* Complex Geometric Poly-Patterns - Dots texture removed */}
               <div className="absolute inset-0 overflow-hidden pointer-events-none transition-opacity duration-700">
-                {/* Background base layers */}
-                <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay"></div>
-
                 {/* Top Left Facet */}
                 <div
                   className="absolute top-0 left-0 w-full h-full bg-white/10"
