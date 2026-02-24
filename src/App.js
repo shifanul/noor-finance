@@ -43,6 +43,7 @@ import {
   Sparkles,
   CalendarDays,
   Settings,
+  Plus,
 } from "lucide-react";
 import avatarUrl from "./IMG_3519.png";
 import translations from "./i18n";
@@ -129,6 +130,9 @@ const App = () => {
   const [showAddContact, setShowAddContact] = useState(false);
   const [newContactName, setNewContactName] = useState("");
   const [newContactEmail, setNewContactEmail] = useState("");
+  const [cards, setCards] = useState([
+    { id: 1, theme: "mocha", number: "•••• •••• •••• 1120" },
+  ]);
 
   // Internal Transfer State
   const [fromAccount, setFromAccount] = useState("current");
