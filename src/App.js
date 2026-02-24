@@ -134,6 +134,49 @@ const App = () => {
     { id: 1, theme: "mocha", number: "•••• •••• •••• 1120" },
   ]);
 
+  const handleStartEntry = () => {
+    setFormData({ number: "", expiry: "", cvv: "" });
+    setView("entry");
+  };
+
+  const handleVerifyAndLink = (e) => {
+    e.preventDefault();
+    setView("linking");
+    setLinkStep(1);
+
+    // Simulate the secure linking/provisioning process
+    setTimeout(() => {
+      setLinkStep(2);
+      setTimeout(() => {
+        const cardThemes = {
+          mocha: "from-[#2A1B14] via-[#3C2A21] to-[#1A0F0A]",
+          black: "from-[#1a1a1a] via-[#0a0a0a] to-[#000000]",
+          sage: "from-[#2d3a30] via-[#3d4d41] to-[#1e2620]",
+          olive: "from-[#3a3a1a] via-[#4d4d26] to-[#262610]",
+          clay: "from-[#4a342a] via-[#5d4336] to-[#2e211b]",
+        };
+        const themes = Object.keys(cardThemes);
+        const nextTheme = themes[cards.length % themes.length];
+
+        // Take last 4 digits from entered number or default
+        const lastFour = formData.number.slice(-4) || "8821";
+
+        setCards([
+          ...cards,
+          {
+            id: Date.now(),
+            theme: nextTheme,
+            number: `•••• •••• •••• ${lastFour}`,
+          },
+        ]);
+
+        setView("main");
+        setLinkStep(0);
+        triggerNotification("External Card Linked Successfully");
+      }, 1500);
+    }, 2000);
+  };
+
   // Internal Transfer State
   const [fromAccount, setFromAccount] = useState("current");
   const [toAccount, setToAccount] = useState("investment");
@@ -3070,33 +3113,168 @@ const App = () => {
   );
 
   const renderCard = () => {
-    if (subscriptionView === "manage") return renderSubscriptionManagement();
+    if (subscriptionView === "manage")
+      return (
+        <div className="p-8 text-center text-[#0D2B1D]">
+          Subscription Management View
+        </div>
+      );
 
-    // Earthy, deep geometric themes
+    // Entry Form Sub-View
+    if (view === "entry") {
+      return (
+        <div className="min-h-screen bg-[#F7F5F0] p-6 animate-in slide-in-from-right-4 duration-300">
+          <button
+            onClick={() => setView("main")}
+            className="flex items-center gap-2 text-[#0D2B1D] mb-8 font-medium"
+          >
+            <ChevronLeft size={20} /> Back
+          </button>
+
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <h1 className="text-2xl font-bold text-[#0D2B1D]">
+                Link External Card
+              </h1>
+              <p className="text-sm text-slate-500">
+                Enter your card details to securely connect your external
+                account to Rizq.
+              </p>
+            </div>
+
+            <form onSubmit={handleVerifyAndLink} className="space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400 ml-1">
+                  Card Number
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="0000 0000 0000 0000"
+                    className="w-full bg-white border border-[#AEC3B0] rounded-2xl p-4 pl-12 text-[#0D2B1D] focus:ring-2 focus:ring-[#0D2B1D] outline-none transition-all"
+                    value={formData.number}
+                    onChange={(e) =>
+                      setFormData({ ...formData, number: e.target.value })
+                    }
+                    required
+                  />
+                  <CreditCard
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                    size={20}
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400 ml-1">
+                    Expiry Date
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="MM/YY"
+                    className="w-full bg-white border border-[#AEC3B0] rounded-2xl p-4 text-[#0D2B1D] focus:ring-2 focus:ring-[#0D2B1D] outline-none transition-all text-center"
+                    value={formData.expiry}
+                    onChange={(e) =>
+                      setFormData({ ...formData, expiry: e.target.value })
+                    }
+                    required
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400 ml-1">
+                    CVV
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="password"
+                      placeholder="***"
+                      maxLength="3"
+                      className="w-full bg-white border border-[#AEC3B0] rounded-2xl p-4 text-[#0D2B1D] focus:ring-2 focus:ring-[#0D2B1D] outline-none transition-all text-center"
+                      value={formData.cvv}
+                      onChange={(e) =>
+                        setFormData({ ...formData, cvv: e.target.value })
+                      }
+                      required
+                    />
+                    <Shield
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400"
+                      size={18}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-8">
+                <button
+                  type="submit"
+                  className="w-full bg-[#0D2B1D] text-white p-5 rounded-[2rem] font-bold shadow-lg active:scale-95 transition-all"
+                >
+                  Securely Link Card
+                </button>
+                <p className="text-[10px] text-center text-slate-400 mt-4 px-8 leading-relaxed">
+                  By linking this card, you authorize Rizq to facilitate
+                  Shariah-compliant transactions via your Neo Islamic Banking
+                  account.
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      );
+    }
+
     const cardThemes = {
       mocha: "from-[#2A1B14] via-[#3C2A21] to-[#1A0F0A]",
-      sage: "from-[#2d3a30] via-[#3d4d41] to-[#1e2620]",
       black: "from-[#1a1a1a] via-[#0a0a0a] to-[#000000]",
+      sage: "from-[#2d3a30] via-[#3d4d41] to-[#1e2620]",
       olive: "from-[#3a3a1a] via-[#4d4d26] to-[#262610]",
       clay: "from-[#4a342a] via-[#5d4336] to-[#2e211b]",
     };
 
-    const addNewCard = () => {
-      const themes = Object.keys(cardThemes);
-      const nextTheme = themes[cards.length % themes.length];
-      setCards([
-        ...cards,
-        {
-          id: Date.now(),
-          theme: nextTheme,
-          number: "•••• •••• •••• " + Math.floor(1000 + Math.random() * 9000),
-        },
-      ]);
-      triggerNotification("New Virtual Card Created");
-    };
-
     return (
-      <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
+      <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4 relative">
+        {/* Linking Overlay */}
+        {view === "linking" && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm px-6">
+            <div className="bg-white p-8 rounded-[2.5rem] shadow-2xl border border-[#AEC3B0] w-full max-w-sm text-center space-y-4 animate-in zoom-in-95 duration-300">
+              {linkStep === 1 ? (
+                <>
+                  <div className="relative flex justify-center">
+                    <Loader2
+                      className="animate-spin text-[#0D2B1D]"
+                      size={48}
+                    />
+                  </div>
+                  <h3 className="text-lg font-bold text-[#0D2B1D]">
+                    Verifying with Neo Islamic
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    Syncing your banking credentials with our ethical filter
+                    protocol...
+                  </p>
+                </>
+              ) : (
+                <>
+                  <div className="flex justify-center">
+                    <CheckCircle2
+                      className="text-emerald-500 animate-bounce"
+                      size={48}
+                    />
+                  </div>
+                  <h3 className="text-lg font-bold text-[#0D2B1D]">
+                    Account Synced!
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    Your Neo card is now linked. All transactions will be
+                    filtered for Shariah compliance.
+                  </p>
+                </>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Header with Add Button */}
         <div className="flex justify-between items-center px-1">
           <h2 className="text-xl font-semibold text-[#0D2B1D]">
@@ -3104,7 +3282,7 @@ const App = () => {
           </h2>
           <div className="flex items-center gap-3">
             <button
-              onClick={addNewCard}
+              onClick={handleStartEntry}
               className="p-2 bg-[#0D2B1D] text-white rounded-full active:scale-90 transition-transform shadow-md"
             >
               <Plus size={16} />
@@ -3129,70 +3307,58 @@ const App = () => {
                   : cardThemes[card.theme || "mocha"]
               }`}
             >
-              {/* Complex Geometric Poly-Patterns - Dots texture removed */}
-              <div className="absolute inset-0 overflow-hidden pointer-events-none transition-opacity duration-700">
-                {/* Top Left Facet */}
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div
                   className="absolute top-0 left-0 w-full h-full bg-white/10"
                   style={{
                     clipPath: "polygon(0% 0%, 45% 0%, 30% 35%, 0% 25%)",
                   }}
                 ></div>
-                {/* Sharp Center Facet */}
                 <div
                   className="absolute top-0 left-0 w-full h-full bg-black/20"
                   style={{
                     clipPath: "polygon(45% 0%, 75% 0%, 55% 45%, 30% 35%)",
                   }}
                 ></div>
-                {/* Top Right Facet */}
                 <div
                   className="absolute top-0 right-0 w-full h-full bg-white/5"
                   style={{
                     clipPath: "polygon(75% 0%, 100% 0%, 100% 40%, 55% 45%)",
                   }}
                 ></div>
-                {/* Far Right Lower Facet */}
                 <div
                   className="absolute top-0 right-0 w-full h-full bg-black/30"
                   style={{
                     clipPath: "polygon(100% 40%, 100% 75%, 65% 60%, 55% 45%)",
                   }}
                 ></div>
-                {/* Bottom Right Edge */}
                 <div
                   className="absolute bottom-0 right-0 w-full h-full bg-white/10"
                   style={{
                     clipPath: "polygon(100% 75%, 100% 100%, 60% 100%, 65% 60%)",
                   }}
                 ></div>
-                {/* Bottom Center Point */}
                 <div
                   className="absolute bottom-0 left-0 w-full h-full bg-black/15"
                   style={{
                     clipPath: "polygon(60% 100%, 30% 100%, 45% 55%, 65% 60%)",
                   }}
                 ></div>
-                {/* Bottom Left Sharp Angle */}
                 <div
                   className="absolute bottom-0 left-0 w-full h-full bg-white/5"
                   style={{
                     clipPath: "polygon(30% 100%, 0% 100%, 0% 60%, 45% 55%)",
                   }}
                 ></div>
-                {/* Left Middle Facet */}
                 <div
                   className="absolute top-0 left-0 w-full h-full bg-black/5"
                   style={{
                     clipPath: "polygon(0% 25%, 30% 35%, 45% 55%, 0% 60%)",
                   }}
                 ></div>
-
-                {/* Refracted Glow - adding that "shimmer" effect */}
                 <div className="absolute top-1/3 left-1/3 w-2/3 h-2/3 bg-white/10 rounded-full blur-[60px] mix-blend-soft-light"></div>
               </div>
 
-              {/* NFC Wireless Symbol */}
               <div className="absolute top-10 right-7 opacity-40">
                 <svg
                   width="22"
@@ -3213,7 +3379,6 @@ const App = () => {
                 <span className="font-black text-2xl italic tracking-tighter drop-shadow-lg flex items-center gap-1">
                   Rizq.
                 </span>
-                {/* High-detail Card Chip */}
                 <div className="w-12 h-9 bg-gradient-to-br from-[#E6B980] via-[#B88746] to-[#8E5D24] rounded-md p-1 shadow-lg relative group">
                   <div className="w-full h-full rounded-[2px] border border-black/10 flex flex-col justify-between p-0.5">
                     <div className="flex justify-between h-[30%] border-b border-black/10">
@@ -3237,13 +3402,11 @@ const App = () => {
               <div className="relative z-10 flex flex-col gap-5">
                 <div className="flex items-center gap-4">
                   <p className="text-xl font-mono tracking-[0.2em] font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
-                    {showCardDetails
-                      ? "4532 8812 0094 1120"
-                      : card.number || "•••• •••• •••• 1120"}
+                    {showCardDetails ? "4532 8812 0094 1120" : card.number}
                   </p>
                   <button
                     onClick={() => setShowCardDetails(!showCardDetails)}
-                    className="p-1.5 bg-white/10 hover:bg-white/20 rounded-full transition-all active:scale-90"
+                    className="p-1.5 bg-white/10 hover:bg-white/20 rounded-full transition-all"
                   >
                     {showCardDetails ? (
                       <EyeOff size={14} className="text-white/80" />
@@ -3258,7 +3421,7 @@ const App = () => {
                     <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-white/40 mb-0.5">
                       EXPIRES END
                     </span>
-                    <span className="text-sm font-mono font-bold tracking-widest text-white/90 drop-shadow-sm">
+                    <span className="text-sm font-mono font-bold tracking-widest text-white/90">
                       {showCardDetails ? "09/28" : "05/20"}
                     </span>
                   </div>
@@ -3266,7 +3429,7 @@ const App = () => {
                     <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-white/40 mb-0.5">
                       CVV
                     </span>
-                    <span className="text-sm font-mono font-bold tracking-widest text-white/90 drop-shadow-sm">
+                    <span className="text-sm font-mono font-bold tracking-widest text-white/90">
                       {showCardDetails ? "442" : "•••"}
                     </span>
                   </div>
@@ -3274,8 +3437,8 @@ const App = () => {
               </div>
 
               <div className="flex justify-between items-end relative z-10">
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 drop-shadow-sm">
-                  NANE SURNAME
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">
+                  NEO ISLAMIC USER
                 </p>
                 <div className="flex -space-x-2.5 opacity-90 drop-shadow-md">
                   <div className="w-9 h-9 rounded-full bg-rose-600 border border-white/5"></div>
@@ -3301,14 +3464,7 @@ const App = () => {
               </div>
             </div>
             <button
-              onClick={() => {
-                setHalalFilterActive(!halalFilterActive);
-                triggerNotification(
-                  halalFilterActive
-                    ? "Halal Filter Paused"
-                    : "Halal Filter Enabled",
-                );
-              }}
+              onClick={() => setHalalFilterActive(!halalFilterActive)}
               className={`w-12 h-6 rounded-full p-1 transition-colors ${
                 halalFilterActive ? "bg-[#aec3b0]" : "bg-slate-200"
               }`}
@@ -3331,10 +3487,7 @@ const App = () => {
               </div>
             </div>
             <button
-              onClick={() => {
-                setIsFrozen(!isFrozen);
-                triggerNotification(isFrozen ? "Card Unfrozen" : "Card Frozen");
-              }}
+              onClick={() => setIsFrozen(!isFrozen)}
               className={`w-12 h-6 rounded-full p-1 transition-colors ${
                 isFrozen ? "bg-blue-500" : "bg-slate-200"
               }`}
@@ -3348,42 +3501,11 @@ const App = () => {
           </div>
         </div>
 
-        {/* Feature Highlights */}
-        <div className="bg-[#F2F1EF] rounded-[1.5rem] p-6 border border-[#AEC3B0] shadow-sm">
-          <div className="space-y-6">
-            <div className="flex gap-4">
-              <ShieldCheck className="text-[#0d2b1d] shrink-0" size={20} />
-              <div>
-                <p className="text-xs font-semibold text-slate-800">
-                  The Active Halal Filter
-                </p>
-                <p className="text-xs text-slate-500 leading-relaxed mt-0.5">
-                  Automated Shariah-compliance at 1.2M+ merchants. We instantly
-                  block non-ethical categories.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <Sparkles className="text-amber-500 shrink-0" size={20} />
-              <div>
-                <p className="text-xs font-semibold text-slate-800">
-                  0.5% Cash-Back (Halal Merchants)
-                </p>
-                <p className="text-xs text-slate-500 leading-relaxed mt-0.5">
-                  Earn rewards on every ethical purchase, delivered as monthly
-                  profit-share.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Why Subscription */}
         <div className="p-6 bg-slate-900 rounded-[2.5rem] text-[#D9B18E]">
           <div className="flex items-center gap-2 mb-3">
             <Info size={16} className="text-emerald-600" />
             <h3 className="text-xs font-black uppercase tracking-widest text-emerald-600">
-              {t("whySubscription")}
+              Why Subscription?
             </h3>
           </div>
           <p className="text-[11px] text-[#AEC3B0] leading-relaxed">
@@ -3395,7 +3517,7 @@ const App = () => {
 
         <button
           onClick={() => setSubscriptionView("manage")}
-          className="w-full bg-[#F2F1EF] border border-[#AEC3B0] text-[#0D2B1D] p-5 rounded-[2rem] font-semibold text-sm shadow-sm active:scale-95 transition-all flex items-center justify-center gap-2"
+          className="w-full bg-[#F2F1EF] border border-[#AEC3B0] text-[#0D2B1D] p-5 rounded-[2rem] font-semibold text-sm shadow-sm flex items-center justify-center gap-2"
         >
           View Subscription Agreement <ArrowUpRight size={16} />
         </button>
