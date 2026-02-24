@@ -3072,12 +3072,12 @@ const App = () => {
   const renderCard = () => {
     if (subscriptionView === "manage") return renderSubscriptionManagement();
 
-    // Define the earthy themes for the cards
+    // Define the geometric themes based on the provided image style
     const cardThemes = {
-      mocha: "bg-gradient-to-br from-[#3C2A21] via-[#2D1B14] to-[#1A0F0A]",
-      sage: "bg-gradient-to-br from-[#708271] via-[#5F7161] to-[#4E5E50]",
-      olive: "bg-gradient-to-br from-[#4B5320] via-[#3F441E] to-[#2E3216]",
-      clay: "bg-gradient-to-br from-[#A68A64] via-[#93785B] to-[#7A634D]",
+      mocha: "from-[#1a1a1a] via-[#2d2d2d] to-[#0f0f0f]",
+      sage: "from-[#2d3a30] via-[#3d4d41] to-[#1e2620]",
+      olive: "from-[#3a3a1a] via-[#4d4d26] to-[#262610]",
+      clay: "from-[#4a342a] via-[#5d4336] to-[#2e211b]",
     };
 
     // Logic to add a new card (cycles through themes)
@@ -3125,29 +3125,79 @@ const App = () => {
           {cards.map((card, index) => (
             <div
               key={card.id}
-              className={`w-full min-w-[320px] max-w-[340px] aspect-[1.58/1] rounded-[1.5rem] p-6 text-white shadow-2xl relative flex flex-col justify-between transition-all duration-500 overflow-hidden snap-center shrink-0 ${
+              className={`w-full min-w-[320px] max-w-[340px] aspect-[1.58/1] rounded-[1.5rem] p-6 text-white shadow-2xl relative flex flex-col justify-between transition-all duration-500 overflow-hidden snap-center shrink-0 bg-gradient-to-br ${
                 isFrozen
                   ? "grayscale bg-slate-800"
                   : cardThemes[card.theme || "mocha"]
               }`}
             >
-              {/* Unique Decorative Background Elements */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
+              {/* Geometric Poly-Patterns (Simulating the image style) */}
+              <div className="absolute inset-0 overflow-hidden opacity-30 pointer-events-none">
+                <div
+                  className="absolute top-0 left-0 w-full h-full bg-white/10"
+                  style={{
+                    clipPath: "polygon(0% 0%, 40% 0%, 25% 45%, 0% 30%)",
+                  }}
+                ></div>
+                <div
+                  className="absolute top-0 right-0 w-full h-full bg-black/20"
+                  style={{
+                    clipPath: "polygon(40% 0%, 100% 0%, 100% 60%, 65% 40%)",
+                  }}
+                ></div>
+                <div
+                  className="absolute bottom-0 right-0 w-full h-full bg-white/5"
+                  style={{
+                    clipPath: "polygon(100% 60%, 100% 100%, 40% 100%, 65% 40%)",
+                  }}
+                ></div>
+                <div
+                  className="absolute bottom-0 left-0 w-full h-full bg-black/10"
+                  style={{
+                    clipPath: "polygon(0% 30%, 25% 45%, 40% 100%, 0% 100%)",
+                  }}
+                ></div>
+                <div
+                  className="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-white/10"
+                  style={{
+                    clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
+                    filter: "blur(20px)",
+                  }}
+                ></div>
+              </div>
+
+              {/* NFC Wireless Symbol */}
+              <div className="absolute top-10 right-6 opacity-60">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M12 18c3.314 0 6-2.686 6-6s-2.686-6-6-6" />
+                  <path d="M17 22c5.523 0 10-4.477 10-10S22.523 2 17 2" />
+                </svg>
+              </div>
 
               <div className="flex justify-between items-start relative z-10">
-                <span className="font-black text-2xl italic tracking-tighter">
+                <span className="font-black text-2xl italic tracking-tighter drop-shadow-md">
                   Rizq.
                 </span>
-                <div className="w-10 h-7 bg-gradient-to-br from-amber-200 to-amber-500/80 rounded flex flex-col justify-around p-1 shadow-inner">
-                  <div className="w-full h-[1px] bg-black/10"></div>
-                  <div className="w-full h-[1px] bg-black/10"></div>
+                {/* Chip design updated to look more like the gold hardware in image */}
+                <div className="w-12 h-9 bg-gradient-to-br from-yellow-200 via-yellow-400 to-yellow-600 rounded-md p-1.5 shadow-lg flex flex-wrap gap-0.5 overflow-hidden">
+                  <div className="w-[30%] h-full border-r border-black/10"></div>
+                  <div className="w-[30%] h-full border-r border-black/10"></div>
+                  <div className="w-[30%] h-full"></div>
                 </div>
               </div>
 
               <div className="relative z-10 flex flex-col gap-4">
                 <div className="flex items-center gap-3">
-                  <p className="text-lg font-mono tracking-[0.15em] font-medium text-white/90">
+                  <p className="text-xl font-mono tracking-[0.2em] font-bold text-white drop-shadow-lg">
                     {showCardDetails
                       ? "4532 8812 0094 1120"
                       : card.number || "•••• •••• •••• 1120"}
@@ -3166,18 +3216,18 @@ const App = () => {
 
                 <div className="flex gap-8 items-center">
                   <div className="flex flex-col">
-                    <span className="text-[7px] font-semibold uppercase tracking-[0.2em] text-white/50 mb-0.5">
-                      Expiry
+                    <span className="text-[7px] font-bold uppercase tracking-[0.3em] text-white/50 mb-0.5">
+                      EXPIRES END
                     </span>
-                    <span className="text-sm font-mono font-medium tracking-widest">
-                      {showCardDetails ? "09/28" : "••/••"}
+                    <span className="text-sm font-mono font-bold tracking-widest text-white/90">
+                      {showCardDetails ? "09/28" : "05/20"}
                     </span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[7px] font-semibold uppercase tracking-[0.2em] text-white/50 mb-0.5">
+                    <span className="text-[7px] font-bold uppercase tracking-[0.3em] text-white/50 mb-0.5">
                       CVV
                     </span>
-                    <span className="text-sm font-mono font-medium tracking-widest">
+                    <span className="text-sm font-mono font-bold tracking-widest text-white/90">
                       {showCardDetails ? "442" : "•••"}
                     </span>
                   </div>
@@ -3185,12 +3235,12 @@ const App = () => {
               </div>
 
               <div className="flex justify-between items-end relative z-10">
-                <p className="text-xs font-semibold uppercase tracking-widest text-white/90">
-                  Visa Platinum
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/70">
+                  NANE SURNAME
                 </p>
-                <div className="flex -space-x-2">
-                  <div className="w-7 h-7 rounded-full bg-rose-600/90 shadow-sm border border-white/5"></div>
-                  <div className="w-7 h-7 rounded-full bg-amber-500/90 shadow-sm border border-white/5"></div>
+                <div className="flex -space-x-2 opacity-80">
+                  <div className="w-8 h-8 rounded-full bg-rose-600 shadow-sm"></div>
+                  <div className="w-8 h-8 rounded-full bg-amber-500 shadow-sm"></div>
                 </div>
               </div>
             </div>
@@ -3259,7 +3309,7 @@ const App = () => {
           </div>
         </div>
 
-        {/* Feature Highlights Component */}
+        {/* Feature Highlights */}
         <div className="bg-[#F2F1EF] rounded-[1.5rem] p-6 border border-[#AEC3B0] shadow-sm">
           <div className="space-y-6">
             <div className="flex gap-4">
@@ -3313,8 +3363,7 @@ const App = () => {
             Traditional banks make money by lending yours out at interest
             (Riba). <strong>Rizq. does not.</strong> To keep our infrastructure
             interest-free and purely ethical, we charge a transparent monthly
-            fee. This ensures our interests are aligned with your values, not
-            bank profits.
+            fee.
           </p>
         </div>
 
@@ -3322,7 +3371,7 @@ const App = () => {
           onClick={() => setSubscriptionView("manage")}
           className="w-full bg-[#F2F1EF] border border-[#AEC3B0] text-[#0D2B1D] p-5 rounded-[2rem] font-semibold text-sm shadow-sm active:scale-95 transition-all flex items-center justify-center gap-2"
         >
-          {t("viewSubscriptionAgreement")} <ArrowUpRight size={16} />
+          View Subscription Agreement <ArrowUpRight size={16} />
         </button>
       </div>
     );
