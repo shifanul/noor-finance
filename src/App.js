@@ -40,7 +40,7 @@ import {
   DollarSign,
   Clock,
   FileText,
-  // Sparkles,
+  Sparkles,
   CalendarDays,
   Settings,
   Plus,
@@ -3126,13 +3126,8 @@ const App = () => {
   );
 
   const renderCard = () => {
-    if (subscriptionView === "manage")
-      return (
-        <div className="p-8 text-center text-[#0D2B1D]">
-          Subscription Management View
-        </div>
-      );
-
+    // Check for management view first
+    if (view === "manage") return renderSubscriptionManagement();
     // Entry Form Sub-View
     if (view === "entry") {
       return (
