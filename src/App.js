@@ -3068,93 +3068,133 @@ const App = () => {
   const renderCard = () => {
     if (subscriptionView === "manage") return renderSubscriptionManagement();
 
+    // Define the earthy themes for the cards
+    const cardThemes = {
+      mocha: "bg-gradient-to-br from-[#3C2A21] via-[#2D1B14] to-[#1A0F0A]",
+      sage: "bg-gradient-to-br from-[#708271] via-[#5F7161] to-[#4E5E50]",
+      olive: "bg-gradient-to-br from-[#4B5320] via-[#3F441E] to-[#2E3216]",
+      clay: "bg-gradient-to-br from-[#A68A64] via-[#93785B] to-[#7A634D]",
+    };
+
+    // Logic to add a new card (cycles through themes)
+    const addNewCard = () => {
+      const themes = Object.keys(cardThemes);
+      const nextTheme = themes[cards.length % themes.length];
+      setCards([
+        ...cards,
+        {
+          id: Date.now(),
+          theme: nextTheme,
+          number: "•••• •••• •••• " + Math.floor(1000 + Math.random() * 9000),
+        },
+      ]);
+      if (typeof triggerNotification === "function") {
+        triggerNotification("New Virtual Card Created");
+      }
+    };
+
     return (
       <div className="space-y-6 pb-24 animate-in slide-in-from-bottom-4">
+        {/* Header with Add Button */}
         <div className="flex justify-between items-center px-1">
           <h2 className="text-xl font-semibold text-[#0D2B1D]">
-            {t("yourCard")}
+            {cards.length > 1 ? t("yourCards") : t("yourCard")}
           </h2>
-          <div className="bg-[#f2f1ef] px-3 py-1 rounded-full flex items-center gap-1.5">
-            <Gem size={12} className="text-[#0d2b1d]" />
-            <span className="text-xs font-black uppercase text-[#0d2b1d] tracking-tighter">
-              {currentTier}
-            </span>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={addNewCard}
+              className="p-2 bg-[#0D2B1D] text-white rounded-full active:scale-90 transition-transform shadow-md"
+            >
+              <Plus size={16} />
+            </button>
+            <div className="bg-[#f2f1ef] px-3 py-1 rounded-full flex items-center gap-1.5">
+              <Gem size={12} className="text-[#0d2b1d]" />
+              <span className="text-xs font-black uppercase text-[#0d2b1d] tracking-tighter">
+                {currentTier}
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Card Visual */}
-        <div
-          className={`w-full max-w-[340px] mx-auto aspect-[1.58/1] rounded-[1.5rem] p-6 text-white shadow-2xl relative flex flex-col justify-between transition-all duration-500 overflow-hidden ${
-            isFrozen
-              ? "grayscale bg-slate-800"
-              : "bg-gradient-to-br from-[#043d2e] via-[#043d2e] to-[#022c22]"
-          }`}
-        >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-400/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-          <div className="absolute bottom-0 left-0 w-24 h-24 bg-amber-400/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
+        {/* Card Visual Carousel */}
+        <div className="flex gap-4 overflow-x-auto pb-4 px-1 no-scrollbar snap-x snap-mandatory">
+          {cards.map((card, index) => (
+            <div
+              key={card.id}
+              className={`w-full min-w-[320px] max-w-[340px] aspect-[1.58/1] rounded-[1.5rem] p-6 text-white shadow-2xl relative flex flex-col justify-between transition-all duration-500 overflow-hidden snap-center shrink-0 ${
+                isFrozen
+                  ? "grayscale bg-slate-800"
+                  : cardThemes[card.theme || "mocha"]
+              }`}
+            >
+              {/* Unique Decorative Background Elements */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
 
-          <div className="flex justify-between items-start relative z-10">
-            <span className="font-black text-2xl italic tracking-tighter">
-              Rizq.
-            </span>
-            <div className="w-10 h-7 bg-gradient-to-br from-amber-200 to-amber-500/80 rounded flex flex-col justify-around p-1 shadow-inner">
-              <div className="w-full h-[1px] bg-black/10"></div>
-              <div className="w-full h-[1px] bg-black/10"></div>
-            </div>
-          </div>
-
-          <div className="relative z-10 flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <p className="text-lg font-mono tracking-[0.15em] font-medium text-white/90">
-                {showCardDetails
-                  ? "4532 8812 0094 1120"
-                  : "•••• •••• •••• 1120"}
-              </p>
-              <button
-                onClick={() => setShowCardDetails(!showCardDetails)}
-                className="p-1.5 bg-\[#F2F1EF\]/10 hover:bg-\[#F2F1EF\]/20 rounded-full transition-colors active:scale-90"
-              >
-                {showCardDetails ? (
-                  <EyeOff size={14} className="text-white/70" />
-                ) : (
-                  <Eye size={14} className="text-white/70" />
-                )}
-              </button>
-            </div>
-
-            <div className="flex gap-8 items-center">
-              <div className="flex flex-col">
-                <span className="text-[7px] font-semibold uppercase tracking-[0.2em] text-emerald-600/70 mb-0.5">
-                  Expiry
+              <div className="flex justify-between items-start relative z-10">
+                <span className="font-black text-2xl italic tracking-tighter">
+                  Rizq.
                 </span>
-                <span className="text-sm font-mono font-medium tracking-widest">
-                  {showCardDetails ? "09/28" : "••/••"}
-                </span>
+                <div className="w-10 h-7 bg-gradient-to-br from-amber-200 to-amber-500/80 rounded flex flex-col justify-around p-1 shadow-inner">
+                  <div className="w-full h-[1px] bg-black/10"></div>
+                  <div className="w-full h-[1px] bg-black/10"></div>
+                </div>
               </div>
-              <div className="flex flex-col">
-                <span className="text-[7px] font-semibold uppercase tracking-[0.2em] text-emerald-600/70 mb-0.5">
-                  CVV
-                </span>
-                <span className="text-sm font-mono font-medium tracking-widest">
-                  {showCardDetails ? "442" : "•••"}
-                </span>
+
+              <div className="relative z-10 flex flex-col gap-4">
+                <div className="flex items-center gap-3">
+                  <p className="text-lg font-mono tracking-[0.15em] font-medium text-white/90">
+                    {showCardDetails
+                      ? "4532 8812 0094 1120"
+                      : card.number || "•••• •••• •••• 1120"}
+                  </p>
+                  <button
+                    onClick={() => setShowCardDetails(!showCardDetails)}
+                    className="p-1.5 bg-white/10 hover:bg-white/20 rounded-full transition-colors active:scale-90"
+                  >
+                    {showCardDetails ? (
+                      <EyeOff size={14} className="text-white/70" />
+                    ) : (
+                      <Eye size={14} className="text-white/70" />
+                    )}
+                  </button>
+                </div>
+
+                <div className="flex gap-8 items-center">
+                  <div className="flex flex-col">
+                    <span className="text-[7px] font-semibold uppercase tracking-[0.2em] text-white/50 mb-0.5">
+                      Expiry
+                    </span>
+                    <span className="text-sm font-mono font-medium tracking-widest">
+                      {showCardDetails ? "09/28" : "••/••"}
+                    </span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-[7px] font-semibold uppercase tracking-[0.2em] text-white/50 mb-0.5">
+                      CVV
+                    </span>
+                    <span className="text-sm font-mono font-medium tracking-widest">
+                      {showCardDetails ? "442" : "•••"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-end relative z-10">
+                <p className="text-xs font-semibold uppercase tracking-widest text-white/90">
+                  Visa Platinum
+                </p>
+                <div className="flex -space-x-2">
+                  <div className="w-7 h-7 rounded-full bg-rose-600/90 shadow-sm border border-white/5"></div>
+                  <div className="w-7 h-7 rounded-full bg-amber-500/90 shadow-sm border border-white/5"></div>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="flex justify-between items-end relative z-10">
-            <p className="text-xs font-semibold uppercase tracking-widest text-white/90">
-              Visa Platinum
-            </p>
-            <div className="flex -space-x-2">
-              <div className="w-7 h-7 rounded-full bg-rose-600/90 shadow-sm border border-white/5"></div>
-              <div className="w-7 h-7 rounded-full bg-amber-500/90 shadow-sm border border-white/5"></div>
-            </div>
-          </div>
+          ))}
         </div>
 
         {/* Toggles */}
-        <div className="bg-\[#F2F1EF\] rounded-[1.5rem] p-1 border border-[#AEC3B0] shadow-sm">
+        <div className="bg-[#F2F1EF] rounded-[1.5rem] p-1 border border-[#AEC3B0] shadow-sm">
           <div className="flex items-center justify-between p-4 border-b border-[#F7F5F0]">
             <div className="flex items-center gap-3">
               <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
@@ -3216,7 +3256,7 @@ const App = () => {
         </div>
 
         {/* Feature Highlights Component */}
-        <div className="bg-\[#F2F1EF\] rounded-[1.5rem] p-6 border border-[#AEC3B0] shadow-sm">
+        <div className="bg-[#F2F1EF] rounded-[1.5rem] p-6 border border-[#AEC3B0] shadow-sm">
           <div className="space-y-6">
             <div className="flex gap-4">
               <ShieldCheck className="text-[#0d2b1d] shrink-0" size={20} />
@@ -3276,7 +3316,7 @@ const App = () => {
 
         <button
           onClick={() => setSubscriptionView("manage")}
-          className="w-full bg-\[#F2F1EF\] border border-[#AEC3B0] text-[#0D2B1D] p-5 rounded-[2rem] font-semibold text-sm shadow-sm active:scale-95 transition-all flex items-center justify-center gap-2"
+          className="w-full bg-[#F2F1EF] border border-[#AEC3B0] text-[#0D2B1D] p-5 rounded-[2rem] font-semibold text-sm shadow-sm active:scale-95 transition-all flex items-center justify-center gap-2"
         >
           {t("viewSubscriptionAgreement")} <ArrowUpRight size={16} />
         </button>
