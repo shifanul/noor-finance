@@ -3072,15 +3072,14 @@ const App = () => {
   const renderCard = () => {
     if (subscriptionView === "manage") return renderSubscriptionManagement();
 
-    // Define the geometric themes based on the provided image style
+    // Earthy, deep geometric themes
     const cardThemes = {
-      mocha: "from-[#1a1a1a] via-[#2d2d2d] to-[#0f0f0f]",
+      mocha: "from-[#2A1B14] via-[#3C2A21] to-[#1A0F0A]",
       sage: "from-[#2d3a30] via-[#3d4d41] to-[#1e2620]",
       olive: "from-[#3a3a1a] via-[#4d4d26] to-[#262610]",
       clay: "from-[#4a342a] via-[#5d4336] to-[#2e211b]",
     };
 
-    // Logic to add a new card (cycles through themes)
     const addNewCard = () => {
       const themes = Object.keys(cardThemes);
       const nextTheme = themes[cards.length % themes.length];
@@ -3092,9 +3091,7 @@ const App = () => {
           number: "•••• •••• •••• " + Math.floor(1000 + Math.random() * 9000),
         },
       ]);
-      if (typeof triggerNotification === "function") {
-        triggerNotification("New Virtual Card Created");
-      }
+      triggerNotification("New Virtual Card Created");
     };
 
     return (
@@ -3111,7 +3108,7 @@ const App = () => {
             >
               <Plus size={16} />
             </button>
-            <div className="bg-[#f2f1ef] px-3 py-1 rounded-full flex items-center gap-1.5">
+            <div className="bg-[#f2f1ef] px-3 py-1 rounded-full flex items-center gap-1.5 border border-[#AEC3B0]/30">
               <Gem size={12} className="text-[#0d2b1d]" />
               <span className="text-xs font-black uppercase text-[#0d2b1d] tracking-tighter">
                 {currentTier}
@@ -3122,7 +3119,7 @@ const App = () => {
 
         {/* Card Visual Carousel */}
         <div className="flex gap-4 overflow-x-auto pb-4 px-1 no-scrollbar snap-x snap-mandatory">
-          {cards.map((card, index) => (
+          {cards.map((card) => (
             <div
               key={card.id}
               className={`w-full min-w-[320px] max-w-[340px] aspect-[1.58/1] rounded-[1.5rem] p-6 text-white shadow-2xl relative flex flex-col justify-between transition-all duration-500 overflow-hidden snap-center shrink-0 bg-gradient-to-br ${
@@ -3131,46 +3128,77 @@ const App = () => {
                   : cardThemes[card.theme || "mocha"]
               }`}
             >
-              {/* Geometric Poly-Patterns (Simulating the image style) */}
-              <div className="absolute inset-0 overflow-hidden opacity-30 pointer-events-none">
+              {/* Complex Geometric Poly-Patterns */}
+              <div className="absolute inset-0 overflow-hidden pointer-events-none transition-opacity duration-700">
+                {/* Background base layers */}
+                <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay"></div>
+
+                {/* Top Left Facet */}
                 <div
                   className="absolute top-0 left-0 w-full h-full bg-white/10"
                   style={{
-                    clipPath: "polygon(0% 0%, 40% 0%, 25% 45%, 0% 30%)",
+                    clipPath: "polygon(0% 0%, 45% 0%, 30% 35%, 0% 25%)",
                   }}
                 ></div>
+                {/* Sharp Center Facet */}
                 <div
-                  className="absolute top-0 right-0 w-full h-full bg-black/20"
+                  className="absolute top-0 left-0 w-full h-full bg-black/20"
                   style={{
-                    clipPath: "polygon(40% 0%, 100% 0%, 100% 60%, 65% 40%)",
+                    clipPath: "polygon(45% 0%, 75% 0%, 55% 45%, 30% 35%)",
                   }}
                 ></div>
+                {/* Top Right Facet */}
                 <div
-                  className="absolute bottom-0 right-0 w-full h-full bg-white/5"
+                  className="absolute top-0 right-0 w-full h-full bg-white/5"
                   style={{
-                    clipPath: "polygon(100% 60%, 100% 100%, 40% 100%, 65% 40%)",
+                    clipPath: "polygon(75% 0%, 100% 0%, 100% 40%, 55% 45%)",
                   }}
                 ></div>
+                {/* Far Right Lower Facet */}
                 <div
-                  className="absolute bottom-0 left-0 w-full h-full bg-black/10"
+                  className="absolute top-0 right-0 w-full h-full bg-black/30"
                   style={{
-                    clipPath: "polygon(0% 30%, 25% 45%, 40% 100%, 0% 100%)",
+                    clipPath: "polygon(100% 40%, 100% 75%, 65% 60%, 55% 45%)",
                   }}
                 ></div>
+                {/* Bottom Right Edge */}
                 <div
-                  className="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-white/10"
+                  className="absolute bottom-0 right-0 w-full h-full bg-white/10"
                   style={{
-                    clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
-                    filter: "blur(20px)",
+                    clipPath: "polygon(100% 75%, 100% 100%, 60% 100%, 65% 60%)",
                   }}
                 ></div>
+                {/* Bottom Center Point */}
+                <div
+                  className="absolute bottom-0 left-0 w-full h-full bg-black/15"
+                  style={{
+                    clipPath: "polygon(60% 100%, 30% 100%, 45% 55%, 65% 60%)",
+                  }}
+                ></div>
+                {/* Bottom Left Sharp Angle */}
+                <div
+                  className="absolute bottom-0 left-0 w-full h-full bg-white/5"
+                  style={{
+                    clipPath: "polygon(30% 100%, 0% 100%, 0% 60%, 45% 55%)",
+                  }}
+                ></div>
+                {/* Left Middle Facet */}
+                <div
+                  className="absolute top-0 left-0 w-full h-full bg-black/5"
+                  style={{
+                    clipPath: "polygon(0% 25%, 30% 35%, 45% 55%, 0% 60%)",
+                  }}
+                ></div>
+
+                {/* Refracted Glow - adding that "shimmer" effect */}
+                <div className="absolute top-1/3 left-1/3 w-2/3 h-2/3 bg-white/10 rounded-full blur-[60px] mix-blend-soft-light"></div>
               </div>
 
               {/* NFC Wireless Symbol */}
-              <div className="absolute top-10 right-6 opacity-60">
+              <div className="absolute top-10 right-7 opacity-40">
                 <svg
-                  width="20"
-                  height="20"
+                  width="22"
+                  height="22"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -3184,50 +3212,63 @@ const App = () => {
               </div>
 
               <div className="flex justify-between items-start relative z-10">
-                <span className="font-black text-2xl italic tracking-tighter drop-shadow-md">
+                <span className="font-black text-2xl italic tracking-tighter drop-shadow-lg flex items-center gap-1">
                   Rizq.
                 </span>
-                {/* Chip design updated to look more like the gold hardware in image */}
-                <div className="w-12 h-9 bg-gradient-to-br from-yellow-200 via-yellow-400 to-yellow-600 rounded-md p-1.5 shadow-lg flex flex-wrap gap-0.5 overflow-hidden">
-                  <div className="w-[30%] h-full border-r border-black/10"></div>
-                  <div className="w-[30%] h-full border-r border-black/10"></div>
-                  <div className="w-[30%] h-full"></div>
+                {/* High-detail Card Chip */}
+                <div className="w-12 h-9 bg-gradient-to-br from-[#E6B980] via-[#B88746] to-[#8E5D24] rounded-md p-1 shadow-lg relative group">
+                  <div className="w-full h-full rounded-[2px] border border-black/10 flex flex-col justify-between p-0.5">
+                    <div className="flex justify-between h-[30%] border-b border-black/10">
+                      <div className="w-[30%] border-r border-black/10"></div>
+                      <div className="w-[30%] border-r border-black/10"></div>
+                      <div className="w-[30%]"></div>
+                    </div>
+                    <div className="flex justify-between h-[30%] border-b border-black/10">
+                      <div className="w-[45%] border-r border-black/10"></div>
+                      <div className="w-[45%]"></div>
+                    </div>
+                    <div className="flex justify-between h-[30%]">
+                      <div className="w-[30%] border-r border-black/10"></div>
+                      <div className="w-[30%] border-r border-black/10"></div>
+                      <div className="w-[30%]"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="relative z-10 flex flex-col gap-4">
-                <div className="flex items-center gap-3">
-                  <p className="text-xl font-mono tracking-[0.2em] font-bold text-white drop-shadow-lg">
+              <div className="relative z-10 flex flex-col gap-5">
+                <div className="flex items-center gap-4">
+                  <p className="text-xl font-mono tracking-[0.2em] font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
                     {showCardDetails
                       ? "4532 8812 0094 1120"
                       : card.number || "•••• •••• •••• 1120"}
                   </p>
                   <button
                     onClick={() => setShowCardDetails(!showCardDetails)}
-                    className="p-1.5 bg-white/10 hover:bg-white/20 rounded-full transition-colors active:scale-90"
+                    className="p-1.5 bg-white/10 hover:bg-white/20 rounded-full transition-all active:scale-90"
                   >
                     {showCardDetails ? (
-                      <EyeOff size={14} className="text-white/70" />
+                      <EyeOff size={14} className="text-white/80" />
                     ) : (
-                      <Eye size={14} className="text-white/70" />
+                      <Eye size={14} className="text-white/80" />
                     )}
                   </button>
                 </div>
 
-                <div className="flex gap-8 items-center">
+                <div className="flex gap-10 items-center">
                   <div className="flex flex-col">
-                    <span className="text-[7px] font-bold uppercase tracking-[0.3em] text-white/50 mb-0.5">
+                    <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-white/40 mb-0.5">
                       EXPIRES END
                     </span>
-                    <span className="text-sm font-mono font-bold tracking-widest text-white/90">
+                    <span className="text-sm font-mono font-bold tracking-widest text-white/90 drop-shadow-sm">
                       {showCardDetails ? "09/28" : "05/20"}
                     </span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[7px] font-bold uppercase tracking-[0.3em] text-white/50 mb-0.5">
+                    <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-white/40 mb-0.5">
                       CVV
                     </span>
-                    <span className="text-sm font-mono font-bold tracking-widest text-white/90">
+                    <span className="text-sm font-mono font-bold tracking-widest text-white/90 drop-shadow-sm">
                       {showCardDetails ? "442" : "•••"}
                     </span>
                   </div>
@@ -3235,12 +3276,12 @@ const App = () => {
               </div>
 
               <div className="flex justify-between items-end relative z-10">
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/70">
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 drop-shadow-sm">
                   NANE SURNAME
                 </p>
-                <div className="flex -space-x-2 opacity-80">
-                  <div className="w-8 h-8 rounded-full bg-rose-600 shadow-sm"></div>
-                  <div className="w-8 h-8 rounded-full bg-amber-500 shadow-sm"></div>
+                <div className="flex -space-x-2.5 opacity-90 drop-shadow-md">
+                  <div className="w-9 h-9 rounded-full bg-rose-600 border border-white/5"></div>
+                  <div className="w-9 h-9 rounded-full bg-amber-500 border border-white/5"></div>
                 </div>
               </div>
             </div>
@@ -3320,7 +3361,7 @@ const App = () => {
                 </p>
                 <p className="text-xs text-slate-500 leading-relaxed mt-0.5">
                   Automated Shariah-compliance at 1.2M+ merchants. We instantly
-                  block non-ethical categories like gambling or alcohol.
+                  block non-ethical categories.
                 </p>
               </div>
             </div>
@@ -3332,19 +3373,7 @@ const App = () => {
                 </p>
                 <p className="text-xs text-slate-500 leading-relaxed mt-0.5">
                   Earn rewards on every ethical purchase, delivered as monthly
-                  profit-share directly to your balance.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <RefreshCcw className="text-blue-500 shrink-0" size={20} />
-              <div>
-                <p className="text-xs font-semibold text-slate-800">
-                  Auto-Purification Logic
-                </p>
-                <p className="text-xs text-slate-500 leading-relaxed mt-0.5">
-                  Accidental interest earned is automatically identified and
-                  transferred to your Purification sub-account for charity.
+                  profit-share.
                 </p>
               </div>
             </div>
@@ -3362,8 +3391,7 @@ const App = () => {
           <p className="text-[11px] text-[#AEC3B0] leading-relaxed">
             Traditional banks make money by lending yours out at interest
             (Riba). <strong>Rizq. does not.</strong> To keep our infrastructure
-            interest-free and purely ethical, we charge a transparent monthly
-            fee.
+            purely ethical, we charge a transparent monthly fee.
           </p>
         </div>
 
